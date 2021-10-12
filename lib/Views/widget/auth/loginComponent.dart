@@ -49,7 +49,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                 children: [
                   Text("Login",style: Theme.of(context).textTheme.headline1.copyWith(fontSize:24 ),),
                   SizedBox(height: scale.getHeight(1),),
-                  Text("Masukkan nomor handphone dan PIN yang sudah kamu daftarkan",style: Theme.of(context).textTheme.headline3,),
+                  Text("Masukkan nomor handphone dan PIN yang sudah kamu daftarkan",style: Theme.of(context).textTheme.headline2,),
                 ],
               ),
             ),
@@ -76,20 +76,20 @@ class _LoginWidgetState extends State<LoginWidget> {
                       showCountryOnly: true,
                       showOnlyCountryWhenClosed: false,
                       alignLeft: true,
-                      textStyle:Theme.of(context).textTheme.headline3,
+                      textStyle:Theme.of(context).textTheme.headline2,
 
                     ),
                   ),
                   Container(
                     width:scale.getWidth(50),
                     child: TextFormField(
-                      style: Theme.of(context).textTheme.headline3,
+                      style: Theme.of(context).textTheme.headline2,
                       // controller: _noHpController,
                       maxLines: 1,
                       autofocus: false,
                       decoration: InputDecoration(
                           border: InputBorder.none,
-                          hintStyle: Theme.of(context).textTheme.headline3.copyWith(color: Color(0xFFD0CACA)),
+                          hintStyle: Theme.of(context).textTheme.headline2.copyWith(color: Color(0xFFD0CACA)),
                           hintText: "Masukan nomor handphone"
                       ),
                       keyboardType: TextInputType.number,

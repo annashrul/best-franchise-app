@@ -43,7 +43,7 @@ class _OnBoardingWidgetState extends State<OnBoardingWidget> {
                 ),
                 Padding(
                   padding: scale.getPadding(1, 10),
-                  child: Text("Dapatkan berbagai jenis usaha yang sesuai dengan zamannya dan sangat mudah dijalankan dengan dukungan tekhnologi",style: Theme.of(context).textTheme.headline4,textAlign: TextAlign.center,),
+                  child: Text("Dapatkan berbagai jenis usaha yang sesuai dengan zamannya dan sangat mudah dijalankan dengan dukungan tekhnologi",style: Theme.of(context).textTheme.headline2,textAlign: TextAlign.center,),
                 ),
 
                 Padding(

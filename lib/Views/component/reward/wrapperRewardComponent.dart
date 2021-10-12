@@ -37,17 +37,33 @@ class _WrapperRewardComponentState extends State<WrapperRewardComponent> {
             child: Image.asset(StringConfig.imgLocal+"calender.png"),
           )
         ]),
-        bottomNavigationBar: Container(
-          margin: scale.getMarginLTRB(2, 0,2,1),
-          child: ButtonComponent(
-            label:  widget.titleCard=="Poin"?"Redeem Poin":"Withdraw",
-            labelColor: Colors.white,
-            backgroundColor: ColorConfig.redPrimary,
-            callback: widget.callbackBottomButton,
+        floatingActionButton: SizedBox(
+          width: double.infinity,
+          child: Container(
+            padding: scale.getPadding(1,2),
+            child: FlatButton(
+              padding: scale.getPadding(1,0),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(100.0),
+                ),
+                color: ColorConfig.redPrimary,
+                onPressed:widget.callbackBottomButton,
+                child: Text( widget.titleCard=="Poin"?"Redeem Poin":"Withdraw",style: Theme.of(context).textTheme.headline1.copyWith(color: Colors.white),)
+            ),
           ),
         ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        // bottomNavigationBar: Container(
+        //   margin: scale.getMarginLTRB(2, 0,2,1),
+        //   child: ButtonComponent(
+        //     label:  widget.titleCard=="Poin"?"Redeem Poin":"Withdraw",
+        //     labelColor: Colors.white,
+        //     backgroundColor: ColorConfig.redPrimary,
+        //     callback: widget.callbackBottomButton,
+        //   ),
+        // ),
         body:Padding(
-          padding: scale.getPadding(1,2),
+          padding: scale.getPaddingLTRB(2,1,2,0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -166,7 +182,6 @@ class _WrapperRewardComponentState extends State<WrapperRewardComponent> {
                   ),
                 ),
               ),
-              SizedBox(height: scale.getHeight(5)),
             ],
           ),
         )

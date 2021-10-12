@@ -68,7 +68,7 @@ class _MainWidgetState extends State<MainWidget> {
       body:widget.currentPage,
       floatingActionButton: FloatingActionButton(
         tooltip: "Share",
-        backgroundColor: widget.indexTab == StringConfig.tabShare ? ColorConfig.greyPrimary : Colors.white,
+        backgroundColor: widget.indexTab == StringConfig.tabShare ? Colors.white : Colors.white,
         child: Image.asset(StringConfig.imgLocal+"share.png",width: scale.getWidth(6),height: scale.getHeight(10),),
         onPressed: () {
           _selectTab(StringConfig.tabShare);

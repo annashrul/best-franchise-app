@@ -13,8 +13,8 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
 
   Future checkingRoute()async{
     await Future.delayed(Duration(seconds: 2));
-    Navigator.of(context).pushNamed(RoutePath.mainWidget,arguments: StringConfig.tabHome);
-    // Navigator.of(context).pushNamed(RoutePath.onBoardingWidget);
+    // Navigator.of(context).pushNamed(RoutePath.mainWidget,arguments: StringConfig.tabHome);
+    Navigator.of(context).pushNamed(RoutePath.onBoardingWidget);
   }
 
   @override
