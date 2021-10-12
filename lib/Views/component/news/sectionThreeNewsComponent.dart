@@ -1,3 +1,4 @@
+import 'package:bestfranchise/Configs/routeConfig.dart';
 import 'package:bestfranchise/Configs/stringConfig.dart';
 import 'package:bestfranchise/Views/component/general/touchEffectComponent.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,9 @@ class _SectionThreeNewsComponentState extends State<SectionThreeNewsComponent> {
       itemBuilder: (BuildContext context, int index) {
         return InTouchWidget(
             radius: 10,
-            callback: (){},
+            callback: (){
+              Navigator.of(context).pushNamed(RoutePath.detailNewsWidget,arguments: {"id":""});
+            },
             child: Container(
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),

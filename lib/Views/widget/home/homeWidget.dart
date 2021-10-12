@@ -1,4 +1,5 @@
 import 'package:bestfranchise/Configs/colorConfig.dart';
+import 'package:bestfranchise/Configs/routeConfig.dart';
 import 'package:bestfranchise/Configs/stringConfig.dart';
 import 'package:bestfranchise/Views/component/general/titleComponent.dart';
 import 'package:bestfranchise/Views/component/general/touchEffectComponent.dart';
@@ -34,12 +35,13 @@ class _HomeWidgetState extends State<HomeWidget> {
             RewardComponent(),
           ],
         ),
+
         Expanded(
           child: ListView(
             padding: scale.getPadding(1,2),
             children: [
               TitleComponent(
-                callback: (){},
+                callback: ()=>Navigator.of(context).pushNamed(RoutePath.brandWidget),
                 title: "BEST Brand & Franchise",
               ),
               SizedBox(height: scale.getHeight(0.5)),

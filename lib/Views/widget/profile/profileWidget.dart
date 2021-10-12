@@ -1,3 +1,4 @@
+import 'package:bestfranchise/Configs/routeConfig.dart';
 import 'package:bestfranchise/Configs/stringConfig.dart';
 import 'package:bestfranchise/Helpers/general/generalHelper.dart';
 import 'package:bestfranchise/Views/component/general/buttonComponent.dart';
@@ -42,7 +43,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
           ),
           SizedBox(height: scale.getHeight(1)),
           ListTile(
-            onTap: (){},
+            onTap: ()=>Navigator.of(context).pushNamed(RoutePath.historyOrderWidget),
             contentPadding: EdgeInsets.zero,
             leading: Image.asset(StringConfig.imgLocal+"order.png"),
             title: Text("Status Order",style: Theme.of(context).textTheme.headline1.copyWith(fontWeight: FontWeight.w400),),

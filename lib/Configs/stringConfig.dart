@@ -8,3 +8,4 @@ class StringConfig{
   static const int tabPromo = 3;
   static const int tabProfile = 4;
 }
+

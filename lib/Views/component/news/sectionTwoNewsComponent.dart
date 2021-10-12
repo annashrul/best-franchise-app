@@ -11,16 +11,16 @@ class SectionTwoNewsComponent extends StatefulWidget {
 }
 
 class _SectionTwoNewsComponentState extends State<SectionTwoNewsComponent> {
+
   @override
   Widget build(BuildContext context) {
     ScreenScaler scale= ScreenScaler()..init(context);
     final news = Provider.of<ListNewsController>(context);
-
     return Container(
       height: scale.getHeight(5),
       child: ListView.separated(
           itemCount: 30,
-          padding: scale.getPadding(0,2),
+          padding: scale.getPadding(0,0),
           scrollDirection: Axis.horizontal,
           shrinkWrap: true,
           separatorBuilder: (context,index){return SizedBox();},

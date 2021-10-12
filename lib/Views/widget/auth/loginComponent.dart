@@ -21,7 +21,6 @@ class _LoginWidgetState extends State<LoginWidget> {
         padding: scale.getPadding(3,2),
            child: ButtonComponent(
           label: "Login",
-          // callback: ()=>Navigator.of(context).pushNamed(RoutePath.mainWidget,arguments: StringConfig.tabHome),
           callback: (){
             Navigator.of(context).pushNamed(RoutePath.mainWidget,arguments: StringConfig.tabHome);
           },

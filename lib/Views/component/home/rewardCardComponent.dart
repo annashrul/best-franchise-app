@@ -1,4 +1,7 @@
+import 'package:bestfranchise/Configs/routeConfig.dart';
 import 'package:bestfranchise/Configs/stringConfig.dart';
+import 'package:bestfranchise/Helpers/general/generalHelper.dart';
+import 'package:bestfranchise/Views/component/general/qrCodeComponent.dart';
 import 'package:bestfranchise/Views/component/general/touchEffectComponent.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -69,7 +72,15 @@ class _RewardComponentState extends State<RewardComponent> {
                           ),
                           child: InTouchWidget(
                               radius: 100,
-                              callback:widget.callback,
+                              callback:(){
+                                GeneralHelper.modal(
+                                  context: context,
+                                  child: Container(
+                                    height: scale.getHeight(90),
+                                    child: QrCodeComponent(),
+                                  )
+                                );
+                              },
                               child: Container(
                                 padding: scale.getPadding(0.1,2),
                                 child: Image.asset(StringConfig.imgLocal+"barcode.png",width: scale.getWidth(5),height: scale.getHeight(4),),
@@ -85,7 +96,7 @@ class _RewardComponentState extends State<RewardComponent> {
                           ),
                           child: InTouchWidget(
                               radius: 100,
-                              callback:widget.callback,
+                              callback:()=>Navigator.of(context).pushNamed(RoutePath.notifWidget),
                               child: Container(
                                 padding: scale.getPadding(0.1,2),
                                 child: Image.asset(StringConfig.imgLocal+"notif.png",width: scale.getWidth(5),height: scale.getHeight(4),),
@@ -99,9 +110,9 @@ class _RewardComponentState extends State<RewardComponent> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        RewardCardComponent(img: "poin",title:"jumlah Poin",desc: "100",callback: widget.callback,),
-                        RewardCardComponent(img: "komisi",title:"Komisi",desc: "100,000",callback: widget.callback),
-                        RewardCardComponent(img: "royalti",title:"Royalti",desc: "1,000,000",callback: widget.callback),
+                        RewardCardComponent(img: "poin",title:"jumlah Poin",desc: "100"),
+                        RewardCardComponent(img: "komisi",title:"Komisi",desc: "100,000"),
+                        RewardCardComponent(img: "royalti",title:"Royalti",desc: "1,000,000"),
                       ],
                     )
                   ],
@@ -119,14 +130,16 @@ class RewardCardComponent extends StatelessWidget {
   final String img;
   final String title;
   final String desc;
-  final void Function() callback;
 
-  RewardCardComponent({this.img,this.title,this.desc,this.callback});
+  RewardCardComponent({this.img,this.title,this.desc});
   @override
   Widget build(BuildContext context) {
     ScreenScaler scale= ScreenScaler()..init(context);
     return InTouchWidget(
-        callback:this.callback,
+        callback:(){
+          print(this.img+"Widget");
+          Navigator.of(context).pushNamed("/"+this.img+"Widget");
+        },
         child: Container(
           // width: scale.getWidth(26),
           padding: scale.getPadding(0,0),

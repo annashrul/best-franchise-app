@@ -1,3 +1,4 @@
+import 'package:bestfranchise/Configs/routeConfig.dart';
 import 'package:bestfranchise/Views/component/general/touchEffectComponent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
@@ -22,7 +23,7 @@ class _BestBrandAndFranchiseComponentState extends State<BestBrandAndFranchiseCo
         itemBuilder: (context,index){
           return InTouchWidget(
               radius: 100,
-              callback: (){},
+              callback: ()=>Navigator.of(context).pushNamed(RoutePath.detailBrandWidget,arguments: {"id":""}),
               child: CircleAvatar(
                 radius: 32,
                 backgroundImage: NetworkImage("https://www.pngarea.com/pngm/136/7901075_veg-burger-png-siapa-guadalajara-png-download.png"),
