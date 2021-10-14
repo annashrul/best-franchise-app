@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:oktoast/oktoast.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
@@ -21,6 +22,7 @@ List<SingleChildWidget> providers = [
 ];
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(
     MultiProvider(
       providers:providers,
@@ -29,8 +31,27 @@ void main() {
   );
 }
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    OneSignal.shared.setInFocusDisplayType(OSNotificationDisplayType.notification);
+    var settings = {
+      OSiOSSettings.autoPrompt: false,
+      OSiOSSettings.promptBeforeOpeningPushUrl: true
+    };
+    OneSignal.shared.init(ApiConfig.onesignalAppId, iOSSettings: settings);
+
+
+  }
+
   @override
   Widget build(BuildContext context) {
     TextStyle style = GoogleFonts.poppins();
@@ -74,4 +95,8 @@ class MyApp extends StatelessWidget {
     );
 
   }
+
 }
+
+
+

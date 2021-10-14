@@ -7,6 +7,7 @@ import 'package:bestfranchise/Views/widget/home/notifWidget.dart';
 import 'package:bestfranchise/Views/widget/mainWidget.dart';
 import 'package:bestfranchise/Views/widget/news/detailNewsWidget.dart';
 import 'package:bestfranchise/Views/widget/onBoardingWidget.dart';
+import 'package:bestfranchise/Views/widget/order/detailOrderWidget.dart';
 import 'package:bestfranchise/Views/widget/order/historyOrderWidget.dart';
 import 'package:bestfranchise/Views/widget/reward/komisiWidget.dart';
 import 'package:bestfranchise/Views/widget/reward/poinWidget.dart';
@@ -33,6 +34,7 @@ class RoutePath{
   static const String brandWidget = "/brandWidget";
   static const String detailBrandWidget = "/detailBrandWidget";
   static const String historyOrderWidget = "/historyOrderWidget";
+  static const String detailOrderWidget = "/detailOrderWidget";
 }
 class RouteGenerator{
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -69,6 +71,8 @@ class RouteGenerator{
         return CupertinoPageRoute(builder: (_) => DetailBrandWidget(obj: args));
       case RoutePath.historyOrderWidget:
         return CupertinoPageRoute(builder: (_) => HistoryOrderWidget());
+      case RoutePath.detailOrderWidget:
+        return CupertinoPageRoute(builder: (_) => DetailOrderWidget());
       default:
         return _errorRoute();
     }

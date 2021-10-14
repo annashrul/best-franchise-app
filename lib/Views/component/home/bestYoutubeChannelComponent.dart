@@ -1,6 +1,8 @@
+import 'package:bestfranchise/Helpers/general/generalHelper.dart';
 import 'package:bestfranchise/Views/component/general/touchEffectComponent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class BestYoutubeChannelComponent extends StatefulWidget {
   @override
@@ -8,6 +10,9 @@ class BestYoutubeChannelComponent extends StatefulWidget {
 }
 
 class _BestYoutubeChannelComponentState extends State<BestYoutubeChannelComponent> {
+
+
+
   @override
   Widget build(BuildContext context) {
     ScreenScaler scale= ScreenScaler()..init(context);
@@ -25,9 +30,8 @@ class _BestYoutubeChannelComponentState extends State<BestYoutubeChannelComponen
         itemBuilder: (context,index){
           return InTouchWidget(
               radius: 10,
-              callback: (){},
+              callback: ()=>GeneralHelper.jumpToBrowser(url: "https://youtube.com"),
               child: Container(
-                // padding: scale.getPadding(0.5,1),
                 width: scale.getWidth(40),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,

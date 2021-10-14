@@ -1,4 +1,5 @@
 import 'package:bestfranchise/Configs/colorConfig.dart';
+import 'package:bestfranchise/Configs/routeConfig.dart';
 import 'package:bestfranchise/Helpers/general/generalHelper.dart';
 import 'package:bestfranchise/Views/component/general/cardImageTitleSubtitleComponent.dart';
 import 'package:flutter/cupertino.dart';
@@ -46,7 +47,7 @@ class _HistoryOrderWidgetState extends State<HistoryOrderWidget> {
             subTitle: "Tanggal Order : 2020-01-01 \nAtas Nama : Andri Sani",
             otherChild: Text("Menunggu verifikasi",style: Theme.of(context).textTheme.headline2.copyWith(fontWeight: FontWeight.w600,color: ColorConfig.yellowPrimary),),
             callbackAction: (){},
-            callback: (){},
+            callback: ()=>Navigator.of(context).pushNamed(RoutePath.detailOrderWidget),
           );
         },
         separatorBuilder: (context,index){return SizedBox();},

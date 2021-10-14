@@ -48,7 +48,7 @@ class _HomeWidgetState extends State<HomeWidget> {
               BestBrandAndFranchiseComponent(),
               SizedBox(height: scale.getHeight(0.5)),
               TitleComponent(
-                callback: (){},
+                callback: ()=>Navigator.of(context).pushNamed(RoutePath.brandWidget),
                 title: "BEST Paket Hemat",
               ),
               SizedBox(height: scale.getHeight(0.5)),

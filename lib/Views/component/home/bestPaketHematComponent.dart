@@ -1,4 +1,5 @@
 import 'package:bestfranchise/Configs/colorConfig.dart';
+import 'package:bestfranchise/Configs/routeConfig.dart';
 import 'package:bestfranchise/Views/component/general/touchEffectComponent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
@@ -24,7 +25,7 @@ class _BestPaketHematState extends State<BestPaketHemat> {
         itemBuilder: (context,index){
           return InTouchWidget(
               radius: 10,
-              callback: (){},
+              callback: ()=>Navigator.of(context).pushNamed(RoutePath.detailBrandWidget,arguments: {"id":""}),
               child: Container(
                 child: Stack(
                   alignment: Alignment.bottomCenter,

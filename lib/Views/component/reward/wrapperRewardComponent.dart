@@ -53,15 +53,6 @@ class _WrapperRewardComponentState extends State<WrapperRewardComponent> {
           ),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        // bottomNavigationBar: Container(
-        //   margin: scale.getMarginLTRB(2, 0,2,1),
-        //   child: ButtonComponent(
-        //     label:  widget.titleCard=="Poin"?"Redeem Poin":"Withdraw",
-        //     labelColor: Colors.white,
-        //     backgroundColor: ColorConfig.redPrimary,
-        //     callback: widget.callbackBottomButton,
-        //   ),
-        // ),
         body:Padding(
           padding: scale.getPaddingLTRB(2,1,2,0),
           child: Column(

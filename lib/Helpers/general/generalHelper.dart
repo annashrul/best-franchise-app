@@ -7,7 +7,8 @@ import 'package:bestfranchise/Views/component/general/touchEffectComponent.dart'
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
-import 'package:oktoast/oktoast.dart'; // 1. import library
+import 'package:oktoast/oktoast.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class GeneralHelper{
   static appBarGeneral({BuildContext context,String title="Kayla Andhara",List<Widget> actions}){
@@ -113,4 +114,15 @@ class GeneralHelper{
       textPadding: EdgeInsets.all(10)
     );
   }
+
+  static jumpToBrowser({String url})async{
+    print(url);
+    if (await canLaunch(url)) {
+      return await launch(url);
+    } else {
+      toast(msg: "link tidak ditemukan");
+    }
+  }
+
+
 }
