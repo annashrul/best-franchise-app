@@ -1,13 +1,21 @@
+import 'package:bestfranchise/Views/widget/businessPlace/businessPlaceWidget.dart';
+import 'package:bestfranchise/Views/widget/capitalSubmission/capitalSubmissionWidget.dart';
+import 'package:bestfranchise/Views/widget/manager/managerWidget.dart';
+import 'package:bestfranchise/Views/widget/profile/profileEditWidget.dart';
+import 'package:bestfranchise/Views/widget/profile/profileWidget.dart';
+import 'package:bestfranchise/Views/widget/regist/registComponent.dart';
 import 'package:bestfranchise/Views/widget/auth/loginComponent.dart';
 import 'package:bestfranchise/Views/widget/brand/brandWidget.dart';
 import 'package:bestfranchise/Views/widget/brand/detailBrandWidget.dart';
 import 'package:bestfranchise/Views/widget/fintech/withdraw/formWithdrawWidget.dart';
 import 'package:bestfranchise/Views/widget/fintech/withdraw/historyWithdrawWidget.dart';
 import 'package:bestfranchise/Views/widget/home/notifWidget.dart';
+import 'package:bestfranchise/Views/widget/join/joinWidget.dart';
 import 'package:bestfranchise/Views/widget/mainWidget.dart';
 import 'package:bestfranchise/Views/widget/news/detailNewsWidget.dart';
 import 'package:bestfranchise/Views/widget/onBoardingWidget.dart';
 import 'package:bestfranchise/Views/widget/order/historyOrderWidget.dart';
+import 'package:bestfranchise/Views/widget/regist/verifComponent.dart';
 import 'package:bestfranchise/Views/widget/reward/komisiWidget.dart';
 import 'package:bestfranchise/Views/widget/reward/poinWidget.dart';
 import 'package:bestfranchise/Views/widget/reward/redeemPoinWidget.dart';
@@ -16,7 +24,7 @@ import 'package:bestfranchise/Views/widget/splashScreenWidget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class RoutePath{
+class RoutePath {
   static const String splashWidget = "/";
   static const String onBoardingWidget = "/onBoardingWidget";
   static const String loginWidget = "/loginWidget";
@@ -33,8 +41,16 @@ class RoutePath{
   static const String brandWidget = "/brandWidget";
   static const String detailBrandWidget = "/detailBrandWidget";
   static const String historyOrderWidget = "/historyOrderWidget";
+  static const String joinWidget = "/joinWidget";
+  static const String registWidget = "/registWidget";
+  static const String verifWidget = "/verifWidget";
+  static const String businessPlaceWidget = "/businessPlaceWidget";
+  static const String managerWidget = "/managerWidget";
+  static const String capitalSubmissionWidget = "/capitalSubmissionWidget";
+  static const String profileEditWidget = "/profileEditWidget";
 }
-class RouteGenerator{
+
+class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     final args = settings.arguments;
     print(args);
@@ -69,6 +85,20 @@ class RouteGenerator{
         return CupertinoPageRoute(builder: (_) => DetailBrandWidget(obj: args));
       case RoutePath.historyOrderWidget:
         return CupertinoPageRoute(builder: (_) => HistoryOrderWidget());
+      case RoutePath.joinWidget:
+        return CupertinoPageRoute(builder: (_) => JoinWidget());
+      case RoutePath.registWidget:
+        return CupertinoPageRoute(builder: (_) => RegistWidget());
+      case RoutePath.verifWidget:
+        return CupertinoPageRoute(builder: (_) => VerifWidget());
+      case RoutePath.businessPlaceWidget:
+        return CupertinoPageRoute(builder: (_) => BusinessPlaceWidget());
+      case RoutePath.managerWidget:
+        return CupertinoPageRoute(builder: (_) => ManagerWidget());
+      case RoutePath.capitalSubmissionWidget:
+        return CupertinoPageRoute(builder: (_) => CapitalSubmissionWidget());
+      case RoutePath.profileEditWidget:
+        return CupertinoPageRoute(builder: (_) => ProfileEditWidget());
       default:
         return _errorRoute();
     }
@@ -82,13 +112,10 @@ class RouteGenerator{
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text("Error")
-            ],
+            children: [Text("Error")],
           ),
         ),
       );
     });
   }
 }
-
