@@ -21,7 +21,9 @@ class _ProfileWidgetState extends State<ProfileWidget> {
           context: context,
           desc: "Edit profile",
           isAction: true,
-          callback: () {}),
+          callback: () {
+            Navigator.of(context).pushNamed(RoutePath.profileEditWidget);
+          }),
       body: ListView(
         padding: scale.getPadding(1, 2),
         shrinkWrap: true,
@@ -162,8 +164,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
               Navigator.of(context).pushNamed(RoutePath.tentangAplikasiWidget);
             },
             contentPadding: EdgeInsets.zero,
-            leading:
-                Image.asset(StringConfig.imgLocal + "tentanBestFranchise.png"),
+            leading:Image.asset(StringConfig.imgLocal + "tentanBestFranchise.png"),
             title: Text(
               "Tentang Aplikasi",
               style: Theme.of(context)

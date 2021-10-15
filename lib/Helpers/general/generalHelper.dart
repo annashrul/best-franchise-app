@@ -13,6 +13,7 @@ import 'package:url_launcher/url_launcher.dart';
 class GeneralHelper{
   static appBarGeneral({BuildContext context,String title="Kayla Andhara",List<Widget> actions}){
     return AppBar(
+      backgroundColor: Colors.white,
       elevation: 1,
       title: Text(title,style: Theme.of(context).textTheme.headline1),
       leading: IconButton(
@@ -24,6 +25,8 @@ class GeneralHelper{
   }
   static appBarWithImage({BuildContext context,String title="Kayla Andhara",String desc="Berita terupdate untukmu",bool isAction=false,void Function() callback}){
     return AppBar(
+      backgroundColor: Colors.white,
+
       elevation: 1,
       automaticallyImplyLeading: false,
       title: Row(
@@ -65,6 +68,7 @@ class GeneralHelper{
       );
     }
     return AppBar(
+      backgroundColor: Colors.white,
       elevation: 1,
       title: Text(title,style: Theme.of(context).textTheme.headline1),
       leading: IconButton(

@@ -53,6 +53,7 @@ class _TentangAplikasiWidgetState extends State<TentangAplikasiWidget> {
                       child: Text(
                         "Kami adalah perusahaan franchise dari tahun 2009 di bawah naungan PT. BEST FRANCHISE INDONESIA. Banyak Brand / Merk dagang yang sudah kami ciptakan dan sebagian besar sudah terdapat outlet yang kami buka bekerjasama dengan para franchise di seluruh Indonesia. Pengelolaan sistem yang terintegerasi membuat kami dapat bertahan dan dapat bersaing dengan perusahaanlainnya.",
                         style: Theme.of(context).textTheme.headline2,
+                        textAlign: TextAlign.justify,
                       ),
                     )
                   ],
@@ -78,7 +79,7 @@ class _TentangAplikasiWidgetState extends State<TentangAplikasiWidget> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Total Brand",style: Theme.of(context).textTheme.headline1,),
+                    Text("Total Brand",style: Theme.of(context).textTheme.headline1.copyWith(fontWeight: Theme.of(context).textTheme.headline2.fontWeight),),
                     SizedBox(height: scale.getHeight(1),),
                     Align(
                       alignment: Alignment.bottomRight,

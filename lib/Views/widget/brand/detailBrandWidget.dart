@@ -9,6 +9,7 @@ import 'package:bestfranchise/Views/component/brand/produkBrandComponent.dart';
 import 'package:bestfranchise/Views/component/brand/reviewBrandComponent.dart';
 import 'package:bestfranchise/Views/component/general/stickyHeaderComponent.dart';
 import 'package:bestfranchise/Views/component/general/touchEffectComponent.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
 import 'package:provider/provider.dart';
@@ -80,7 +81,10 @@ class _DetailBrandWidgetState extends State<DetailBrandWidget> {
             alignment: Alignment.center,
             children: [
               Image.asset(StringConfig.imgLocal + "detailBrand.png"),
-              Image.asset(StringConfig.imgLocal + "burhot.png"),
+              CircleAvatar(
+                radius: 30,
+                backgroundImage: AssetImage(StringConfig.imgLocal + "burhot.png"),
+              )
             ],
           ),
           StickyHeader(

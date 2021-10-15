@@ -1,6 +1,8 @@
 import 'package:bestfranchise/Configs/colorConfig.dart';
 import 'package:bestfranchise/Configs/routeConfig.dart';
 import 'package:bestfranchise/Configs/stringConfig.dart';
+import 'package:bestfranchise/Controllers/slider/sliderHomeController.dart';
+import 'package:bestfranchise/Views/component/general/loadingComponent.dart';
 import 'package:bestfranchise/Views/component/general/titleComponent.dart';
 import 'package:bestfranchise/Views/component/general/touchEffectComponent.dart';
 import 'package:bestfranchise/Views/component/home/bestBrandAndFranchiseComponent.dart';
@@ -15,6 +17,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:provider/provider.dart';
 
 class HomeWidget extends StatefulWidget {
   @override
@@ -22,16 +25,29 @@ class HomeWidget extends StatefulWidget {
 }
 
 class _HomeWidgetState extends State<HomeWidget> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    final slider=Provider.of<SliderHomeController>(context,listen: false);
+    slider.get(context: context);
+  }
+
   @override
   Widget build(BuildContext context) {
     ScreenScaler scale= ScreenScaler()..init(context);
+    final slider=Provider.of<SliderHomeController>(context);
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Stack(
           children: [
-            SliderHomeComponent(data: [{"image":StringConfig.imgLocal+"Slide.png"}],),
+            slider.isLoading?BaseLoading(height:21, width:100):SliderHomeComponent(
+              sliderHomeModel:slider.sliderHomeModel,
+            ),
             RewardComponent(),
           ],
         ),

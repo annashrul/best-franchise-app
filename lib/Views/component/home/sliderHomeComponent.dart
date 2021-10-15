@@ -1,12 +1,13 @@
-import 'package:bestfranchise/Helpers/touchEffectHelper.dart';
+import 'package:bestfranchise/Configs/stringConfig.dart';
+import 'package:bestfranchise/Models/Slider/sliderHomeModel.dart';
 import 'package:bestfranchise/Views/component/general/touchEffectComponent.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
 
 class SliderHomeComponent extends StatefulWidget {
-  final List data;
-  SliderHomeComponent({this.data});
+  final SliderHomeModel sliderHomeModel;
+  SliderHomeComponent({this.sliderHomeModel});
 
   @override
   _SliderHomeComponentState createState() => _SliderHomeComponentState();
@@ -37,17 +38,17 @@ class _SliderHomeComponentState extends State<SliderHomeComponent>  with SingleT
               });
             },
           ),
-          items: widget.data.map((slide){
+          items: widget.sliderHomeModel.data.map((slide){
             return Container(
               margin: scale.getMarginLTRB(0,0,0,0),
-              height: scale.getHeight(25),
+              // height: scale.getHeight(25),
               child: InTouchWidget(
                   callback: (){
                     setState(() {});
                   },
                   child: Container(
                     decoration: BoxDecoration(
-                      image: DecorationImage(image: AssetImage(slide["image"]), fit: BoxFit.cover),
+                      image: DecorationImage(image: AssetImage(StringConfig.imgLocal+"newBanner.jpg"),fit: BoxFit.fitWidth),
                       boxShadow: [
                         BoxShadow(color: Theme.of(context).hintColor.withOpacity(0.2), offset: Offset(0, 4), blurRadius: 9)
                       ],
@@ -60,19 +61,19 @@ class _SliderHomeComponentState extends State<SliderHomeComponent>  with SingleT
 
         Positioned(
           bottom: 25,
-          right: 0,
+          right: 10,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
-            children: widget.data.map((slide) {
+            children: widget.sliderHomeModel.data.map((slide) {
               return Container(
-                width: 20.0,
+                width: 10.0,
                 height: 3.0,
                 margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(
-                      Radius.circular(8),
+                      Radius.circular(100),
                     ),
-                    color: _current ==  widget.data.indexOf(slide)
+                    color: _current ==  widget.sliderHomeModel.data.indexOf(slide)
                         ? Theme.of(context).hintColor
                         : Theme.of(context).hintColor.withOpacity(0.3)),
               );

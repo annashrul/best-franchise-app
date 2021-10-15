@@ -163,31 +163,33 @@ class _RegistWidgetState extends State<RegistWidget> {
             ),
             Visibility(
               visible: step == 3,
-              child: Container(
-                alignment: Alignment.center,
-                padding: scale.getPadding(0, 6),
-                child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SecureCodeWidget(
-                          isTrue: false,
-                          passLength: 6,
-                          borderColor:
-                              Theme.of(context).textTheme.subtitle1.color,
-                          passCodeVerify: (passcode) async {
-                            String code = '';
-                            for (int i = 0; i < passcode.length; i++) {
-                              code += passcode[i].toString();
-                            }
-                            await widget.callback(code);
-                            return false;
-                          },
-                          onSuccess: () async {
-                            // widget.callback();
-                          })
-                    ],
+              child: Expanded(
+                child: Container(
+                  alignment: Alignment.center,
+                  padding: scale.getPadding(0, 6),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SecureCodeWidget(
+                            isTrue: false,
+                            passLength: 6,
+                            borderColor:
+                                Theme.of(context).textTheme.subtitle1.color,
+                            passCodeVerify: (passcode) async {
+                              String code = '';
+                              for (int i = 0; i < passcode.length; i++) {
+                                code += passcode[i].toString();
+                              }
+                              await widget.callback(code);
+                              return false;
+                            },
+                            onSuccess: () async {
+                              // widget.callback();
+                            })
+                      ],
+                    ),
                   ),
                 ),
               ),

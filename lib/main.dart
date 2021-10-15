@@ -10,6 +10,7 @@ import 'package:bestfranchise/Controllers/profile/pinEditController.dart';
 import 'package:bestfranchise/Controllers/profile/profileEditController.dart';
 import 'package:bestfranchise/Controllers/regist/registController.dart';
 import 'package:bestfranchise/Controllers/reward/poinController.dart';
+import 'package:bestfranchise/Controllers/slider/sliderHomeController.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -33,6 +34,7 @@ List<SingleChildWidget> providers = [
   ChangeNotifierProvider<ProfileEditController>(
       create: (_) => ProfileEditController()),
   ChangeNotifierProvider<PinEditController>(create: (_) => PinEditController()),
+  ChangeNotifierProvider<SliderHomeController>(create: (_) => SliderHomeController()),
 ];
 
 void main() {
@@ -70,8 +72,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     TextStyle style = GoogleFonts.poppins();
     return OKToast(
-        textStyle: style.copyWith(
-            fontSize: 10.0, fontWeight: FontWeight.w500, color: Colors.white),
+        textStyle: style.copyWith(fontSize: 10.0, fontWeight: FontWeight.w500, color: Colors.white),
         backgroundColor: Colors.grey,
         radius: 10.0,
         animationCurve: Curves.easeIn,
@@ -79,6 +80,7 @@ class _MyAppState extends State<MyApp> {
         animationDuration: const Duration(milliseconds: 200),
         duration: const Duration(seconds: 3),
         child: MaterialApp(
+
           title: ApiConfig.siteName,
           initialRoute: RoutePath.splashWidget,
           onGenerateRoute: RouteGenerator.generateRoute,
@@ -93,6 +95,11 @@ class _MyAppState extends State<MyApp> {
                 modalBackgroundColor: Colors.white),
             textTheme: TextTheme(
               button: style.copyWith(color: Colors.white),
+              bodyText1: style.copyWith(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.w500,
+                  color: ColorConfig.blackPrimary
+              ),
               headline1: style.copyWith(
                   fontSize: 16.0,
                   fontWeight: FontWeight.w600,
@@ -113,6 +120,7 @@ class _MyAppState extends State<MyApp> {
                   fontSize: 8.0,
                   fontWeight: FontWeight.w500,
                   color: ColorConfig.blackPrimary),
+
             ),
           ),
           builder: (BuildContext context, Widget child) {
