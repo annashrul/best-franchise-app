@@ -32,7 +32,7 @@ class CardHeaderReward extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text("Jumlah ${this.title}",style: Theme.of(context).textTheme.headline2.copyWith(color: Colors.black45),),
-                Text("${this.reward}",style: Theme.of(context).textTheme.headline1.copyWith(fontSize: 24),),
+                if(reward!=null)Text("${this.reward}",style: Theme.of(context).textTheme.headline1.copyWith(fontSize: 24),),
                 Text(this.desc,style: Theme.of(context).textTheme.headline2,)
               ],
             ),
