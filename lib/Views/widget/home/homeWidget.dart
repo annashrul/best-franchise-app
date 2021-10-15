@@ -45,8 +45,8 @@ class _HomeWidgetState extends State<HomeWidget> {
       children: [
         Stack(
           children: [
-            slider.isLoading?BaseLoading(height:21, width:100):SliderHomeComponent(
-              sliderHomeModel:slider.sliderHomeModel,
+            SliderHomeComponent(
+              data: [{"image":StringConfig.imgLocal+"banner1.jpg"},{"image":StringConfig.imgLocal+"banner2.jpg"},{"image":StringConfig.imgLocal+"banner3.jpg"},{"image":StringConfig.imgLocal+"banner4.jpg"}],
             ),
             RewardComponent(),
           ],

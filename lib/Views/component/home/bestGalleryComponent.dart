@@ -1,3 +1,4 @@
+import 'package:bestfranchise/Configs/stringConfig.dart';
 import 'package:bestfranchise/Views/component/general/touchEffectComponent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
@@ -13,20 +14,20 @@ class _BestGalleryComponentState extends State<BestGalleryComponent> {
   Widget build(BuildContext context) {
     ScreenScaler scale= ScreenScaler()..init(context);
     return StaggeredGridView.countBuilder(
-      padding: EdgeInsets.all(0.0),
+      padding: EdgeInsets.zero,
       shrinkWrap: true,
-      primary: false,
+      // primary: true,
+      physics: NeverScrollableScrollPhysics(),
       crossAxisCount: 3,
       itemCount:  9,
       itemBuilder: (BuildContext context, int index) {
-        return InTouchWidget(
-            callback: (){},
-            child: Image.network(
-              "https://images.tokopedia.net/img/cache/700/product-1/2020/3/13/75617328/75617328_e5f8f60a-bb8d-4966-aa83-751e1ff11384_1080_1080",
-              fit: BoxFit.cover,
-              width: scale.getWidth(40),
-              height: scale.getHeight(10),
-            )
+        return  ClipRRect(
+          borderRadius: BorderRadius.circular(15),
+          child: Image.asset(
+            StringConfig.imgLocal+"g${index+1}.jpg",
+            fit: BoxFit.cover,
+            height: scale.getHeight(10),
+          ),
         );
       },
       staggeredTileBuilder: (int index) => new StaggeredTile.fit(1),

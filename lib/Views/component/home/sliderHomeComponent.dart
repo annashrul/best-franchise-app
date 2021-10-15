@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
 
 class SliderHomeComponent extends StatefulWidget {
-  final SliderHomeModel sliderHomeModel;
-  SliderHomeComponent({this.sliderHomeModel});
+  final List data;
+  SliderHomeComponent({this.data});
 
   @override
   _SliderHomeComponentState createState() => _SliderHomeComponentState();
@@ -38,7 +38,7 @@ class _SliderHomeComponentState extends State<SliderHomeComponent>  with SingleT
               });
             },
           ),
-          items: widget.sliderHomeModel.data.map((slide){
+          items: widget.data.map((slide){
             return Container(
               margin: scale.getMarginLTRB(0,0,0,0),
               // height: scale.getHeight(25),
@@ -48,7 +48,7 @@ class _SliderHomeComponentState extends State<SliderHomeComponent>  with SingleT
                   },
                   child: Container(
                     decoration: BoxDecoration(
-                      image: DecorationImage(image: AssetImage(StringConfig.imgLocal+"newBanner.jpg"),fit: BoxFit.fitWidth),
+                      image: DecorationImage(image: AssetImage(slide["image"]),fit: BoxFit.fitWidth),
                       boxShadow: [
                         BoxShadow(color: Theme.of(context).hintColor.withOpacity(0.2), offset: Offset(0, 4), blurRadius: 9)
                       ],
@@ -64,7 +64,7 @@ class _SliderHomeComponentState extends State<SliderHomeComponent>  with SingleT
           right: 10,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
-            children: widget.sliderHomeModel.data.map((slide) {
+            children: widget.data.map((slide) {
               return Container(
                 width: 10.0,
                 height: 3.0,
@@ -73,7 +73,7 @@ class _SliderHomeComponentState extends State<SliderHomeComponent>  with SingleT
                     borderRadius: BorderRadius.all(
                       Radius.circular(100),
                     ),
-                    color: _current ==  widget.sliderHomeModel.data.indexOf(slide)
+                    color: _current ==  widget.data.indexOf(slide)
                         ? Theme.of(context).hintColor
                         : Theme.of(context).hintColor.withOpacity(0.3)),
               );
