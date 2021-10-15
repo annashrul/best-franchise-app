@@ -2,6 +2,7 @@ import 'package:bestfranchise/Configs/routeConfig.dart';
 import 'package:bestfranchise/Configs/stringConfig.dart';
 import 'package:bestfranchise/Helpers/general/generalHelper.dart';
 import 'package:bestfranchise/Views/component/general/qrCodeComponent.dart';
+import 'package:bestfranchise/Views/component/general/searchComponent.dart';
 import 'package:bestfranchise/Views/component/general/touchEffectComponent.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -41,26 +42,8 @@ class _RewardComponentState extends State<RewardComponent> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Expanded(
-                            child: Card(
-                              margin: EdgeInsets.zero,
-                              elevation: 4,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(100.0),
-                              ),
-                              child: Container(
-                                child: TextFormField(
-                                  style: Theme.of(context).textTheme.headline3,
-                                  maxLines: 1,
-                                  autofocus: false,
-                                  decoration: InputDecoration(
-                                      contentPadding: scale.getPadding(1.1,1),
-                                      border: InputBorder.none,
-                                      prefixIcon:Image.asset(StringConfig.imgLocal+"search.png",color: Color(0xFFD4D4D4),)
-                                  ),
-                                  keyboardType: TextInputType.number,
-                                  textInputAction: TextInputAction.done,
-                                ),
-                              ),
+                            child: SearchComponent(
+                              hintText: "",
                             )
                         ),
                         SizedBox(width: scale.getWidth(1)),

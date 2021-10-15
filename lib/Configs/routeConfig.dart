@@ -1,8 +1,11 @@
+import 'package:bestfranchise/Views/widget/brand/brandFavoriteWidget.dart';
 import 'package:bestfranchise/Views/widget/businessPlace/businessPlaceWidget.dart';
 import 'package:bestfranchise/Views/widget/capitalSubmission/capitalSubmissionWidget.dart';
 import 'package:bestfranchise/Views/widget/manager/managerWidget.dart';
+import 'package:bestfranchise/Views/widget/profile/bantuanAplikasiWidget.dart';
 import 'package:bestfranchise/Views/widget/profile/profileEditWidget.dart';
 import 'package:bestfranchise/Views/widget/profile/profileWidget.dart';
+import 'package:bestfranchise/Views/widget/profile/tentangAplikasiWidget.dart';
 import 'package:bestfranchise/Views/widget/regist/registComponent.dart';
 import 'package:bestfranchise/Views/widget/auth/loginComponent.dart';
 import 'package:bestfranchise/Views/widget/brand/brandWidget.dart';
@@ -44,6 +47,8 @@ class RoutePath {
   static const String historyOrderWidget = "/historyOrderWidget";
   static const String detailOrderWidget = "/detailOrderWidget";
   static const String bantuanAplikasiWidget = "/bantuanAplikasiWidget";
+  static const String brandFavoriteWidget = "/brandFavoriteWidget";
+  static const String tentangAplikasiWidget = "/tentangAplikasiWidget";
   static const String joinWidget = "/joinWidget";
   static const String registWidget = "/registWidget";
   static const String verifWidget = "/verifWidget";
@@ -90,6 +95,12 @@ class RouteGenerator {
         return CupertinoPageRoute(builder: (_) => HistoryOrderWidget());
       case RoutePath.detailOrderWidget:
         return CupertinoPageRoute(builder: (_) => DetailOrderWidget());
+      case RoutePath.bantuanAplikasiWidget:
+        return CupertinoPageRoute(builder: (_) => BantuanApliaskiWidget());
+      case RoutePath.brandFavoriteWidget:
+        return CupertinoPageRoute(builder: (_) => BrandFavoriteWidget());
+      case RoutePath.tentangAplikasiWidget:
+        return CupertinoPageRoute(builder: (_) => TentangAplikasiWidget());
       case RoutePath.joinWidget:
         return CupertinoPageRoute(builder: (_) => JoinWidget());
       case RoutePath.registWidget:

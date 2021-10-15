@@ -124,5 +124,20 @@ class GeneralHelper{
     }
   }
 
+  static headerModal({BuildContext context,String title="",void Function() callback}){
+    ScreenScaler scale = new ScreenScaler()..init(context);
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(title,style: Theme.of(context).textTheme.headline1),
+        InkResponse(
+          onTap:callback!=null?callback:()=>Navigator.of(context).pop(),
+          child: Image.asset(StringConfig.imgLocal+"closeBlack.png",height: scale.getHeight(1),),
+        )
+      ],
+    );
+  }
+
 
 }

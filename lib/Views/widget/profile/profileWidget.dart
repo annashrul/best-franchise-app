@@ -3,6 +3,7 @@ import 'package:bestfranchise/Configs/stringConfig.dart';
 import 'package:bestfranchise/Helpers/general/generalHelper.dart';
 import 'package:bestfranchise/Views/component/general/buttonComponent.dart';
 import 'package:bestfranchise/Views/component/home/rewardCardComponent.dart';
+import 'package:bestfranchise/Views/component/profile/modalKetentuanLayananComponent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
 
@@ -123,7 +124,12 @@ class _ProfileWidgetState extends State<ProfileWidget> {
           ),
           Divider(height: scale.getHeight(0.1)),
           ListTile(
-            onTap: () {},
+            onTap: () {
+              GeneralHelper.modal(
+                context: context,
+                child: ModalKetentuanLayananComponent()
+              );
+            },
             contentPadding: EdgeInsets.zero,
             leading:
                 Image.asset(StringConfig.imgLocal + "ketentuanLayanan.png"),
@@ -137,7 +143,9 @@ class _ProfileWidgetState extends State<ProfileWidget> {
           ),
           Divider(height: scale.getHeight(0.1)),
           ListTile(
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).pushNamed(RoutePath.brandFavoriteWidget);
+            },
             contentPadding: EdgeInsets.zero,
             leading: Image.asset(StringConfig.imgLocal + "brandFavorite.png"),
             title: Text(
@@ -151,7 +159,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
           Divider(height: scale.getHeight(0.1)),
           ListTile(
             onTap: () {
-              Navigator.of(context).pushNamed(RoutePath.profileEditWidget);
+              Navigator.of(context).pushNamed(RoutePath.tentangAplikasiWidget);
             },
             contentPadding: EdgeInsets.zero,
             leading:
