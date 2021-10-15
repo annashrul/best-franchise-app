@@ -1,21 +1,22 @@
+import 'package:bestfranchise/Configs/colorConfig.dart';
 import 'package:bestfranchise/Configs/routeConfig.dart';
 import 'package:bestfranchise/Configs/stringConfig.dart';
 import 'package:bestfranchise/Views/component/general/touchEffectComponent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
 
-class BestSolusiComponent extends StatefulWidget {
+class BusinessPlaceComponent extends StatefulWidget {
   @override
-  _BestSolusiComponentState createState() => _BestSolusiComponentState();
+  _BusinessPlaceComponentState createState() => _BusinessPlaceComponentState();
 }
 
-class _BestSolusiComponentState extends State<BestSolusiComponent> {
+class _BusinessPlaceComponentState extends State<BusinessPlaceComponent> {
   @override
   Widget build(BuildContext context) {
     ScreenScaler scale = ScreenScaler()..init(context);
     return Container(
       margin: scale.getMarginLTRB(0, 0, 0, 0),
-      height: scale.getHeight(10),
+      height: scale.getHeight(15),
       child: ListView.separated(
         padding: EdgeInsets.zero,
         physics: ClampingScrollPhysics(),
@@ -26,14 +27,14 @@ class _BestSolusiComponentState extends State<BestSolusiComponent> {
           return InTouchWidget(
               radius: 10,
               callback: () {
-                Navigator.of(context).pushNamed(RoutePath.businessPlaceWidget);
+                Navigator.of(context).pushNamed(RoutePath.managerWidget);
               },
               child: Container(
                 decoration: BoxDecoration(
-                    color: Color(0xFFCEDAFA),
+                    color: Color(0xFFE4767F),
                     borderRadius: BorderRadius.circular(10)),
                 // padding: scale.getPadding(0.5,1),
-                width: scale.getWidth(70),
+                width: scale.getWidth(80),
                 child: Padding(
                   padding: scale.getPadding(1, 2),
                   child: Row(
@@ -47,8 +48,8 @@ class _BestSolusiComponentState extends State<BestSolusiComponent> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              "Bingun Modal ?",
-                              style: Theme.of(context).textTheme.headline2,
+                              "Bingun Pengelola ?",
+                              style: Theme.of(context).textTheme.headline1,
                             ),
                             Text(
                               "Masalah penting ketika ingin mulai usaha, salah satunya adalah modal",
@@ -56,7 +57,29 @@ class _BestSolusiComponentState extends State<BestSolusiComponent> {
                                   .textTheme
                                   .headline2
                                   .copyWith(color: Colors.black45),
-                            )
+                            ),
+                            SizedBox(height: scale.getHeight(1)),
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    InkWell(
+                                        child: new Text(
+                                          'Klik di sini    ',
+                                          style: TextStyle(
+                                            color: ColorConfig.blackPrimary,
+                                            fontSize: 20,
+                                          ),
+                                        ),
+                                        onTap: () => {}),
+                                    Image.asset(
+                                      StringConfig.imgLocal +
+                                          "icRightArrow.png",
+                                      scale: 1.5,
+                                    ),
+                                  ]),
+                            ),
                           ],
                         ),
                       ),

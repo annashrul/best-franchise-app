@@ -1,7 +1,7 @@
 import 'package:bestfranchise/Configs/colorConfig.dart';
 import 'package:bestfranchise/Configs/stringConfig.dart';
+import 'package:bestfranchise/Views/component/businessPlace/businessPlaceComponent.dart';
 import 'package:bestfranchise/Views/component/general/buttonComponent.dart';
-import 'package:bestfranchise/Views/component/home/bestSolusiComponent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
 
@@ -26,6 +26,7 @@ class _BusinessPlaceWidgetState extends State<BusinessPlaceWidget> {
         child: ListView(
           padding: scale.getPadding(1, 2),
           shrinkWrap: true,
+          scrollDirection: Axis.vertical,
           children: [
             Image.asset(StringConfig.imgLocal + "businessPlace.png"),
             Text(
@@ -37,7 +38,7 @@ class _BusinessPlaceWidgetState extends State<BusinessPlaceWidget> {
               textAlign: TextAlign.center,
             ),
             SizedBox(height: scale.getHeight(2)),
-            BestSolusiComponent(),
+            BusinessPlaceComponent(),
             SizedBox(height: scale.getHeight(1)),
             ButtonComponent(
               label: "Whatsapp kami",

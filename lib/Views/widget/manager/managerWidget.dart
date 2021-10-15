@@ -2,6 +2,7 @@ import 'package:bestfranchise/Configs/colorConfig.dart';
 import 'package:bestfranchise/Configs/stringConfig.dart';
 import 'package:bestfranchise/Views/component/general/buttonComponent.dart';
 import 'package:bestfranchise/Views/component/home/bestSolusiComponent.dart';
+import 'package:bestfranchise/Views/component/manager/managerComponent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
 
@@ -26,6 +27,7 @@ class _ManagerWidgetState extends State<ManagerWidget> {
         child: ListView(
           padding: scale.getPadding(1, 2),
           shrinkWrap: true,
+          scrollDirection: Axis.vertical,
           children: [
             Image.asset(StringConfig.imgLocal + "imageManager.png"),
             Text(
@@ -37,7 +39,7 @@ class _ManagerWidgetState extends State<ManagerWidget> {
               textAlign: TextAlign.center,
             ),
             SizedBox(height: scale.getHeight(2)),
-            BestSolusiComponent(),
+            ManagerComponent(),
             SizedBox(height: scale.getHeight(1)),
             ButtonComponent(
               label: "Whatsapp kami",

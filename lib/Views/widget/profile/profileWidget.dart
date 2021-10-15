@@ -20,7 +20,9 @@ class _ProfileWidgetState extends State<ProfileWidget> {
           context: context,
           desc: "Edit profile",
           isAction: true,
-          callback: () {}),
+          callback: () {
+            Navigator.of(context).pushNamed(RoutePath.profileEditWidget);
+          }),
       body: ListView(
         padding: scale.getPadding(1, 2),
         shrinkWrap: true,
@@ -148,9 +150,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
           ),
           Divider(height: scale.getHeight(0.1)),
           ListTile(
-            onTap: () {
-              Navigator.of(context).pushNamed(RoutePath.profileEditWidget);
-            },
+            onTap: () {},
             contentPadding: EdgeInsets.zero,
             leading:
                 Image.asset(StringConfig.imgLocal + "tentanBestFranchise.png"),

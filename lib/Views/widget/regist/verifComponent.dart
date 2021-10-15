@@ -77,31 +77,33 @@ class _VerifWidgetState extends State<VerifWidget> {
                 ],
               ),
             ),
-            Container(
-              alignment: Alignment.center,
-              padding: scale.getPadding(0, 6),
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SecureCodeWidget(
-                        isTrue: false,
-                        passLength: 4,
-                        borderColor:
-                            Theme.of(context).textTheme.subtitle1.color,
-                        passCodeVerify: (passcode) async {
-                          String code = '';
-                          for (int i = 0; i < passcode.length; i++) {
-                            code += passcode[i].toString();
-                          }
-                          await widget.callback(code);
-                          return false;
-                        },
-                        onSuccess: () async {
-                          // widget.callback();
-                        })
-                  ],
+            Expanded(
+              child: Container(
+                alignment: Alignment.center,
+                padding: scale.getPadding(0, 6),
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SecureCodeWidget(
+                          isTrue: false,
+                          passLength: 4,
+                          borderColor:
+                              Theme.of(context).textTheme.subtitle1.color,
+                          passCodeVerify: (passcode) async {
+                            String code = '';
+                            for (int i = 0; i < passcode.length; i++) {
+                              code += passcode[i].toString();
+                            }
+                            await widget.callback(code);
+                            return false;
+                          },
+                          onSuccess: () async {
+                            // widget.callback();
+                          })
+                    ],
+                  ),
                 ),
               ),
             ),

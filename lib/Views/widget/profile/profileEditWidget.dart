@@ -1,9 +1,7 @@
 import 'package:bestfranchise/Configs/colorConfig.dart';
 import 'package:bestfranchise/Configs/stringConfig.dart';
-import 'package:bestfranchise/Controllers/capitalSubmission/capitalSubmissionController.dart';
 import 'package:bestfranchise/Controllers/profile/profileEditController.dart';
 import 'package:bestfranchise/Helpers/general/generalHelper.dart';
-import 'package:bestfranchise/Views/component/capitalSubmission/modalRequirementsComponent.dart';
 import 'package:bestfranchise/Views/component/general/buttonComponent.dart';
 import 'package:bestfranchise/Views/component/general/fieldComponent.dart';
 import 'package:bestfranchise/Views/component/profile/modalPinEditComponent.dart';
@@ -36,7 +34,10 @@ class _ProfileEditWidgetState extends State<ProfileEditWidget> {
               alignment: AlignmentDirectional.topCenter,
               fit: StackFit.loose,
               children: [
-                Image.asset(StringConfig.imgLocal + "backCardReward.png"),
+                Image.asset(
+                  StringConfig.imgLocal + "backCardReward.png",
+                  scale: 0.5,
+                ),
                 // Image.asset(StringConfig.imgLocal + "icUser.png", scale: 1.5,),
                 Positioned(
                   top: scale.getHeight(10),
