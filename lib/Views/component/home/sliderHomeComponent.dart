@@ -31,7 +31,7 @@ class _SliderHomeComponentState extends State<SliderHomeComponent>  with SingleT
             autoPlay: true,
             autoPlayInterval: Duration(seconds: 5),
             viewportFraction: 1.0,
-            height: scale.getHeight(21),
+            // height: scale.getHeight(21),
             onPageChanged: (index,reason) {
               setState(() {
                 _current=index;

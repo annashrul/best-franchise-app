@@ -1,3 +1,4 @@
+import 'package:bestfranchise/Configs/colorConfig.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
 
@@ -45,7 +46,7 @@ class _BestTestimoniComponentState extends State<BestTestimoniComponent> {
                 ),
                 Container(
                   padding: scale.getPadding(0,1),
-                  child: Text("BEST Franchise memang yang terbaik deh.. managemeny yang sangat profesional. Sukses selalu ya",textAlign: TextAlign.center,style: Theme.of(context).textTheme.headline2,),
+                  child: Text("BEST Franchise memang yang terbaik deh.. managemeny yang sangat profesional. Sukses selalu ya",overflow: TextOverflow.ellipsis,maxLines:3,textAlign: TextAlign.center,style: Theme.of(context).textTheme.headline3.copyWith(color:ColorConfig.greyPrimary),),
                 )
               ],
             ),

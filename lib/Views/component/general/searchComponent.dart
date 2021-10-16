@@ -1,6 +1,7 @@
 import 'package:bestfranchise/Configs/colorConfig.dart';
 import 'package:bestfranchise/Configs/stringConfig.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
 
 class SearchComponent extends StatelessWidget {
@@ -11,7 +12,7 @@ class SearchComponent extends StatelessWidget {
     ScreenScaler scale= ScreenScaler()..init(context);
     return Card(
       margin: EdgeInsets.zero,
-      elevation: 4,
+      elevation: 2,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(100.0),
       ),
@@ -25,7 +26,8 @@ class SearchComponent extends StatelessWidget {
               hintStyle: Theme.of(context).textTheme.headline2.copyWith(color: ColorConfig.greyPrimary),
               contentPadding: scale.getPadding(1.1,1),
               border: InputBorder.none,
-              prefixIcon:Image.asset(StringConfig.imgLocal+"search.png",color: Color(0xFFD4D4D4),)
+              // prefixIcon:Image.asset(StringConfig.imgLocal+"search.png",color: Color(0xFFD4D4D4),)
+              prefixIcon:Icon(FontAwesome.search)
           ),
           keyboardType: TextInputType.number,
           textInputAction: TextInputAction.done,

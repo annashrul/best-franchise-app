@@ -35,14 +35,14 @@ class _BestPaketHematState extends State<BestPaketHemat> {
                       borderRadius: BorderRadius.circular(10),
                       child: Image.asset(
                         StringConfig.imgLocal+"testPromo.jpg",
-                        fit: BoxFit.cover,
-                        width: scale.getWidth(70),
+                        fit: BoxFit.fill,
+                        width: scale.getWidth(80),
                       ),
                     ),
                     Container(
-                      height: scale.getHeight(6),
+                      height: scale.getHeight(6.5),
                       padding: scale.getPadding(0.5,2),
-                      width: scale.getWidth(70),
+                      width: scale.getWidth(80),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10),bottomRight: Radius.circular(10)),
                         color: Colors.black54.withOpacity(0.9),
@@ -52,7 +52,7 @@ class _BestPaketHematState extends State<BestPaketHemat> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text("Pilihan bisnis terbaikmu ada di sini",style: Theme.of(context).textTheme.headline2.copyWith(color: Colors.white),),
-                          Text("Tidak perlu modal besar, yuk kepoin aja paket hemat nya brand yang lagi viral di sini. ",maxLines:2,style: Theme.of(context).textTheme.headline2.copyWith(color:Colors.white54))
+                          Text("Tidak perlu modal besar, yuk kepoin aja paket hemat nya brand yang lagi viral di sini. ",maxLines:2,style: Theme.of(context).textTheme.headline3.copyWith(color:Colors.white54))
                         ],
                       ),
                     )

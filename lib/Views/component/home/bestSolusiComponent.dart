@@ -1,3 +1,4 @@
+import 'package:bestfranchise/Configs/colorConfig.dart';
 import 'package:bestfranchise/Configs/routeConfig.dart';
 import 'package:bestfranchise/Configs/stringConfig.dart';
 import 'package:bestfranchise/Views/component/general/touchEffectComponent.dart';
@@ -15,7 +16,7 @@ class _BestSolusiComponentState extends State<BestSolusiComponent> {
     ScreenScaler scale = ScreenScaler()..init(context);
     return Container(
       margin: scale.getMarginLTRB(0, 0, 0, 0),
-      height: scale.getHeight(10),
+      height: scale.getHeight(13),
       child: ListView.separated(
         padding: EdgeInsets.zero,
         physics: ClampingScrollPhysics(),
@@ -44,7 +45,7 @@ class _BestSolusiComponentState extends State<BestSolusiComponent> {
                         width: scale.getWidth(40),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
                               "Bingun Modal ?",
@@ -54,9 +55,14 @@ class _BestSolusiComponentState extends State<BestSolusiComponent> {
                               "Masalah penting ketika ingin mulai usaha, salah satunya adalah modal",
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline2
+                                  .headline3
                                   .copyWith(color: Colors.black45),
-                            )
+                            ),
+
+                            Text(
+                              "Klik disini",
+                              style: Theme.of(context).textTheme.headline2.copyWith(color: ColorConfig.bluePrimary),
+                            ),
                           ],
                         ),
                       ),

@@ -26,7 +26,7 @@ class _BestGalleryComponentState extends State<BestGalleryComponent> {
           child: Image.asset(
             StringConfig.imgLocal+"g${index+1}.jpg",
             fit: BoxFit.cover,
-            height: scale.getHeight(10),
+            height: scale.getHeight(12),
           ),
         );
       },

@@ -18,7 +18,7 @@ class TitleComponent extends StatelessWidget {
             if(this.isAction)Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Text("Lihat semua",style: Theme.of(context).textTheme.headline3.copyWith(color: Colors.black45)),
+                Text("Lihat semua",style: Theme.of(context).textTheme.headline2.copyWith(color: Colors.black45)),
                 Icon(Icons.arrow_drop_down,color: Colors.black45,)
               ],
             )

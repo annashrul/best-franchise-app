@@ -1,12 +1,18 @@
+import 'dart:ui';
+
+import 'package:bestfranchise/Configs/colorConfig.dart';
 import 'package:bestfranchise/Configs/routeConfig.dart';
 import 'package:bestfranchise/Configs/stringConfig.dart';
 import 'package:bestfranchise/Helpers/general/generalHelper.dart';
+import 'package:bestfranchise/Helpers/svg.dart';
 import 'package:bestfranchise/Views/component/general/qrCodeComponent.dart';
 import 'package:bestfranchise/Views/component/general/searchComponent.dart';
 import 'package:bestfranchise/Views/component/general/touchEffectComponent.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
+import 'package:flutter_icons/flutter_icons.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 
 
@@ -25,7 +31,7 @@ class _RewardComponentState extends State<RewardComponent> {
         mainAxisAlignment: MainAxisAlignment.start,
         children:<Widget>[
           Container(
-            margin: scale.getMarginLTRB(0,18,0,0),
+            margin: scale.getMarginLTRB(0,21,0,0),
             padding: scale.getPadding(0,2),
             child: Card(
               margin: EdgeInsets.zero,
@@ -65,8 +71,10 @@ class _RewardComponentState extends State<RewardComponent> {
                                 );
                               },
                               child: Container(
-                                padding: scale.getPadding(0.1,2),
-                                child: Image.asset(StringConfig.imgLocal+"barcode.png",width: scale.getWidth(5),height: scale.getHeight(4),),
+                                padding: scale.getPadding(1,2),
+                                child: RadiantGradientMask(
+                                  child: SvgPicture.asset("assets/svg/QR_Code.svg",height: scale.getHeight(2),color:Colors.white,),
+                                ),
                               )
                           ),
                         ),
@@ -80,20 +88,25 @@ class _RewardComponentState extends State<RewardComponent> {
                           child: InTouchWidget(
                               radius: 100,
                               callback:()=>Navigator.of(context).pushNamed(RoutePath.notifWidget),
+
                               child: Container(
-                                padding: scale.getPadding(0.1,2),
-                                child: Image.asset(StringConfig.imgLocal+"notif.png",width: scale.getWidth(5),height: scale.getHeight(4),),
+                                padding: scale.getPadding(0.5,1),
+                                child: RadiantGradientMask(
+                                  child:Icon(FlutterIcons.bell_ent,color: Colors.white,)
+                                  // child: SvgPicture.asset("assets/svg/QR_Code.svg",color:Colors.white,height: scale.getHeight(4),),
+                                ),
                               )
                           ),
                         ),
+
                       ],
                     ),
                     SizedBox(height: scale.getHeight(1),),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        RewardCardComponent(img: "poin",title:"jumlah Poin",desc: "100"),
+                        RewardCardComponent(img: "poin",title:"Jumlah Poin",desc: "100"),
                         RewardCardComponent(img: "komisi",title:"Komisi",desc: "100,000"),
                         RewardCardComponent(img: "royalti",title:"Royalti",desc: "1,000,000"),
                       ],
@@ -144,6 +157,31 @@ class RewardCardComponent extends StatelessWidget {
             ],
           ),
         )
+    );
+  }
+}
+
+class RadiantGradientMask extends StatelessWidget {
+  RadiantGradientMask({this.child});
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return ShaderMask(
+      shaderCallback: (bounds) => LinearGradient(
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+        stops: [0.169951,0.494792,0.666667,1],
+        colors: [Color(0xFF7ABAF5), Color(0xFFC881F3).withOpacity(0.671875), Color(0xFFBD38B0).withOpacity(0.317708), Color(0xFFF10707)]
+        // center: Alignment.topRight,
+        // radius: 0.5,
+        // begin: Alignment.centerLeft,
+        // end: Alignment.centerRight,
+        // stops: [0.169951,0.494792,0.666667,1],
+        // colors: [Color(0xFF7ABAF5),Color(0xFFC881F3).withOpacity(0.671875), Color(0xFFBD38B0).withOpacity(0.317708),Color(0xFFF10707)],
+        // tileMode: TileMode.mirror,
+      ).createShader(bounds),
+      child: child,
     );
   }
 }

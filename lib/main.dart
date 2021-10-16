@@ -80,7 +80,6 @@ class _MyAppState extends State<MyApp> {
         animationDuration: const Duration(milliseconds: 200),
         duration: const Duration(seconds: 3),
         child: MaterialApp(
-
           title: ApiConfig.siteName,
           initialRoute: RoutePath.splashWidget,
           onGenerateRoute: RouteGenerator.generateRoute,
@@ -92,7 +91,8 @@ class _MyAppState extends State<MyApp> {
             unselectedWidgetColor: Colors.grey[300],
             bottomSheetTheme: BottomSheetThemeData(
                 backgroundColor: Colors.white,
-                modalBackgroundColor: Colors.white),
+                modalBackgroundColor: Colors.white
+            ),
             textTheme: TextTheme(
               button: style.copyWith(color: Colors.white),
               bodyText1: style.copyWith(
@@ -101,23 +101,23 @@ class _MyAppState extends State<MyApp> {
                   color: ColorConfig.blackPrimary
               ),
               headline1: style.copyWith(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.w700,
+                  color: ColorConfig.blackPrimary),
+              headline2: style.copyWith(
                   fontSize: 16.0,
                   fontWeight: FontWeight.w600,
                   color: ColorConfig.blackPrimary),
-              headline2: style.copyWith(
+              headline3: style.copyWith(
                   fontSize: 14.0,
                   fontWeight: FontWeight.w500,
                   color: ColorConfig.blackPrimary),
-              headline3: style.copyWith(
+              headline4: style.copyWith(
                   fontSize: 12.0,
                   fontWeight: FontWeight.w500,
                   color: ColorConfig.blackPrimary),
-              headline4: style.copyWith(
-                  fontSize: 10.0,
-                  fontWeight: FontWeight.w500,
-                  color: ColorConfig.blackPrimary),
               headline5: style.copyWith(
-                  fontSize: 8.0,
+                  fontSize: 10.0,
                   fontWeight: FontWeight.w500,
                   color: ColorConfig.blackPrimary),
 

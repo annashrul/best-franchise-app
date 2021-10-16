@@ -19,7 +19,7 @@ class _BestYoutubeChannelComponentState extends State<BestYoutubeChannelComponen
 
     return Container(
       margin: scale.getMarginLTRB(0,0,0,0),
-      height: scale.getHeight(24),
+      height: scale.getHeight(25),
       width: scale.getWidth(40),
       child: ListView.separated(
         padding: EdgeInsets.zero,
@@ -47,14 +47,15 @@ class _BestYoutubeChannelComponentState extends State<BestYoutubeChannelComponen
                       ),
 
                     ),
+                    SizedBox(height: scale.getHeight(1)),
                     Padding(
-                      padding: scale.getPadding(0.5,0),
+                      padding: scale.getPadding(0,0),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text("The Girl Power",style: Theme.of(context).textTheme.headline2,),
-                          Text("Video kali ini sangat insfiratifbanget. Jadi untuk kamu ........",style: Theme.of(context).textTheme.headline2.copyWith(color:Colors.black45),)
+                          Text("Video kali ini sangat insfiratifbanget. Jadi untuk kamu ........",maxLines:3,style: Theme.of(context).textTheme.headline3.copyWith(color:Colors.black45),)
                         ],
                       ),
                     )

@@ -90,7 +90,7 @@ class _MainWidgetState extends State<MainWidget> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   bottomBar(image: "home",title: "Home",isActive: StringConfig.tabHome==widget.indexTab?true:false,index:StringConfig.tabHome),
-                  SizedBox(width: scale.getWidth(2)),
+                  SizedBox(width: scale.getWidth(8)),
                   bottomBar(image: "news",title: "News",isActive: StringConfig.tabNews==widget.indexTab?true:false,index:StringConfig.tabNews),
                 ],
               ),
@@ -98,7 +98,7 @@ class _MainWidgetState extends State<MainWidget> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   bottomBar(image: "promo",title: "Promo",isActive:  StringConfig.tabPromo==widget.indexTab?true:false,index:StringConfig.tabPromo),
-                  SizedBox(width: scale.getWidth(2)),
+                  SizedBox(width: scale.getWidth(8)),
                   bottomBar(image: "saya",title: "Saya",isActive:  StringConfig.tabProfile==widget.indexTab?true:false,index:StringConfig.tabProfile),
                 ],
               ),
@@ -117,13 +117,14 @@ class _MainWidgetState extends State<MainWidget> {
           padding: scale.getPadding(0.2, 0),
           child: Column(
             mainAxisSize:MainAxisSize.min,
+            // crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CircleAvatar(
+              /*CircleAvatar(
                 backgroundColor: isActive?Colors.black:Colors.transparent,
-                radius: 30,
-                // backgroundImage: AssetImage(),
-                child: Image.asset(StringConfig.imgLocal+"$image.png",fit:BoxFit.cover),
-              ),
+                radius: 20,
+                backgroundImage: AssetImage(StringConfig.imgLocal+"$image.png"),
+                // child: Image.asset(StringConfig.imgLocal+"$image.png",fit:BoxFit.contain),
+              ),*/
               // Container(
               //   padding: scale.getPadding(1,2),
               //   decoration: BoxDecoration(
@@ -132,6 +133,7 @@ class _MainWidgetState extends State<MainWidget> {
               //   ),
               //   child: Image.asset(StringConfig.imgLocal+"$image.png",fit:BoxFit.cover,height: scale.getHeight(2),),
               // ),
+              isActive?Image.asset(StringConfig.imgLocal+"$image.png",fit:BoxFit.contain):Image.asset(StringConfig.imgLocal+"$image.png",fit:BoxFit.contain,color:Colors.grey[400],),
               SizedBox(height: scale.getHeight(0.1)),
               Text(title,style: Theme.of(context).textTheme.headline2.copyWith(color: isActive?Color(0xFFE2838E):Color(0xFFD4D4D4),fontWeight: FontWeight.bold),)
             ],
