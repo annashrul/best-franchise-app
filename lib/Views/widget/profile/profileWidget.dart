@@ -128,9 +128,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
           ListTile(
             onTap: () {
               GeneralHelper.modal(
-                context: context,
-                child: ModalKetentuanLayananComponent()
-              );
+                  context: context, child: ModalKetentuanLayananComponent());
             },
             contentPadding: EdgeInsets.zero,
             leading:
@@ -164,7 +162,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
               Navigator.of(context).pushNamed(RoutePath.tentangAplikasiWidget);
             },
             contentPadding: EdgeInsets.zero,
-            leading:Image.asset(StringConfig.imgLocal + "tentanBestFranchise.png"),
+            leading:
+                Image.asset(StringConfig.imgLocal + "tentanBestFranchise.png"),
             title: Text(
               "Tentang Aplikasi",
               style: Theme.of(context)
@@ -179,7 +178,9 @@ class _ProfileWidgetState extends State<ProfileWidget> {
           ),
           ButtonComponent(
             label: "Logout",
-            callback: () {},
+            callback: () {
+              Navigator.of(context).pushNamed(RoutePath.onBoardingWidget);
+            },
           )
         ],
       ),

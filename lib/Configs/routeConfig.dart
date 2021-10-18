@@ -1,12 +1,15 @@
+import 'package:bestfranchise/Views/widget/auth/regist/registStep1Component.dart';
+import 'package:bestfranchise/Views/widget/auth/regist/registStep2Component.dart';
+import 'package:bestfranchise/Views/widget/auth/regist/registStep3Component.dart';
+import 'package:bestfranchise/Views/widget/auth/regist/registStep4Component.dart';
+import 'package:bestfranchise/Views/widget/auth/regist/verifComponent.dart';
 import 'package:bestfranchise/Views/widget/brand/brandFavoriteWidget.dart';
 import 'package:bestfranchise/Views/widget/businessPlace/businessPlaceWidget.dart';
 import 'package:bestfranchise/Views/widget/capitalSubmission/capitalSubmissionWidget.dart';
 import 'package:bestfranchise/Views/widget/manager/managerWidget.dart';
 import 'package:bestfranchise/Views/widget/profile/bantuanAplikasiWidget.dart';
 import 'package:bestfranchise/Views/widget/profile/profileEditWidget.dart';
-import 'package:bestfranchise/Views/widget/profile/profileWidget.dart';
 import 'package:bestfranchise/Views/widget/profile/tentangAplikasiWidget.dart';
-import 'package:bestfranchise/Views/widget/regist/registComponent.dart';
 import 'package:bestfranchise/Views/widget/auth/loginComponent.dart';
 import 'package:bestfranchise/Views/widget/brand/brandWidget.dart';
 import 'package:bestfranchise/Views/widget/brand/detailBrandWidget.dart';
@@ -19,7 +22,6 @@ import 'package:bestfranchise/Views/widget/news/detailNewsWidget.dart';
 import 'package:bestfranchise/Views/widget/onBoardingWidget.dart';
 import 'package:bestfranchise/Views/widget/order/detailOrderWidget.dart';
 import 'package:bestfranchise/Views/widget/order/historyOrderWidget.dart';
-import 'package:bestfranchise/Views/widget/regist/verifComponent.dart';
 import 'package:bestfranchise/Views/widget/reward/komisiWidget.dart';
 import 'package:bestfranchise/Views/widget/reward/poinWidget.dart';
 import 'package:bestfranchise/Views/widget/reward/redeemPoinWidget.dart';
@@ -32,7 +34,10 @@ class RoutePath {
   static const String splashWidget = "/";
   static const String onBoardingWidget = "/onBoardingWidget";
   static const String loginWidget = "/loginWidget";
-  static const String registerWidget = "/registerWidget";
+  static const String registerWidget1 = "/registerWidget1";
+  static const String registerWidget2 = "/registerWidget2";
+  static const String registerWidget3 = "/registerWidget3";
+  static const String registerWidget4 = "/registerWidget4";
   static const String mainWidget = "/mainWidget";
   static const String detailNewsWidget = "/detailNewsWidget";
   static const String notifWidget = "/notifWidget";
@@ -103,8 +108,14 @@ class RouteGenerator {
         return CupertinoPageRoute(builder: (_) => TentangAplikasiWidget());
       case RoutePath.joinWidget:
         return CupertinoPageRoute(builder: (_) => JoinWidget());
-      case RoutePath.registWidget:
-        return CupertinoPageRoute(builder: (_) => RegistWidget());
+      case RoutePath.registerWidget1:
+        return CupertinoPageRoute(builder: (_) => RegistStep1Widget());
+      case RoutePath.registerWidget2:
+        return CupertinoPageRoute(builder: (_) => RegistStep2Widget());
+      case RoutePath.registerWidget3:
+        return CupertinoPageRoute(builder: (_) => RegistStep3Widget());
+      case RoutePath.registerWidget4:
+        return CupertinoPageRoute(builder: (_) => RegistStep4Widget());
       case RoutePath.verifWidget:
         return CupertinoPageRoute(builder: (_) => VerifWidget());
       case RoutePath.businessPlaceWidget:

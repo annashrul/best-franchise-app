@@ -1,5 +1,6 @@
 import 'package:bestfranchise/Configs/colorConfig.dart';
 import 'package:bestfranchise/Configs/stringConfig.dart';
+import 'package:bestfranchise/Helpers/general/generalHelper.dart';
 import 'package:bestfranchise/Views/component/general/touchEffectComponent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
@@ -24,22 +25,10 @@ class _ModalRequirementsComponentState
               padding: scale.getPadding(1, 4),
               child: Column(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("Persyaratan KUR",
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline1
-                              .copyWith(fontSize: 24)),
-                      InkResponse(
-                        onTap: () {},
-                        child: Image.asset(
-                          StringConfig.imgLocal + "closeBlack.png",
-                          height: scale.getHeight(1),
-                        ),
-                      )
-                    ],
+                  GeneralHelper.headerModal(
+                      context: context, title: "Persyaratan KUR"),
+                  SizedBox(
+                    height: scale.getHeight(1),
                   ),
                   Expanded(
                       child: ListView(
