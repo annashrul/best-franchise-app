@@ -17,6 +17,7 @@ class SearchComponent extends StatelessWidget {
         borderRadius: BorderRadius.circular(100.0),
       ),
       child: Container(
+        padding: scale.getPadding(0,2),
         child: TextFormField(
           style: Theme.of(context).textTheme.headline3,
           maxLines: 1,
@@ -24,12 +25,17 @@ class SearchComponent extends StatelessWidget {
           decoration: InputDecoration(
               hintText: this.hintText,
               hintStyle: Theme.of(context).textTheme.headline2.copyWith(color: ColorConfig.greyPrimary),
-              contentPadding: scale.getPadding(1.1,1),
+              contentPadding: scale.getPadding(1,2),
               border: InputBorder.none,
-              // prefixIcon:Image.asset(StringConfig.imgLocal+"search.png",color: Color(0xFFD4D4D4),)
-              prefixIcon:Icon(FontAwesome.search)
+              prefixIcon:Icon(FontAwesome.search,size: scale.getTextSize(12),),
+
+              prefixIconConstraints: BoxConstraints(
+                minHeight: scale.getHeight(1),
+                minWidth: scale.getWidth(5),
+                maxWidth: scale.getWidth(5),
+              ),
           ),
-          keyboardType: TextInputType.number,
+          keyboardType: TextInputType.text,
           textInputAction: TextInputAction.done,
         ),
       ),

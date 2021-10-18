@@ -25,6 +25,7 @@ class FieldComponent extends StatelessWidget {
   }
 
   Widget renderField({BuildContext context}){
+    ScreenScaler scale = ScreenScaler()..init(context);
     return TextFormField(
       style: Theme.of(context).textTheme.headline2,
       controller: this.controller,
@@ -32,6 +33,7 @@ class FieldComponent extends StatelessWidget {
       maxLength: this.maxLength,
       readOnly: this.onTap!=null,
       decoration: InputDecoration(
+        // contentPadding: scale.getPadding(1,0),
         labelStyle: Theme.of(context).textTheme.headline2.copyWith(color: ColorConfig.greyPrimary),
         labelText: this.labelText,
         border: InputBorder.none,
@@ -39,6 +41,12 @@ class FieldComponent extends StatelessWidget {
           onPressed:(){},
           icon: Icon(Icons.arrow_drop_down),
         ):null,
+        // suffixIcon: Icon(FlutterIcons.search_fea,color: Theme.of(context).textTheme.subtitle1.color,),
+        // suffixIconConstraints: BoxConstraints(
+        //     minHeight: scale.getHeight(1),
+        //     minWidth: scale.getWidth(1)
+        // ),
+
       ),
       textInputAction: TextInputAction.done,
       onTap: (){

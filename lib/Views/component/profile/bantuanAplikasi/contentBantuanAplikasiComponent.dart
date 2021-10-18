@@ -19,14 +19,14 @@ class _ContentBantuanAplikasiComponentState extends State<ContentBantuanAplikasi
       itemBuilder: (context,index){
         return GFAccordion(
             contentBorderRadius: BorderRadius.only(bottomRight: Radius.circular(10),bottomLeft:Radius.circular(10)),
-            textStyle:Theme.of(context).textTheme.headline1,
+            textStyle:Theme.of(context).textTheme.headline2,
             collapsedTitleBackgroundColor:Colors.transparent,
             contentBackgroundColor:Colors.transparent ,
             expandedTitleBackgroundColor: Colors.white,
             titlePadding: EdgeInsets.zero,
             contentPadding: EdgeInsets.zero,
             margin: EdgeInsets.zero,
-            titleChild: Text("Siapa yang bisa saya hubungi jika ada pertanyaan ?",style: Theme.of(context).textTheme.headline1.copyWith(fontWeight: Theme.of(context).textTheme.headline2.fontWeight),),
+            titleChild: Text("Siapa yang bisa saya hubungi jika ada pertanyaan ?",style: Theme.of(context).textTheme.headline2.copyWith(fontWeight: Theme.of(context).textTheme.headline2.fontWeight),),
             onToggleCollapsed: (isTrue){
               setState(() {
                 isTrue=isTrue;
@@ -39,7 +39,7 @@ class _ContentBantuanAplikasiComponentState extends State<ContentBantuanAplikasi
               physics: ScrollPhysics(),
               itemCount: 1,
               itemBuilder: (c,i){
-                return Text("Kami telah menyediakan nomor hotline untuk membantu kamu jika mengalami kendala di dalam aplikasi. Terdapat di menu Saya kemudian pilih live chat.",style: Theme.of(context).textTheme.headline2.copyWith(color: ColorConfig.greyPrimary),);
+                return Text("Kami telah menyediakan nomor hotline untuk membantu kamu jika mengalami kendala di dalam aplikasi. Terdapat di menu Saya kemudian pilih live chat.",style: Theme.of(context).textTheme.headline3.copyWith(color: ColorConfig.greyPrimary),);
               },
               separatorBuilder: (c,i){return Divider(color:Theme.of(context).textTheme.caption.color);},
             )

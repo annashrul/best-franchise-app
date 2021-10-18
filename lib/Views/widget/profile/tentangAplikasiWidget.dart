@@ -52,7 +52,7 @@ class _TentangAplikasiWidgetState extends State<TentangAplikasiWidget> {
                       padding: scale.getPadding(0, 2),
                       child: Text(
                         "Kami adalah perusahaan franchise dari tahun 2009 di bawah naungan PT. BEST FRANCHISE INDONESIA. Banyak Brand / Merk dagang yang sudah kami ciptakan dan sebagian besar sudah terdapat outlet yang kami buka bekerjasama dengan para franchise di seluruh Indonesia. Pengelolaan sistem yang terintegerasi membuat kami dapat bertahan dan dapat bersaing dengan perusahaanlainnya.",
-                        style: Theme.of(context).textTheme.headline2,
+                        style: Theme.of(context).textTheme.headline3,
                         textAlign: TextAlign.justify,
                       ),
                     )
@@ -83,7 +83,7 @@ class _TentangAplikasiWidgetState extends State<TentangAplikasiWidget> {
                     SizedBox(height: scale.getHeight(1),),
                     Align(
                       alignment: Alignment.bottomRight,
-                      child:  Text("+ 20",style: Theme.of(context).textTheme.headline1.copyWith(fontSize: 24),),
+                      child:  Text("+ 20",style: Theme.of(context).textTheme.bodyText1),
                     )
                   ],
                 ),
@@ -109,7 +109,7 @@ class _TentangAplikasiWidgetState extends State<TentangAplikasiWidget> {
           ),
           Padding(
             padding: scale.getPadding(1,2),
-            child: Text("Pilihan Brand dan Jenis Usaha yang variatif mulai dari sandang ,papan dan pangan. \n Kami mempunyai orang-orang ahli dibidangnya, sehingga penerapan persiapan dan operasional lebih mudah dan tepat serta efisien dan profesional.\n Kami mempunyai orang-orang ahli dibidangnya, sehingga penerapan persiapan dan operasional lebih mudah dan tepat serta efisien dan profesional",style: Theme.of(context).textTheme.headline2,),
+            child: Text("Pilihan Brand dan Jenis Usaha yang variatif mulai dari sandang ,papan dan pangan. \nKami mempunyai orang-orang ahli dibidangnya, sehingga penerapan persiapan dan operasional lebih mudah dan tepat serta efisien dan profesional.\nKami mempunyai orang-orang ahli dibidangnya, sehingga penerapan persiapan dan operasional lebih mudah dan tepat serta efisien dan profesional",style: Theme.of(context).textTheme.headline3,),
           )
 
 

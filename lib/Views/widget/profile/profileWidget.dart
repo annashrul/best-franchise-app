@@ -33,7 +33,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
             child: Container(
               padding: scale.getPadding(1, 2),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   RewardCardComponent(

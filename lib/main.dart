@@ -85,10 +85,14 @@ class _MyAppState extends State<MyApp> {
           onGenerateRoute: RouteGenerator.generateRoute,
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
+            colorScheme: ThemeData().colorScheme.copyWith(
+              primary:ColorConfig.greyPrimary,
+            ),
             scaffoldBackgroundColor: Colors.white,
             primaryColor: Colors.white,
             brightness: Brightness.light,
             unselectedWidgetColor: Colors.grey[300],
+
             bottomSheetTheme: BottomSheetThemeData(
                 backgroundColor: Colors.white,
                 modalBackgroundColor: Colors.white
@@ -96,13 +100,13 @@ class _MyAppState extends State<MyApp> {
             textTheme: TextTheme(
               button: style.copyWith(color: Colors.white),
               bodyText1: style.copyWith(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.w500,
+                  fontSize: 22.0,
+                  fontWeight: FontWeight.w600,
                   color: ColorConfig.blackPrimary
               ),
               headline1: style.copyWith(
                   fontSize: 20.0,
-                  fontWeight: FontWeight.w700,
+                  fontWeight: FontWeight.w600,
                   color: ColorConfig.blackPrimary),
               headline2: style.copyWith(
                   fontSize: 16.0,

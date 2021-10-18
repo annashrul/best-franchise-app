@@ -83,20 +83,51 @@ class GeneralHelper{
         unselectedLabelColor:ColorConfig.greyPrimary,
         indicatorColor: ColorConfig.redPrimary,
         labelColor: Colors.black,
-        labelStyle: Theme.of(context).textTheme.headline1.copyWith(fontWeight: Theme.of(context).textTheme.headline1.fontWeight),
+        labelStyle: Theme.of(context).textTheme.headline2.copyWith(fontWeight: Theme.of(context).textTheme.headline1.fontWeight),
         isScrollable: dataTab.length>3?true:false,
         tabs: historyTab,
       ),
     );
   }
   static modal({BuildContext context,Widget child}){
+    ScreenScaler scale=ScreenScaler()..init(context);
     return showModalBottomSheet(
+        backgroundColor: Colors.transparent,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(10.0))),
         context: context,
         isScrollControlled: true,
         builder: (context) => Padding(
           padding: MediaQuery.of(context).viewInsets,
-          child: child,
+          child: Stack(
+            children: [
+              Container(
+                margin: EdgeInsets.only(top: 40.0,right: 0.0),
+                padding: scale.getPadding(1,2),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20)
+                ),
+                child: child,
+              ),
+              Positioned(
+                top: 0.0,
+                right: scale.getWidth(2),
+                child: GestureDetector(
+                  onTap: (){
+                    Navigator.of(context).pop();
+                  },
+                  child: Align(
+                    alignment: Alignment.topRight,
+                    child: CircleAvatar(
+                      radius: 14.0,
+                      backgroundColor: Colors.white,
+                      child: Icon(Icons.close,color: Colors.black,),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         )
     );
   }
@@ -137,7 +168,7 @@ class GeneralHelper{
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(title,style: Theme.of(context).textTheme.headline1),
-        InkResponse(
+        if(callback!=null)InkResponse(
           onTap:callback!=null?callback:()=>Navigator.of(context).pop(),
           child: Icon(FontAwesome.close)
         )

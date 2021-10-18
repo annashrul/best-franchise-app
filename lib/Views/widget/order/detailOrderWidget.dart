@@ -102,8 +102,8 @@ class _DetailOrderWidgetState extends State<DetailOrderWidget> {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text("Survey Lokasi",style: Theme.of(context).textTheme.headline1.copyWith(fontWeight: Theme.of(context).textTheme.headline2.fontWeight),),
-                                    Text("Jenis pekerjaan kunjungan untuk memastikan kondisi tempat dan penjelasan kerjasama",style: Theme.of(context).textTheme.headline2.copyWith(color: ColorConfig.greyPrimary),),
+                                    Text("Survey Lokasi",style: Theme.of(context).textTheme.headline2),
+                                    Text("Jenis pekerjaan kunjungan untuk memastikan kondisi tempat dan penjelasan kerjasama",style: Theme.of(context).textTheme.headline3.copyWith(color: ColorConfig.greyPrimary),),
                                   ],
                                 ),
                               ),

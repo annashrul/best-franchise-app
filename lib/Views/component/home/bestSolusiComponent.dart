@@ -53,7 +53,7 @@ class _BestSolusiComponentState extends State<BestSolusiComponent> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Container(
-                        width: scale.getWidth(40),
+                        width: scale.getWidth(30),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,

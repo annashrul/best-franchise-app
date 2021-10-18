@@ -48,9 +48,7 @@ class _RewardComponentState extends State<RewardComponent> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Expanded(
-                            child: SearchComponent(
-                              hintText: "",
-                            )
+                            child: SearchComponent(hintText: ""),
                         ),
                         SizedBox(width: scale.getWidth(1)),
                         Card(

@@ -31,7 +31,7 @@ class _BrandFavoriteWidgetState extends State<BrandFavoriteWidget> {
               subTitle: "Menu Favorit dari brand ini adalah burger gokil Sejak 2012",
               otherChild: Row(
                 children: [
-                  Text("Total Outlet : 10",style: Theme.of(context).textTheme.headline3.copyWith(color: ColorConfig.greyPrimary),),
+                  Text("Total Outlet : 10",style: Theme.of(context).textTheme.headline3.copyWith(color: ColorConfig.greyPrimary,fontWeight: FontWeight.w600),),
                 ],
               ),
               callback: (){

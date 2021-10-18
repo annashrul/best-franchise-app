@@ -35,7 +35,7 @@ class _SectionThreeNewsComponentState extends State<SectionThreeNewsComponent> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ClipRRect(
-                    child: Image.network("http://www.franchiseglobal.com/images/posts/2017/12/22/RFC.JPG",height: scale.getHeight(16)),
+                    child: Image.network("http://www.franchiseglobal.com/images/posts/2017/12/22/RFC.JPG",height: scale.getHeight(16),width:scale.getWidth(40),fit: BoxFit.fitHeight,),
                     borderRadius: BorderRadius.only(topLeft: Radius.circular(10),bottomLeft: Radius.circular(10)),
                   ),
                   Expanded(
