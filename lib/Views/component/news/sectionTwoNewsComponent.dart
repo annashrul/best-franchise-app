@@ -39,7 +39,7 @@ class _SectionTwoNewsComponentState extends State<SectionTwoNewsComponent> {
                       ),
                       child:  Container(
                         margin: scale.getMargin(0,1),
-                        child: Text("kategori",style: Theme.of(context).textTheme.headline1.copyWith(color: index==news.indexCategoryActive?ColorConfig.redPrimary:ColorConfig.greyPrimary)),
+                        child: Text("kategori",style: Theme.of(context).textTheme.headline2.copyWith(color: index==news.indexCategoryActive?ColorConfig.redPrimary:ColorConfig.greyPrimary)),
                       ),
                     ),
                   ],

@@ -28,7 +28,13 @@ class _NotifWidgetState extends State<NotifWidget> {
         appBar: GeneralHelper.appBarWithTab(
           context: context,
           title: "Notification",
-          dataTab: dataTab
+          dataTab: dataTab,
+          actions: [
+            InkResponse(
+              onTap: (){},
+              child: Image.asset(StringConfig.imgLocal+"calender.png"),
+            )
+          ]
         ),
         body: TabBarView(
           children:historyView,

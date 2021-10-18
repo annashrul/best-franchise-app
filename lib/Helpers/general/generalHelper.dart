@@ -6,6 +6,7 @@ import 'package:bestfranchise/Views/component/general/dialogComponent.dart';
 import 'package:bestfranchise/Views/component/general/touchEffectComponent.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -51,7 +52,7 @@ class GeneralHelper{
       ),
     );
   }
-  static appBarWithTab({BuildContext context,String title="Kayla Andhara",List dataTab}){
+  static appBarWithTab({BuildContext context,String title="Kayla Andhara",List dataTab,List<Widget> actions}){
     ScreenScaler scale= ScreenScaler()..init(context);
     List<Widget> historyTab = [];
     for(int i=0;i<dataTab.length;i++){
@@ -75,6 +76,7 @@ class GeneralHelper{
         icon: Icon(Icons.arrow_back_ios),
         onPressed: ()=>Navigator.of(context).pop(),
       ),
+      actions:actions,
       bottom: TabBar(
         indicatorPadding: scale.getPadding(0,0),
         labelPadding: scale.getPadding(0,1),
@@ -137,7 +139,7 @@ class GeneralHelper{
         Text(title,style: Theme.of(context).textTheme.headline1),
         InkResponse(
           onTap:callback!=null?callback:()=>Navigator.of(context).pop(),
-          child: Image.asset(StringConfig.imgLocal+"closeBlack.png",height: scale.getHeight(1),),
+          child: Icon(FontAwesome.close)
         )
       ],
     );

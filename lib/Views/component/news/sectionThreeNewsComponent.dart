@@ -35,7 +35,7 @@ class _SectionThreeNewsComponentState extends State<SectionThreeNewsComponent> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ClipRRect(
-                    child: Image.network(StringConfig.imgGeneral,height: scale.getHeight(16),),
+                    child: Image.network("http://www.franchiseglobal.com/images/posts/2017/12/22/RFC.JPG",height: scale.getHeight(16)),
                     borderRadius: BorderRadius.only(topLeft: Radius.circular(10),bottomLeft: Radius.circular(10)),
                   ),
                   Expanded(
@@ -46,7 +46,7 @@ class _SectionThreeNewsComponentState extends State<SectionThreeNewsComponent> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text("RFC luncurkan produk minuman terbaru",style: Theme.of(context).textTheme.headline2,),
-                            Text("Di masa pandemi ini, BEST Franchise terus melakukan inovasi agar dapat bersaing dengan rival-rival nya.",style: Theme.of(context).textTheme.headline2.copyWith(color: Colors.black45),),
+                            Text("Di masa pandemi ini, BEST Franchise terus melakukan inovasi agar dapat bersaing dengan rival-rival nya.",style: Theme.of(context).textTheme.headline3.copyWith(color: Colors.black45),),
                             SizedBox(height: scale.getHeight(1)),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,

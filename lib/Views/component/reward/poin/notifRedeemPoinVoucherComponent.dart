@@ -14,7 +14,7 @@ class NotifRedeemPoinVoucherComponent extends StatelessWidget {
           children: [
             CircleAvatar(
               radius:40 ,
-              backgroundImage: NetworkImage(StringConfig.imgGeneral),
+              backgroundImage: NetworkImage("http://www.franchiseglobal.com/images/posts/2018/02/02/rfc.JPG"),
             ),
             SizedBox(height: scale.getHeight(1)),
             Text("Selamat",style: Theme.of(context).textTheme.headline1.copyWith(fontWeight: Theme.of(context).textTheme.headline2.fontWeight),),
@@ -43,11 +43,11 @@ class NotifRedeemPoinVoucherComponent extends StatelessWidget {
               child: Text("VC0920KL90",style: Theme.of(context).textTheme.headline1.copyWith(fontSize: 24),textAlign: TextAlign.center,),
             ),
             SizedBox(height: scale.getHeight(0.5)),
-            Text("Diskon 20 % berlaku untuk Dine in sekitaran Bandung Raya",style: Theme.of(context).textTheme.headline2.copyWith(color: ColorConfig.greyPrimary),textAlign: TextAlign.left,),
+            Text("Diskon 20 % berlaku untuk Dine in sekitaran Bandung Raya",style: Theme.of(context).textTheme.headline3.copyWith(color: ColorConfig.greyPrimary),textAlign: TextAlign.center,),
             SizedBox(height: scale.getHeight(0.5)),
             Align(
-              alignment: Alignment.centerLeft,
-              child: Text("Silahkan tukar kode voucher ini ke kasir kami",style: Theme.of(context).textTheme.headline2.copyWith(color: ColorConfig.greyPrimary),textAlign: TextAlign.left,),
+              alignment: Alignment.center,
+              child: Text("Silahkan tukar kode voucher ini ke kasir kami",style: Theme.of(context).textTheme.headline3.copyWith(color: ColorConfig.greyPrimary),textAlign: TextAlign.center,),
             ),
             SizedBox(height: scale.getHeight(1)),
             ButtonComponent(

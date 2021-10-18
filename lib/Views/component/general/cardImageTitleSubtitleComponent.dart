@@ -46,7 +46,7 @@ class CardImageTitleSubtitleComponent extends StatelessWidget {
                           if(callbackAction!=null)InTouchWidget(callback: (){},child:Icon(Icons.more_vert))
                         ],
                       ),
-                      Text(this.subTitle,style: Theme.of(context).textTheme.headline2.copyWith(color: ColorConfig.greyPrimary),),
+                      Text(this.subTitle,style: Theme.of(context).textTheme.headline2.copyWith(color: ColorConfig.greyPrimary,fontWeight: Theme.of(context).textTheme.headline3.fontWeight),),
                       if(this.otherChild!=null)SizedBox(height: scale.getHeight(0.2),),
                       if(this.otherChild!=null)this.otherChild
                     ],

@@ -14,6 +14,11 @@ class _BestSolusiComponentState extends State<BestSolusiComponent> {
   @override
   Widget build(BuildContext context) {
     ScreenScaler scale = ScreenScaler()..init(context);
+    List data = [
+      {"title":"Bungung Modal"},
+      {"title":"Bingung Tempat"},
+      {"title":"Bingung Pengelola"},
+    ];
     return Container(
       margin: scale.getMarginLTRB(0, 0, 0, 0),
       height: scale.getHeight(13),
@@ -22,12 +27,18 @@ class _BestSolusiComponentState extends State<BestSolusiComponent> {
         physics: ClampingScrollPhysics(),
         shrinkWrap: true,
         scrollDirection: Axis.horizontal,
-        itemCount: 3,
+        itemCount: data.length,
         itemBuilder: (context, index) {
           return InTouchWidget(
               radius: 10,
               callback: () {
-                Navigator.of(context).pushNamed(RoutePath.businessPlaceWidget);
+                if(index==0){
+                  Navigator.of(context).pushNamed(RoutePath.managerWidget);
+                }else if(index==1){
+                  Navigator.of(context).pushNamed(RoutePath.businessPlaceWidget);
+                }else{
+                  Navigator.of(context).pushNamed(RoutePath.joinWidget,arguments: {} );
+                }
               },
               child: Container(
                 decoration: BoxDecoration(
@@ -48,7 +59,7 @@ class _BestSolusiComponentState extends State<BestSolusiComponent> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              "Bingun Modal ?",
+                              data[index]['title'],
                               style: Theme.of(context).textTheme.headline2,
                             ),
                             Text(

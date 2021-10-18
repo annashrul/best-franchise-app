@@ -1,7 +1,9 @@
 import 'package:bestfranchise/Configs/colorConfig.dart';
 import 'package:bestfranchise/Configs/stringConfig.dart';
+import 'package:bestfranchise/Helpers/general/generalHelper.dart';
 import 'package:bestfranchise/Views/component/general/touchEffectComponent.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
 
 class ModalBankComponent extends StatefulWidget {
@@ -22,15 +24,9 @@ class _ModalBankComponentState extends State<ModalBankComponent> {
           padding: scale.getPadding(1,2),
           child: Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("Pilih bank",style: Theme.of(context).textTheme.headline1),
-                  InkResponse(
-                    onTap: (){},
-                    child: Image.asset(StringConfig.imgLocal+"closeBlack.png",height: scale.getHeight(1),),
-                  )
-                ],
+              GeneralHelper.headerModal(
+                context: context,
+                title: "Pilih bank"
               ),
               Expanded(
                 child: ListView.separated(
@@ -58,7 +54,7 @@ class _ModalBankComponentState extends State<ModalBankComponent> {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text("Bank Mandiri",style: Theme.of(context).textTheme.headline1.copyWith(fontWeight: Theme.of(context).textTheme.headline2.fontWeight),),
+                                    Text("Bank BCA",style: Theme.of(context).textTheme.headline2),
                                     Text("00XXXXXXXXXXXXXXXXX",style: Theme.of(context).textTheme.headline2.copyWith(color: ColorConfig.greyPrimary),)
                                   ],
                                 )

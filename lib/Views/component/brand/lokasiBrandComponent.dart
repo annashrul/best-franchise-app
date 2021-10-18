@@ -68,7 +68,7 @@ class _LokasiBrandComponentState extends State<LokasiBrandComponent> {
                                   ),
                                   SizedBox(width: scale.getWidth(2),),
                                   Expanded(
-                                    child: Text("Jl. Peta No.241, Suka Asih,Kec. Bojongloa Kaler, Kota Bandung Jawa Barat  40232 Phone : 022-6646137",style: Theme.of(context).textTheme.headline2,),
+                                    child: Text("Jl. Peta No.241, Suka Asih,Kec. Bojongloa Kaler, Kota Bandung Jawa Barat  40232 Phone : 022-6646137",style: Theme.of(context).textTheme.headline3,),
                                   )
 
                                 ],
@@ -76,7 +76,7 @@ class _LokasiBrandComponentState extends State<LokasiBrandComponent> {
                             );
                           },
                           separatorBuilder: (context,index){return SizedBox(height: scale.getHeight(1),child: Divider(),);},
-                          itemCount: 5
+                          itemCount: 10
                       )
                     ],
                   )

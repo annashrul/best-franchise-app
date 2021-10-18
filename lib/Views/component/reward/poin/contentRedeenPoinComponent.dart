@@ -47,7 +47,8 @@ class _ContentRedeemPoinComponentState extends State<ContentRedeemPoinComponent>
                   children: [
                     CircleAvatar(
                       radius:40 ,
-                      backgroundImage: NetworkImage(StringConfig.imgGeneral),
+                      backgroundImage: NetworkImage(poin.indexActive==0?"https://cf.shopee.co.id/file/51d717300e3020ad6b895954c69a19ac":"http://www.franchiseglobal.com/images/posts/2018/02/02/rfc.JPG"),
+
                     ),
                     SizedBox(width: scale.getWidth(2),),
                     Expanded(
@@ -55,7 +56,7 @@ class _ContentRedeemPoinComponentState extends State<ContentRedeemPoinComponent>
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("Tukarkan dengan charger Samsung tipe C (Original)",style: Theme.of(context).textTheme.headline1.copyWith(fontWeight: Theme.of(context).textTheme.headline2.fontWeight),),
+                          Text(poin.indexActive==0?"Tukarkan dengan charger Samsung tipe C (Original)":"Diskon 20 % berlaku untuk Dine in sekitaran Bandung Raya",style: Theme.of(context).textTheme.headline2.copyWith(fontWeight: Theme.of(context).textTheme.headline2.fontWeight),),
                           SizedBox(height: scale.getHeight(1),),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,

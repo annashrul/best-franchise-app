@@ -34,7 +34,7 @@ class ProdukBrandComponent extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     ClipRRect(
-                      child: Image.network(StringConfig.imgGeneral),
+                      child: Image.network("https://images.unsplash.com/photo-1571091718767-18b5b1457add?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8YnVyZ2VyJTIwcG5nfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&w=1000&q=80"),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     Padding(
@@ -42,9 +42,9 @@ class ProdukBrandComponent extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("CHOCOLATE HOT OREO",style: Theme.of(context).textTheme.headline2.copyWith(fontWeight: FontWeight.w600),),
-                          Text("Perpaduan antara cokelat dan oreo dicampur dengan ice cream..",style: Theme.of(context).textTheme.headline2.copyWith(color: ColorConfig.greyPrimary),),
-                          Text("Harga : Tergantung Lokasi",style: Theme.of(context).textTheme.headline2.copyWith(fontWeight: FontWeight.w600),),
+                          Text("CHOCOLATE HOT OREO",style: Theme.of(context).textTheme.headline2),
+                          Text("Perpaduan antara cokelat dan oreo dicampur dengan ice cream..",style: Theme.of(context).textTheme.headline3.copyWith(color: ColorConfig.greyPrimary),),
+                          Text("Harga : Tergantung Lokasi",style: Theme.of(context).textTheme.headline3.copyWith(fontWeight: FontWeight.w600),),
                         ],
                       ),
                     )

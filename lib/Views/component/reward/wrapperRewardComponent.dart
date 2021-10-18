@@ -14,6 +14,8 @@ class WrapperRewardComponent extends StatefulWidget {
   final String rewardCard;
   final String descCard;
 
+
+
   WrapperRewardComponent({
     this.callbackBottomButton,
     this.imgCard,
@@ -30,6 +32,19 @@ class _WrapperRewardComponentState extends State<WrapperRewardComponent> {
   @override
   Widget build(BuildContext context) {
     ScreenScaler scale = ScreenScaler()..init(context);
+
+    String titleLoop="Dhea Annisa";
+    String subTitleLoop="+6281214126685";
+    String descLoop="Ucapkan Terima kasih Yuk !";
+    if(widget.titleCard=="Poin"){
+      descLoop="Kenalkan BEST Franchise supaya kamu dapat komisi";
+    }
+    if(widget.titleCard=="Komisi"){
+      titleLoop="Dhea Annisa telah menjadi Franchise Kami Komisi untuk kamu : Rp. 150.000";
+    }else if(widget.titleCard=="Royalti"){
+      titleLoop="Royalti untuk kamu : Rp. 150.000\nDari Outlet Atas nama Dhea Annisa";
+    }
+
     return Scaffold(
         appBar: GeneralHelper.appBarGeneral(context: context,title: "BEST ${widget.titleCard}",actions: <Widget>[
           InkResponse(
@@ -116,11 +131,11 @@ class _WrapperRewardComponentState extends State<WrapperRewardComponent> {
                                             children: [
                                               Container(
                                                 width: scale.getWidth(55),
-                                                child: Text("Royalti untuk kamu : Rp. 150.000",style: Theme.of(context).textTheme.headline1.copyWith(fontWeight: FontWeight.w500),maxLines: 1,),
+                                                child: Text(titleLoop,style: Theme.of(context).textTheme.headline2.copyWith(fontWeight: FontWeight.w500)),
                                               ),
-                                              Container(
+                                              if(widget.titleCard=="Poin")Container(
                                                 width: scale.getWidth(55),
-                                                child: Text("Dari Outlet Atas nama Dhea Annisa ",style: Theme.of(context).textTheme.headline1.copyWith(fontWeight: FontWeight.w500),maxLines: 1),
+                                                child: Text(subTitleLoop,style: Theme.of(context).textTheme.headline2.copyWith(fontWeight: FontWeight.w500),maxLines: 1),
                                               ),
                                             ],
                                             mainAxisAlignment: MainAxisAlignment.start,
@@ -143,8 +158,9 @@ class _WrapperRewardComponentState extends State<WrapperRewardComponent> {
                                           SizedBox(width: scale.getWidth(1),),
                                           Container(
                                             width: scale.getWidth(50),
-                                            child: Text("Ucapkan Terima kasih Yuk !",style: Theme.of(context).textTheme.headline2.copyWith(fontWeight: FontWeight.w500),maxLines: 1),
-                                          )
+                                            child: Text(descLoop,style: Theme.of(context).textTheme.headline2.copyWith(fontWeight: FontWeight.w500),maxLines: 1),
+                                          ),
+
                                         ],
                                       ),
                                     ],
@@ -182,7 +198,7 @@ class _WrapperRewardComponentState extends State<WrapperRewardComponent> {
   Widget poinCard(){
     return Column(
       children: [
-        Text("Status",style: Theme.of(context).textTheme.headline2.copyWith(fontWeight: FontWeight.w500)),
+        Text("Status",style: Theme.of(context).textTheme.headline2),
         Text("Member",style: Theme.of(context).textTheme.headline2.copyWith(color: Colors.grey)),
       ],
     );

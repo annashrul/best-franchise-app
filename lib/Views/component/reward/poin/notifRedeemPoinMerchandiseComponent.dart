@@ -21,10 +21,10 @@ class NotifRedeemPoinMerchandiseComponent extends StatelessWidget {
           children: [
             CircleAvatar(
               radius:40 ,
-              backgroundImage: NetworkImage(StringConfig.imgGeneral),
+              backgroundImage: NetworkImage("https://cf.shopee.co.id/file/51d717300e3020ad6b895954c69a19ac"),
             ),
             SizedBox(height: scale.getHeight(1)),
-            Text("T-Shirt Vero Brava Lengan Pdk",style: Theme.of(context).textTheme.headline1.copyWith(fontWeight: Theme.of(context).textTheme.headline2.fontWeight),),
+            Text("Charger Samsung tipe C (Original)",textAlign:TextAlign.center,style: Theme.of(context).textTheme.headline1.copyWith(fontWeight: Theme.of(context).textTheme.headline2.fontWeight),),
             RichText(
               textAlign: TextAlign.center,
               text:TextSpan(

@@ -36,7 +36,7 @@ class FieldComponent extends StatelessWidget {
         labelText: this.labelText,
         border: InputBorder.none,
         suffixIcon: this.onTap!=null?IconButton(
-          onPressed:this.onTap,
+          onPressed:(){},
           icon: Icon(Icons.arrow_drop_down),
         ):null,
       ),
