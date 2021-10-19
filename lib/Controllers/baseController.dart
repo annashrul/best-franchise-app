@@ -31,6 +31,57 @@ class BaseController{
       }
     }
   }
+  post({String url,dynamic data,BuildContext context,Function callback}) async {
+    try{
+      GeneralHelper.loadingDialog(context);
+      Map<String, String> head={
+        "HttpHeaders.contentTypeHeader": 'application/json',
+        'X-Project-ID': ApiConfig.xProjectId,
+        'X-Requested-From': ApiConfig.xRequestedFrom,
+      };
+      // final userStorage = Provider.of<UserProvider>(context, listen: false);
+      // if(userStorage.token!=''){
+      //   head["Authorization"] = "Bearer ${userStorage.token}";
+      // }
+      Client client = new Client();
+      final response = await client.post( ApiConfig.url+url,headers:head,body:data);
+      print("=================== POST url = $url status code = ${response.statusCode}, headers=$head} ============================");
+      if(response.statusCode==200){
+        final jsonResponse =  json.decode(response.body);
+        Navigator.pop(context);
+        print(jsonResponse);
+        if(jsonResponse["meta"]["status"]=="failed"){
+          GeneralHelper.toast(msg:jsonResponse["meta"]["message"]);
+          return null;
+        }
+        else{
+          return jsonResponse;
+        }
+      }
+      else{
+        Navigator.pop(context);
+        final jsonResponse = json.decode(response.body);
+        print("jsonResponse = $jsonResponse");
+        // GeneralModel result = GeneralModel.fromJson(jsonResponse);
+        GeneralHelper.toast(msg: jsonResponse["meta"]["message"]);
+        return null;
+      }
+    }on TimeoutException catch (e) {
+      print("###################################### GET TimeoutException");
+      return GeneralHelper.toast(msg: "terjadi kesalahan koneksi");
+      return Navigator.pushNamed(context, "error",arguments: (){
+        print("TimeoutException");
+      });
+    } on SocketException catch (e) {
+      print("###################################### GET SocketException");
+      return GeneralHelper.toast(msg: "terjadi kesalahan koneksi");
+    }
+    on Error catch (e) {
+      print("###################################### GET Error");
+      return GeneralHelper.toast(msg: "terjadi kesalahan koneksi");
+
+    }
+  }
 
 
   isNotError({BuildContext context,Function callback}){

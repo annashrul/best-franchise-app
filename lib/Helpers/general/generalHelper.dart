@@ -8,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -175,6 +176,48 @@ class GeneralHelper{
       ],
     );
   }
+  static loadingDialog(BuildContext context){
+    return showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) =>  AlertDialog(
+          elevation: 0.0,
+          backgroundColor: Colors.transparent,
+          content: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SpinKitThreeBounce(color:ColorConfig.redPrimary),
+            ],
+          ),
+        )
+    );
+
+  }
+  static nofitDialog({BuildContext context,String msg="",Function callback1,Function callback2,String label1="batal",String label2="oke"}){
+    return dialog(
+        context: context,
+        child: [
+          AlertDialog(
+            title:Text("Informasi !",style: Theme.of(context).textTheme.headline1),
+            content:Text(msg,style: Theme.of(context).textTheme.subtitle1),
+            actions: <Widget>[
+              if(callback1!=null)TextButton(
+                  onPressed:callback1,
+                  child:Text(label1,style: Theme.of(context).textTheme.subtitle1)
+              ),
+              TextButton(
+                  onPressed:callback2,
+                  child:Text(label2,style: Theme.of(context).textTheme.subtitle1.copyWith(color: ColorConfig.bluePrimary))
+              ),
+            ],
+          )
+        ]
+    );
+  }
+
+
+
 
 
 }

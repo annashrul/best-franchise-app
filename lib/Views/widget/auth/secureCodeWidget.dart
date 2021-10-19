@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:bestfranchise/Configs/colorConfig.dart';
 import 'package:bestfranchise/Views/component/general/touchEffectComponent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
@@ -91,7 +92,6 @@ class _SecureCodeWidgetState extends State<SecureCodeWidget> {
   @override
   Widget build(BuildContext context) {
     if (widget.isTrue) {
-      print("gagal");
       _deleteAllCode();
       widget.isTrue = false;
     }
@@ -189,10 +189,10 @@ class _SecureCodeWidgetState extends State<SecureCodeWidget> {
           }
         },
         child: Container(
-          child: Center(
-            child: Icon(Icons.highlight_remove_rounded),
-            // child: Text('Ulangi',style:TextStyle(fontSize: ScreenUtilQ.getInstance().setSp(40),color:widget.numColor,fontWeight:FontWeight.bold,fontFamily:ThaibahFont().fontQ)),
-          ),
+          // child: Center(
+          //   child: Icon(Icons.highlight_remove_rounded),
+          //   // child: Text('Ulangi',style:TextStyle(fontSize: ScreenUtilQ.getInstance().setSp(40),color:widget.numColor,fontWeight:FontWeight.bold,fontFamily:ThaibahFont().fontQ)),
+          // ),
         ),
       ),
     );
@@ -236,8 +236,8 @@ class CodePanel extends StatelessWidget {
   final borderColor;
   final bool fingerVerify;
   final foregroundColor;
-  final H = 30.0;
-  final W = 30.0;
+  final H = 50.0;
+  final W = 40.0;
   final DeleteCode deleteCode;
   final int status;
   CodePanel(
@@ -256,10 +256,10 @@ class CodePanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ScreenScaler scale = ScreenScaler()..init(context);
     var circles = <Widget>[];
     var color = borderColor;
     int circlePice = 1;
-
     if (status == 1) {
       color = Colors.green.shade500;
     }
@@ -268,57 +268,55 @@ class CodePanel extends StatelessWidget {
     }
     for (int i = 1; i <= codeLength; i++) {
       if (i > currentLength) {
-        circles.add(SizedBox(
-            width: W,
-            height: H,
-            child: Container(
-              decoration: new BoxDecoration(
-                  border: Border.all(
-                    color: Colors.black54,
-                    style: BorderStyle.solid,
-                    width: 1.0,
-                  ),
-                  boxShadow: [
-                    // to make the coloured border
-                    // to make elevation
-                    BoxShadow(
-                      color: Colors.black12,
-                      offset: Offset(2, 2),
-                      blurRadius: 4,
-                    ),
-                  ],
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(10.0),
-                      bottomLeft: Radius.circular(10.0),
-                      topRight: Radius.circular(10.0),
-                      bottomRight: Radius.circular(10.0)),
-                  color: foregroundColor),
-            )));
+        circles.add(
+            Card(
+              child: SizedBox(
+                  width: W,
+                  height:H,
+                  child: Container(
+                    decoration: new BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(10.0),
+                            bottomLeft: Radius.circular(10.0),
+                            topRight: Radius.circular(10.0),
+                            bottomRight: Radius.circular(10.0)),
+                        color: foregroundColor),
+                  )),
+            )
+        );
       } else {
-        circles.add(new SizedBox(
-            width: W,
-            height: 20,
-            child: new Container(
-              decoration: new BoxDecoration(
-                shape: BoxShape.circle,
-                border: new Border.all(color: color, width: 1.0),
-                color: color,
+        circles.add(
+            Card(
+              child: Padding(
+                padding: scale.getPadding(1,0),
+                child: new SizedBox(
+                    width: W,
+                    height: H,
+                    child: new Container(
+                      decoration: new BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: new Border.all(color: color, width: 1.0),
+                        color: color,
+                      ),
+                    )
+                ),
               ),
-            )));
+            )
+        );
       }
     }
-    ScreenScaler scale = ScreenScaler()..init(context);
     return new SizedBox.fromSize(
-      size: new Size(MediaQuery.of(context).size.width, 30.0),
+      size: new Size(MediaQuery.of(context).size.width, H),
       child: new Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             SizedBox.fromSize(
-                size: new Size(scale.getWidth(9) * codeLength, H),
+                size: new Size(scale.getWidth(10) * codeLength, H),
                 child: new Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: circles,
-                )),
+                )
+            ),
           ]),
     );
   }

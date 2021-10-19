@@ -13,9 +13,9 @@ class ButtonComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ScreenScaler scale = ScreenScaler()..init(context);
-    return InkWell(
+    return InTouchWidget(
       radius: 100,
-      onTap:callback,
+      callback:callback,
       child: Container(
         height: scale.getHeight(this.height),
         width: scale.getWidth(100),
@@ -31,7 +31,7 @@ class ButtonComponent extends StatelessWidget {
                   color: Colors.grey[200],
                   spreadRadius: 1,
                   blurRadius: 0,
-                  offset: Offset(0, 3),
+                  offset: Offset(0, 0),
                 )
               // BoxShadow(
               //   color: Colors.grey,
@@ -53,7 +53,7 @@ class ButtonComponent extends StatelessWidget {
             ]
         ),
         child: Center(
-          child: Text(this.label,style: Theme.of(context).textTheme.headline1.copyWith(color: labelColor==null?ColorConfig.blackPrimary:labelColor)),
+          child: Text(this.label,style: Theme.of(context).textTheme.headline2.copyWith(color: labelColor==null?ColorConfig.blackPrimary:labelColor)),
         ),
       ),
     );

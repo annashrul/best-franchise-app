@@ -8,5 +8,8 @@ class StringConfig{
   static const int tabShare = 2;
   static const int tabPromo = 3;
   static const int tabProfile = 4;
+  static const int statusBaruInstallAplikasi = 0;
+  static const int statusKeluarDariAplikasi = 1;
+
 }
 

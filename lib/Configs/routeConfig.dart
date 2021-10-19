@@ -1,3 +1,4 @@
+import 'package:bestfranchise/Views/widget/auth/loginWidget.dart';
 import 'package:bestfranchise/Views/widget/auth/regist/registStep1Component.dart';
 import 'package:bestfranchise/Views/widget/auth/regist/registStep2Component.dart';
 import 'package:bestfranchise/Views/widget/auth/regist/registStep3Component.dart';
@@ -10,7 +11,6 @@ import 'package:bestfranchise/Views/widget/manager/managerWidget.dart';
 import 'package:bestfranchise/Views/widget/profile/bantuanAplikasiWidget.dart';
 import 'package:bestfranchise/Views/widget/profile/profileEditWidget.dart';
 import 'package:bestfranchise/Views/widget/profile/tentangAplikasiWidget.dart';
-import 'package:bestfranchise/Views/widget/auth/loginComponent.dart';
 import 'package:bestfranchise/Views/widget/brand/brandWidget.dart';
 import 'package:bestfranchise/Views/widget/brand/detailBrandWidget.dart';
 import 'package:bestfranchise/Views/widget/fintech/withdraw/formWithdrawWidget.dart';

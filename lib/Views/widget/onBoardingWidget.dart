@@ -16,67 +16,75 @@ class _OnBoardingWidgetState extends State<OnBoardingWidget> {
   Widget build(BuildContext context) {
     ScreenScaler scale = ScreenScaler()..init(context);
     return Scaffold(
-      body: Center(
-        child: ListView(
-          shrinkWrap: true,
-          padding: EdgeInsets.all(0),
-          children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: scale.getPadding(0, 10),
-                  child: Text(
-                    "Selamat datang di Aplikasi BEST Brand & Franchise",
-                    style: Theme.of(context).textTheme.headline1,
-                    textAlign: TextAlign.center,
+      body: Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                fit: BoxFit.cover,
+                image: AssetImage(StringConfig.imgLocal+"backgroundForm.png")
+            )
+        ),
+        child: Center(
+          child: ListView(
+            shrinkWrap: true,
+            padding: EdgeInsets.all(0),
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: scale.getPadding(0, 10),
+                    child: Text(
+                      "Selamat datang di Aplikasi BEST Brand & Franchise",
+                      style: Theme.of(context).textTheme.headline1,
+                      textAlign: TextAlign.center,
+                    ),
                   ),
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                    image: AssetImage(StringConfig.imgLocal + "Blob.png"),
-                  )),
-                  child: Image.asset(StringConfig.imgLocal + "Finances.png"),
-                ),
-                Padding(
-                  padding: scale.getPadding(0, 10),
-                  child: Text(
-                    "Dapatkan penghasilan tambahan sekarang",
-                    style: Theme.of(context).textTheme.headline1,
-                    textAlign: TextAlign.center,
+                  Container(
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage(StringConfig.imgLocal + "Blob.png"),
+                        )),
+                    child: Image.asset(StringConfig.imgLocal + "Finances.png"),
                   ),
-                ),
-                Padding(
-                  padding: scale.getPadding(1, 10),
-                  child: Text(
-                    "Dapatkan berbagai jenis usaha yang sesuai dengan zamannya dan sangat mudah dijalankan dengan dukungan tekhnologi",
-                    style: Theme.of(context).textTheme.headline2,
-                    textAlign: TextAlign.center,
+                  Padding(
+                    padding: scale.getPadding(0, 10),
+                    child: Text(
+                      "Dapatkan penghasilan tambahan sekarang",
+                      style: Theme.of(context).textTheme.headline1,
+                      textAlign: TextAlign.center,
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: scale.getPadding(2, 10),
-                  child: ButtonComponent(
-                    label: "Login",
-                    callback: () =>
-                        Navigator.of(context).pushNamed(RoutePath.loginWidget),
+                  Padding(
+                    padding: scale.getPadding(1, 10),
+                    child: Text(
+                      "Dapatkan berbagai jenis usaha yang sesuai dengan zamannya dan sangat mudah dijalankan dengan dukungan tekhnologi",
+                      style: Theme.of(context).textTheme.headline2,
+                      textAlign: TextAlign.center,
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: scale.getPadding(0, 10),
-                  child: ButtonComponent(
-                    label: "Register",
-                    backgroundColor: ColorConfig.blueSecondary,
-                    labelColor: Colors.white,
-                    callback: () =>
-                        Navigator.of(context).pushNamed(RoutePath.registWidget),
+                  Padding(
+                    padding: scale.getPadding(2, 10),
+                    child: ButtonComponent(
+                      label: "Login",
+                      callback: () =>
+                          Navigator.of(context).pushNamed(RoutePath.loginWidget),
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ],
+                  Padding(
+                    padding: scale.getPadding(0, 10),
+                    child: ButtonComponent(
+                      label: "Register",
+                      backgroundColor: ColorConfig.blueSecondary,
+                      labelColor: Colors.white,
+                      callback: () =>
+                          Navigator.of(context).pushNamed(RoutePath.registWidget),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -1,7 +1,9 @@
 import 'package:bestfranchise/Configs/routeConfig.dart';
 import 'package:bestfranchise/Configs/stringConfig.dart';
+import 'package:bestfranchise/Controllers/user/userController.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SplashScreenWidget extends StatefulWidget {
   @override
@@ -13,7 +15,8 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
 
   Future checkingRoute()async{
     await Future.delayed(Duration(seconds: 2));
-    Navigator.of(context).pushNamed(RoutePath.mainWidget,arguments: StringConfig.tabHome);
+    final userStorage = Provider.of<UserController>(context, listen: false);
+    // Navigator.of(context).pushNamed(RoutePath.mainWidget,arguments: StringConfig.tabHome);
     // Navigator.of(context).pushNamed(RoutePath.onBoardingWidget);
   }
 

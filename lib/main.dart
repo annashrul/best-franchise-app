@@ -1,6 +1,7 @@
 import 'package:bestfranchise/Configs/apiConfig.dart';
 import 'package:bestfranchise/Configs/colorConfig.dart';
 import 'package:bestfranchise/Configs/routeConfig.dart';
+import 'package:bestfranchise/Controllers/auth/authController.dart';
 import 'package:bestfranchise/Controllers/brand/detailBrandController.dart';
 import 'package:bestfranchise/Controllers/capitalSubmission/capitalSubmissionController.dart';
 import 'package:bestfranchise/Controllers/fintech/withdrawController.dart';
@@ -11,6 +12,8 @@ import 'package:bestfranchise/Controllers/profile/profileEditController.dart';
 import 'package:bestfranchise/Controllers/regist/registController.dart';
 import 'package:bestfranchise/Controllers/reward/poinController.dart';
 import 'package:bestfranchise/Controllers/slider/sliderHomeController.dart';
+import 'package:bestfranchise/Controllers/user/userController.dart';
+import 'package:bestfranchise/Databases/coreDatabase.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -35,6 +38,8 @@ List<SingleChildWidget> providers = [
       create: (_) => ProfileEditController()),
   ChangeNotifierProvider<PinEditController>(create: (_) => PinEditController()),
   ChangeNotifierProvider<SliderHomeController>(create: (_) => SliderHomeController()),
+  ChangeNotifierProvider<AuthController>(create: (_) => AuthController()),
+  ChangeNotifierProvider<UserController>(create: (_) => UserController()),
 ];
 
 void main() {
@@ -53,7 +58,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
+  CoreDatabases db = new CoreDatabases();
   @override
   void initState() {
     // TODO: implement initState
@@ -64,6 +69,7 @@ class _MyAppState extends State<MyApp> {
       OSiOSSettings.promptBeforeOpeningPushUrl: true
     };
     OneSignal.shared.init(ApiConfig.onesignalAppId, iOSSettings: settings);
+    db.openDB();
 
 
   }
