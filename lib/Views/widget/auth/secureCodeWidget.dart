@@ -80,13 +80,13 @@ class _SecureCodeWidgetState extends State<SecureCodeWidget> {
   }
 
   _deleteAllCode() {
-    setState(() {
-      if (_currentCodeLength > 0) {
-        _currentState = 0;
-        _currentCodeLength = 0;
-        _inputCodes.clear();
-      }
-    });
+    // setState(() {
+    //   if (_currentCodeLength > 0) {
+    //     _currentState = 0;
+    //     _currentCodeLength = 0;
+    //     _inputCodes.clear();
+    //   }
+    // });
   }
 
   @override
@@ -184,9 +184,9 @@ class _SecureCodeWidgetState extends State<SecureCodeWidget> {
       child: InTouchWidget(
         radius: 10,
         callback: () {
-          if (0 < _currentCodeLength) {
-            _deleteAllCode();
-          }
+          // if (0 < _currentCodeLength) {
+          //   _deleteAllCode();
+          // }
         },
         child: Container(
           // child: Center(

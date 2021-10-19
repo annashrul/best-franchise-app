@@ -28,10 +28,11 @@ class _LoginWidgetState extends State<LoginWidget> {
            child: ButtonComponent(
           label: "Login",
           callback: ()async{
+            auth.setCountryCode(countryCode);
             await auth.login(context,{
-              "phone":phoneController.text,
+              "mobile_no":phoneController.text,
               "countryCode":countryCode
-            });
+            },true);
           },
         ),
       ),

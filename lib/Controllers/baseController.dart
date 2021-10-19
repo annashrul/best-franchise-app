@@ -2,6 +2,8 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:bestfranchise/Configs/apiConfig.dart';
+import 'package:bestfranchise/Controllers/user/userController.dart';
+import 'package:bestfranchise/Databases/tableDatabase.dart';
 import 'package:bestfranchise/Helpers/general/generalHelper.dart';
 import 'package:bestfranchise/Models/General/generalModel.dart';
 import 'package:flutter/material.dart';
@@ -15,8 +17,16 @@ class BaseController{
     final res = isNotError(context: context,callback: (){});
     if(res){
       Client client = new Client();
+      final userStorage = Provider.of<UserController>(context, listen: false);
+      // print("############## ${userStorage.dataUser[UserTable.token]}");
+      if(userStorage.dataUser!=null){
+        if(userStorage.dataUser[UserTable.token]!=''){
+          ApiConfig.head["Authorization"] = "Bearer ${userStorage.dataUser[UserTable.token]}";
+        }
+      }
+       // print(ApiConfig.head)
       final response = await client.get(ApiConfig.url+url, headers:ApiConfig.head).timeout(Duration(seconds: ApiConfig.timeOut));
-      print("################################ URL = $url, STATUS = ${response.statusCode}");
+      print("################################ URL = $url, HEADER = ${ApiConfig.head} STATUS = ${response.statusCode}");
       if (response.statusCode == 200){
         final jsonResponse = json.decode(response.body);
         return jsonResponse;
@@ -45,7 +55,7 @@ class BaseController{
       // }
       Client client = new Client();
       final response = await client.post( ApiConfig.url+url,headers:head,body:data);
-      print("=================== POST url = $url status code = ${response.statusCode}, headers=$head} ============================");
+      print("=================== POST url = $url status code = ${response.statusCode}, body=$data} ============================");
       if(response.statusCode==200){
         final jsonResponse =  json.decode(response.body);
         Navigator.pop(context);

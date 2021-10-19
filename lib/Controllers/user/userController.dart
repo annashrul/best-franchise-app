@@ -4,14 +4,17 @@ import 'package:flutter/cupertino.dart';
 
 class UserController with ChangeNotifier{
   dynamic dataUser;
-  CoreDatabases db;
+  CoreDatabases db = new CoreDatabases();
   setDataUser(input){
     dataUser=input;
     notifyListeners();
   }
   Future getDataUser()async{
     final res=await db.getData(UserTable.TABLE_NAME);
-    print(res);
+    print(res.length);
+    if(res.length>0){
+      setDataUser(res[0]);
+    }
     notifyListeners();
   }
 }

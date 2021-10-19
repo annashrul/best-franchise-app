@@ -38,5 +38,33 @@ class CoreDatabases{
     var result = await db.rawQuery('SELECT * FROM $tableName');
     return result.toList();
   }
+  Future<bool> insert(String table, Map<String, Object> data) async {
+    try{
+      final db = await openDB();
+      await db.insert(table, data, conflictAlgorithm: ConflictAlgorithm.replace);
+      print("############################# INSERT $table ##################################");
+      return true;
+    }
+    catch(_){
+      return false;
+    }
+  }
+
+  Future<bool> update(String table,int id, Map<String, Object> data) async {
+    try {
+      final db = await openDB();
+      await db.update(table, data, where: 'id = ?',whereArgs: [id],conflictAlgorithm: ConflictAlgorithm.replace);
+      return true;
+    }
+    catch (_) {
+      return false;
+    }
+  }
+  Future<int> delete(String table) async {
+    final db = await openDB();
+    var result = await db.delete(table);
+    print("############################# DELETE $table ##################################");
+    return result;
+  }
 
 }

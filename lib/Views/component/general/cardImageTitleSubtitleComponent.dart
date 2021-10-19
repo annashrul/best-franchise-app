@@ -30,7 +30,7 @@ class CardImageTitleSubtitleComponent extends StatelessWidget {
           child: Row(
             children: [
               CircleAvatar(
-                backgroundImage: NetworkImage(StringConfig.imgGeneral),
+                backgroundImage: NetworkImage(this.img),
                 radius: 30,
               ),
               SizedBox(width: scale.getWidth(2)),

@@ -10,6 +10,8 @@ class StringConfig{
   static const int tabProfile = 4;
   static const int statusBaruInstallAplikasi = 0;
   static const int statusKeluarDariAplikasi = 1;
+  static const int masukKeAplikasi = 2;
+  static const int statusLogoutAplikasi = 3;
 
 }
 

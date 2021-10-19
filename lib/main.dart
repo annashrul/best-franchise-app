@@ -3,6 +3,7 @@ import 'package:bestfranchise/Configs/colorConfig.dart';
 import 'package:bestfranchise/Configs/routeConfig.dart';
 import 'package:bestfranchise/Controllers/auth/authController.dart';
 import 'package:bestfranchise/Controllers/brand/detailBrandController.dart';
+import 'package:bestfranchise/Controllers/brand/listBrandController.dart';
 import 'package:bestfranchise/Controllers/capitalSubmission/capitalSubmissionController.dart';
 import 'package:bestfranchise/Controllers/fintech/withdrawController.dart';
 import 'package:bestfranchise/Controllers/join/joinController.dart';
@@ -40,6 +41,7 @@ List<SingleChildWidget> providers = [
   ChangeNotifierProvider<SliderHomeController>(create: (_) => SliderHomeController()),
   ChangeNotifierProvider<AuthController>(create: (_) => AuthController()),
   ChangeNotifierProvider<UserController>(create: (_) => UserController()),
+  ChangeNotifierProvider<ListBrandController>(create: (_) => ListBrandController()),
 ];
 
 void main() {
@@ -70,6 +72,8 @@ class _MyAppState extends State<MyApp> {
     };
     OneSignal.shared.init(ApiConfig.onesignalAppId, iOSSettings: settings);
     db.openDB();
+    final user = Provider.of<UserController>(context, listen: false);
+    user.getDataUser();
 
 
   }

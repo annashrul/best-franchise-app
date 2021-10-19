@@ -20,33 +20,16 @@ class OtpWidget extends StatefulWidget {
 }
 
 class _OtpWidgetState extends State<OtpWidget> {
-  int timeCounter = 0;
-  bool timeUpFlag = false;
-  _timerUpdate() {
-    Timer(const Duration(seconds: 1), () async {
-      if(this.mounted){
-        setState(() {
-          timeCounter--;
-        });
-      }
-      if (timeCounter != 0)
-        _timerUpdate();
-      else
-        timeUpFlag = true;
-    });
-  }
+
   @override
   void initState() {
     super.initState();
-    timeCounter = 120;
-    _timerUpdate();
+    // timeCounter = 120;
+    // _timerUpdate();
+    final auth = Provider.of<AuthController>(context, listen: false);
+    auth.timerUpdate();
+    auth.timeCounter=10;
   }
-
-
-
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -60,17 +43,18 @@ class _OtpWidgetState extends State<OtpWidget> {
         child: ButtonComponent(
           labelColor: Colors.white,
           backgroundColor: ColorConfig.blueSecondary,
-          label:"kirim ulang kode OTP ${!timeUpFlag ?'dalam $timeCounter detik':''}",
+          label:"kirim ulang kode OTP ${!auth.timeUpFlag ?'dalam ${auth.timeCounter} detik':''}",
           callback: ()async{
-            if(timeUpFlag){
-              final res = await auth.sendOtp(context,auth.dataOtp["mobile_no"],auth.dataOtp["type"]);
-              if(res!=null){
-                timeUpFlag=!timeUpFlag;
-                timeCounter=120;
-                _timerUpdate();
-                widget.otp=res["data"]["temp_otp"];
-                setState(() {});
-              }
+            if(auth.timeUpFlag){
+              print(auth.dataOtp);
+              final res = await auth.login(context,auth.dataOtp,false);
+              // if(res!=null){
+              //   // auth.timeUpFlag=!auth.timeUpFlag;
+              //   // auth.timeCounter=120;
+              //   // _timerUpdate();
+              //   widget.otp=res["data"]["temp_otp"];
+              //   setState(() {});
+              // }
             }
           },
         ),
@@ -91,7 +75,7 @@ class _OtpWidgetState extends State<OtpWidget> {
             children: [
               Center(child: Image.asset(StringConfig.imgLocal+"logo.png",height: scale.getHeight(10))),
               SizedBox(height: scale.getHeight(5)),
-              Text("Masukkan Kode OTP (${widget.otp})",style: Theme.of(context).textTheme.headline1),
+              Text("Masukkan Kode OTP (${auth.otpCode})",style: Theme.of(context).textTheme.headline1),
               SizedBox(height: scale.getHeight(1)),
               Text("Untuk memastikan akun ini benar milik kamu, mohon masukkan 4 Digit kode OTP yang kami kirim melaui SMS ke Nomor Handphone yang kamu daftarkan.",style: Theme.of(context).textTheme.headline3,textAlign: TextAlign.center,),
               SecureCodeWidget(
