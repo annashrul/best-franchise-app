@@ -7,13 +7,15 @@ import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
 
 class SliderHomeComponent extends StatefulWidget {
   final List data;
-  SliderHomeComponent({this.data});
+  final List<Datum> valSu;
+  SliderHomeComponent(this.valSu, {this.data});
 
   @override
   _SliderHomeComponentState createState() => _SliderHomeComponentState();
 }
 
-class _SliderHomeComponentState extends State<SliderHomeComponent>  with SingleTickerProviderStateMixin{
+class _SliderHomeComponentState extends State<SliderHomeComponent>
+    with SingleTickerProviderStateMixin {
   int _current = 0;
   @override
   void initState() {
@@ -22,7 +24,7 @@ class _SliderHomeComponentState extends State<SliderHomeComponent>  with SingleT
 
   @override
   Widget build(BuildContext context) {
-    ScreenScaler scale= ScreenScaler()..init(context);
+    ScreenScaler scale = ScreenScaler()..init(context);
     return Stack(
       alignment: AlignmentDirectional.bottomEnd,
       children: <Widget>[
@@ -32,39 +34,42 @@ class _SliderHomeComponentState extends State<SliderHomeComponent>  with SingleT
             autoPlayInterval: Duration(seconds: 5),
             viewportFraction: 1.0,
             // height: scale.getHeight(21),
-            onPageChanged: (index,reason) {
+            onPageChanged: (index, reason) {
               setState(() {
-                _current=index;
+                _current = index;
               });
             },
           ),
-          items: widget.data.map((slide){
+          items: widget.valSu.map((slide) {
             return Container(
-              margin: scale.getMarginLTRB(0,0,0,0),
+              margin: scale.getMarginLTRB(0, 0, 0, 0),
               // height: scale.getHeight(25),
               child: InTouchWidget(
-                  callback: (){
+                  callback: () {
                     setState(() {});
                   },
                   child: Container(
                     decoration: BoxDecoration(
-                      image: DecorationImage(image: AssetImage(slide["image"]),fit: BoxFit.fitWidth),
+                      image: DecorationImage(
+                          image: NetworkImage(slide.banner),
+                          fit: BoxFit.fitWidth),
                       boxShadow: [
-                        BoxShadow(color: Theme.of(context).hintColor.withOpacity(0.2), offset: Offset(0, 4), blurRadius: 9)
+                        BoxShadow(
+                            color: Theme.of(context).hintColor.withOpacity(0.2),
+                            offset: Offset(0, 4),
+                            blurRadius: 9)
                       ],
                     ),
-                  )
-              ),
+                  )),
             );
           }).toList(),
         ),
-
         Positioned(
           bottom: 25,
           right: 10,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
-            children: widget.data.map((slide) {
+            children: widget.valSu.map((slide) {
               return Container(
                 width: 10.0,
                 height: 3.0,
@@ -73,7 +78,7 @@ class _SliderHomeComponentState extends State<SliderHomeComponent>  with SingleT
                     borderRadius: BorderRadius.all(
                       Radius.circular(100),
                     ),
-                    color: _current ==  widget.data.indexOf(slide)
+                    color: _current == widget.valSu.indexOf(slide)
                         ? Theme.of(context).hintColor
                         : Theme.of(context).hintColor.withOpacity(0.3)),
               );
@@ -83,5 +88,4 @@ class _SliderHomeComponentState extends State<SliderHomeComponent>  with SingleT
       ],
     );
   }
-
 }

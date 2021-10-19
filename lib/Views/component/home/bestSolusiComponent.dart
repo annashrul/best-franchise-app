@@ -1,11 +1,14 @@
 import 'package:bestfranchise/Configs/colorConfig.dart';
 import 'package:bestfranchise/Configs/routeConfig.dart';
-import 'package:bestfranchise/Configs/stringConfig.dart';
+import 'package:bestfranchise/Models/Slider/sliderHomeSolusiModel.dart';
 import 'package:bestfranchise/Views/component/general/touchEffectComponent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
 
 class BestSolusiComponent extends StatefulWidget {
+  final List<Datum> valSl;
+  BestSolusiComponent(this.valSl);
+
   @override
   _BestSolusiComponentState createState() => _BestSolusiComponentState();
 }
@@ -15,9 +18,9 @@ class _BestSolusiComponentState extends State<BestSolusiComponent> {
   Widget build(BuildContext context) {
     ScreenScaler scale = ScreenScaler()..init(context);
     List data = [
-      {"title":"Bungung Modal"},
-      {"title":"Bingung Tempat"},
-      {"title":"Bingung Pengelola"},
+      {"title": "Bungung Modal"},
+      {"title": "Bingung Tempat"},
+      {"title": "Bingung Pengelola"},
     ];
     return Container(
       margin: scale.getMarginLTRB(0, 0, 0, 0),
@@ -27,17 +30,20 @@ class _BestSolusiComponentState extends State<BestSolusiComponent> {
         physics: ClampingScrollPhysics(),
         shrinkWrap: true,
         scrollDirection: Axis.horizontal,
-        itemCount: data.length,
+        itemCount: widget.valSl.length,
         itemBuilder: (context, index) {
+          final val = widget.valSl[index];
           return InTouchWidget(
               radius: 10,
               callback: () {
-                if(index==0){
+                if (index == 0) {
                   Navigator.of(context).pushNamed(RoutePath.managerWidget);
-                }else if(index==1){
-                  Navigator.of(context).pushNamed(RoutePath.businessPlaceWidget);
-                }else{
-                  Navigator.of(context).pushNamed(RoutePath.joinWidget,arguments: {} );
+                } else if (index == 1) {
+                  Navigator.of(context)
+                      .pushNamed(RoutePath.businessPlaceWidget);
+                } else {
+                  Navigator.of(context)
+                      .pushNamed(RoutePath.joinWidget, arguments: {});
                 }
               },
               child: Container(
@@ -59,25 +65,27 @@ class _BestSolusiComponentState extends State<BestSolusiComponent> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              data[index]['title'],
+                              val.title,
                               style: Theme.of(context).textTheme.headline2,
                             ),
                             Text(
-                              "Masalah penting ketika ingin mulai usaha, salah satunya adalah modal",
+                              val.caption,
                               style: Theme.of(context)
                                   .textTheme
                                   .headline3
                                   .copyWith(color: Colors.black45),
                             ),
-
                             Text(
                               "Klik disini",
-                              style: Theme.of(context).textTheme.headline2.copyWith(color: ColorConfig.bluePrimary),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline2
+                                  .copyWith(color: ColorConfig.bluePrimary),
                             ),
                           ],
                         ),
                       ),
-                      Image.asset(StringConfig.imgLocal + "solusi1.png")
+                      Image.network(val.banner)
                     ],
                   ),
                 ),

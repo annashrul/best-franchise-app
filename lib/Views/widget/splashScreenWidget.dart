@@ -17,22 +17,24 @@ class SplashScreenWidget extends StatefulWidget {
 class _SplashScreenWidgetState extends State<SplashScreenWidget> {
   AssetImage assetImage;
 
-  Future checkingRoute()async{
+  Future checkingRoute() async {
     CoreDatabases db = new CoreDatabases();
     await Future.delayed(Duration(seconds: 2));
     final user = Provider.of<UserController>(context, listen: false).dataUser;
     final countUser = await db.getData(UserTable.TABLE_NAME);
     // print("################## DATA USER = ${user.dataUser}");
     // Navigator.of(context).pushNamed(RoutePath.mainWidget,arguments: StringConfig.tabHome);
-    if(countUser.length>0){
+    if (countUser.length > 0) {
       // ApiConfig.head["Authorization"] = "Bearer ${user[UserTable.token]}";
-      if(user[UserTable.statusRoleApp]==StringConfig.statusLogoutAplikasi){
-        Navigator.of(context).pushNamedAndRemoveUntil(RoutePath.loginWidget, (route) => false);
-      }
-      else{
-        Navigator.of(context).pushNamedAndRemoveUntil(RoutePath.mainWidget, (route) => false,arguments: StringConfig.tabHome);
-      }
-    }else{
+      // if(user[UserTable.statusRoleApp]==StringConfig.statusLogoutAplikasi){
+      //   Navigator.of(context).pushNamedAndRemoveUntil(RoutePath.loginWidget, (route) => false);
+      // }
+      // else{
+      Navigator.of(context).pushNamedAndRemoveUntil(
+          RoutePath.mainWidget, (route) => false,
+          arguments: StringConfig.tabHome);
+      // }
+    } else {
       Navigator.of(context).pushNamed(RoutePath.onBoardingWidget);
     }
 
@@ -51,6 +53,7 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
     assetImage = AssetImage("${StringConfig.imgLocal}Splash.png");
     checkingRoute();
   }
+
   @override
   void didChangeDependencies() {
     precacheImage(assetImage, context);
@@ -62,9 +65,7 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
     return Scaffold(
       body: Container(
         alignment: Alignment.center,
-        decoration: BoxDecoration(
-            image: DecorationImage(image: assetImage)
-        ),
+        decoration: BoxDecoration(image: DecorationImage(image: assetImage)),
       ),
     );
   }
