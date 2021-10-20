@@ -93,7 +93,7 @@ class _BrandWidgetState extends State<BrandWidget> {
             ),
             callback: (){
               Navigator.of(context).pushNamed(RoutePath.detailBrandWidget,arguments: {
-                "id":""
+                "id":val.id
               });
             },
           );

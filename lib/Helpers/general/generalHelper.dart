@@ -20,7 +20,7 @@ class GeneralHelper{
       title: Text(title,style: Theme.of(context).textTheme.headline1),
       leading: IconButton(
         icon: Icon(Icons.arrow_back_ios),
-        onPressed: ()=>Navigator.of(context).pop(),
+        onPressed: ()=>Navigator.of(context,rootNavigator: true).pop(),
       ),
       actions:actions,
     );

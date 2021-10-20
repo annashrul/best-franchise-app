@@ -2,11 +2,14 @@ import 'package:bestfranchise/Configs/colorConfig.dart';
 import 'package:bestfranchise/Configs/routeConfig.dart';
 import 'package:bestfranchise/Configs/stringConfig.dart';
 import 'package:bestfranchise/Controllers/brand/detailBrandController.dart';
+import 'package:bestfranchise/Controllers/brand/franchiseController.dart';
+import 'package:bestfranchise/Controllers/brand/productBrandController.dart';
 import 'package:bestfranchise/Helpers/general/generalHelper.dart';
 import 'package:bestfranchise/Views/component/brand/franchiseBrandComponent.dart';
 import 'package:bestfranchise/Views/component/brand/lokasiBrandComponent.dart';
 import 'package:bestfranchise/Views/component/brand/produkBrandComponent.dart';
 import 'package:bestfranchise/Views/component/brand/reviewBrandComponent.dart';
+import 'package:bestfranchise/Views/component/general/loadingComponent.dart';
 import 'package:bestfranchise/Views/component/general/stickyHeaderComponent.dart';
 import 'package:bestfranchise/Views/component/general/touchEffectComponent.dart';
 import 'package:flutter/cupertino.dart';
@@ -24,21 +27,60 @@ class DetailBrandWidget extends StatefulWidget {
 }
 
 class _DetailBrandWidgetState extends State<DetailBrandWidget> {
+  ScrollController controller;
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  DetailBrandController detailBrandController;
+  ProductBrandController productBrandController;
+  FranchiseController franchiseController;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    detailBrandController=Provider.of<DetailBrandController>(context,listen: false);
+    productBrandController=Provider.of<ProductBrandController>(context,listen: false);
+    franchiseController=Provider.of<FranchiseController>(context,listen: false);
+
+    detailBrandController.loadDetailBrand(context: context,id: widget.obj["id"]);
+
+    productBrandController.controller = new ScrollController()..addListener(productBrandController.scrollListener);
+    franchiseController.controller = new ScrollController()..addListener(franchiseController.scrollListener);
+
+  }
+  @override
+  void dispose() {
+    super.dispose();
+    // final product=Provider.of<ProductBrandController>(context,listen: false);
+    // final franchise=Provider.of<FranchiseController>(context,listen: false);
+    // product.controller.removeListener(product.scrollListener);
+    // franchise.controller = franchise.controller.removeListener(franchise.scrollListener);
+    // franchise.controller = new ScrollController()..removeListener(franchise.scrollListener);
+    productBrandController.controller.removeListener(productBrandController.scrollListener);
+    franchiseController.controller.removeListener(franchiseController.scrollListener);
+
+  }
+
   @override
   Widget build(BuildContext context) {
+
     ScreenScaler scale = ScreenScaler()..init(context);
     final brand = Provider.of<DetailBrandController>(context);
+    final product = Provider.of<ProductBrandController>(context);
+    final franchise = Provider.of<FranchiseController>(context);
     Widget child;
     if (brand.indexTabActive == 0) {
       child = ProdukBrandComponent();
+      controller = product.controller;
     } else if (brand.indexTabActive == 1) {
-      child = FranchiseBrandComponent();
+      child = FranchiseBrandComponent(idBrand: widget.obj["id"]);
+      controller = franchise.controller;
     } else if (brand.indexTabActive == 2) {
       child = LokasiBrandComponent();
     } else {
-      child = ReviewBrandComponent();
+      child = ReviewBrandComponent(idBrand:  widget.obj["id"]);
     }
+
     return Scaffold(
+      key: _scaffoldKey,
       appBar: GeneralHelper.appBarGeneral(
           context: context,
           title: "Detail Brand",
@@ -76,12 +118,13 @@ class _DetailBrandWidgetState extends State<DetailBrandWidget> {
           )),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       body: ListView(
+        // controller:controller,
         children: [
           Stack(
             alignment: Alignment.center,
             children: [
-              Image.asset(StringConfig.imgLocal + "detailBrand.png"),
-              CircleAvatar(
+              brand.isLoading?BaseLoading(height:20,width: 100):Image.asset(StringConfig.imgLocal + "detailBrand.png"),
+              brand.isLoading?BaseLoading(height:5,width: 12,radius: 100,):CircleAvatar(
                 radius: 30,
                 backgroundImage: AssetImage(StringConfig.imgLocal + "burhot.png"),
               )
@@ -100,7 +143,8 @@ class _DetailBrandWidgetState extends State<DetailBrandWidget> {
                 },
                 indexActive: brand.indexTabActive,
               ),
-              content: child),
+              content: child
+          ),
         ],
       ),
     );
