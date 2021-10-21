@@ -9,10 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-<<<<<<< HEAD
 import 'package:flutter_svg/flutter_svg.dart';
-=======
->>>>>>> 7541a166dbe7d622139110c88424c57355b0bbf0
 import 'package:shimmer/shimmer.dart';
 
 class BaseLoading extends StatelessWidget {
@@ -364,6 +361,7 @@ class LoadingGridNine extends StatelessWidget {
     );
   }
 }
+
 class ProductBrandLoading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -375,40 +373,38 @@ class ProductBrandLoading extends StatelessWidget {
       staggeredTileBuilder: (int index) => new StaggeredTile.fit(2),
       mainAxisSpacing: 15.0,
       crossAxisSpacing: 15.0,
-      padding: scale.getPadding(1,2),
-      itemBuilder: (context,index){
+      padding: scale.getPadding(1, 2),
+      itemBuilder: (context, index) {
         return Card(
-          margin:scale.getMarginLTRB(0,0,0,0),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10.0),
-          ),
-          // elevation: 0.5,
-          child: Container(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                BaseLoading(height: 20, width: 100,radius: 10),
-                Padding(
-                  padding: scale.getPadding(1,2),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      BaseLoading(height: 1, width: 20,radius: 10),
-                      BaseLoading(height: 1, width: 30,radius: 10),
-                      BaseLoading(height: 1, width: 40,radius: 10),
-                    ],
-                  ),
-                )
-              ],
+            margin: scale.getMarginLTRB(0, 0, 0, 0),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
             ),
-          )
-        );
+            // elevation: 0.5,
+            child: Container(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  BaseLoading(height: 20, width: 100, radius: 10),
+                  Padding(
+                    padding: scale.getPadding(1, 2),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        BaseLoading(height: 1, width: 20, radius: 10),
+                        BaseLoading(height: 1, width: 30, radius: 10),
+                        BaseLoading(height: 1, width: 40, radius: 10),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ));
       },
       itemCount: 10,
     );
   }
 }
-
 
 class LoadingCardImageCircular extends StatelessWidget {
   @override
