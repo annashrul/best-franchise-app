@@ -96,6 +96,7 @@ class _CapitalSubmissionWidgetState extends State<CapitalSubmissionWidget> {
                           })),
               SizedBox(height: scale.getHeight(1)),
               GridView.count(
+                physics: new NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 primary: true,
                 crossAxisCount: 2,

@@ -1,5 +1,6 @@
 import 'package:bestfranchise/Configs/colorConfig.dart';
 import 'package:bestfranchise/Configs/routeConfig.dart';
+import 'package:bestfranchise/Helpers/general/generalHelper.dart';
 import 'package:bestfranchise/Models/Slider/sliderHomeSolusiModel.dart';
 import 'package:bestfranchise/Views/component/general/touchEffectComponent.dart';
 import 'package:flutter/material.dart';
@@ -36,11 +37,15 @@ class _BestSolusiComponentState extends State<BestSolusiComponent> {
           return InTouchWidget(
               radius: 10,
               callback: () {
-                if (index == 0) {
+                if (val.route == "pengelola") {
                   Navigator.of(context).pushNamed(RoutePath.managerWidget);
-                } else if (index == 1) {
+                } else if (val.route == "tempat") {
                   Navigator.of(context)
                       .pushNamed(RoutePath.businessPlaceWidget);
+                } else if (val.route == "modal") {
+                  Navigator.of(context).pushNamed(
+                      RoutePath.capitalSubmissionWidget,
+                      arguments: {});
                 } else {
                   Navigator.of(context)
                       .pushNamed(RoutePath.joinWidget, arguments: {});
@@ -48,7 +53,9 @@ class _BestSolusiComponentState extends State<BestSolusiComponent> {
               },
               child: Container(
                 decoration: BoxDecoration(
-                    color: Color(0xFFCEDAFA),
+                    color: val.bgColor == "-"
+                        ? Color(0xFFCEDAFA)
+                        : HexColor(val.bgColor),
                     borderRadius: BorderRadius.circular(10)),
                 // padding: scale.getPadding(0.5,1),
                 width: scale.getWidth(70),

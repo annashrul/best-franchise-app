@@ -35,8 +35,7 @@ class _BestYoutubeChannelComponentState
           final val = widget.valYt[index];
           return InTouchWidget(
               radius: 10,
-              callback: () =>
-                  GeneralHelper.jumpToBrowser(url: "https://youtube.com"),
+              callback: () => GeneralHelper.jumpToBrowser(url: val.link),
               child: Container(
                 width: scale.getWidth(40),
                 child: Column(

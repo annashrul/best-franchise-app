@@ -35,10 +35,17 @@ class _BestBrandAndFranchiseComponentState
               radius: 100,
               callback: () => Navigator.of(context).pushNamed(
                   RoutePath.detailBrandWidget,
-                  arguments: {"id": ""}),
+                  arguments: {"id": val.id}),
               child: CircleAvatar(
                 radius: 32,
-                backgroundImage: NetworkImage(val.logo),
+                child: ClipOval(
+                  child: Image.network(
+                    val.logo,
+                    fit: BoxFit.cover,
+                    width: scale.getWidth(100),
+                    height: scale.getHeight(100),
+                  ),
+                ),
               ));
         },
         separatorBuilder: (context, index) {

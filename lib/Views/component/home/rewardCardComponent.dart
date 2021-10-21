@@ -1,10 +1,8 @@
 import 'dart:ui';
 
-import 'package:bestfranchise/Configs/colorConfig.dart';
 import 'package:bestfranchise/Configs/routeConfig.dart';
 import 'package:bestfranchise/Configs/stringConfig.dart';
 import 'package:bestfranchise/Helpers/general/generalHelper.dart';
-import 'package:bestfranchise/Helpers/svg.dart';
 import 'package:bestfranchise/Models/Home/rewardModel.dart';
 import 'package:bestfranchise/Views/component/general/qrCodeComponent.dart';
 import 'package:bestfranchise/Views/component/general/searchComponent.dart';
@@ -12,7 +10,6 @@ import 'package:bestfranchise/Views/component/general/touchEffectComponent.dart'
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class RewardComponent extends StatefulWidget {
@@ -98,7 +95,8 @@ class _RewardComponentState extends State<RewardComponent> {
                                 padding: scale.getPadding(0.5, 1),
                                 child: Image.asset(
                                   StringConfig.imgLocal + "notif.png",
-                                  scale: 1.5,
+                                  scale: 0.7,
+                                  // height: scale.getHeight(2),
                                 ),
                               )),
                         ),

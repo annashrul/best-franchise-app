@@ -1,5 +1,4 @@
 import 'package:bestfranchise/Configs/routeConfig.dart';
-import 'package:bestfranchise/Configs/stringConfig.dart';
 import 'package:bestfranchise/Controllers/brand/listBrandController.dart';
 import 'package:bestfranchise/Controllers/home/rewardHomeController.dart';
 import 'package:bestfranchise/Controllers/slider/sliderHomeController.dart';
@@ -52,7 +51,7 @@ class _HomeWidgetState extends State<HomeWidget> {
     final brand = Provider.of<ListBrandController>(context);
 
     final val =
-        reward.rewardHomeModel == null ? {} : reward.rewardHomeModel.data;
+        reward.rewardHomeModel == null ? null : reward.rewardHomeModel.data;
     final valPh = slider.sliderHomePaketHematModel == null
         ? []
         : slider.sliderHomePaketHematModel.data;
@@ -69,14 +68,19 @@ class _HomeWidgetState extends State<HomeWidget> {
     final valBr = brand.listBrandModel == null ? [] : brand.listBrandModel.data;
     final valSu =
         slider.sliderHomeModel == null ? [] : slider.sliderHomeModel.data;
+
+    print(slider.sliderHomeSolusiModel == null);
+    print(slider.sliderHomeSolusiModel);
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Stack(
           children: [
-            slider.isLoading ? LoadingSlider() : SliderHomeComponent(valSu),
-            reward.isLoading
+            slider.isLoading && valSu.length == 0
+                ? LoadingSlider()
+                : SliderHomeComponent(valSu),
+            reward.isLoading && reward.rewardHomeModel == null
                 ? LoadingReward()
                 : RewardComponent(
                     val,
@@ -94,7 +98,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                 title: "BEST Brand & Franchise",
               ),
               SizedBox(height: scale.getHeight(0.5)),
-              brand.isLoading
+              brand.isLoading && valBr.length == 0
                   ? LoadingCardImageCircular()
                   : BestBrandAndFranchiseComponent(valBr, brand.isLoading),
               SizedBox(height: scale.getHeight(0.5)),
@@ -104,7 +108,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                 title: "BEST Paket Hemat",
               ),
               SizedBox(height: scale.getHeight(0.5)),
-              slider.isLoadingPaketHemat
+              slider.isLoadingPaketHemat && valPh.length == 0
                   ? LoadingCardRounded()
                   : BestPaketHemat(valPh),
               Divider(),
@@ -113,7 +117,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                 title: "BEST Youtube Channel",
               ),
               SizedBox(height: scale.getHeight(0.5)),
-              slider.isLoadingYt
+              slider.isLoadingYt && valYt.length == 0
                   ? LoadingCardRounded()
                   : BestYoutubeChannelComponent(valYt),
               Divider(),
@@ -123,7 +127,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                 isAction: false,
               ),
               SizedBox(height: scale.getHeight(0.5)),
-              slider.isLoadingSolusi
+              slider.sliderHomeSolusiModel == null
                   ? LoadingCardRounded()
                   : BestSolusiComponent(valSl),
               SizedBox(height: scale.getHeight(0.5)),
@@ -133,7 +137,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                 isAction: false,
               ),
               SizedBox(height: scale.getHeight(0.5)),
-              brand.isLoading
+              slider.isLoadingTesti && valTs.length == 0
                   ? LoadingCardRounded()
                   : BestTestimoniComponent(valTs),
               SizedBox(height: scale.getHeight(0.5)),
@@ -143,7 +147,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                 isAction: false,
               ),
               SizedBox(height: scale.getHeight(0.5)),
-              slider.isLoadingGallery
+              slider.isLoadingGallery && valGl.length == 0
                   ? LoadingGridNine()
                   : BestGalleryComponent(valGl)
             ],

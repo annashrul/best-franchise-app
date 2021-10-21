@@ -32,7 +32,7 @@ class _BestPaketHematState extends State<BestPaketHemat> {
               radius: 10,
               callback: () => Navigator.of(context).pushNamed(
                   RoutePath.detailBrandWidget,
-                  arguments: {"id": ""}),
+                  arguments: {"id": val.idRoute}),
               child: Container(
                 child: Stack(
                   alignment: Alignment.bottomCenter,
