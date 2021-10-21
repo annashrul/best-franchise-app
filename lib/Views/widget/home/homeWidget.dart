@@ -3,6 +3,7 @@ import 'package:bestfranchise/Configs/stringConfig.dart';
 import 'package:bestfranchise/Controllers/brand/listBrandController.dart';
 import 'package:bestfranchise/Controllers/home/rewardHomeController.dart';
 import 'package:bestfranchise/Controllers/slider/sliderHomeController.dart';
+import 'package:bestfranchise/Views/component/general/loadingComponent.dart';
 import 'package:bestfranchise/Views/component/general/titleComponent.dart';
 import 'package:bestfranchise/Views/component/home/bestBrandAndFranchiseComponent.dart';
 import 'package:bestfranchise/Views/component/home/bestGalleryComponent.dart';
@@ -50,34 +51,37 @@ class _HomeWidgetState extends State<HomeWidget> {
     final reward = Provider.of<RewardHomeController>(context);
     final brand = Provider.of<ListBrandController>(context);
 
-    final val = reward.rewardHomeModel.data;
-    final valPh = slider.sliderHomePaketHematModel.data;
-    final valYt = slider.sliderHomeYtModel.data;
-    final valSl = slider.sliderHomeSolusiModel.data;
-    final valTs = slider.sliderHomeTestiModel.data;
-    final valGl = slider.galleryHomeModel.data;
-    final valBr = brand.listBrandModel.data;
-    final valSu = slider.sliderHomeModel.data;
+    final val =
+        reward.rewardHomeModel == null ? {} : reward.rewardHomeModel.data;
+    final valPh = slider.sliderHomePaketHematModel == null
+        ? []
+        : slider.sliderHomePaketHematModel.data;
+    final valYt =
+        slider.sliderHomeYtModel == null ? [] : slider.sliderHomeYtModel.data;
+    final valSl = slider.sliderHomeSolusiModel == null
+        ? []
+        : slider.sliderHomeSolusiModel.data;
+    final valTs = slider.sliderHomeTestiModel == null
+        ? []
+        : slider.sliderHomeTestiModel.data;
+    final valGl =
+        slider.galleryHomeModel == null ? [] : slider.galleryHomeModel.data;
+    final valBr = brand.listBrandModel == null ? [] : brand.listBrandModel.data;
+    final valSu =
+        slider.sliderHomeModel == null ? [] : slider.sliderHomeModel.data;
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Stack(
           children: [
-            SliderHomeComponent(
-                // data: [
-                //   {"image": StringConfig.imgLocal + "banner1.jpg"},
-                //   {"image": StringConfig.imgLocal + "banner2.jpg"},
-                //   {"image": StringConfig.imgLocal + "banner3.jpg"},
-                //   {"image": StringConfig.imgLocal + "banner4.jpg"}
-                // ],
-                valSu),
-            RewardComponent(
-              bonusPoin: val.bonusPoin,
-              bonusKomisi: val.bonusKomisi,
-              bonusRoyalti: val.bonusRoyalti,
-              callback: () {},
-            ),
+            slider.isLoading ? LoadingSlider() : SliderHomeComponent(valSu),
+            reward.isLoading
+                ? LoadingReward()
+                : RewardComponent(
+                    val,
+                    callback: () {},
+                  ),
           ],
         ),
         Expanded(
@@ -90,7 +94,9 @@ class _HomeWidgetState extends State<HomeWidget> {
                 title: "BEST Brand & Franchise",
               ),
               SizedBox(height: scale.getHeight(0.5)),
-              BestBrandAndFranchiseComponent(valBr),
+              brand.isLoading
+                  ? LoadingCardImageCircular()
+                  : BestBrandAndFranchiseComponent(valBr, brand.isLoading),
               SizedBox(height: scale.getHeight(0.5)),
               TitleComponent(
                 callback: () =>
@@ -98,14 +104,18 @@ class _HomeWidgetState extends State<HomeWidget> {
                 title: "BEST Paket Hemat",
               ),
               SizedBox(height: scale.getHeight(0.5)),
-              BestPaketHemat(valPh),
+              slider.isLoadingPaketHemat
+                  ? LoadingCardRounded()
+                  : BestPaketHemat(valPh),
               Divider(),
               TitleComponent(
                 callback: () {},
                 title: "BEST Youtube Channel",
               ),
               SizedBox(height: scale.getHeight(0.5)),
-              BestYoutubeChannelComponent(valYt),
+              slider.isLoadingYt
+                  ? LoadingCardRounded()
+                  : BestYoutubeChannelComponent(valYt),
               Divider(),
               TitleComponent(
                 callback: () {},
@@ -113,7 +123,9 @@ class _HomeWidgetState extends State<HomeWidget> {
                 isAction: false,
               ),
               SizedBox(height: scale.getHeight(0.5)),
-              BestSolusiComponent(valSl),
+              slider.isLoadingSolusi
+                  ? LoadingCardRounded()
+                  : BestSolusiComponent(valSl),
               SizedBox(height: scale.getHeight(0.5)),
               TitleComponent(
                 callback: () {},
@@ -121,7 +133,9 @@ class _HomeWidgetState extends State<HomeWidget> {
                 isAction: false,
               ),
               SizedBox(height: scale.getHeight(0.5)),
-              BestTestimoniComponent(valTs),
+              brand.isLoading
+                  ? LoadingCardRounded()
+                  : BestTestimoniComponent(valTs),
               SizedBox(height: scale.getHeight(0.5)),
               TitleComponent(
                 callback: () {},
@@ -129,7 +143,9 @@ class _HomeWidgetState extends State<HomeWidget> {
                 isAction: false,
               ),
               SizedBox(height: scale.getHeight(0.5)),
-              BestGalleryComponent(valGl)
+              slider.isLoadingGallery
+                  ? LoadingGridNine()
+                  : BestGalleryComponent(valGl)
             ],
           ),
         )

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bestfranchise/Configs/colorConfig.dart';
 import 'package:bestfranchise/Configs/routeConfig.dart';
 import 'package:bestfranchise/Configs/stringConfig.dart';
@@ -14,6 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
 import 'package:provider/provider.dart';
 import 'package:sticky_headers/sticky_headers/widget.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DetailBrandWidget extends StatefulWidget {
   final Map<dynamic, dynamic> obj;
@@ -66,7 +69,10 @@ class _DetailBrandWidgetState extends State<DetailBrandWidget> {
           ),
           color: ColorConfig.redPrimary,
           onPressed: () =>
-              Navigator.of(context).pushNamed(RoutePath.joinWidget),
+              // Navigator.of(context).pushNamed(RoutePath.joinWidget),
+              launchWhatsApp(
+                  phone: 6281214126685,
+                  message: 'Permintaan Bergabung Bestfranchise'),
           child: Text(
             "Bergabung sekarang ?",
             style: Theme.of(context)
@@ -83,7 +89,8 @@ class _DetailBrandWidgetState extends State<DetailBrandWidget> {
               Image.asset(StringConfig.imgLocal + "detailBrand.png"),
               CircleAvatar(
                 radius: 30,
-                backgroundImage: AssetImage(StringConfig.imgLocal + "burhot.png"),
+                backgroundImage:
+                    AssetImage(StringConfig.imgLocal + "burhot.png"),
               )
             ],
           ),
@@ -104,5 +111,26 @@ class _DetailBrandWidgetState extends State<DetailBrandWidget> {
         ],
       ),
     );
+  }
+}
+
+void launchWhatsApp({
+  @required int phone,
+  @required String message,
+}) async {
+  String url() {
+    if (Platform.isAndroid) {
+      // add the [https]
+      return "https://wa.me/$phone/?text=${Uri.parse(message)}"; // new line
+    } else {
+      // add the [https]
+      return "https://api.whatsapp.com/send?phone=$phone=${Uri.parse(message)}"; // new line
+    }
+  }
+
+  if (await canLaunch(url())) {
+    await launch(url());
+  } else {
+    throw 'Could not launch ${url()}';
   }
 }

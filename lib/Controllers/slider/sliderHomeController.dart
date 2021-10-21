@@ -16,6 +16,11 @@ class SliderHomeController with ChangeNotifier {
   GalleryHomeModel galleryHomeModel;
 
   bool isLoading = false;
+  bool isLoadingPaketHemat = false;
+  bool isLoadingYt = false;
+  bool isLoadingSolusi = false;
+  bool isLoadingTesti = false;
+  bool isLoadingGallery = false;
   get({BuildContext context}) async {
     if (sliderHomeModel == null) isLoading = true;
     final res = await BaseController().get(
@@ -32,7 +37,7 @@ class SliderHomeController with ChangeNotifier {
   }
 
   getPaketHemat({BuildContext context}) async {
-    if (sliderHomePaketHematModel == null) isLoading = true;
+    if (sliderHomePaketHematModel == null) isLoadingPaketHemat = true;
     final res = await BaseController()
         .get(url: "sliders/list/paket_hemat?status=1", context: context);
     print("RESPONSE $res");
@@ -43,12 +48,12 @@ class SliderHomeController with ChangeNotifier {
     } else {
       sliderHomePaketHematModel = null;
     }
-    isLoading = false;
+    isLoadingPaketHemat = false;
     notifyListeners();
   }
 
   getYt({BuildContext context}) async {
-    if (sliderHomeYtModel == null) isLoading = true;
+    if (sliderHomeYtModel == null) isLoadingYt = true;
     final res = await BaseController()
         .get(url: "sliders/list/video?status=1", context: context);
     print("RESPONSE $res");
@@ -58,12 +63,12 @@ class SliderHomeController with ChangeNotifier {
     } else {
       sliderHomeYtModel = null;
     }
-    isLoading = false;
+    isLoadingYt = false;
     notifyListeners();
   }
 
   getSolusi({BuildContext context}) async {
-    if (sliderHomeSolusiModel == null) isLoading = true;
+    if (sliderHomeSolusiModel == null) isLoadingSolusi = true;
     final res = await BaseController()
         .get(url: "sliders/list/solusi?status=1", context: context);
     print("RESPONSE $res");
@@ -73,12 +78,12 @@ class SliderHomeController with ChangeNotifier {
     } else {
       sliderHomeSolusiModel = null;
     }
-    isLoading = false;
+    isLoadingSolusi = false;
     notifyListeners();
   }
 
   getTesti({BuildContext context}) async {
-    if (sliderHomeTestiModel == null) isLoading = true;
+    if (sliderHomeTestiModel == null) isLoadingTesti = true;
     final res = await BaseController().get(url: "testimoni", context: context);
     print("RESPONSE $res");
     if (res["data"].length > 0) {
@@ -87,12 +92,12 @@ class SliderHomeController with ChangeNotifier {
     } else {
       sliderHomeTestiModel = null;
     }
-    isLoading = false;
+    isLoadingTesti = false;
     notifyListeners();
   }
 
   getGallery({BuildContext context}) async {
-    if (galleryHomeModel == null) isLoading = true;
+    if (galleryHomeModel == null) isLoadingGallery = true;
     final res = await BaseController()
         .get(url: "gallery?page=1&perpage=9", context: context);
     print("RESPONSE $res");
@@ -102,7 +107,7 @@ class SliderHomeController with ChangeNotifier {
     } else {
       galleryHomeModel = null;
     }
-    isLoading = false;
+    isLoadingGallery = false;
     notifyListeners();
   }
 }

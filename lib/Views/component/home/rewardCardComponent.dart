@@ -5,6 +5,7 @@ import 'package:bestfranchise/Configs/routeConfig.dart';
 import 'package:bestfranchise/Configs/stringConfig.dart';
 import 'package:bestfranchise/Helpers/general/generalHelper.dart';
 import 'package:bestfranchise/Helpers/svg.dart';
+import 'package:bestfranchise/Models/Home/rewardModel.dart';
 import 'package:bestfranchise/Views/component/general/qrCodeComponent.dart';
 import 'package:bestfranchise/Views/component/general/searchComponent.dart';
 import 'package:bestfranchise/Views/component/general/touchEffectComponent.dart';
@@ -18,9 +19,10 @@ class RewardComponent extends StatefulWidget {
   final String bonusPoin;
   final String bonusKomisi;
   final String bonusRoyalti;
+  final Datum val;
 
   final void Function() callback;
-  RewardComponent(
+  RewardComponent(this.val,
       {this.callback, this.bonusPoin, this.bonusKomisi, this.bonusRoyalti});
   @override
   _RewardComponentState createState() => _RewardComponentState();
@@ -94,13 +96,10 @@ class _RewardComponentState extends State<RewardComponent> {
                                   .pushNamed(RoutePath.notifWidget),
                               child: Container(
                                 padding: scale.getPadding(0.5, 1),
-                                child: RadiantGradientMask(
-                                    child: Icon(
-                                  FlutterIcons.bell_ent,
-                                  color: Colors.white,
-                                )
-                                    // child: SvgPicture.asset("assets/svg/QR_Code.svg",color:Colors.white,height: scale.getHeight(4),),
-                                    ),
+                                child: Image.asset(
+                                  StringConfig.imgLocal + "notif.png",
+                                  scale: 1.5,
+                                ),
                               )),
                         ),
                       ],
@@ -115,15 +114,15 @@ class _RewardComponentState extends State<RewardComponent> {
                         RewardCardComponent(
                             img: "poin",
                             title: "Jumlah Poin",
-                            desc: widget.bonusPoin),
+                            desc: widget.val.bonusPoin),
                         RewardCardComponent(
                             img: "komisi",
                             title: "Komisi",
-                            desc: widget.bonusKomisi),
+                            desc: widget.val.bonusKomisi),
                         RewardCardComponent(
                             img: "royalti",
                             title: "Royalti",
-                            desc: widget.bonusKomisi),
+                            desc: widget.val.bonusKomisi),
                       ],
                     )
                   ],

@@ -1,13 +1,15 @@
 import 'package:bestfranchise/Configs/routeConfig.dart';
 import 'package:bestfranchise/Configs/stringConfig.dart';
 import 'package:bestfranchise/Models/Brand/listBrandModel.dart';
+import 'package:bestfranchise/Views/component/general/loadingComponent.dart';
 import 'package:bestfranchise/Views/component/general/touchEffectComponent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
 
 class BestBrandAndFranchiseComponent extends StatefulWidget {
   final List<Datum> valBr;
-  BestBrandAndFranchiseComponent(this.valBr);
+  final bool isLoading;
+  BestBrandAndFranchiseComponent(this.valBr, this.isLoading);
 
   @override
   _BestBrandAndFranchiseComponentState createState() =>
