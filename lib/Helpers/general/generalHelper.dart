@@ -3,30 +3,34 @@ import 'dart:io';
 import 'package:bestfranchise/Configs/colorConfig.dart';
 import 'package:bestfranchise/Configs/routeConfig.dart';
 import 'package:bestfranchise/Configs/stringConfig.dart';
+import 'package:bestfranchise/Controllers/user/userController.dart';
+import 'package:bestfranchise/Databases/tableDatabase.dart';
 import 'package:bestfranchise/Views/component/general/dialogComponent.dart';
 import 'package:bestfranchise/Views/component/general/touchEffectComponent.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
 import 'package:oktoast/oktoast.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:image_picker/image_picker.dart';
 
-
 class GeneralHelper {
   final formatter = new NumberFormat("#,###");
-
-  static backToMain({BuildContext context,int tab}){
-    return Navigator.of(context).pushNamedAndRemoveUntil(RoutePath.mainWidget, (route) => false,arguments: tab);
+  static backToMain({BuildContext context, int tab}) {
+    return Navigator.of(context).pushNamedAndRemoveUntil(
+        RoutePath.mainWidget, (route) => false,
+        arguments: tab);
   }
 
   static appBarGeneral(
-      {BuildContext context,
-      String title = "Kayla Andhara",
-      List<Widget> actions}) {
+      {BuildContext context, String title = "", List<Widget> actions}) {
+    final userStorage = Provider.of<UserController>(context, listen: false);
+    title = userStorage.dataUser[UserTable.fullname];
     return AppBar(
       backgroundColor: Colors.white,
       elevation: 1,
@@ -45,6 +49,8 @@ class GeneralHelper {
       String desc = "Berita terupdate untukmu",
       bool isAction = false,
       void Function() callback}) {
+    final userStorage = Provider.of<UserController>(context, listen: false);
+    title = userStorage.dataUser[UserTable.fullname];
     return AppBar(
       backgroundColor: Colors.white,
       elevation: 1,
@@ -70,7 +76,8 @@ class GeneralHelper {
           ),
           CircleAvatar(
             radius: 20,
-            backgroundImage: NetworkImage(StringConfig.imgUser),
+            backgroundImage:
+                NetworkImage(userStorage.dataUser[UserTable.photo]),
           )
         ],
       ),
@@ -81,8 +88,8 @@ class GeneralHelper {
       {BuildContext context,
       String title = "Kayla Andhara",
       List dataTab,
-      List<Widget> actions,void Function(int i) callback}
-    ) {
+      List<Widget> actions,
+      void Function(int i) callback}) {
     ScreenScaler scale = ScreenScaler()..init(context);
     List<Widget> historyTab = [];
     for (int i = 0; i < dataTab.length; i++) {
@@ -98,6 +105,8 @@ class GeneralHelper {
         ),
       );
     }
+    final userStorage = Provider.of<UserController>(context, listen: false);
+    title = userStorage.dataUser[UserTable.fullname];
     return AppBar(
       backgroundColor: Colors.white,
       elevation: 1,
@@ -114,17 +123,18 @@ class GeneralHelper {
         unselectedLabelColor: ColorConfig.greyPrimary,
         indicatorColor: ColorConfig.redPrimary,
         labelColor: Colors.black,
-        labelStyle: Theme.of(context).textTheme.headline2.copyWith(fontWeight: Theme.of(context).textTheme.headline1.fontWeight),
+        labelStyle: Theme.of(context).textTheme.headline2.copyWith(
+            fontWeight: Theme.of(context).textTheme.headline1.fontWeight),
         isScrollable: dataTab.length > 3 ? true : false,
         tabs: historyTab,
       ),
     );
   }
 
-  static modal({BuildContext context, Widget child,void Function() callback}) {
+  static modal({BuildContext context, Widget child, void Function() callback}) {
     ScreenScaler scale = ScreenScaler()..init(context);
     return showModalBottomSheet(
-      isDismissible: false,
+        isDismissible: false,
         backgroundColor: Colors.transparent,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(top: Radius.circular(10.0))),
@@ -139,9 +149,10 @@ class GeneralHelper {
                     padding: scale.getPadding(0, 0),
                     decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.vertical(top: Radius.circular(10.0))
+                        borderRadius:
+                            BorderRadius.vertical(top: Radius.circular(10.0))
                         // borderRadius: BorderRadius.circular(20)
-                    ),
+                        ),
                     child: child,
                   ),
                   Positioned(
@@ -149,7 +160,9 @@ class GeneralHelper {
                     right: scale.getWidth(2),
                     child: GestureDetector(
                       onTap: () {
-                        callback!=null?callback():Navigator.of(context).pop();
+                        callback != null
+                            ? callback()
+                            : Navigator.of(context).pop();
                       },
                       child: Align(
                         alignment: Alignment.topRight,
@@ -264,20 +277,29 @@ class GeneralHelper {
 
   static Future getImage(param) async {
     ImageSource imageSource;
-    if(param == 'camera'){
+    if (param == 'camera') {
       imageSource = ImageSource.camera;
-    }
-    else{
+    } else {
       imageSource = ImageSource.gallery;
     }
     final picker = ImagePicker();
     final pickedFile = await picker.getImage(source: imageSource);
-    return {
-      "file" : File(pickedFile.path),
-      "path" : pickedFile.path
-    };
+    return {"file": File(pickedFile.path), "path": pickedFile.path};
   }
 
+  static myDate(date) {
+    DateTime now = DateFormat("yyyy-MM-ddTHH:mm:sssZ").parse(date);
+    String formattedDate = DateFormat('yyyy-MM-dd').format(now);
+    return formattedDate;
+  }
+
+  static myCopyClipboard(context, text) {
+    return Clipboard.setData(new ClipboardData(text: text.toUpperCase()))
+        .then((_) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text("Teks berhasil disalin.")));
+    });
+  }
 }
 
 class HexColor extends Color {

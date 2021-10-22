@@ -1,6 +1,8 @@
 import 'package:bestfranchise/Configs/colorConfig.dart';
 import 'package:bestfranchise/Configs/stringConfig.dart';
 import 'package:bestfranchise/Controllers/profile/profileEditController.dart';
+import 'package:bestfranchise/Controllers/user/userController.dart';
+import 'package:bestfranchise/Databases/tableDatabase.dart';
 import 'package:bestfranchise/Helpers/general/generalHelper.dart';
 import 'package:bestfranchise/Views/component/general/buttonComponent.dart';
 import 'package:bestfranchise/Views/component/general/fieldComponent.dart';
@@ -21,7 +23,11 @@ class _ProfileEditWidgetState extends State<ProfileEditWidget> {
   @override
   Widget build(BuildContext context) {
     ScreenScaler scale = ScreenScaler()..init(context);
+    // TextEditingController fullname = new TextEditingController();
     final profileEdit = Provider.of<ProfileEditController>(context);
+    final userStorage = Provider.of<UserController>(context, listen: false);
+
+    var id = userStorage.dataUser[UserTable.idUser];
     return Scaffold(
       appBar:
           GeneralHelper.appBarGeneral(context: context, title: "Edit Profile"),
@@ -92,30 +98,31 @@ class _ProfileEditWidgetState extends State<ProfileEditWidget> {
                     ]),
               ),
               SizedBox(height: scale.getHeight(2)),
+              // FieldComponent(
+              //   controller: profileEdit.idReferralController,
+              //   labelText: "ID Referral",
+              // ),
+              // SizedBox(height: scale.getHeight(1)),
               FieldComponent(
-                controller: profileEdit.idReferralController,
-                labelText: "ID Referral",
-              ),
-              SizedBox(height: scale.getHeight(1)),
-              FieldComponent(
-                controller: profileEdit.namaController,
+                controller: profileEdit.fullname,
                 labelText: "Nama Lengkap",
+                maxLength: 50,
               ),
-              SizedBox(height: scale.getHeight(1)),
-              FieldComponent(
-                controller: profileEdit.noHpController,
-                labelText: "No Handphone",
-              ),
-              SizedBox(height: scale.getHeight(1)),
-              FieldComponent(
-                controller: profileEdit.emailController,
-                labelText: "Alamat Email",
-              ),
-              SizedBox(height: scale.getHeight(1)),
-              FieldComponent(
-                controller: profileEdit.addressController,
-                labelText: "Alamat Tinggal",
-              ),
+              // SizedBox(height: scale.getHeight(1)),
+              // FieldComponent(
+              //   controller: profileEdit.noHpController,
+              //   labelText: "No Handphone",
+              // ),
+              // SizedBox(height: scale.getHeight(1)),
+              // FieldComponent(
+              //   controller: profileEdit.emailController,
+              //   labelText: "Alamat Email",
+              // ),
+              // SizedBox(height: scale.getHeight(1)),
+              // FieldComponent(
+              //   controller: profileEdit.addressController,
+              //   labelText: "Alamat Tinggal",
+              // ),
               SizedBox(height: scale.getHeight(1)),
             ]),
           ),
@@ -127,7 +134,10 @@ class _ProfileEditWidgetState extends State<ProfileEditWidget> {
           label: "Simpan",
           labelColor: Colors.white,
           backgroundColor: ColorConfig.redPrimary,
-          callback: () => profileEdit.store(),
+          callback: () => profileEdit.store(context: context, field: {
+            "fullname": profileEdit.fullname.text,
+            "id": id,
+          }),
         ),
       ),
     );
