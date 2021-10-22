@@ -1,5 +1,7 @@
 import 'package:bestfranchise/Configs/colorConfig.dart';
+import 'package:bestfranchise/Configs/formConfig.dart';
 import 'package:bestfranchise/Configs/stringConfig.dart';
+import 'package:bestfranchise/Controllers/brand/franchiseController.dart';
 import 'package:bestfranchise/Controllers/join/joinController.dart';
 import 'package:bestfranchise/Helpers/general/generalHelper.dart';
 import 'package:bestfranchise/Views/component/general/buttonComponent.dart';
@@ -10,7 +12,7 @@ import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
 import 'package:provider/provider.dart';
 
 class JoinWidget extends StatefulWidget {
-  final Map<dynamic, dynamic> obj;
+  final dynamic obj;
   JoinWidget({this.obj});
 
   @override
@@ -18,10 +20,18 @@ class JoinWidget extends StatefulWidget {
 }
 
 class _JoinWidgetState extends State<JoinWidget> {
+  TextEditingController namaPemilikController = new TextEditingController();
+  TextEditingController noTelponController = new TextEditingController();
+  TextEditingController lokasiJualan = new TextEditingController();
+  TextEditingController tipeController = new TextEditingController();
+  String countryCode="62";
+  String idTipe="";
+
   @override
   Widget build(BuildContext context) {
     ScreenScaler scale = ScreenScaler()..init(context);
     final join = Provider.of<JoinController>(context);
+    final franchise = Provider.of<FranchiseController>(context);
     return Scaffold(
       appBar: GeneralHelper.appBarGeneral(context: context, title: "Bergabung"),
       body: ListView(
@@ -40,35 +50,55 @@ class _JoinWidgetState extends State<JoinWidget> {
                   alignment: Alignment.centerLeft,
                   child: Text(
                     "Hi Andri Sani. Tertarik dengan franchise : BURHOT ?",
-                    style: Theme.of(context).textTheme.headline1,
+                    style: Theme.of(context).textTheme.headline2,
                   )),
               SizedBox(height: scale.getHeight(2)),
               Text(
                 "Silahkan kamu lengkapi data - data di bawah ini ya ! Supaya kami dapat melakukan Verifikasi dengan mudah.",
-                style: Theme.of(context).textTheme.headline1,
+                style: Theme.of(context).textTheme.headline2,
               ),
               SizedBox(height: scale.getHeight(2)),
               FieldComponent(
-                controller: join.namaPemilikController,
+                controller: namaPemilikController,
                 labelText: "Nama Pemilik",
+                maxLength: 50,
               ),
               SizedBox(height: scale.getHeight(1)),
               FieldComponent(
-                controller: join.noTelponController,
+                controller: noTelponController,
                 labelText: "Nomor Handphone",
+                maxLength: FormConfig.maxLengthPhone,
+                keyboardType: TextInputType.number,
+                isPhone: true,
+                onTapCountry: (code){
+
+                },
               ),
               SizedBox(height: scale.getHeight(1)),
               FieldComponent(
-                controller: join.lokasiJualan,
+                controller: lokasiJualan,
                 labelText: "Lokasi Jualan",
+                maxLength: 50,
               ),
               SizedBox(height: scale.getHeight(1)),
               FieldComponent(
-                controller: join.tipeController,
+                controller: tipeController,
                 labelText: "Pilih Tipe Investasi",
                 onTap: () {
-                  GeneralHelper.modal(
-                      context: context, child: ModalTipeInvestasiComponent());
+
+                  GeneralHelper.modal(context: context, child: ModalTipeInvestasiComponent(
+                    idBrand: widget.obj["id"],
+                    callback: (data){
+                      print(data);
+                      idTipe=data["id"];
+                      tipeController.text="${data["title"]} - ${GeneralHelper().formatter.format(int.parse(data["price"]))}";
+                      setState(() {});
+                      franchise.setList(false);
+                    },
+                  ),callback: (){
+                    franchise.setList(true);
+                    Navigator.of(context).pop();
+                  });
                 },
               ),
             ]),
@@ -81,7 +111,15 @@ class _JoinWidgetState extends State<JoinWidget> {
           label: "Bergabung sekarang?",
           labelColor: Colors.white,
           backgroundColor: ColorConfig.redPrimary,
-          callback: () => join.store(),
+          callback: () => join.store(context: context,field: {
+            "id_brand":widget.obj["id"],
+            "id_type_invest":idTipe,
+            "owner":namaPemilikController.text,
+            "mobile_no":noTelponController.text,
+            "outlet_address":lokasiJualan.text,
+            "promo_code":"-",
+            "country_code":countryCode
+          }),
         ),
       ),
     );

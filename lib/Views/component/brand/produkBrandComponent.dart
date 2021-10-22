@@ -1,5 +1,4 @@
 import 'package:bestfranchise/Configs/colorConfig.dart';
-import 'package:bestfranchise/Configs/stringConfig.dart';
 import 'package:bestfranchise/Controllers/brand/productBrandController.dart';
 import 'package:bestfranchise/Views/component/general/loadingComponent.dart';
 import 'package:bestfranchise/Views/component/general/noDataComponent.dart';
@@ -12,6 +11,8 @@ import 'package:provider/provider.dart';
 
 
 class ProdukBrandComponent extends StatefulWidget {
+  final String idBrand;
+  ProdukBrandComponent({this.idBrand});
   @override
   _ProdukBrandComponentState createState() => _ProdukBrandComponentState();
 }
@@ -24,7 +25,7 @@ class _ProdukBrandComponentState extends State<ProdukBrandComponent> {
     // TODO: implement initState
     super.initState();
     final brand=Provider.of<ProductBrandController>(context,listen: false);
-    brand.loadProductBrand(context: context);
+    brand.loadProductBrand(context: context,idBrand: widget.idBrand);
 
   }
 

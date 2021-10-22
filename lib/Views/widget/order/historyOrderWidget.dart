@@ -1,5 +1,6 @@
 import 'package:bestfranchise/Configs/colorConfig.dart';
 import 'package:bestfranchise/Configs/routeConfig.dart';
+import 'package:bestfranchise/Configs/statusConfig.dart';
 import 'package:bestfranchise/Configs/stringConfig.dart';
 import 'package:bestfranchise/Controllers/history/statusOrderController.dart';
 import 'package:bestfranchise/Helpers/general/generalHelper.dart';
@@ -9,6 +10,7 @@ import 'package:bestfranchise/Views/component/general/noDataComponent.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class HistoryOrderWidget extends StatefulWidget {
@@ -52,7 +54,7 @@ class _HistoryOrderWidgetState extends State<HistoryOrderWidget> with SingleTick
           appBar:AppBar(
             backgroundColor: Colors.white,
             elevation: 1,
-            title: Text("title", style: Theme.of(context).textTheme.headline1),
+            title: Text("Status Order", style: Theme.of(context).textTheme.headline1),
             leading: IconButton(
               icon: Icon(Icons.arrow_back_ios),
               onPressed: () => Navigator.of(context).pop(),
@@ -99,7 +101,7 @@ class _HistoryOrderWidgetState extends State<HistoryOrderWidget> with SingleTick
 
   Widget buildContent(){
     ScreenScaler scale=ScreenScaler()..init(context);
-    final order=Provider.of<StatusOrderController>(context,listen: false);
+    final order=Provider.of<StatusOrderController>(context);
 
     return ListView.separated(
       padding: scale.getPadding(1,2),
@@ -109,11 +111,14 @@ class _HistoryOrderWidgetState extends State<HistoryOrderWidget> with SingleTick
           final val = order.statusOrderModel.data[index];
           return CardImageTitleSubtitleComponent(
             img: StringConfig.imgGeneral,
-            title: "Ada promo nih hari ini",
-            subTitle: "Tanggal Order : 2020-01-01 \nAtas Nama : ${val.member}",
-            otherChild: Text("Menunggu verifikasi",style: Theme.of(context).textTheme.headline2.copyWith(fontWeight: FontWeight.w600,color: ColorConfig.yellowPrimary),),
+            title: val.brand,
+            subTitle: "Tanggal Order : ${DateFormat("yyyy-MM-dd").format(val.createdAt)} \nAtas Nama : ${val.owner}",
+            otherChild: Text(StatusOrder.checkStatusOrder(val.status),style: Theme.of(context).textTheme.headline2.copyWith(fontWeight: FontWeight.w600,color: ColorConfig.yellowPrimary),),
             callbackAction: (){},
-            callback: ()=>Navigator.of(context).pushNamed(RoutePath.detailOrderWidget),
+            callback: (){
+              order.setIndexDetailOrder(index);
+              Navigator.of(context).pushNamed(RoutePath.detailOrderWidget,arguments: {"id":val.id});
+            },
           );
         },
         separatorBuilder: (context,index){return SizedBox();},

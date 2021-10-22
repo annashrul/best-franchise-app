@@ -99,7 +99,7 @@ class RouteGenerator {
       case RoutePath.historyOrderWidget:
         return CupertinoPageRoute(builder: (_) => HistoryOrderWidget());
       case RoutePath.detailOrderWidget:
-        return CupertinoPageRoute(builder: (_) => DetailOrderWidget());
+        return CupertinoPageRoute(builder: (_) => DetailOrderWidget(obj:args));
       case RoutePath.bantuanAplikasiWidget:
         return CupertinoPageRoute(builder: (_) => BantuanApliaskiWidget());
       case RoutePath.brandFavoriteWidget:
@@ -107,7 +107,7 @@ class RouteGenerator {
       case RoutePath.tentangAplikasiWidget:
         return CupertinoPageRoute(builder: (_) => TentangAplikasiWidget());
       case RoutePath.joinWidget:
-        return CupertinoPageRoute(builder: (_) => JoinWidget());
+        return CupertinoPageRoute(builder: (_) => JoinWidget(obj: args,));
       case RoutePath.registerWidget1:
         return CupertinoPageRoute(builder: (_) => RegistStep1Widget());
       case RoutePath.registerWidget2:

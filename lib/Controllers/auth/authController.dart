@@ -62,10 +62,9 @@ class AuthController with ChangeNotifier{
     }
     else{
       if(phone[0]=="0"){
-        String replaceIndex0 =phone[0].replaceAll("0","");
+        String replaceIndex0 = phone[0].replaceAll("0","");
         phone = replaceIndex0+phone.substring(1,phone.length);
       }
-      print("#################### PHONE NUMBER ${phone.length}");
       final bodyOtp={"mobile_no":"${isRedirect?countryCode+phone:data["mobile_no"]}","type":"0","name": "Sep juna"};
       final res=await sendOtp(context,bodyOtp);
       setDataOtp(bodyOtp);

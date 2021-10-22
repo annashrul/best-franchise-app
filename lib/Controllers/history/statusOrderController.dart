@@ -12,7 +12,12 @@ class StatusOrderController with ChangeNotifier{
   bool isLoadMore=false;
   int perPage=10;
   ScrollController controller;
+  int indexDetailOrder;
 
+  setIndexDetailOrder(input){
+    indexDetailOrder=input;
+    notifyListeners();
+  }
 
   loadStatusOrder({BuildContext context})async{
     if(statusOrderModel==null) isLoading=true;
@@ -44,5 +49,7 @@ class StatusOrderController with ChangeNotifier{
       }
     }
   }
+
+
 
 }

@@ -1,6 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.bestfranchise">
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
 
     <queries>
         <!-- If your app opens https URLs -->
@@ -20,6 +23,9 @@
         </intent>
     </queries>
     <application
+        android:allowBackup="false"
+        android:usesCleartextTraffic="true"
+        android:exported="true"
         android:label="bestfranchise"
         android:icon="@mipmap/ic_launcher">
         <activity

@@ -9,6 +9,7 @@ import 'package:bestfranchise/Views/component/general/searchComponent.dart';
 import 'package:bestfranchise/Views/component/general/touchEffectComponent.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -53,53 +54,19 @@ class _RewardComponentState extends State<RewardComponent> {
                           child: SearchComponent(hintText: ""),
                         ),
                         SizedBox(width: scale.getWidth(1)),
-                        Card(
-                          margin: EdgeInsets.zero,
-                          elevation: 4,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(100.0),
-                          ),
-                          child: InTouchWidget(
-                              radius: 100,
-                              callback: () {
-                                GeneralHelper.modal(
-                                    context: context,
-                                    child: Container(
-                                      height: scale.getHeight(90),
-                                      child: QrCodeComponent(),
-                                    ));
-                              },
+                        buildCardIcon(icon:FontAwesome5Solid.qrcode,callback: (){
+                          GeneralHelper.modal(
+                              context: context,
                               child: Container(
-                                padding: scale.getPadding(1, 2),
-                                child: RadiantGradientMask(
-                                  child: SvgPicture.asset(
-                                    "assets/svg/QR_Code.svg",
-                                    height: scale.getHeight(2),
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              )),
-                        ),
+                                height: scale.getHeight(70),
+                                child: QrCodeComponent(),
+                              )
+                          );
+
+                        }),
                         SizedBox(width: scale.getWidth(1)),
-                        Card(
-                          margin: EdgeInsets.zero,
-                          elevation: 4,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(100.0),
-                          ),
-                          child: InTouchWidget(
-                              radius: 100,
-                              callback: () => Navigator.of(context)
-                                  .pushNamed(RoutePath.notifWidget),
-                              child: Container(
-                                padding: scale.getPadding(0.5, 1),
-                                child: Image.asset(
-                                  StringConfig.imgLocal + "notif.png",
-                                  scale: 0.7,
-                                  // height: scale.getHeight(2),
-                                ),
-                              )),
-                        ),
+                        buildCardIcon(icon:FontAwesome5Solid.bell,callback: ()=>Navigator.of(context).pushNamed(RoutePath.notifWidget)),
+
                       ],
                     ),
                     SizedBox(
@@ -129,6 +96,28 @@ class _RewardComponentState extends State<RewardComponent> {
             ),
           ),
         ]);
+  }
+
+
+  Widget buildCardIcon({IconData icon,void Function() callback}){
+    ScreenScaler scale = ScreenScaler()..init(context);
+    return Card(
+      margin: EdgeInsets.zero,
+      elevation: 4,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(100.0),
+      ),
+      child: InTouchWidget(
+          radius: 100,
+          callback:callback,
+          child: Container(
+            padding: scale.getPadding(0.5, 1),
+            child: RadiantGradientMask(
+                child:Icon(icon,color: Colors.white,size: scale.getTextSize(15),)
+            ),
+          )
+      ),
+    );
   }
 }
 

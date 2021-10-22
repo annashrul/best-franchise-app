@@ -44,17 +44,14 @@ class BaseController{
   post({String url,dynamic data,BuildContext context,Function callback}) async {
     try{
       GeneralHelper.loadingDialog(context);
-      Map<String, String> head={
-        "HttpHeaders.contentTypeHeader": 'application/json',
-        'X-Project-ID': ApiConfig.xProjectId,
-        'X-Requested-From': ApiConfig.xRequestedFrom,
-      };
-      // final userStorage = Provider.of<UserProvider>(context, listen: false);
-      // if(userStorage.token!=''){
-      //   head["Authorization"] = "Bearer ${userStorage.token}";
-      // }
+      final userStorage = Provider.of<UserController>(context, listen: false);
+      if(userStorage.dataUser!=null){
+        if(userStorage.dataUser[UserTable.token]!=''){
+          ApiConfig.head["Authorization"] = "Bearer ${userStorage.dataUser[UserTable.token]}";
+        }
+      }
       Client client = new Client();
-      final response = await client.post( ApiConfig.url+url,headers:head,body:data);
+      final response = await client.post( ApiConfig.url+url,headers:ApiConfig.head,body:data);
       print("=================== POST url = $url status code = ${response.statusCode}, body=$data} ============================");
       if(response.statusCode==200){
         final jsonResponse =  json.decode(response.body);
@@ -79,9 +76,49 @@ class BaseController{
     }on TimeoutException catch (e) {
       print("###################################### GET TimeoutException");
       return GeneralHelper.toast(msg: "terjadi kesalahan koneksi");
-      return Navigator.pushNamed(context, "error",arguments: (){
-        print("TimeoutException");
-      });
+    } on SocketException catch (e) {
+      print("###################################### GET SocketException");
+      return GeneralHelper.toast(msg: "terjadi kesalahan koneksi");
+    }
+    on Error catch (e) {
+      print("###################################### GET Error");
+      return GeneralHelper.toast(msg: "terjadi kesalahan koneksi");
+
+    }
+  }
+  delete({String url,BuildContext context}) async{
+    try{
+      GeneralHelper.loadingDialog(context);
+      final userStorage = Provider.of<UserController>(context, listen: false);
+      if(userStorage.dataUser!=null){
+        if(userStorage.dataUser[UserTable.token]!=''){
+          ApiConfig.head["Authorization"] = "Bearer ${userStorage.dataUser[UserTable.token]}";
+        }
+      }
+      Client client = new Client();
+      final response = await client.delete(ApiConfig.url+url,headers:ApiConfig.head).timeout(Duration(seconds: ApiConfig.timeOut));
+      Navigator.of(context).pop();
+      if(response.statusCode==200){
+        final jsonResponse =  json.decode(response.body);
+        Navigator.pop(context);
+        if(jsonResponse["meta"]["status"]=="failed"){
+          GeneralHelper.toast(msg:jsonResponse["meta"]["message"]);
+          return null;
+        }
+        else{
+          return jsonResponse;
+        }
+      }
+      else{
+        Navigator.pop(context);
+        final jsonResponse = json.decode(response.body);
+        print("jsonResponse = $jsonResponse");
+        GeneralHelper.toast(msg: jsonResponse["meta"]["message"]);
+        return null;
+      }
+    }on TimeoutException catch (e) {
+      print("###################################### GET TimeoutException");
+      return GeneralHelper.toast(msg: "terjadi kesalahan koneksi");
     } on SocketException catch (e) {
       print("###################################### GET SocketException");
       return GeneralHelper.toast(msg: "terjadi kesalahan koneksi");

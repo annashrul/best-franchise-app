@@ -11,9 +11,9 @@ class ProductBrandController with ChangeNotifier{
   int perPage=10;
   ScrollController controller;
 
-  loadProductBrand({BuildContext context,String id})async{
+  loadProductBrand({BuildContext context,String idBrand})async{
     if(productBrandModel==null) isLoading=true;
-    final res=await BaseController().get(url: "product?page=1&perpage=$perPage&status=1",context: context);
+    final res=await BaseController().get(url: "product?page=1&perpage=$perPage&status=1&brand=$idBrand",context: context);
     if(res["data"].length>0){
       ProductBrandModel result = ProductBrandModel.fromJson(res);
       productBrandModel = result;

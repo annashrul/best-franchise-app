@@ -4,6 +4,7 @@ import 'package:bestfranchise/Configs/colorConfig.dart';
 import 'package:bestfranchise/Configs/routeConfig.dart';
 import 'package:bestfranchise/Configs/stringConfig.dart';
 import 'package:bestfranchise/Controllers/brand/detailBrandController.dart';
+import 'package:bestfranchise/Controllers/brand/favoriteBrandController.dart';
 import 'package:bestfranchise/Controllers/brand/franchiseController.dart';
 import 'package:bestfranchise/Controllers/brand/productBrandController.dart';
 import 'package:bestfranchise/Helpers/general/generalHelper.dart';
@@ -11,6 +12,7 @@ import 'package:bestfranchise/Views/component/brand/franchiseBrandComponent.dart
 import 'package:bestfranchise/Views/component/brand/lokasiBrandComponent.dart';
 import 'package:bestfranchise/Views/component/brand/produkBrandComponent.dart';
 import 'package:bestfranchise/Views/component/brand/reviewBrandComponent.dart';
+import 'package:bestfranchise/Views/component/general/buttonComponent.dart';
 import 'package:bestfranchise/Views/component/general/loadingComponent.dart';
 import 'package:bestfranchise/Views/component/general/stickyHeaderComponent.dart';
 import 'package:bestfranchise/Views/component/general/touchEffectComponent.dart';
@@ -42,9 +44,7 @@ class _DetailBrandWidgetState extends State<DetailBrandWidget> {
     detailBrandController=Provider.of<DetailBrandController>(context,listen: false);
     productBrandController=Provider.of<ProductBrandController>(context,listen: false);
     franchiseController=Provider.of<FranchiseController>(context,listen: false);
-
     detailBrandController.loadDetailBrand(context: context,id: widget.obj["id"]);
-
     productBrandController.controller = new ScrollController()..addListener(productBrandController.scrollListener);
     franchiseController.controller = new ScrollController()..addListener(franchiseController.scrollListener);
 
@@ -69,9 +69,10 @@ class _DetailBrandWidgetState extends State<DetailBrandWidget> {
     final brand = Provider.of<DetailBrandController>(context);
     final product = Provider.of<ProductBrandController>(context);
     final franchise = Provider.of<FranchiseController>(context);
+    final favoirte = Provider.of<FavoriteBrandController>(context);
     Widget child;
     if (brand.indexTabActive == 0) {
-      child = ProdukBrandComponent();
+      child = ProdukBrandComponent(idBrand: widget.obj["id"]);
       controller = product.controller;
     } else if (brand.indexTabActive == 1) {
       child = FranchiseBrandComponent(idBrand: widget.obj["id"]);
@@ -89,7 +90,11 @@ class _DetailBrandWidgetState extends State<DetailBrandWidget> {
           title: "Detail Brand",
           actions: [
             InTouchWidget(
-              callback: () {},
+              callback: () async{
+                await favoirte.create(context: context,data: {
+                  "id_brand":widget.obj["id"]
+                });
+              },
               child: Container(
                 alignment: Alignment.center,
                 padding: scale.getPadding(1, 2),
@@ -97,7 +102,9 @@ class _DetailBrandWidgetState extends State<DetailBrandWidget> {
               ),
             ),
             InTouchWidget(
-              callback: () {},
+              callback: () async{
+
+              },
               child: Container(
                 alignment: Alignment.center,
                 padding: scale.getPadding(1, 2),
@@ -105,25 +112,18 @@ class _DetailBrandWidgetState extends State<DetailBrandWidget> {
               ),
             ),
           ]),
-      floatingActionButton: FlatButton(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(100.0),
-          ),
-          color: ColorConfig.redPrimary,
-          onPressed: () =>
-              // Navigator.of(context).pushNamed(RoutePath.joinWidget),
-              launchWhatsApp(
-                  phone: 6281214126685,
-                  message: 'Permintaan Bergabung Bestfranchise'),
-          child: Text(
-            "Bergabung sekarang ?",
-            style: Theme.of(context)
-                .textTheme
-                .headline1
-                .copyWith(color: Colors.white),
-          )),
+      floatingActionButton: Container(
+        padding: scale.getPadding(1, 2),
+        child: ButtonComponent(
+          label: "Bergabung sekarang?",
+          labelColor: Colors.white,
+          backgroundColor: ColorConfig.redPrimary,
+          callback: () =>  Navigator.of(context).pushNamed(RoutePath.joinWidget,arguments: {"id": widget.obj["id"]}),
+        ),
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       body: ListView(
+        padding: scale.getPaddingLTRB(0,0,0,5),
         // controller:controller,
         children: [
           Stack(

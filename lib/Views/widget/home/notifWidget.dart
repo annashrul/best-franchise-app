@@ -1,11 +1,16 @@
 import 'package:bestfranchise/Configs/colorConfig.dart';
 import 'package:bestfranchise/Configs/stringConfig.dart';
+import 'package:bestfranchise/Controllers/home/notificationController.dart';
 import 'package:bestfranchise/Helpers/general/generalHelper.dart';
 import 'package:bestfranchise/Views/component/general/cardImageTitleSubtitleComponent.dart';
+import 'package:bestfranchise/Views/component/general/loadingComponent.dart';
+import 'package:bestfranchise/Views/component/general/noDataComponent.dart';
 import 'package:bestfranchise/Views/component/general/touchEffectComponent.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class NotifWidget extends StatefulWidget {
   @override
@@ -13,6 +18,16 @@ class NotifWidget extends StatefulWidget {
 }
 
 class _NotifWidgetState extends State<NotifWidget> {
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    final notif = Provider.of<NotificationController>(context,listen: false);
+    notif.loadData(context: context);
+  }
+
   @override
   Widget build(BuildContext context) {
     ScreenScaler scale= ScreenScaler()..init(context);
@@ -45,27 +60,34 @@ class _NotifWidgetState extends State<NotifWidget> {
 
   Widget buildContent(){
     ScreenScaler scale= ScreenScaler()..init(context);
+    final notif = Provider.of<NotificationController>(context);
+
     return ListView.separated(
         primary: false,
         shrinkWrap: true,
         padding: scale.getPadding(1,2),
         itemBuilder: (context,index){
+          if(notif.isLoading) return LoadingCardImageTitleSubTitle();
+          if(notif.notificationModel==null) NoDataComponent();
+          final val=notif.notificationModel.data[index];
+          final f = new DateFormat('yyyy-MM-dd hh:mm');
+
           return CardImageTitleSubtitleComponent(
-            img: "",
-            title: "Ada promo nih hari ini",
-            subTitle: "Dapatkan diskon 20% untuk booking fee Brand Chocol.. Yuk segera gabung bersama kami.",
+            img: StringConfig.imgGeneral,
+            title: val.title,
+            subTitle: val.msg,
             otherChild: Row(
               children: [
                 Icon(Icons.person_outline_outlined,size: scale.getTextSize(8),color: ColorConfig.greyPrimary),
                 SizedBox(width: scale.getWidth(0.5),),
-                Text("Admin 2020-01-01  19:00:00",style: Theme.of(context).textTheme.headline3.copyWith(color: ColorConfig.greyPrimary),),
+                Text("Admin ${f.format(val.createdAt)}",style: Theme.of(context).textTheme.headline3.copyWith(color: ColorConfig.greyPrimary),),
               ],
             ),
             callback: (){},
           );
         },
         separatorBuilder: (context,index){return SizedBox();},
-        itemCount: 10
+        itemCount: notif.isLoading?10:notif.notificationModel==null?1:notif.notificationModel.data.length
     );
   }
 }

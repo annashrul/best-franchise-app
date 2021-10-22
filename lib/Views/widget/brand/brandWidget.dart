@@ -1,5 +1,6 @@
 import 'package:bestfranchise/Configs/colorConfig.dart';
 import 'package:bestfranchise/Configs/routeConfig.dart';
+import 'package:bestfranchise/Controllers/brand/detailBrandController.dart';
 import 'package:bestfranchise/Controllers/brand/listBrandController.dart';
 import 'package:bestfranchise/Controllers/category/categoryBrandController.dart';
 import 'package:bestfranchise/Helpers/general/generalHelper.dart';
@@ -37,10 +38,12 @@ class _BrandWidgetState extends State<BrandWidget> {
     // TODO: implement initState
     super.initState();
     final brand = Provider.of<ListBrandController>(context,listen: false);
+    final detail = Provider.of<DetailBrandController>(context,listen: false);
     final category = Provider.of<CategoryBrandController>(context,listen: false);
     brand.loadBrand(context: context);
     category.loadCategoryBrand(context: context);
     controller = new ScrollController()..addListener(scrollListener);
+    detail.setIndexTabActive(0);
   }
 
 

@@ -8,7 +8,6 @@ class ListBrandController with ChangeNotifier {
   bool isLoadMore = false;
   int perPage = 10;
   String idCategoryBrand="";
-
   setCategoryBrand(contex,input){
     idCategoryBrand=input;
     isLoading=true;

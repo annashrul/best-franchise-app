@@ -1,8 +1,6 @@
 
 import 'package:bestfranchise/Controllers/baseController.dart';
-import 'package:bestfranchise/Models/Brand/detailBrandModel.dart';
 import 'package:bestfranchise/Models/Brand/franchiseModel.dart';
-import 'package:bestfranchise/Models/Brand/productBrandModel.dart';
 import 'package:flutter/cupertino.dart';
 
 class FranchiseController with ChangeNotifier{
@@ -11,12 +9,20 @@ class FranchiseController with ChangeNotifier{
   bool isLoadMore=false;
   int perPage=10;
   ScrollController controller;
-
+  bool isList=true;
+  setList(input){
+    isList=input;
+    notifyListeners();
+  }
 
   loadFranchise({BuildContext context,String idBrand})async{
+    String url = "type_invest?brand=$idBrand";
+    if(isList){
+      url+="&page=1&perpage=$perPage";
+    }
     if(franchiseModel==null) isLoading=true;
-    final res=await BaseController().get(url: "type_invest?page=1&perpage=$perPage&brand=$idBrand",context: context);
-    print("############## ${res["data"].length}");
+
+    final res=await BaseController().get(url: url,context: context);
     if(res["data"].length > 0){
       FranchiseModel result = FranchiseModel.fromJson(res);
       franchiseModel = result;

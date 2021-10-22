@@ -1,10 +1,14 @@
 import 'package:bestfranchise/Configs/stringConfig.dart';
 import 'package:bestfranchise/Controllers/brand/lokasiBrandController.dart';
+import 'package:bestfranchise/Helpers/general/generalHelper.dart';
 import 'package:bestfranchise/Views/component/general/loadingComponent.dart';
 import 'package:bestfranchise/Views/component/general/noDataComponent.dart';
+import 'package:bestfranchise/Views/component/general/touchEffectComponent.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
+// import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
 
 class LokasiBrandComponent extends StatefulWidget {
@@ -15,12 +19,47 @@ class LokasiBrandComponent extends StatefulWidget {
 }
 
 class _LokasiBrandComponentState extends State<LokasiBrandComponent> {
+  Position _currentPosition;
+  String _currentAddress="";
+  final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
+
+
+  _getCurrentLocation() {
+    Geolocator()
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.best)
+        .then((Position position) {
+      setState(() {
+        _currentPosition = position;
+      });
+      _getAddressFromLatLng();
+    }).catchError((e) {
+      print(e);
+    });
+  }
+  _getAddressFromLatLng() async {
+    try {
+      List<Placemark> placemarks = await geolocator.placemarkFromCoordinates(
+          _currentPosition.latitude,
+          _currentPosition.longitude
+      );
+
+      Placemark place = placemarks[0];
+
+      setState(() {
+        _currentAddress = "${place.locality}, ${place.postalCode}, ${place.country}";
+      });
+      print("#################### $_currentAddress");
+    } catch (e) {
+      print(e);
+    }
+  }
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     final lokasiBrandController = Provider.of<LokasiBrandController>(context,listen: false);
     lokasiBrandController.loadLokasi(context: context,idBrand: widget.idBrand);
+    _getCurrentLocation();
   }
 
   @override
@@ -48,7 +87,7 @@ class _LokasiBrandComponentState extends State<LokasiBrandComponent> {
                 margin:EdgeInsets.zero,
                 child: Padding(
                   padding: scale.getPadding(1,2),
-                  child: Text("Lokasi Kamu : Neptunus Barat 1 Blok A16 No. 1, Buahbatu ...",style: Theme.of(context).textTheme.headline3,),
+                  child: Text(_currentPosition!=null?_currentAddress:"Lokasi Kamu : Neptunus Barat 1 Blok A16 No. 1, Buahbatu ...",style: Theme.of(context).textTheme.headline3,),
                 ),
               ),
               SizedBox(height: scale.getHeight(1),),
@@ -76,24 +115,33 @@ class _LokasiBrandComponentState extends State<LokasiBrandComponent> {
                               return NoDataComponent();
                             }
                             final val = lokasiBrandController.lokasiBrandModel.data[index];
-                            return Container(
-                              padding: scale.getPadding(0,0),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10)
-                              ),
-                              child: Row(
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(10),
-                                    child: Image.network(StringConfig.imgGeneral,height: scale.getHeight(5),),
+                            return InTouchWidget(
+                                callback: (){
+                                  String homeLat = "37.3230";
+                                  String homeLng = "-122.0312";
+                                  String googleMapslocationUrl = "https://www.google.com/maps/search/?api=1&query=${homeLat},${homeLng}";
+                                  String encodedURl = Uri.encodeFull(googleMapslocationUrl);
+                                  GeneralHelper.jumpToBrowser(url: encodedURl);
+                                },
+                                child: Container(
+                                  padding: scale.getPadding(0,0),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10)
                                   ),
-                                  SizedBox(width: scale.getWidth(2),),
-                                  Expanded(
-                                    child: Text("Jl. Peta No.241, Suka Asih,Kec. Bojongloa Kaler, Kota Bandung Jawa Barat  40232 Phone : 022-6646137",style: Theme.of(context).textTheme.headline3,),
-                                  )
+                                  child: Row(
+                                    children: [
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(10),
+                                        child: Image.network(StringConfig.imgGeneral,height: scale.getHeight(5),),
+                                      ),
+                                      SizedBox(width: scale.getWidth(2),),
+                                      Expanded(
+                                        child: Text(val.outletAddress,style: Theme.of(context).textTheme.headline3,),
+                                      )
 
-                                ],
-                              ),
+                                    ],
+                                  ),
+                                )
                             );
                           },
                           separatorBuilder: (context,index){return SizedBox(height: scale.getHeight(1),child: Divider(),);},

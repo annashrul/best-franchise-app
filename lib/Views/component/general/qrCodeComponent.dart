@@ -15,17 +15,6 @@ class _QrCodeComponentState extends State<QrCodeComponent> {
   Widget build(BuildContext context) {
     ScreenScaler scale = ScreenScaler()..init(context);
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        automaticallyImplyLeading: false,
-        actions: [
-          InkWell(
-            onTap: ()=>Navigator.of(context).pop(),
-            child: Image.asset(StringConfig.imgLocal+"closeBlack.png"),
-          )
-          // InTouchWidget(callback: ()=>Navigator.of(context).pop(), child:Image.asset(StringConfig.imgLocal+"closeBlack.png"))
-        ],
-      ),
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
@@ -35,7 +24,8 @@ class _QrCodeComponentState extends State<QrCodeComponent> {
         ),
         child: Center(
           child: ListView(
-            padding: scale.getPadding(15,10),
+            shrinkWrap: true,
+            padding: scale.getPadding(1,10),
             children: [
               Text("Your QR Code",style: Theme.of(context).textTheme.headline1.copyWith(fontSize: 24),textAlign: TextAlign.center,),
               SizedBox(height: scale.getHeight(2),),

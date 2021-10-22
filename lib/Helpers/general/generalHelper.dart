@@ -1,4 +1,5 @@
 import 'package:bestfranchise/Configs/colorConfig.dart';
+import 'package:bestfranchise/Configs/routeConfig.dart';
 import 'package:bestfranchise/Configs/stringConfig.dart';
 import 'package:bestfranchise/Views/component/general/dialogComponent.dart';
 import 'package:bestfranchise/Views/component/general/touchEffectComponent.dart';
@@ -7,10 +8,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:intl/intl.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class GeneralHelper {
+  final formatter = new NumberFormat("#,###");
+
+  static backToMain({BuildContext context,int tab}){
+    return Navigator.of(context).pushNamedAndRemoveUntil(RoutePath.mainWidget, (route) => false,arguments: tab);
+  }
+
   static appBarGeneral(
       {BuildContext context,
       String title = "Kayla Andhara",
@@ -109,9 +117,10 @@ class GeneralHelper {
     );
   }
 
-  static modal({BuildContext context, Widget child}) {
+  static modal({BuildContext context, Widget child,void Function() callback}) {
     ScreenScaler scale = ScreenScaler()..init(context);
     return showModalBottomSheet(
+      isDismissible: false,
         backgroundColor: Colors.transparent,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(top: Radius.circular(10.0))),
@@ -123,10 +132,12 @@ class GeneralHelper {
                 children: [
                   Container(
                     margin: EdgeInsets.only(top: 40.0, right: 0.0),
-                    padding: scale.getPadding(1, 2),
+                    padding: scale.getPadding(0, 0),
                     decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.circular(20)),
+                        borderRadius: BorderRadius.vertical(top: Radius.circular(10.0))
+                        // borderRadius: BorderRadius.circular(20)
+                    ),
                     child: child,
                   ),
                   Positioned(
@@ -134,7 +145,7 @@ class GeneralHelper {
                     right: scale.getWidth(2),
                     child: GestureDetector(
                       onTap: () {
-                        Navigator.of(context).pop();
+                        callback!=null?callback():Navigator.of(context).pop();
                       },
                       child: Align(
                         alignment: Alignment.topRight,

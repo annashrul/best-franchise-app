@@ -37,6 +37,26 @@ class BaseLoading extends StatelessWidget {
   }
 }
 
+class BaseLoadingLoop extends StatelessWidget {
+  final Widget child;
+  final int total;
+  BaseLoadingLoop({this.child,this.total=10});
+  @override
+  Widget build(BuildContext context) {
+    return ListView.separated(
+        padding: EdgeInsets.zero,
+        primary: false,
+        shrinkWrap: true,
+        itemBuilder: (context,index){
+          return child;
+        },
+        separatorBuilder: (context,index){return Divider();},
+        itemCount: this.total
+    );
+  }
+}
+
+
 class LoadingCardImageTitleSubTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
