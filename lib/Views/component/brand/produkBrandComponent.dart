@@ -2,6 +2,7 @@ import 'package:bestfranchise/Configs/colorConfig.dart';
 import 'package:bestfranchise/Configs/stringConfig.dart';
 import 'package:bestfranchise/Controllers/brand/productBrandController.dart';
 import 'package:bestfranchise/Views/component/general/loadingComponent.dart';
+import 'package:bestfranchise/Views/component/general/noDataComponent.dart';
 import 'package:bestfranchise/Views/component/general/touchEffectComponent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
@@ -35,6 +36,8 @@ class _ProdukBrandComponentState extends State<ProdukBrandComponent> {
     final productBrand = Provider.of<ProductBrandController>(context);
     if(productBrand.isLoading) {
       return ProductBrandLoading();
+    }else if(productBrand.productBrandModel==null){
+      return NoDataComponent();
     }
 
     return new StaggeredGridView.countBuilder(

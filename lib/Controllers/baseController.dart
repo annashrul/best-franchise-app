@@ -36,8 +36,8 @@ class BaseController{
         return null;
       }
       else{
-        final jsonResponse = json.decode(response.body);
-        return GeneralModel.fromJson(jsonResponse);
+        GeneralHelper.toast(msg: "terjadi kesalahan url");
+        return null;
       }
     }
   }

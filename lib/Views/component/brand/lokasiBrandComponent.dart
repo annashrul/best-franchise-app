@@ -1,18 +1,32 @@
 import 'package:bestfranchise/Configs/stringConfig.dart';
+import 'package:bestfranchise/Controllers/brand/lokasiBrandController.dart';
+import 'package:bestfranchise/Views/component/general/loadingComponent.dart';
+import 'package:bestfranchise/Views/component/general/noDataComponent.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
+import 'package:provider/provider.dart';
 
 class LokasiBrandComponent extends StatefulWidget {
+  final String idBrand;
+  LokasiBrandComponent({this.idBrand});
   @override
   _LokasiBrandComponentState createState() => _LokasiBrandComponentState();
 }
 
 class _LokasiBrandComponentState extends State<LokasiBrandComponent> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    final lokasiBrandController = Provider.of<LokasiBrandController>(context,listen: false);
+    lokasiBrandController.loadLokasi(context: context,idBrand: widget.idBrand);
+  }
+
+  @override
   Widget build(BuildContext context) {
     ScreenScaler scale= ScreenScaler()..init(context);
-
+    final lokasiBrandController = Provider.of<LokasiBrandController>(context);
     return Stack(
       children: [
         Center(
@@ -55,6 +69,13 @@ class _LokasiBrandComponentState extends State<LokasiBrandComponent> {
                           primary: false,
                           shrinkWrap: true,
                           itemBuilder: (context,index){
+                            if(lokasiBrandController.isLoading){
+                              return LoadingCardImageTitleSubTitle();
+                            }
+                            else if(lokasiBrandController.lokasiBrandModel==null){
+                              return NoDataComponent();
+                            }
+                            final val = lokasiBrandController.lokasiBrandModel.data[index];
                             return Container(
                               padding: scale.getPadding(0,0),
                               decoration: BoxDecoration(
@@ -76,7 +97,7 @@ class _LokasiBrandComponentState extends State<LokasiBrandComponent> {
                             );
                           },
                           separatorBuilder: (context,index){return SizedBox(height: scale.getHeight(1),child: Divider(),);},
-                          itemCount: 10
+                          itemCount: lokasiBrandController.isLoading?10:lokasiBrandController.lokasiBrandModel==null?1:lokasiBrandController.lokasiBrandModel.data.length
                       )
                     ],
                   )

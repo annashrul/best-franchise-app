@@ -77,7 +77,7 @@ class _DetailBrandWidgetState extends State<DetailBrandWidget> {
       child = FranchiseBrandComponent(idBrand: widget.obj["id"]);
       controller = franchise.controller;
     } else if (brand.indexTabActive == 2) {
-      child = LokasiBrandComponent();
+      child = LokasiBrandComponent(idBrand: widget.obj["id"]);
     } else {
       child = ReviewBrandComponent(idBrand:  widget.obj["id"]);
     }

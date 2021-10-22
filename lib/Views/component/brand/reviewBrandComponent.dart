@@ -2,6 +2,7 @@ import 'package:bestfranchise/Configs/colorConfig.dart';
 import 'package:bestfranchise/Controllers/brand/reviewBrandController.dart';
 import 'package:bestfranchise/Views/component/general/cardImageTitleSubtitleComponent.dart';
 import 'package:bestfranchise/Views/component/general/loadingComponent.dart';
+import 'package:bestfranchise/Views/component/general/noDataComponent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -32,7 +33,6 @@ class _ReviewBrandComponentState extends State<ReviewBrandComponent> {
   Widget build(BuildContext context) {
     ScreenScaler scale = new ScreenScaler()..init(context);
     final reviewBrand = Provider.of<ReviewBrandController>(context);
-
     return ListView.separated(
       padding: scale.getPadding(1,2),
         primary: false,
@@ -40,6 +40,8 @@ class _ReviewBrandComponentState extends State<ReviewBrandComponent> {
         itemBuilder: (context,index){
           if(reviewBrand.isLoading){
             return LoadingCardImageTitleSubTitle();
+          }else if(reviewBrand.reviewBrandModel==null){
+            return NoDataComponent();
           }
           final val = reviewBrand.reviewBrandModel.data[index];
           return CardImageTitleSubtitleComponent(
@@ -53,7 +55,7 @@ class _ReviewBrandComponentState extends State<ReviewBrandComponent> {
           );
         },
         separatorBuilder: (context,index){return SizedBox();},
-        itemCount: reviewBrand.isLoading?10:reviewBrand.reviewBrandModel.data.length
+        itemCount: reviewBrand.isLoading?10:reviewBrand.reviewBrandModel==null?1:reviewBrand.reviewBrandModel.data.length
     );
   }
 }

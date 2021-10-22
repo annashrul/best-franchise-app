@@ -88,7 +88,7 @@ class AuthController with ChangeNotifier{
                         context: context
                     );
                     final dataUser={
-                      "${UserTable.idUser}":resLogin["data"]["idUser"].toString(),
+                      "${UserTable.idUser}":resLogin["data"]["id"].toString(),
                       "${UserTable.token}":resLogin["data"]["token"].toString(),
                       "${UserTable.fullname}":resLogin["data"]["fullname"].toString(),
                       "${UserTable.mobile_no}":resLogin["data"]["mobile_no"].toString(),

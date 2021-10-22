@@ -51,7 +51,7 @@ class _BestYoutubeChannelComponentState
                         // height: scale.getHeight(15),
                       ),
                     ),
-                    SizedBox(height: scale.getHeight(1)),
+                    SizedBox(height: scale.getHeight(0.5)),
                     Padding(
                       padding: scale.getPadding(0, 0),
                       child: Column(

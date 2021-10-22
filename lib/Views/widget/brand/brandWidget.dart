@@ -1,6 +1,7 @@
 import 'package:bestfranchise/Configs/colorConfig.dart';
 import 'package:bestfranchise/Configs/routeConfig.dart';
 import 'package:bestfranchise/Controllers/brand/listBrandController.dart';
+import 'package:bestfranchise/Controllers/category/categoryBrandController.dart';
 import 'package:bestfranchise/Helpers/general/generalHelper.dart';
 import 'package:bestfranchise/Views/component/general/cardImageTitleSubtitleComponent.dart';
 import 'package:bestfranchise/Views/component/general/loadingComponent.dart';
@@ -36,21 +37,26 @@ class _BrandWidgetState extends State<BrandWidget> {
     // TODO: implement initState
     super.initState();
     final brand = Provider.of<ListBrandController>(context,listen: false);
+    final category = Provider.of<CategoryBrandController>(context,listen: false);
     brand.loadBrand(context: context);
+    category.loadCategoryBrand(context: context);
     controller = new ScrollController()..addListener(scrollListener);
   }
 
 
   @override
   Widget build(BuildContext context) {
-    List dataTab = [{"title":"Minuman"},{"title":"Makanan"},{"title":"Retail"},{"title":"Otomotif"},{"title":"Jasa"}];
-    List<Widget> tabView = [];
-    for(int i=0;i<dataTab.length;i++){
-      tabView.add(buildContent());
-    }
     ScreenScaler scale= ScreenScaler()..init(context);
     final brand = Provider.of<ListBrandController>(context);
-
+    final category = Provider.of<CategoryBrandController>(context);
+    // List dataTab = [{"title":"Minuman"},{"title":"Makanan"},{"title":"Retail"},{"title":"Otomotif"},{"title":"Jasa"}];
+    List dataTab = [];
+    List<Widget> tabView = [];
+    int lengthCategory=category.isLoading?1:category.categoryBrandModel==null?0:category.categoryBrandModel.data.length;
+    for(int i=0;i<lengthCategory;i++){
+      dataTab.add({"title":category.isLoading?"loading ..":category.categoryBrandModel.data[i].title});
+      tabView.add(buildContent());
+    }
     return DefaultTabController(
         length: dataTab.length,
         child: Scaffold(
@@ -62,9 +68,15 @@ class _BrandWidgetState extends State<BrandWidget> {
           appBar: GeneralHelper.appBarWithTab(
               context: context,
               title: "BEST Brand & Franchise",
-              dataTab: dataTab
+              dataTab: dataTab,
+            callback: (i){
+                print(i);
+                print(category.categoryBrandModel.data[i].id);
+                brand.setCategoryBrand(context,category.categoryBrandModel.data[i].id);
+            }
           ),
           body: TabBarView(
+            physics: NeverScrollableScrollPhysics(),
             children:tabView,
           ),
         )

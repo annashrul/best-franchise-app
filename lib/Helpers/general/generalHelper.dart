@@ -69,7 +69,8 @@ class GeneralHelper {
       {BuildContext context,
       String title = "Kayla Andhara",
       List dataTab,
-      List<Widget> actions}) {
+      List<Widget> actions,void Function(int i) callback}
+    ) {
     ScreenScaler scale = ScreenScaler()..init(context);
     List<Widget> historyTab = [];
     for (int i = 0; i < dataTab.length; i++) {
@@ -95,13 +96,13 @@ class GeneralHelper {
       ),
       actions: actions,
       bottom: TabBar(
+        onTap: callback,
         indicatorPadding: scale.getPadding(0, 0),
         labelPadding: scale.getPadding(0, 1),
         unselectedLabelColor: ColorConfig.greyPrimary,
         indicatorColor: ColorConfig.redPrimary,
         labelColor: Colors.black,
-        labelStyle: Theme.of(context).textTheme.headline2.copyWith(
-            fontWeight: Theme.of(context).textTheme.headline1.fontWeight),
+        labelStyle: Theme.of(context).textTheme.headline2.copyWith(fontWeight: Theme.of(context).textTheme.headline1.fontWeight),
         isScrollable: dataTab.length > 3 ? true : false,
         tabs: historyTab,
       ),

@@ -19,17 +19,18 @@ class _ShareWidgetState extends State<ShareWidget> {
         automaticallyImplyLeading: false,
         title: Text("Bagikan info",style: Theme.of(context).textTheme.headline1,),
       ),
-      body: Center(
-        child: ListView(
-          padding: scale.getPadding(1,2),
-          shrinkWrap: true,
-          children: [
-            Image.asset(StringConfig.imgLocal+"imageShare.png"),
-            Text("Apa sih manfaat kamu membagikan Aplikasi ini ke orang lain?",style: Theme.of(context).textTheme.headline1.copyWith(fontWeight: FontWeight.w400)),
-            SizedBox(height: scale.getHeight(2)),
-            Expanded(
-              child: ListView.separated(
-                physics: NeverScrollableScrollPhysics(),
+      body: SingleChildScrollView(
+        padding: scale.getPadding(1,2.5),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Image.asset(StringConfig.imgLocal+"imageShare.png"),
+              SizedBox(height: scale.getHeight(2)),
+              Text("Apa sih manfaat kamu membagikan Aplikasi ini ke orang lain?",style: Theme.of(context).textTheme.headline1.copyWith(fontWeight: FontWeight.w400)),
+              SizedBox(height: scale.getHeight(2)),
+              ListView.separated(
+                  physics: ClampingScrollPhysics(),
                   shrinkWrap: true,
                   itemBuilder: (context,index){
                     return ShareComponent(index: index);
@@ -37,17 +38,17 @@ class _ShareWidgetState extends State<ShareWidget> {
                   separatorBuilder: (context,index){return SizedBox(height: scale.getHeight(1));},
                   itemCount: 3
               ),
-            ),
-            SizedBox(height: scale.getHeight(1)),
-            Image.asset(StringConfig.imgLocal+"arrowDownOrange.png",height: scale.getHeight(10),),
-            SizedBox(height: scale.getHeight(1)),
-            ButtonComponent(
-              label: "Bagikan sekarang",
-              labelColor: Colors.white,
-              backgroundColor: ColorConfig.redPrimary,
-              callback: (){},
-            )
-          ],
+              SizedBox(height: scale.getHeight(1)),
+              Image.asset(StringConfig.imgLocal+"arrowDownOrange.png",height: scale.getHeight(10),),
+              SizedBox(height: scale.getHeight(1)),
+              ButtonComponent(
+                label: "Bagikan sekarang",
+                labelColor: Colors.white,
+                backgroundColor: ColorConfig.redPrimary,
+                callback: (){},
+              )
+            ],
+          ),
         ),
       ),
     );

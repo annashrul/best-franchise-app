@@ -7,10 +7,21 @@ class ListBrandController with ChangeNotifier {
   bool isLoading = true;
   bool isLoadMore = false;
   int perPage = 10;
+  String idCategoryBrand="";
+
+  setCategoryBrand(contex,input){
+    idCategoryBrand=input;
+    isLoading=true;
+    loadBrand(context: contex);
+    notifyListeners();
+  }
 
   Future loadBrand({BuildContext context}) async {
     if (listBrandModel == null) isLoading = true;
     String url = "brand?page=1&status=1&perpage=$perPage";
+    if(idCategoryBrand!=""){
+      url+="&category=$idCategoryBrand";
+    }
     final res = await BaseController().get(url: url, context: context);
     if (res["data"].length > 0) {
       ListBrandModel result = ListBrandModel.fromJson(res);

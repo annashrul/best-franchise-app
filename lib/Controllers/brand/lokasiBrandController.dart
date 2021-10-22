@@ -2,27 +2,29 @@
 import 'package:bestfranchise/Controllers/baseController.dart';
 import 'package:bestfranchise/Models/Brand/detailBrandModel.dart';
 import 'package:bestfranchise/Models/Brand/franchiseModel.dart';
+import 'package:bestfranchise/Models/Brand/lokasiBrandModel.dart';
 import 'package:bestfranchise/Models/Brand/productBrandModel.dart';
 import 'package:flutter/cupertino.dart';
 
-class FranchiseController with ChangeNotifier{
-  FranchiseModel franchiseModel;
+class LokasiBrandController with ChangeNotifier{
+  LokasiBrandModel lokasiBrandModel;
   bool isLoading=true;
   bool isLoadMore=false;
   int perPage=10;
   ScrollController controller;
 
 
-  loadFranchise({BuildContext context,String idBrand})async{
-    if(franchiseModel==null) isLoading=true;
-    final res=await BaseController().get(url: "type_invest?page=1&perpage=$perPage&brand=$idBrand",context: context);
-    print("############## ${res["data"].length}");
-    if(res["data"].length > 0){
-      FranchiseModel result = FranchiseModel.fromJson(res);
-      franchiseModel = result;
+  loadLokasi({BuildContext context,String idBrand})async{
+    if(lokasiBrandModel==null) isLoading=true;
+    final res=await BaseController().get(url: "franchise?page=1&perpage=$perPage&brand=$idBrand",context: context);
+    if(res==null){
+      lokasiBrandModel=null;
+    }else if(res["data"].length > 0){
+      LokasiBrandModel result = LokasiBrandModel.fromJson(res);
+      lokasiBrandModel = result;
     }
     else{
-      franchiseModel=null;
+      lokasiBrandModel=null;
     }
     isLoading=false;
     isLoadMore=false;
@@ -32,8 +34,8 @@ class FranchiseController with ChangeNotifier{
   void scrollListener({BuildContext context}) {
     if(!isLoading){
       if (controller.position.pixels == controller.position.maxScrollExtent) {
-        if(perPage<int.parse(franchiseModel.pagination.total)){
-          print("LOADMORE FRANCHISE");
+        if(perPage<int.parse(lokasiBrandModel.pagination.total)){
+          print("LOADMORE LOKASI");
           perPage+=10;
           isLoadMore=true;
           notifyListeners();

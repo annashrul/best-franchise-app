@@ -166,10 +166,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                 Image.asset(StringConfig.imgLocal + "tentanBestFranchise.png"),
             title: Text(
               "Tentang Aplikasi",
-              style: Theme.of(context)
-                  .textTheme
-                  .headline1
-                  .copyWith(fontWeight: FontWeight.w400),
+              style: Theme.of(context).textTheme.headline1.copyWith(fontWeight: FontWeight.w400),
             ),
           ),
           Divider(height: scale.getHeight(0.1)),
