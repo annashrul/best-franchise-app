@@ -1,9 +1,11 @@
 import 'package:bestfranchise/Configs/colorConfig.dart';
 import 'package:bestfranchise/Configs/routeConfig.dart';
 import 'package:bestfranchise/Configs/stringConfig.dart';
+import 'package:bestfranchise/Controllers/slider/sliderHomeController.dart';
 import 'package:bestfranchise/Views/component/general/touchEffectComponent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
+import 'package:provider/provider.dart';
 
 class BusinessPlaceComponent extends StatefulWidget {
   @override
@@ -11,6 +13,8 @@ class BusinessPlaceComponent extends StatefulWidget {
 }
 
 class _BusinessPlaceComponentState extends State<BusinessPlaceComponent> {
+
+
   @override
   Widget build(BuildContext context) {
     ScreenScaler scale = ScreenScaler()..init(context);

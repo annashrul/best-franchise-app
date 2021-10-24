@@ -34,12 +34,8 @@ class _HomeWidgetState extends State<HomeWidget> {
     slider.getSolusi(context: context);
     slider.getTesti(context: context);
     slider.getGallery(context: context);
-
     final reward = Provider.of<RewardHomeController>(context, listen: false);
     reward.get(context: context);
-
-    final brand = Provider.of<ListBrandController>(context, listen: false);
-    brand.loadBrand(context: context);
   }
 
   @override
@@ -48,7 +44,6 @@ class _HomeWidgetState extends State<HomeWidget> {
     final slider = Provider.of<SliderHomeController>(context);
 
     final reward = Provider.of<RewardHomeController>(context);
-    final brand = Provider.of<ListBrandController>(context);
 
     final val =
         reward.rewardHomeModel == null ? null : reward.rewardHomeModel.data;
@@ -65,7 +60,6 @@ class _HomeWidgetState extends State<HomeWidget> {
         : slider.sliderHomeTestiModel.data;
     final valGl =
         slider.galleryHomeModel == null ? [] : slider.galleryHomeModel.data;
-    final valBr = brand.listBrandModel == null ? [] : brand.listBrandModel.data;
     final valSu =
         slider.sliderHomeModel == null ? [] : slider.sliderHomeModel.data;
 
@@ -98,9 +92,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                 title: "BEST Brand & Franchise",
               ),
               SizedBox(height: scale.getHeight(0.5)),
-              brand.isLoading && valBr.length == 0
-                  ? LoadingCardImageCircular()
-                  : BestBrandAndFranchiseComponent(valBr, brand.isLoading),
+             BestBrandAndFranchiseComponent(),
               SizedBox(height: scale.getHeight(0.5)),
               TitleComponent(
                 callback: () =>

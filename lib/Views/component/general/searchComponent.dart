@@ -6,7 +6,8 @@ import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
 
 class SearchComponent extends StatelessWidget {
   final String hintText;
-  SearchComponent({this.hintText=""});
+  final void Function(String e) callback;
+  SearchComponent({this.hintText="",this.callback});
   @override
   Widget build(BuildContext context) {
     ScreenScaler scale= ScreenScaler()..init(context);
@@ -23,20 +24,20 @@ class SearchComponent extends StatelessWidget {
           maxLines: 1,
           autofocus: false,
           decoration: InputDecoration(
-              hintText: this.hintText,
-              hintStyle: Theme.of(context).textTheme.headline2.copyWith(color: ColorConfig.greyPrimary),
-              contentPadding: scale.getPadding(1,2),
-              border: InputBorder.none,
-              prefixIcon:Icon(FontAwesome.search,size: scale.getTextSize(12),),
-
-              prefixIconConstraints: BoxConstraints(
-                minHeight: scale.getHeight(1),
-                minWidth: scale.getWidth(5),
-                maxWidth: scale.getWidth(5),
-              ),
+            hintText: this.hintText,
+            hintStyle: Theme.of(context).textTheme.headline2.copyWith(color: ColorConfig.greyPrimary),
+            contentPadding: scale.getPadding(1,2),
+            border: InputBorder.none,
+            prefixIcon:Icon(FontAwesome.search,size: scale.getTextSize(12),),
+            prefixIconConstraints: BoxConstraints(
+              minHeight: scale.getHeight(1),
+              minWidth: scale.getWidth(5),
+              maxWidth: scale.getWidth(5),
+            ),
           ),
           keyboardType: TextInputType.text,
           textInputAction: TextInputAction.done,
+          onFieldSubmitted: this.callback,
         ),
       ),
     );

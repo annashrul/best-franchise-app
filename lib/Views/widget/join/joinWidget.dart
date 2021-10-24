@@ -85,7 +85,6 @@ class _JoinWidgetState extends State<JoinWidget> {
                 controller: tipeController,
                 labelText: "Pilih Tipe Investasi",
                 onTap: () {
-
                   GeneralHelper.modal(context: context, child: ModalTipeInvestasiComponent(
                     idBrand: widget.obj["id"],
                     callback: (data){
