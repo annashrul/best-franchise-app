@@ -18,11 +18,6 @@ class _BestSolusiComponentState extends State<BestSolusiComponent> {
   @override
   Widget build(BuildContext context) {
     ScreenScaler scale = ScreenScaler()..init(context);
-    List data = [
-      {"title": "Bungung Modal"},
-      {"title": "Bingung Tempat"},
-      {"title": "Bingung Pengelola"},
-    ];
     return Container(
       margin: scale.getMarginLTRB(0, 0, 0, 0),
       height: scale.getHeight(13),
@@ -47,8 +42,7 @@ class _BestSolusiComponentState extends State<BestSolusiComponent> {
                       RoutePath.capitalSubmissionWidget,
                       arguments: {});
                 } else {
-                  Navigator.of(context)
-                      .pushNamed(RoutePath.joinWidget, arguments: {});
+                  Navigator.of(context).pushNamed(RoutePath.joinWidget, arguments: {});
                 }
               },
               child: Container(

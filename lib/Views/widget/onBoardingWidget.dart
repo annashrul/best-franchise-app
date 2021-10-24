@@ -1,6 +1,9 @@
 import 'package:bestfranchise/Configs/colorConfig.dart';
 import 'package:bestfranchise/Configs/routeConfig.dart';
 import 'package:bestfranchise/Configs/stringConfig.dart';
+import 'package:bestfranchise/Controllers/slider/onBoardingController.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:provider/provider.dart';
 import '../component/general/buttonComponent.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,8 +15,22 @@ class OnBoardingWidget extends StatefulWidget {
 }
 
 class _OnBoardingWidgetState extends State<OnBoardingWidget> {
+  int _current = 0;
+  List data = [{"image":""},{"image":""}];
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    final onBoarding = Provider.of<OnBoardingController>(context,listen: false);
+    onBoarding.loadData(context: context);
+  }
+
   @override
   Widget build(BuildContext context) {
+    final onBoarding = Provider.of<OnBoardingController>(context);
+    print(onBoarding.sliderOnBoardingModel);
     ScreenScaler scale = ScreenScaler()..init(context);
     return Scaffold(
       body: Container(
@@ -40,28 +57,70 @@ class _OnBoardingWidgetState extends State<OnBoardingWidget> {
                       textAlign: TextAlign.center,
                     ),
                   ),
-                  Container(
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage(StringConfig.imgLocal + "Blob.png"),
-                        )),
-                    child: Image.asset(StringConfig.imgLocal + "Finances.png"),
-                  ),
-                  Padding(
-                    padding: scale.getPadding(0, 10),
-                    child: Text(
-                      "Dapatkan penghasilan tambahan sekarang",
-                      style: Theme.of(context).textTheme.headline1,
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  Padding(
-                    padding: scale.getPadding(1, 10),
-                    child: Text(
-                      "Dapatkan berbagai jenis usaha yang sesuai dengan zamannya dan sangat mudah dijalankan dengan dukungan tekhnologi",
-                      style: Theme.of(context).textTheme.headline2,
-                      textAlign: TextAlign.center,
-                    ),
+                  onBoarding.isLoading?Container():Stack(
+                    alignment: AlignmentDirectional.bottomCenter,
+                    children: <Widget>[
+                      CarouselSlider(
+                        options: CarouselOptions(
+                          autoPlay: true,
+                          autoPlayInterval: Duration(seconds: 5),
+                          viewportFraction: 1.0,
+                          height: scale.getHeight(51),
+                          onPageChanged: (index, reason) {
+                            print(index);
+                            setState(() {
+                              _current = index;
+                            });
+                          },
+                        ),
+                        items: onBoarding.sliderOnBoardingModel.data.map((slide) {
+                          return Column(
+                            children: [
+                              Container(
+                                margin:scale.getMargin(5,0),
+                                child: Image.network(
+                                    slide.banner,fit:BoxFit.contain
+                                ),
+                              ),
+                              Padding(
+                                padding: scale.getPadding(0, 10),
+                                child: Text(
+                                  slide.title,
+                                  style: Theme.of(context).textTheme.headline1,
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              Padding(
+                                padding: scale.getPadding(1, 10),
+                                child: Text(
+                                  slide.caption,
+                                  style: Theme.of(context).textTheme.headline2,
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ],
+                          );
+                        }).toList(),
+                      ),
+                      if(onBoarding.sliderOnBoardingModel.data.length>1)Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: onBoarding.sliderOnBoardingModel.data.map((slide) {
+                            return Container(
+                              width: 10.0,
+                              height: 3.0,
+                              margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(100),
+                                  ),
+                                  color: _current == onBoarding.sliderOnBoardingModel.data.indexOf(slide) ? Theme.of(context).hintColor: Theme.of(context).hintColor.withOpacity(0.3)),
+                            );
+                          }).toList(),
+                        ),
+                      )
+                    ],
                   ),
                   Padding(
                     padding: scale.getPadding(2, 10),
@@ -78,7 +137,7 @@ class _OnBoardingWidgetState extends State<OnBoardingWidget> {
                       backgroundColor: ColorConfig.blueSecondary,
                       labelColor: Colors.white,
                       callback: () =>
-                          Navigator.of(context).pushNamed(RoutePath.registWidget),
+                          Navigator.of(context).pushNamed(RoutePath.registerWidget1),
                     ),
                   ),
                 ],

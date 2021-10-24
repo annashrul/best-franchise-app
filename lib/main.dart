@@ -22,6 +22,7 @@ import 'package:bestfranchise/Controllers/profile/pinEditController.dart';
 import 'package:bestfranchise/Controllers/profile/profileEditController.dart';
 import 'package:bestfranchise/Controllers/regist/registController.dart';
 import 'package:bestfranchise/Controllers/reward/poinController.dart';
+import 'package:bestfranchise/Controllers/slider/onBoardingController.dart';
 import 'package:bestfranchise/Controllers/slider/sliderHomeController.dart';
 import 'package:bestfranchise/Controllers/user/userController.dart';
 import 'package:bestfranchise/Databases/coreDatabase.dart';
@@ -76,6 +77,8 @@ List<SingleChildWidget> providers = [
       create: (_) => ProgressController()),
   ChangeNotifierProvider<FavoriteBrandController>(
       create: (_) => FavoriteBrandController()),
+  ChangeNotifierProvider<OnBoardingController>(
+      create: (_) => OnBoardingController()),
 ];
 
 

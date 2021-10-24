@@ -78,7 +78,7 @@ class _JoinWidgetState extends State<JoinWidget> {
               FieldComponent(
                 controller: lokasiJualan,
                 labelText: "Lokasi Jualan",
-                maxLength: 50,
+                maxLength: 200,
               ),
               SizedBox(height: scale.getHeight(1)),
               FieldComponent(

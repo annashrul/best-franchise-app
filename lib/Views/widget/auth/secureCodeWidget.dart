@@ -14,6 +14,7 @@ class SecureCodeWidget extends StatefulWidget {
   final Color foregroundColor;
   final PassCodeVerify passCodeVerify;
   bool isTrue;
+  final void Function(int codeLength) callbackOnDelete;
 
   SecureCodeWidget(
       {this.onSuccess,
@@ -21,7 +22,7 @@ class SecureCodeWidget extends StatefulWidget {
       this.foregroundColor = Colors.transparent,
       this.passLength,
       this.passCodeVerify,
-      this.isTrue})
+      this.isTrue,this.callbackOnDelete})
       : assert(passLength <= 8),
         assert(borderColor != null),
         assert(foregroundColor != null),
@@ -75,6 +76,7 @@ class _SecureCodeWidgetState extends State<SecureCodeWidget> {
         _currentState = 0;
         _currentCodeLength--;
         _inputCodes.removeAt(_currentCodeLength);
+        widget.callbackOnDelete(_currentCodeLength);
       }
     });
   }

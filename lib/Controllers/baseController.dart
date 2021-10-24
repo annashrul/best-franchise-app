@@ -52,7 +52,7 @@ class BaseController{
       }
       Client client = new Client();
       final response = await client.post( ApiConfig.url+url,headers:ApiConfig.head,body:data);
-      print("=================== POST url = $url status code = ${response.statusCode}, body=$data} ============================");
+      print("=================== POST url = $url status code = ${response.statusCode}, body=$data ============================");
       if(response.statusCode==200){
         final jsonResponse =  json.decode(response.body);
         Navigator.pop(context);

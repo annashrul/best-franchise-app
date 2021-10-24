@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bestfranchise/Configs/colorConfig.dart';
 import 'package:bestfranchise/Configs/routeConfig.dart';
 import 'package:bestfranchise/Configs/stringConfig.dart';
@@ -11,6 +13,8 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:image_picker/image_picker.dart';
+
 
 class GeneralHelper {
   final formatter = new NumberFormat("#,###");
@@ -257,6 +261,23 @@ class GeneralHelper {
       )
     ]);
   }
+
+  static Future getImage(param) async {
+    ImageSource imageSource;
+    if(param == 'camera'){
+      imageSource = ImageSource.camera;
+    }
+    else{
+      imageSource = ImageSource.gallery;
+    }
+    final picker = ImagePicker();
+    final pickedFile = await picker.getImage(source: imageSource);
+    return {
+      "file" : File(pickedFile.path),
+      "path" : pickedFile.path
+    };
+  }
+
 }
 
 class HexColor extends Color {

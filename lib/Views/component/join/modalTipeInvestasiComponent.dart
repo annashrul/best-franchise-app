@@ -68,15 +68,6 @@ class _ModalTipeInvestasiComponentState extends State<ModalTipeInvestasiComponen
                             padding: scale.getPadding(0.5, 2),
                             child: Row(
                               children: [
-                                CircleAvatar(
-                                  backgroundColor: Colors.transparent,
-                                  radius: 25,
-                                  child: Image.network(
-                                      "https://www.freepnglogos.com/uploads/che-guevara-png/che-guevara-coins-cit-coin-invest-33.png"),
-                                ),
-                                SizedBox(
-                                  width: scale.getWidth(2),
-                                ),
                                 Column(
                                   crossAxisAlignment:
                                   CrossAxisAlignment.start,

@@ -24,27 +24,15 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
     final countUser = await db.getData(UserTable.TABLE_NAME);
     // print("################## DATA USER = ${user.dataUser}");
     // Navigator.of(context).pushNamed(RoutePath.mainWidget,arguments: StringConfig.tabHome);
+    // Navigator.of(context).pushNamed(RoutePath.onBoardingWidget);
+    //
     if (countUser.length > 0) {
-      // ApiConfig.head["Authorization"] = "Bearer ${user[UserTable.token]}";
-      // if(user[UserTable.statusRoleApp]==StringConfig.statusLogoutAplikasi){
-      //   Navigator.of(context).pushNamedAndRemoveUntil(RoutePath.loginWidget, (route) => false);
-      // }
-      // else{
       Navigator.of(context).pushNamedAndRemoveUntil(
           RoutePath.mainWidget, (route) => false,
           arguments: StringConfig.tabHome);
-      // }
     } else {
       Navigator.of(context).pushNamed(RoutePath.onBoardingWidget);
     }
-
-    // Navigator.of(context).push(CupertinoPageRoute(builder: (_) => OtpWidget(
-    //   callback: (code){
-    //
-    //   },
-    //   isTrue: false,
-    //   otp: "0000",
-    // )));
   }
 
   @override

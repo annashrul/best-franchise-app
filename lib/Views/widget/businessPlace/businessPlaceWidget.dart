@@ -16,7 +16,6 @@ class _BusinessPlaceWidgetState extends State<BusinessPlaceWidget> {
   Widget build(BuildContext context) {
     ScreenScaler scale = ScreenScaler()..init(context);
     return Scaffold(
-
       appBar:GeneralHelper.appBarGeneral(context: context,title: "Informasi tempat usaha"),
       floatingActionButton: SizedBox(
         width: double.infinity,

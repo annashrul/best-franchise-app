@@ -24,11 +24,6 @@ class _OtpWidgetState extends State<OtpWidget> {
   @override
   void initState() {
     super.initState();
-    // timeCounter = 120;
-    // _timerUpdate();
-    final auth = Provider.of<AuthController>(context, listen: false);
-    auth.timerUpdate();
-    auth.timeCounter=10;
   }
 
   @override
@@ -46,12 +41,12 @@ class _OtpWidgetState extends State<OtpWidget> {
           label:"kirim ulang kode OTP ${!auth.timeUpFlag ?'dalam ${auth.timeCounter} detik':''}",
           callback: ()async{
             if(auth.timeUpFlag){
-              print(auth.dataOtp);
-              final res = await auth.login(context,auth.dataOtp,false);
+              final res = await auth.sendOtp(context, auth.dataOtp);
+              // widget.callback(res["data"]["temp_otp"]);
+              // auth.setTimer(10);
               // if(res!=null){
-              //   // auth.timeUpFlag=!auth.timeUpFlag;
-              //   // auth.timeCounter=120;
-              //   // _timerUpdate();
+              //   auth.timeUpFlag=!auth.timeUpFlag;
+              //   auth.timeCounter=120;
               //   widget.otp=res["data"]["temp_otp"];
               //   setState(() {});
               // }

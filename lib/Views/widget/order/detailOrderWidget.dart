@@ -179,7 +179,9 @@ class _DetailOrderWidgetState extends State<DetailOrderWidget> {
           width: scale.getWidth(5),
           child: Text(":",style: Theme.of(context).textTheme.headline2),
         ),
-        Text(desc,style: Theme.of(context).textTheme.headline2.copyWith(color: Colors.white),),
+        Expanded(
+          child: Text(desc,style: Theme.of(context).textTheme.headline2.copyWith(color: Colors.white),),
+        ),
       ],
     );
   }

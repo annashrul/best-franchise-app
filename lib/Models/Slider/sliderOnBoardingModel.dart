@@ -1,15 +1,15 @@
 // To parse this JSON data, do
 //
-//     final statusOrderModel = statusOrderModelFromJson(jsonString);
+//     final sliderOnBoardingModel = sliderOnBoardingModelFromJson(jsonString);
 
 import 'dart:convert';
 
-StatusOrderModel statusOrderModelFromJson(String str) => StatusOrderModel.fromJson(json.decode(str));
+SliderOnBoardingModel sliderOnBoardingModelFromJson(String str) => SliderOnBoardingModel.fromJson(json.decode(str));
 
-String statusOrderModelToJson(StatusOrderModel data) => json.encode(data.toJson());
+String sliderOnBoardingModelToJson(SliderOnBoardingModel data) => json.encode(data.toJson());
 
-class StatusOrderModel {
-  StatusOrderModel({
+class SliderOnBoardingModel {
+  SliderOnBoardingModel({
     this.meta,
     this.data,
     this.pagination,
@@ -21,7 +21,7 @@ class StatusOrderModel {
   Pagination pagination;
   List<dynamic> total;
 
-  factory StatusOrderModel.fromJson(Map<String, dynamic> json) => StatusOrderModel(
+  factory SliderOnBoardingModel.fromJson(Map<String, dynamic> json) => SliderOnBoardingModel(
     meta: Meta.fromJson(json["meta"]),
     data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
     pagination: Pagination.fromJson(json["pagination"]),
@@ -40,75 +40,45 @@ class Datum {
   Datum({
     this.records,
     this.id,
-    this.idMember,
-    this.member,
-    this.invoiceNo,
-    this.idBrand,
-    this.brand,
-    this.brandLogo,
-    this.idTypeInvest,
-    this.typeInvest,
-    this.owner,
-    this.mobileNo,
-    this.outletAddress,
-    this.longlat,
-    this.promoCode,
-    this.grandTotal,
+    this.type,
     this.status,
-    this.estOpening,
-    this.draftMou,
-    this.idCard,
-    this.note,
+    this.route,
+    this.idRoute,
+    this.title,
+    this.caption,
+    this.link,
+    this.bgColor,
+    this.banner,
     this.createdAt,
     this.updatedAt,
   });
 
   String records;
   String id;
-  String idMember;
-  String member;
-  String invoiceNo;
-  String idBrand;
-  String brand;
-  String brandLogo;
-  String idTypeInvest;
-  String typeInvest;
-  String owner;
-  String mobileNo;
-  String outletAddress;
-  String longlat;
-  String promoCode;
-  String grandTotal;
+  int type;
   int status;
-  dynamic estOpening;
-  String draftMou;
-  String idCard;
-  String note;
+  String route;
+  String idRoute;
+  String title;
+  String caption;
+  String link;
+  String bgColor;
+  String banner;
   DateTime createdAt;
   DateTime updatedAt;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
     records: json["records"],
     id: json["id"],
-    idMember: json["id_member"],
-    member: json["member"],
-    invoiceNo: json["invoice_no"],
-    idBrand: json["id_brand"],
-    brand: json["brand"],
-    brandLogo: json["brand_logo"],
-    idTypeInvest: json["id_type_invest"],
-    typeInvest: json["type_invest"],
-    owner: json["owner"],
-    mobileNo: json["mobile_no"],
-    outletAddress: json["outlet_address"],
-    longlat: json["longlat"],
-    promoCode: json["promo_code"],
-    grandTotal: json["grand_total"],
+    type: json["type"],
     status: json["status"],
-    estOpening: json["est_opening"],
-    draftMou: json["draft_mou"],
-    idCard: json["id_card"],
-    note: json["note"],
+    route: json["route"],
+    idRoute: json["id_route"],
+    title: json["title"],
+    caption: json["caption"],
+    link: json["link"],
+    bgColor: json["bg_color"],
+    banner: json["banner"],
     createdAt: DateTime.parse(json["created_at"]),
     updatedAt: DateTime.parse(json["updated_at"]),
   );
@@ -116,25 +86,15 @@ class Datum {
   Map<String, dynamic> toJson() => {
     "records": records,
     "id": id,
-    "id_member": idMember,
-    "member": member,
-    "invoice_no": invoiceNo,
-    "id_brand": idBrand,
-    "brand": brand,
-    "brand_logo": brandLogo,
-    "id_type_invest": idTypeInvest,
-    "type_invest": typeInvest,
-    "owner": owner,
-    "mobile_no": mobileNo,
-    "outlet_address": outletAddress,
-    "longlat": longlat,
-    "promo_code": promoCode,
-    "grand_total": grandTotal,
+    "type": type,
     "status": status,
-    "est_opening": estOpening,
-    "draft_mou": draftMou,
-    "id_card": idCard,
-    "note": note,
+    "route": route,
+    "id_route": idRoute,
+    "title": title,
+    "caption": caption,
+    "link": link,
+    "bg_color": bgColor,
+    "banner": banner,
     "created_at": createdAt.toIso8601String(),
     "updated_at": updatedAt.toIso8601String(),
   };

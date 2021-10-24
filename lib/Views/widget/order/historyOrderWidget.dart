@@ -110,7 +110,7 @@ class _HistoryOrderWidgetState extends State<HistoryOrderWidget> with SingleTick
           if(order.statusOrderModel==null) NoDataComponent();
           final val = order.statusOrderModel.data[index];
           return CardImageTitleSubtitleComponent(
-            img: StringConfig.imgGeneral,
+            img:val.brandLogo,
             title: val.brand,
             subTitle: "Tanggal Order : ${DateFormat("yyyy-MM-dd").format(val.createdAt)} \nAtas Nama : ${val.owner}",
             otherChild: Text(StatusOrder.checkStatusOrder(val.status),style: Theme.of(context).textTheme.headline2.copyWith(fontWeight: FontWeight.w600,color: ColorConfig.yellowPrimary),),
