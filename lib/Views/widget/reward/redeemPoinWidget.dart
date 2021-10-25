@@ -1,13 +1,10 @@
-import 'package:bestfranchise/Configs/colorConfig.dart';
-import 'package:bestfranchise/Configs/stringConfig.dart';
 import 'package:bestfranchise/Controllers/reward/poinController.dart';
 import 'package:bestfranchise/Helpers/general/generalHelper.dart';
-import 'package:bestfranchise/Views/component/general/dialogComponent.dart';
+import 'package:bestfranchise/Views/component/general/loadingComponent.dart';
+import 'package:bestfranchise/Views/component/general/noDataComponent.dart';
 import 'package:bestfranchise/Views/component/general/stickyHeaderComponent.dart';
-import 'package:bestfranchise/Views/component/general/touchEffectComponent.dart';
 import 'package:bestfranchise/Views/component/reward/cardHeaderReward.dart';
 import 'package:bestfranchise/Views/component/reward/poin/contentRedeenPoinComponent.dart';
-import 'package:bestfranchise/Views/component/reward/poin/notifRedeemPoinMerchandiseComponent.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
@@ -25,35 +22,60 @@ class _RedeemPoinWidgetState extends State<RedeemPoinWidget> {
     ScreenScaler scale = ScreenScaler()..init(context);
     final poin = Provider.of<PoinController>(context);
 
+    void initState() {
+      // TODO: implement initState
+      super.initState();
+      final poin = Provider.of<PoinController>(context);
+      poin.loadMerchandise(context: context);
+    }
+
     return Scaffold(
-      appBar: GeneralHelper.appBarGeneral(context: context,title: "Redeem Poin"),
-      body:ListView(
-        padding: scale.getPadding(1,2),
-        children: [
-          CardHeaderReward(
-            img: "poinBlack",
-            title: "Poin",
-            reward:"100",
-            desc:"Poin didapat dari setiap register yang menggunakan referal kamu",
-          ),
-          SizedBox(height: scale.getHeight(1),),
-          Text("Silahkan tukarkan poin kamu dengan hadiah menarik di bawah ini",style: Theme.of(context).textTheme.headline2,),
-          // SizedBox(height: scale.getHeight(1)),
-          StickyHeader(
-              header: StickyHeaderComponent(
-                data: [
-                  { "title":"Merchandise"},
-                  { "title":"Voucher"},
-                ],
-                callback: (index){
-                  poin.setIndexActive(index);
-                },
-                indexActive: poin.indexActive,
-              ),
-              content:ContentRedeemPoinComponent()
-          )
-        ],
-      )
-    );
+        appBar:
+            GeneralHelper.appBarGeneral(context: context, title: "Redeem Poin"),
+        body: ListView(
+          padding: scale.getPadding(1, 2),
+          children: [
+            CardHeaderReward(
+              img: "poinBlack",
+              title: "Poin",
+              reward: "100",
+              desc:
+                  "Poin didapat dari setiap register yang menggunakan referal kamu",
+            ),
+            SizedBox(
+              height: scale.getHeight(1),
+            ),
+            Text(
+              "Silahkan tukarkan poin kamu dengan hadiah menarik di bawah ini",
+              style: Theme.of(context).textTheme.headline2,
+            ),
+            // SizedBox(height: scale.getHeight(1)),
+            StickyHeader(
+                header: StickyHeaderComponent(
+                  data: [
+                    {"title": "Merchandise"},
+                    {"title": "Voucher"},
+                  ],
+                  callback: (index) {
+                    poin.setIndexActive(index, context);
+                  },
+                  indexActive: poin.indexActive,
+                ),
+                content: poin.indexActive == 0
+                    ? poin.isLoadingMerchandise
+                    : poin.isLoadingVoucher
+                        ? BaseLoadingLoop(
+                            child: LoadingCardRounded(),
+                          )
+                        : poin.indexActive == 0
+                            ? poin.merchandiseModel == null
+                            : poin.voucherModel == null
+                                ? NoDataComponent()
+                                : ContentRedeemPoinComponent(
+                                    poin.indexActive == 0
+                                        ? poin.merchandiseModel
+                                        : poin.voucherModel))
+          ],
+        ));
   }
 }

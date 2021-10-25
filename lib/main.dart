@@ -11,6 +11,7 @@ import 'package:bestfranchise/Controllers/brand/productBrandController.dart';
 import 'package:bestfranchise/Controllers/brand/reviewBrandController.dart';
 import 'package:bestfranchise/Controllers/capitalSubmission/capitalSubmissionController.dart';
 import 'package:bestfranchise/Controllers/category/categoryBrandController.dart';
+import 'package:bestfranchise/Controllers/faq/faqController.dart';
 import 'package:bestfranchise/Controllers/fintech/withdrawController.dart';
 import 'package:bestfranchise/Controllers/history/progressController.dart';
 import 'package:bestfranchise/Controllers/history/statusOrderController.dart';
@@ -18,8 +19,11 @@ import 'package:bestfranchise/Controllers/home/notificationController.dart';
 import 'package:bestfranchise/Controllers/home/rewardHomeController.dart';
 import 'package:bestfranchise/Controllers/join/joinController.dart';
 import 'package:bestfranchise/Controllers/news/listNewsController.dart';
+import 'package:bestfranchise/Controllers/news/newsController.dart';
 import 'package:bestfranchise/Controllers/profile/pinEditController.dart';
 import 'package:bestfranchise/Controllers/profile/profileEditController.dart';
+import 'package:bestfranchise/Controllers/promo/promoController.dart';
+import 'package:bestfranchise/Controllers/redeemPoin/redeemPoinController.dart';
 import 'package:bestfranchise/Controllers/regist/registController.dart';
 import 'package:bestfranchise/Controllers/reward/poinController.dart';
 import 'package:bestfranchise/Controllers/slider/onBoardingController.dart';
@@ -79,8 +83,12 @@ List<SingleChildWidget> providers = [
       create: (_) => FavoriteBrandController()),
   ChangeNotifierProvider<OnBoardingController>(
       create: (_) => OnBoardingController()),
+  ChangeNotifierProvider<FaqController>(create: (_) => FaqController()),
+  ChangeNotifierProvider<PromoController>(create: (_) => PromoController()),
+  ChangeNotifierProvider<NewsController>(create: (_) => NewsController()),
+  ChangeNotifierProvider<RedeemPoinController>(
+      create: (_) => RedeemPoinController()),
 ];
-
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

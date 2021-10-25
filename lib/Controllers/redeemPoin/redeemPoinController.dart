@@ -3,8 +3,7 @@ import 'package:bestfranchise/Models/RedeemPoin/merchandiseModel.dart';
 import 'package:bestfranchise/Models/RedeemPoin/voucherModel.dart';
 import 'package:flutter/cupertino.dart';
 
-class PoinController with ChangeNotifier {
-  int indexActive = 0;
+class RedeemPoinController with ChangeNotifier {
   VoucherModel voucherModel;
   MerchandiseModel merchandiseModel;
   bool isLoadingVoucher = true;
@@ -38,17 +37,6 @@ class PoinController with ChangeNotifier {
       merchandiseModel = null;
     }
     isLoadingMerchandise = false;
-    notifyListeners();
-  }
-
-  setIndexActive(input, context) {
-    indexActive = input;
-    if (input == 0) {
-      loadMerchandise(context: context);
-    } else {
-      loadVoucher(context: context);
-    }
-
     notifyListeners();
   }
 }
