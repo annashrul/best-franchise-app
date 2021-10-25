@@ -32,22 +32,23 @@ class DetailBrandWidget extends StatefulWidget {
 }
 
 class _DetailBrandWidgetState extends State<DetailBrandWidget> {
-  ScrollController controller;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  DetailBrandController detailBrandController;
-  ProductBrandController productBrandController;
-  FranchiseController franchiseController;
+  ScrollController controllerProduct;
+  void scrollListener() {
+    final brand = Provider.of<ProductBrandController>(context, listen: false);
+    if (!brand.isLoading) {
+      if (controllerProduct.position.pixels == controllerProduct.position.maxScrollExtent) {
+        brand.loadMoreProductBrand(context);
+      }
+    }
+  }
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    detailBrandController=Provider.of<DetailBrandController>(context,listen: false);
-    productBrandController=Provider.of<ProductBrandController>(context,listen: false);
-    franchiseController=Provider.of<FranchiseController>(context,listen: false);
-    detailBrandController.loadDetailBrand(context: context,id: widget.obj["id"]);
-    productBrandController.controller = new ScrollController()..addListener(productBrandController.scrollListener);
-    franchiseController.controller = new ScrollController()..addListener(franchiseController.scrollListener);
-
+    final detail=Provider.of<DetailBrandController>(context,listen: false);
+    detail.loadDetailBrand(context: context,id: widget.obj["id"]);
+    controllerProduct = new ScrollController()..addListener(scrollListener);
   }
   @override
   void dispose() {
@@ -57,8 +58,7 @@ class _DetailBrandWidgetState extends State<DetailBrandWidget> {
     // product.controller.removeListener(product.scrollListener);
     // franchise.controller = franchise.controller.removeListener(franchise.scrollListener);
     // franchise.controller = new ScrollController()..removeListener(franchise.scrollListener);
-    productBrandController.controller.removeListener(productBrandController.scrollListener);
-    franchiseController.controller.removeListener(franchiseController.scrollListener);
+    controllerProduct.removeListener(scrollListener);
 
   }
 
@@ -73,10 +73,8 @@ class _DetailBrandWidgetState extends State<DetailBrandWidget> {
     Widget child;
     if (brand.indexTabActive == 0) {
       child = ProdukBrandComponent(idBrand: widget.obj["id"]);
-      controller = product.controller;
     } else if (brand.indexTabActive == 1) {
       child = FranchiseBrandComponent(idBrand: widget.obj["id"]);
-      controller = franchise.controller;
     } else if (brand.indexTabActive == 2) {
       child = LokasiBrandComponent(idBrand: widget.obj["id"]);
     } else {
@@ -124,7 +122,7 @@ class _DetailBrandWidgetState extends State<DetailBrandWidget> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       body: ListView(
         padding: scale.getPaddingLTRB(0,0,0,5),
-        // controller:controller,
+        controller:controllerProduct,
         children: [
           Stack(
             alignment: Alignment.center,
@@ -152,6 +150,9 @@ class _DetailBrandWidgetState extends State<DetailBrandWidget> {
               ),
               content: child
           ),
+          SizedBox(height: scale.getHeight(1),),
+          product.isLoadMore?CupertinoActivityIndicator():SizedBox(),
+          SizedBox(height: scale.getHeight(1),),
         ],
       ),
     );

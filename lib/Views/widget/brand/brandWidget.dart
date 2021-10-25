@@ -18,12 +18,10 @@ class BrandWidget extends StatefulWidget {
 }
 
 class _BrandWidgetState extends State<BrandWidget> with SingleTickerProviderStateMixin  {
-  ScrollController controller;
+
   TabController _tabController;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-
-
-
+  ScrollController controller;
   void scrollListener() {
     final brand = Provider.of<ListBrandController>(context, listen: false);
     if (!brand.isLoading) {
@@ -115,6 +113,7 @@ class _BrandWidgetState extends State<BrandWidget> with SingleTickerProviderStat
               ],
             ),
             callback: (){
+              brand.setIdBrand(val.id);
               Navigator.of(context).pushNamed(RoutePath.detailBrandWidget,arguments: {
                 "id":val.id
               });

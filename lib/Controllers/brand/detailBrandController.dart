@@ -7,6 +7,7 @@ class DetailBrandController with ChangeNotifier{
   int indexTabActive=0;
   DetailBrandModel detailBrandModel;
   bool isLoading=true;
+
   loadDetailBrand({BuildContext context,String id})async{
     final res=await BaseController().get(url: "brand/get/$id",context: context);
     DetailBrandModel result = DetailBrandModel.fromJson(res);

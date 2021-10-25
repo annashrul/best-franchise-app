@@ -1,9 +1,11 @@
 import 'package:bestfranchise/Configs/routeConfig.dart';
 import 'package:bestfranchise/Configs/stringConfig.dart';
+import 'package:bestfranchise/Controllers/brand/listBrandController.dart';
 import 'package:bestfranchise/Models/Slider/sliderHomePaketHematModel.dart';
 import 'package:bestfranchise/Views/component/general/touchEffectComponent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
+import 'package:provider/provider.dart';
 
 class BestPaketHemat extends StatefulWidget {
   final List<Datum> valPh;
@@ -17,6 +19,7 @@ class _BestPaketHematState extends State<BestPaketHemat> {
   @override
   Widget build(BuildContext context) {
     ScreenScaler scale = ScreenScaler()..init(context);
+    final brand = Provider.of<ListBrandController>(context);
     return Container(
       height: scale.getHeight(20),
       width: scale.getWidth(70),
@@ -30,9 +33,10 @@ class _BestPaketHematState extends State<BestPaketHemat> {
           final val = widget.valPh[index];
           return InTouchWidget(
               radius: 10,
-              callback: () => Navigator.of(context).pushNamed(
-                  RoutePath.detailBrandWidget,
-                  arguments: {"id": val.idRoute}),
+              callback: (){
+                brand.setIdBrand(val.idRoute);
+                Navigator.of(context).pushNamed(RoutePath.detailBrandWidget,arguments: {"id": val.idRoute});
+              },
               child: Container(
                 child: Stack(
                   alignment: Alignment.bottomCenter,

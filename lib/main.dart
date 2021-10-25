@@ -25,6 +25,7 @@ import 'package:bestfranchise/Controllers/profile/profileEditController.dart';
 import 'package:bestfranchise/Controllers/promo/promoController.dart';
 import 'package:bestfranchise/Controllers/redeemPoin/redeemPoinController.dart';
 import 'package:bestfranchise/Controllers/regist/registController.dart';
+import 'package:bestfranchise/Controllers/reward/komisiController.dart';
 import 'package:bestfranchise/Controllers/reward/poinController.dart';
 import 'package:bestfranchise/Controllers/slider/onBoardingController.dart';
 import 'package:bestfranchise/Controllers/slider/sliderHomeController.dart';
@@ -88,6 +89,8 @@ List<SingleChildWidget> providers = [
   ChangeNotifierProvider<NewsController>(create: (_) => NewsController()),
   ChangeNotifierProvider<RedeemPoinController>(
       create: (_) => RedeemPoinController()),
+  ChangeNotifierProvider<KomisiController>(
+      create: (_) => KomisiController()),
 ];
 
 void main() {

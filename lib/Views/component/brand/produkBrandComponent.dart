@@ -25,8 +25,7 @@ class _ProdukBrandComponentState extends State<ProdukBrandComponent> {
     // TODO: implement initState
     super.initState();
     final brand=Provider.of<ProductBrandController>(context,listen: false);
-    brand.loadProductBrand(context: context,idBrand: widget.idBrand);
-
+    brand.loadProductBrand(context: context);
   }
 
 

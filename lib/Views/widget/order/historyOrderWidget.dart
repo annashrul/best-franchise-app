@@ -26,7 +26,6 @@ class _HistoryOrderWidgetState extends State<HistoryOrderWidget> with SingleTick
     _controller = TabController(length: 2, vsync: this, initialIndex: 0);
     _controller.addListener(() {
       if (_controller.index == 1) {
-        print('nope!');
         setState(() {
           _controller.index = 0;
         });
@@ -123,7 +122,7 @@ class _HistoryOrderWidgetState extends State<HistoryOrderWidget> with SingleTick
         },
         separatorBuilder: (context,index){return SizedBox();},
         itemCount: order.isLoading?10:order.statusOrderModel==null?1:order.statusOrderModel.data.length,
-         controller: order.controller,
+       controller: order.controller,
     );
   }
 }

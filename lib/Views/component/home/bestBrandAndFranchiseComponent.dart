@@ -10,12 +10,10 @@ import 'package:provider/provider.dart';
 
 class BestBrandAndFranchiseComponent extends StatefulWidget {
   @override
-  _BestBrandAndFranchiseComponentState createState() =>
-      _BestBrandAndFranchiseComponentState();
+  _BestBrandAndFranchiseComponentState createState() => _BestBrandAndFranchiseComponentState();
 }
 
-class _BestBrandAndFranchiseComponentState
-    extends State<BestBrandAndFranchiseComponent> {
+class _BestBrandAndFranchiseComponentState extends State<BestBrandAndFranchiseComponent> {
 
   @override
   void initState() {
@@ -29,7 +27,6 @@ class _BestBrandAndFranchiseComponentState
   Widget build(BuildContext context) {
     ScreenScaler scale = ScreenScaler()..init(context);
     final brand = Provider.of<ListBrandController>(context);
-
     return brand.isLoadingHome?LoadingCardImageCircular():brand.brandHomeModel==null?Text("no data"):Container(
       height: scale.getHeight(5),
       child: ListView.separated(
@@ -41,9 +38,10 @@ class _BestBrandAndFranchiseComponentState
           final val = brand.brandHomeModel.data[index];
           return InTouchWidget(
               radius: 100,
-              callback: () => Navigator.of(context).pushNamed(
-                  RoutePath.detailBrandWidget,
-                  arguments: {"id": val.id}),
+              callback: (){
+                brand.setIdBrand(val.id);
+                Navigator.of(context).pushNamed(RoutePath.detailBrandWidget,arguments: {"id": val.id});
+              },
               child: CircleAvatar(
                 radius: 32,
                 child: ClipOval(
