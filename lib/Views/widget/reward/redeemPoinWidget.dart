@@ -1,3 +1,4 @@
+import 'package:bestfranchise/Controllers/home/rewardHomeController.dart';
 import 'package:bestfranchise/Controllers/reward/poinController.dart';
 import 'package:bestfranchise/Helpers/general/generalHelper.dart';
 import 'package:bestfranchise/Views/component/general/loadingComponent.dart';
@@ -18,16 +19,19 @@ class RedeemPoinWidget extends StatefulWidget {
 
 class _RedeemPoinWidgetState extends State<RedeemPoinWidget> {
   @override
+  void initState() {
+    // TODO: implement initState
+    final poin = Provider.of<PoinController>(context, listen: false);
+    poin.loadMerchandise(context: context);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     ScreenScaler scale = ScreenScaler()..init(context);
+
     final poin = Provider.of<PoinController>(context);
-
-    void initState() {
-      // TODO: implement initState
-      super.initState();
-      poin.setIndexActive(0, context);
-    }
-
+    final reward = Provider.of<RewardHomeController>(context);
     return Scaffold(
         appBar:
             GeneralHelper.appBarGeneral(context: context, title: "Redeem Poin"),
@@ -37,7 +41,7 @@ class _RedeemPoinWidgetState extends State<RedeemPoinWidget> {
             CardHeaderReward(
               img: "poinBlack",
               title: "Poin",
-              reward: "100",
+              reward: reward.rewardHomeModel.data.bonusPoin,
               desc:
                   "Poin didapat dari setiap register yang menggunakan referal kamu",
             ),
@@ -67,18 +71,14 @@ class _RedeemPoinWidgetState extends State<RedeemPoinWidget> {
                           )
                         : poin.merchandiseModel == null
                             ? NoDataComponent()
-                            : ContentRedeemPoinComponent(poin.indexActive == 0
-                                ? poin.merchandiseModel
-                                : poin.voucherModel)
+                            : ContentRedeemPoinComponent(poin.merchandiseModel)
                     : poin.isLoadingVoucher
                         ? BaseLoadingLoop(
                             child: LoadingCardRounded(),
                           )
-                        : poin.merchandiseModel == null
+                        : poin.voucherModel == null
                             ? NoDataComponent()
-                            : ContentRedeemPoinComponent(poin.indexActive == 0
-                                ? poin.merchandiseModel
-                                : poin.voucherModel))
+                            : ContentRedeemPoinComponent(poin.voucherModel))
           ],
         ));
   }

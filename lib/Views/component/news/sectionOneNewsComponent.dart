@@ -1,13 +1,14 @@
 import 'package:bestfranchise/Configs/routeConfig.dart';
 import 'package:bestfranchise/Configs/stringConfig.dart';
+import 'package:bestfranchise/Models/news/newsAllModel.dart';
 import 'package:bestfranchise/Models/news/newsModel.dart';
 import 'package:bestfranchise/Views/component/general/touchEffectComponent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
 
 class SectionOneNewsComponent extends StatefulWidget {
-  final NewsModel newsModel;
-  SectionOneNewsComponent(this.newsModel);
+  final NewsAllModel newsAllModel;
+  SectionOneNewsComponent(this.newsAllModel);
 
   @override
   _SectionOneNewsComponentState createState() =>
@@ -26,9 +27,9 @@ class _SectionOneNewsComponentState extends State<SectionOneNewsComponent> {
         physics: ClampingScrollPhysics(),
         shrinkWrap: true,
         scrollDirection: Axis.horizontal,
-        itemCount: widget.newsModel.data.length,
+        itemCount: widget.newsAllModel.data.length,
         itemBuilder: (context, index) {
-          final val = widget.newsModel.data[index];
+          final val = widget.newsAllModel.data[index];
           return InTouchWidget(
               radius: 10,
               callback: () {

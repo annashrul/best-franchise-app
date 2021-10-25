@@ -1,4 +1,5 @@
 import 'package:bestfranchise/Controllers/baseController.dart';
+import 'package:bestfranchise/Models/news/newsAllModel.dart';
 import 'package:bestfranchise/Models/news/newsCatModel.dart';
 import 'package:bestfranchise/Models/news/newsDetModel.dart';
 import 'package:bestfranchise/Models/news/newsModel.dart';
@@ -6,9 +7,11 @@ import 'package:flutter/cupertino.dart';
 
 class NewsController with ChangeNotifier {
   NewsModel newsModel;
+  NewsAllModel newsAllModel;
   NewsDetModel newsDetModel;
   NewsCatModel newsCatModel;
   bool isLoading = true;
+  bool isLoadingAll = true;
   bool isLoadingDet = true;
   bool isLoadingCat = true;
   int perPage = 10;
@@ -34,6 +37,22 @@ class NewsController with ChangeNotifier {
       newsModel = null;
     }
     isLoading = false;
+    notifyListeners();
+  }
+
+  loadNewsAll(BuildContext context, id) async {
+    if (newsAllModel == null) isLoadingAll = true;
+
+    final res = await BaseController()
+        .get(url: "content?page=1&perpage=$perPage&status=1", context: context);
+    print("############## ${res["data"].length}");
+    if (res["data"].length > 0) {
+      NewsAllModel result = NewsAllModel.fromJson(res);
+      newsAllModel = result;
+    } else {
+      newsAllModel = null;
+    }
+    isLoadingAll = false;
     notifyListeners();
   }
 

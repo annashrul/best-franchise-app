@@ -24,7 +24,7 @@ class _ContentRedeemPoinComponentState
   @override
   Widget build(BuildContext context) {
     ScreenScaler scale = ScreenScaler()..init(context);
-    final poin = Provider.of<PoinController>(context);
+    final poin = Provider.of<PoinController>(context, listen: false);
 
     print(widget.object.toString());
     return ListView.separated(
@@ -32,8 +32,8 @@ class _ContentRedeemPoinComponentState
         primary: false,
         shrinkWrap: true,
         itemBuilder: (context, index) {
-          final valM = poin.merchandiseModel.data[index];
-          final valV = poin.voucherModel.data[index];
+          // final valM = poin.merchandiseModel.data[index];
+          // final valV = poin.voucherModel.data[index];
           return Card(
             margin: scale.getMarginLTRB(0, 0, 0, 1),
             shape: RoundedRectangleBorder(
@@ -45,8 +45,10 @@ class _ContentRedeemPoinComponentState
               callback: () =>
                   GeneralHelper.dialog(context: context, child: <Widget>[
                 poin.indexActive == 0
-                    ? NotifRedeemPoinMerchandiseComponent()
-                    : NotifRedeemPoinVoucherComponent()
+                    ? NotifRedeemPoinMerchandiseComponent(
+                        poin.merchandiseModel.data[index])
+                    : NotifRedeemPoinVoucherComponent(
+                        poin.voucherModel.data[index])
               ]),
               child: Padding(
                 padding: scale.getPadding(1, 2),
@@ -54,8 +56,9 @@ class _ContentRedeemPoinComponentState
                   children: [
                     CircleAvatar(
                       radius: 40,
-                      backgroundImage: NetworkImage(
-                          poin.indexActive == 0 ? valM.photo : valV.brandLogo),
+                      backgroundImage: NetworkImage(poin.indexActive == 0
+                          ? poin.merchandiseModel.data[index].photo
+                          : poin.voucherModel.data[index].brandLogo),
                     ),
                     SizedBox(
                       width: scale.getWidth(2),
@@ -66,7 +69,9 @@ class _ContentRedeemPoinComponentState
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            poin.indexActive == 0 ? valM.title : valV.title,
+                            poin.indexActive == 0
+                                ? poin.merchandiseModel.data[index].title
+                                : poin.voucherModel.data[index].title,
                             style: Theme.of(context)
                                 .textTheme
                                 .headline2
@@ -98,9 +103,10 @@ class _ContentRedeemPoinComponentState
                                   ),
                                   Text(
                                     poin.indexActive == 0
-                                        ? valM.hargaCoret
-                                        : GeneralHelper.myDate(
-                                            valV.expiredDate),
+                                        ? poin.merchandiseModel.data[index]
+                                            .hargaCoret
+                                        : GeneralHelper.myDate(poin.voucherModel
+                                            .data[index].expiredDate),
                                     style: Theme.of(context)
                                         .textTheme
                                         .headline2
@@ -126,8 +132,10 @@ class _ContentRedeemPoinComponentState
                                     ),
                                     Text(
                                         poin.indexActive == 0
-                                            ? valM.poin
-                                            : valV.poin,
+                                            ? poin.merchandiseModel.data[index]
+                                                .poin
+                                            : poin
+                                                .voucherModel.data[index].poin,
                                         style: Theme.of(context)
                                             .textTheme
                                             .headline2

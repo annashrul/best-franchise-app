@@ -22,7 +22,6 @@ class BaseController {
               "Bearer ${userStorage.dataUser[UserTable.token]}";
         }
       }
-      // print(ApiConfig.head)
       final response = await client
           .get(ApiConfig.url + url, headers: ApiConfig.head)
           .timeout(Duration(seconds: ApiConfig.timeOut));

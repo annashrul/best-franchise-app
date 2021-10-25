@@ -115,13 +115,19 @@ class _CapitalSubmissionWidgetState extends State<CapitalSubmissionWidget> {
                 labelText: "Pilih Tipe Investasi",
                 onTap: () {
                   print("ads");
-                  GeneralHelper.modal(context: context, child: ModalTipeInvestasiComponent(
-                    idBrand:join.idBrand,
-                    callback: (data){
-                      join.setOther(data["id"],"");
-                      join.investController.text="${data["title"]} - ${GeneralHelper().formatter.format(int.parse(data["price"]))}";
-                    },
-                  ));
+                  if(join.idBrand!=""){
+                    GeneralHelper.modal(context: context, child: ModalTipeInvestasiComponent(
+                      idBrand:join.idBrand,
+                      callback: (data){
+                        join.setOther(data["id"],"");
+                        join.investController.text="${data["title"]} - ${GeneralHelper().formatter.format(int.parse(data["price"]))}";
+                      },
+                    ));
+                  }
+                  else{
+                    GeneralHelper.toast(msg: "silahkan pilih brand terlebih dahulu");
+                  }
+
                 },
               ),
               SizedBox(height: scale.getHeight(1)),

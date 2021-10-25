@@ -1,11 +1,13 @@
 import 'package:bestfranchise/Configs/routeConfig.dart';
 import 'package:bestfranchise/Configs/stringConfig.dart';
+import 'package:bestfranchise/Controllers/home/rewardHomeController.dart';
 import 'package:bestfranchise/Helpers/general/generalHelper.dart';
 import 'package:bestfranchise/Views/component/general/buttonComponent.dart';
 import 'package:bestfranchise/Views/component/home/rewardCardComponent.dart';
 import 'package:bestfranchise/Views/component/profile/modalKetentuanLayananComponent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
+import 'package:provider/provider.dart';
 
 class ProfileWidget extends StatefulWidget {
   @override
@@ -16,6 +18,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
   @override
   Widget build(BuildContext context) {
     ScreenScaler scale = ScreenScaler()..init(context);
+    final reward = Provider.of<RewardHomeController>(context);
     return Scaffold(
       appBar: GeneralHelper.appBarWithImage(
           context: context,
@@ -39,17 +42,17 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                   RewardCardComponent(
                     img: "poin",
                     title: "jumlah Poin",
-                    desc: "100",
+                    desc: reward.rewardHomeModel.data.bonusPoin,
                   ),
                   RewardCardComponent(
                     img: "komisi",
                     title: "Komisi",
-                    desc: "100,000",
+                    desc: reward.rewardHomeModel.data.bonusKomisi,
                   ),
                   RewardCardComponent(
                     img: "royalti",
                     title: "Royalti",
-                    desc: "1,000,000",
+                    desc: reward.rewardHomeModel.data.bonusRoyalti,
                   ),
                 ],
               ),
@@ -166,7 +169,10 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                 Image.asset(StringConfig.imgLocal + "tentanBestFranchise.png"),
             title: Text(
               "Tentang Aplikasi",
-              style: Theme.of(context).textTheme.headline1.copyWith(fontWeight: FontWeight.w400),
+              style: Theme.of(context)
+                  .textTheme
+                  .headline1
+                  .copyWith(fontWeight: FontWeight.w400),
             ),
           ),
           Divider(height: scale.getHeight(0.1)),

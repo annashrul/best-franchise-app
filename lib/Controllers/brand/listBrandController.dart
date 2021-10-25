@@ -12,6 +12,11 @@ class ListBrandController with ChangeNotifier {
   bool isLoadMore = false,isLoadMoreModal=false;
   int perPage = 10,perPageModal=10;
   String idCategoryBrand="",anySearchBrandModal="";
+  String idBrand="";
+  setIdBrand(input){
+    idBrand=input;
+    notifyListeners();
+  }
   setAnySearchBrandModal(BuildContext context,input){
     anySearchBrandModal=input;
     loadBrandModal(context: context);

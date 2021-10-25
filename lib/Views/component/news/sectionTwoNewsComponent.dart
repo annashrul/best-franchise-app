@@ -31,6 +31,7 @@ class _SectionTwoNewsComponentState extends State<SectionTwoNewsComponent> {
         : news.newsCatModel == null
             ? 0
             : news.newsCatModel.data.length;
+    dataTab.add({"title": "Semua"});
     for (int i = 0; i < lengthCategory; i++) {
       dataTab.add({
         "title": news.isLoading ? "loading .." : news.newsCatModel.data[i].title
@@ -39,7 +40,8 @@ class _SectionTwoNewsComponentState extends State<SectionTwoNewsComponent> {
     return StickyHeaderComponent(
       data: dataTab,
       callback: (index) {
-        news.loadNewsCat(context, index, index);
+        news.loadNewsCat(context, index,
+            index == 0 ? "" : news.newsCatModel.data[index - 1].id);
       },
       indexActive: news.indexCategoryActive,
     );

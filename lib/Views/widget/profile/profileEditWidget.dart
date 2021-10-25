@@ -6,6 +6,7 @@ import 'package:bestfranchise/Databases/tableDatabase.dart';
 import 'package:bestfranchise/Helpers/general/generalHelper.dart';
 import 'package:bestfranchise/Views/component/general/buttonComponent.dart';
 import 'package:bestfranchise/Views/component/general/fieldComponent.dart';
+import 'package:bestfranchise/Views/component/profile/modalImagesProfileComponent.dart';
 import 'package:bestfranchise/Views/component/profile/modalPinEditComponent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
@@ -47,19 +48,34 @@ class _ProfileEditWidgetState extends State<ProfileEditWidget> {
                 // Image.asset(StringConfig.imgLocal + "icUser.png", scale: 1.5,),
                 Positioned(
                   top: scale.getHeight(10),
-                  child: Image.asset(
-                    StringConfig.imgLocal + "icUser.png",
-                    scale: 1.5,
+                  child: GestureDetector(
+                    child: Image.asset(
+                      StringConfig.imgLocal + "icUser.png",
+                      scale: 1.5,
+                    ),
+                    onTap: () => {
+                      GeneralHelper.modal(
+                          context: context,
+                          child: ModalImagesProfileComponent())
+                      // print("klik")
+                    },
                   ),
                 ),
                 Positioned(
-                  top: scale.getHeight(20),
-                  right: scale.getWidth(35),
-                  child: Image.asset(
-                    StringConfig.imgLocal + "icCamera2.png",
-                    scale: 1.5,
-                  ),
-                )
+                    top: scale.getHeight(20),
+                    right: scale.getWidth(35),
+                    child: GestureDetector(
+                      child: Image.asset(
+                        StringConfig.imgLocal + "icCamera2.png",
+                        scale: 1.5,
+                      ),
+                      onTap: () => {
+                        // GeneralHelper.modal(
+                        //     context: context,
+                        //     child: ModalImagesProfileComponent())
+                        print("klik")
+                      },
+                    ))
               ],
             ),
           ),
