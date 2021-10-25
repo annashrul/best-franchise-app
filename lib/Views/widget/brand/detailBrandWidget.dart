@@ -49,7 +49,9 @@ class _DetailBrandWidgetState extends State<DetailBrandWidget> {
     final detail=Provider.of<DetailBrandController>(context,listen: false);
     detail.loadDetailBrand(context: context,id: widget.obj["id"]);
     controllerProduct = new ScrollController()..addListener(scrollListener);
+
   }
+
   @override
   void dispose() {
     super.dispose();
@@ -64,7 +66,6 @@ class _DetailBrandWidgetState extends State<DetailBrandWidget> {
 
   @override
   Widget build(BuildContext context) {
-
     ScreenScaler scale = ScreenScaler()..init(context);
     final brand = Provider.of<DetailBrandController>(context);
     final product = Provider.of<ProductBrandController>(context);
@@ -78,7 +79,7 @@ class _DetailBrandWidgetState extends State<DetailBrandWidget> {
     } else if (brand.indexTabActive == 2) {
       child = LokasiBrandComponent(idBrand: widget.obj["id"]);
     } else {
-      child = ReviewBrandComponent(idBrand:  widget.obj["id"]);
+      child = ReviewBrandComponent(idBrand: widget.obj["id"]);
     }
 
     return Scaffold(
@@ -88,10 +89,9 @@ class _DetailBrandWidgetState extends State<DetailBrandWidget> {
           title: "Detail Brand",
           actions: [
             InTouchWidget(
-              callback: () async{
-                await favoirte.create(context: context,data: {
-                  "id_brand":widget.obj["id"]
-                });
+              callback: () async {
+                await favoirte.create(
+                    context: context, data: {"id_brand": widget.obj["id"]});
               },
               child: Container(
                 alignment: Alignment.center,
@@ -100,9 +100,7 @@ class _DetailBrandWidgetState extends State<DetailBrandWidget> {
               ),
             ),
             InTouchWidget(
-              callback: () async{
-
-              },
+              callback: () async {},
               child: Container(
                 alignment: Alignment.center,
                 padding: scale.getPadding(1, 2),
@@ -116,7 +114,8 @@ class _DetailBrandWidgetState extends State<DetailBrandWidget> {
           label: "Bergabung sekarang?",
           labelColor: Colors.white,
           backgroundColor: ColorConfig.redPrimary,
-          callback: () =>  Navigator.of(context).pushNamed(RoutePath.joinWidget,arguments: {"id": widget.obj["id"]}),
+          callback: () => Navigator.of(context).pushNamed(RoutePath.joinWidget,
+              arguments: {"id": widget.obj["id"]}),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -127,12 +126,20 @@ class _DetailBrandWidgetState extends State<DetailBrandWidget> {
           Stack(
             alignment: Alignment.center,
             children: [
-              brand.isLoading?BaseLoading(height:20,width: 100):Image.asset(StringConfig.imgLocal + "detailBrand.png"),
-              brand.isLoading?BaseLoading(height:5,width: 12,radius: 100,):CircleAvatar(
-                radius: 30,
-                backgroundImage:
-                    AssetImage(StringConfig.imgLocal + "burhot.png"),
-              )
+              brand.isLoading
+                  ? BaseLoading(height: 20, width: 100)
+                  : Image.asset(StringConfig.imgLocal + "detailBrand.png"),
+              brand.isLoading
+                  ? BaseLoading(
+                      height: 5,
+                      width: 12,
+                      radius: 100,
+                    )
+                  : CircleAvatar(
+                      radius: 30,
+                      backgroundImage:
+                          AssetImage(StringConfig.imgLocal + "burhot.png"),
+                    )
             ],
           ),
           StickyHeader(

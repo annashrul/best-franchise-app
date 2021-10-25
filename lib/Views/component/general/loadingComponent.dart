@@ -51,7 +51,7 @@ class BaseLoadingLoop extends StatelessWidget {
         itemBuilder: (context,index){
           return child;
         },
-        separatorBuilder: (context,index){return Divider();},
+        separatorBuilder: (context,index){return SizedBox();},
         itemCount: this.total
     );
   }

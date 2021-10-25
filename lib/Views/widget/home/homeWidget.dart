@@ -42,11 +42,9 @@ class _HomeWidgetState extends State<HomeWidget> {
   Widget build(BuildContext context) {
     ScreenScaler scale = ScreenScaler()..init(context);
     final slider = Provider.of<SliderHomeController>(context);
-
     final reward = Provider.of<RewardHomeController>(context);
-
     final val =
-        reward.rewardHomeModel == null ? null : reward.rewardHomeModel.data;
+        reward.infoModel == null ? null : reward.infoModel.data;
     final valPh = slider.sliderHomePaketHematModel == null
         ? []
         : slider.sliderHomePaketHematModel.data;
@@ -74,10 +72,10 @@ class _HomeWidgetState extends State<HomeWidget> {
             slider.isLoading && valSu.length == 0
                 ? LoadingSlider()
                 : SliderHomeComponent(valSu),
-            reward.isLoading && reward.rewardHomeModel == null
+            reward.isLoading && reward.infoModel == null
                 ? LoadingReward()
                 : RewardComponent(
-                    val,
+                    val.toJson(),
                     callback: () {},
                   ),
           ],

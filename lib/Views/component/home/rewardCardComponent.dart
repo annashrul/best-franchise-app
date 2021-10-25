@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:bestfranchise/Configs/routeConfig.dart';
 import 'package:bestfranchise/Configs/stringConfig.dart';
 import 'package:bestfranchise/Configs/ui_icons.dart';
+import 'package:bestfranchise/Controllers/reward/komisiController.dart';
 import 'package:bestfranchise/Helpers/general/generalHelper.dart';
 import 'package:bestfranchise/Icons/best_icon_icons.dart';
 import 'package:bestfranchise/Models/Home/rewardModel.dart';
@@ -15,12 +16,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 
 class RewardComponent extends StatefulWidget {
   final String bonusPoin;
   final String bonusKomisi;
   final String bonusRoyalti;
-  final Datum val;
+  final dynamic val;
 
   final void Function() callback;
   RewardComponent(this.val,
@@ -81,15 +83,15 @@ class _RewardComponentState extends State<RewardComponent> {
                         RewardCardComponent(
                             img: "poin",
                             title: "Jumlah Poin",
-                            desc: widget.val.bonusPoin),
+                            desc: widget.val["poin"]),
                         RewardCardComponent(
                             img: "komisi",
                             title: "Komisi",
-                            desc: widget.val.bonusKomisi),
+                            desc: widget.val["saldo_komisi"]),
                         RewardCardComponent(
                             img: "royalti",
                             title: "Royalti",
-                            desc: widget.val.bonusKomisi),
+                            desc: widget.val["saldo_royalti"]),
                       ],
                     )
                   ],
@@ -112,12 +114,6 @@ class _RewardComponentState extends State<RewardComponent> {
       child: InTouchWidget(
           radius: 100,
           callback:callback,
-          // child: CircleAvatar(
-          //   radius: 20,
-          //   child: RadiantGradientMask(
-          //       child:Icon(icon,color: Colors.white,size: scale.getTextSize(14),)
-          //   ),
-          // ),
           child: Container(
             padding: scale.getPadding(0.5, 1.1),
             child: BackgroundIconComponent(

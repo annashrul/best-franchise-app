@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:bestfranchise/Configs/colorConfig.dart';
@@ -134,12 +135,14 @@ class GeneralHelper {
   static modal({BuildContext context, Widget child, void Function() callback}) {
     ScreenScaler scale = ScreenScaler()..init(context);
     return showModalBottomSheet(
+        enableDrag: false,
         isDismissible: false,
         backgroundColor: Colors.transparent,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(10.0))),
         context: context,
         isScrollControlled: true,
-        builder: (context) => Padding(
+        builder: (context) => WillPopScope(
+            child: Padding(
               padding: MediaQuery.of(context).viewInsets,
               child: Stack(
                 children: [
@@ -149,9 +152,9 @@ class GeneralHelper {
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius:
-                            BorderRadius.vertical(top: Radius.circular(10.0))
-                        // borderRadius: BorderRadius.circular(20)
-                        ),
+                        BorderRadius.vertical(top: Radius.circular(10.0))
+                      // borderRadius: BorderRadius.circular(20)
+                    ),
                     child: child,
                   ),
                   Positioned(
@@ -178,21 +181,31 @@ class GeneralHelper {
                   ),
                 ],
               ),
-            ));
+            ),
+            onWillPop: ()async{return false;}
+        )
+    );
   }
 
   static modalGeneral({BuildContext context, Widget child,void Function() callback}) {
     ScreenScaler scale = ScreenScaler()..init(context);
     return showModalBottomSheet(
+        enableDrag: false,
         isDismissible: false,
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(10.0))),
         context: context,
         isScrollControlled: true,
-        builder: (context) => Padding(
-          padding: MediaQuery.of(context).viewInsets,
-          child: child,
-        ));
+        builder: (context) => WillPopScope(
+          child: Padding(
+            padding: MediaQuery.of(context).viewInsets,
+            child: child,
+          ),
+          onWillPop: ()async{
+            return false;
+          },
+        )
+    );
   }
 
   static dialog({BuildContext context, List<Widget> child}) {
@@ -236,7 +249,7 @@ class GeneralHelper {
               onTap: callback != null
                   ? callback
                   : () => Navigator.of(context).pop(),
-              child: Icon(FontAwesome.close))
+              child: Text("Simpan",style: Theme.of(context).textTheme.headline1.copyWith(color: ColorConfig.blueSecondary),))
       ],
     );
   }

@@ -114,7 +114,6 @@ class _CapitalSubmissionWidgetState extends State<CapitalSubmissionWidget> {
                 controller: join.investController,
                 labelText: "Pilih Tipe Investasi",
                 onTap: () {
-                  print("ads");
                   if(join.idBrand!=""){
                     GeneralHelper.modal(context: context, child: ModalTipeInvestasiComponent(
                       idBrand:join.idBrand,
@@ -165,11 +164,13 @@ class _CapitalSubmissionWidgetState extends State<CapitalSubmissionWidget> {
                           context: context,
                           child: UploadImageComponent(
                             callback: (data){
+                              print(data);
                               Navigator.of(context).pop();
                               dataPhoto[index]["img"]=data["path"];
                               dataPhoto[index]["base64"]=data["base64"];
                               setState(() {});
                             },
+                            isPreview: false,
                           )
                         );
                       },
@@ -223,3 +224,7 @@ class _CapitalSubmissionWidgetState extends State<CapitalSubmissionWidget> {
     );
   }
 }
+
+
+
+

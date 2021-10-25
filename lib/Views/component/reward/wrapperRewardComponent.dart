@@ -1,11 +1,19 @@
 import 'package:bestfranchise/Configs/colorConfig.dart';
 import 'package:bestfranchise/Configs/stringConfig.dart';
+import 'package:bestfranchise/Controllers/reward/komisiController.dart';
+import 'package:bestfranchise/Controllers/reward/royaltiController.dart';
+import 'package:bestfranchise/Controllers/user/userController.dart';
+import 'package:bestfranchise/Databases/tableDatabase.dart';
 import 'package:bestfranchise/Helpers/general/generalHelper.dart';
 import 'package:bestfranchise/Views/component/general/buttonComponent.dart';
+import 'package:bestfranchise/Views/component/general/loadingComponent.dart';
+import 'package:bestfranchise/Views/component/general/noDataComponent.dart';
 import 'package:bestfranchise/Views/component/general/touchEffectComponent.dart';
 import 'package:bestfranchise/Views/component/reward/cardHeaderReward.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
+import 'package:provider/provider.dart';
 
 class WrapperRewardComponent extends StatefulWidget {
   final void Function() callbackBottomButton;
@@ -13,8 +21,8 @@ class WrapperRewardComponent extends StatefulWidget {
   final String titleCard;
   final String rewardCard;
   final String descCard;
-
-
+  final Widget child;
+  
 
   WrapperRewardComponent({
     this.callbackBottomButton,
@@ -22,6 +30,7 @@ class WrapperRewardComponent extends StatefulWidget {
     this.titleCard,
     this.rewardCard,
     this.descCard,
+    this.child,
   });
 
   @override
@@ -29,22 +38,13 @@ class WrapperRewardComponent extends StatefulWidget {
 }
 
 class _WrapperRewardComponentState extends State<WrapperRewardComponent> {
+
   @override
   Widget build(BuildContext context) {
     ScreenScaler scale = ScreenScaler()..init(context);
-
-    String titleLoop="Dhea Annisa";
-    String subTitleLoop="+6281214126685";
-    String descLoop="Ucapkan Terima kasih Yuk !";
-    if(widget.titleCard=="Poin"){
-      descLoop="Kenalkan BEST Franchise supaya kamu dapat komisi";
-    }
-    if(widget.titleCard=="Komisi"){
-      titleLoop="Dhea Annisa telah menjadi Franchise Kami Komisi untuk kamu : Rp. 150.000";
-    }else if(widget.titleCard=="Royalti"){
-      titleLoop="Royalti untuk kamu : Rp. 150.000\nDari Outlet Atas nama Dhea Annisa";
-    }
-
+    final user = Provider.of<UserController>(context);
+    final komisi = Provider.of<KomisiController>(context);
+    final royalti = Provider.of<RoyaltiController>(context);
     return Scaffold(
         appBar: GeneralHelper.appBarGeneral(context: context,title: "BEST ${widget.titleCard}",actions: <Widget>[
           InkResponse(
@@ -61,9 +61,9 @@ class _WrapperRewardComponentState extends State<WrapperRewardComponent> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(100.0),
                 ),
-                color: ColorConfig.redPrimary,
+                color: royalti.isLoadMoreList||komisi.isLoadMoreList?Colors.white:ColorConfig.redPrimary,
                 onPressed:widget.callbackBottomButton,
-                child: Text( widget.titleCard=="Poin"?"Redeem Poin":"Withdraw",style: Theme.of(context).textTheme.headline1.copyWith(color: Colors.white),)
+                child: royalti.isLoadMoreList||komisi.isLoadMoreList?CupertinoActivityIndicator():Text(widget.titleCard=="Poin"?"Redeem Poin":"Withdraw",style: Theme.of(context).textTheme.headline1.copyWith(color: Colors.white),)
             ),
           ),
         ),
@@ -84,10 +84,10 @@ class _WrapperRewardComponentState extends State<WrapperRewardComponent> {
                 child: Column(
                   children: [
                     Text("Rekapitulasi ${widget.titleCard}",style: Theme.of(context).textTheme.headline1.copyWith(fontWeight: FontWeight.w400)),
-                    Text("Kayla Andhara",style: Theme.of(context).textTheme.headline1.copyWith(fontSize: 24)),
+                    Text(user.dataUser[UserTable.fullname],style: Theme.of(context).textTheme.headline1.copyWith(fontSize: 24)),
                     SizedBox(height: scale.getHeight(0.2)),
                     CircleAvatar(
-                      backgroundImage: NetworkImage(StringConfig.imgUser),
+                      backgroundImage: NetworkImage("${user.dataUser[UserTable.photo]}"),
                       radius: 35,
                     ),
                     SizedBox(height: scale.getHeight(0.2)),
@@ -96,125 +96,15 @@ class _WrapperRewardComponentState extends State<WrapperRewardComponent> {
                 ),
               ),
               Expanded(
-                child: Scrollbar(
-                  child: ListView.separated(
-                      padding: EdgeInsets.zero,
-                      itemBuilder: (context,index){
-                        return Card(
-                          margin:scale.getMarginLTRB(0,0,0,1),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15.0),
-                          ),
-                          elevation: 1,
-                          child: InTouchWidget(
-                            radius: 15,
-                            callback: (){},
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Container(
-                                  padding:scale.getPaddingLTRB(2,0,0,0),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          CircleAvatar(
-                                            backgroundImage: NetworkImage(StringConfig.imgUser),
-                                            radius: 15,
-                                          ),
-                                          SizedBox(width: scale.getWidth(1),),
-                                          Column(
-                                            children: [
-                                              Container(
-                                                width: scale.getWidth(55),
-                                                child: Text(titleLoop,style: Theme.of(context).textTheme.headline2.copyWith(fontWeight: FontWeight.w500)),
-                                              ),
-                                              if(widget.titleCard=="Poin")Container(
-                                                width: scale.getWidth(55),
-                                                child: Text(subTitleLoop,style: Theme.of(context).textTheme.headline2.copyWith(fontWeight: FontWeight.w500),maxLines: 1),
-                                              ),
-                                            ],
-                                            mainAxisAlignment: MainAxisAlignment.start,
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                          ),
-                                        ],
-                                      ),
-                                      Container(
-                                        width: scale.getWidth(60),
-                                        height: scale.getHeight(1),
-                                        child: Divider(),
-                                      ),
-                                      Row(
-                                        children: [
-                                          CircleAvatar(
-                                            backgroundColor: Colors.transparent,
-                                            radius: 15,
-                                            child: Image.asset(StringConfig.imgLocal+"whatsApp.png"),
-                                          ),
-                                          SizedBox(width: scale.getWidth(1),),
-                                          Container(
-                                            width: scale.getWidth(50),
-                                            child: Text(descLoop,style: Theme.of(context).textTheme.headline2.copyWith(fontWeight: FontWeight.w500),maxLines: 1),
-                                          ),
-
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Align(
-                                  child: Container(
-                                    padding: scale.getPadding(widget.titleCard=="Poin"?3:1, 2),
-                                    child: widget.titleCard=="Poin"?poinCard():royaltiAndKomisi(),
-                                    decoration: BoxDecoration(
-                                        color:widget.titleCard=="Poin"?Color(0xFFF0ABE1):Color(0xFFABF2B3),
-                                        borderRadius: BorderRadius.only(
-                                          topRight: Radius.circular(15),
-                                          bottomRight: Radius.circular(15),
-                                        )
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                      separatorBuilder: (context,index){return SizedBox();},
-                      itemCount: 10
-                  ),
-                ),
+                child: widget.child,
               ),
+              SizedBox(height: scale.getHeight(5),)
             ],
           ),
         )
     );
   }
 
-  Widget poinCard(){
-    return Column(
-      children: [
-        Text("Status",style: Theme.of(context).textTheme.headline2),
-        Text("Member",style: Theme.of(context).textTheme.headline2.copyWith(color: Colors.grey)),
-      ],
-    );
-  }
 
-  Widget royaltiAndKomisi(){
-    return Column(
-      children: [
-        Text("BRAND",style: Theme.of(context).textTheme.headline1.copyWith(fontWeight: FontWeight.w500)),
-        CircleAvatar(
-          backgroundImage: AssetImage(StringConfig.imgLocal+"burhot.png"),
-          radius: 20,
-        ),
-        Text("2020-01-01",style: Theme.of(context).textTheme.headline2.copyWith(color: Colors.grey)),
-      ],
-    );
-  }
 
 }

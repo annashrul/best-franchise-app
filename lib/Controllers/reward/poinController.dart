@@ -41,7 +41,7 @@ class PoinController with ChangeNotifier {
     notifyListeners();
   }
 
-  setIndexActive(input, context) {
+  setIndexActive(input, context) async {
     indexActive = input;
     if (input == 0) {
       loadMerchandise(context: context);
