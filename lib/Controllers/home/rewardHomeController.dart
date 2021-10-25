@@ -1,20 +1,21 @@
 import 'package:bestfranchise/Controllers/baseController.dart';
+import 'package:bestfranchise/Models/General/infoModel.dart';
 import 'package:bestfranchise/Models/Home/rewardModel.dart';
 import 'package:flutter/cupertino.dart';
 
 class RewardHomeController with ChangeNotifier {
-  RewardModel rewardHomeModel;
+  InfoModel infoModel;
   bool isLoading = false;
   get({BuildContext context}) async {
-    if (rewardHomeModel == null) isLoading = true;
+    if (infoModel == null) isLoading = true;
     final res =
-        await BaseController().get(url: "site/config", context: context);
+        await BaseController().get(url: "site/info", context: context);
     print("RESPONSE $res");
     if (res["meta"]['code'] == 200) {
-      RewardModel result = RewardModel.fromJson(res);
-      rewardHomeModel = result;
+      InfoModel result = InfoModel.fromJson(res);
+      infoModel = result;
     } else {
-      rewardHomeModel = null;
+      infoModel = null;
     }
     isLoading = false;
     notifyListeners();

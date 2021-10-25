@@ -1,10 +1,13 @@
 import 'package:bestfranchise/Configs/colorConfig.dart';
 import 'package:bestfranchise/Configs/routeConfig.dart';
+import 'package:bestfranchise/Configs/stringConfig.dart';
+import 'package:bestfranchise/Controllers/slider/sliderHomeController.dart';
 import 'package:bestfranchise/Helpers/general/generalHelper.dart';
 import 'package:bestfranchise/Models/Slider/sliderHomeSolusiModel.dart';
 import 'package:bestfranchise/Views/component/general/touchEffectComponent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
+import 'package:provider/provider.dart';
 
 class BestSolusiComponent extends StatefulWidget {
   final List<Datum> valSl;
@@ -15,9 +18,41 @@ class BestSolusiComponent extends StatefulWidget {
 }
 
 class _BestSolusiComponentState extends State<BestSolusiComponent> {
+
+  //
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+  // }
+
   @override
   Widget build(BuildContext context) {
     ScreenScaler scale = ScreenScaler()..init(context);
+    final route = Provider.of<SliderHomeController>(context,listen: false);
+    print("PROVIDER ${route.route}");
+    List dataAsli=[];
+    final data = widget.valSl;
+    data.forEach((element) {
+      if(element.route!=route.route){
+        dataAsli.add( {
+          "id": element.id,
+          "type": element.type,
+          "status": element.status,
+          "route":element.route,
+          "id_route": element.idRoute,
+          "title":element.title,
+          "caption": element.caption,
+          "link":element.link,
+          "bg_color": element.bgColor,
+          "banner": element.banner,
+        });
+      }
+    });
+    final cek  = data.where((element) => route.route==element.route);
+    print("data ${dataAsli}");
+    // final cek = data.removeWhere((data documentSnapshot) => documentSnapshot['userId'] != id).toList();
+
     return Container(
       margin: scale.getMarginLTRB(0, 0, 0, 0),
       height: scale.getHeight(13),
@@ -26,27 +61,37 @@ class _BestSolusiComponentState extends State<BestSolusiComponent> {
         physics: ClampingScrollPhysics(),
         shrinkWrap: true,
         scrollDirection: Axis.horizontal,
-        itemCount: widget.valSl.length,
+        itemCount:dataAsli.length,
         itemBuilder: (context, index) {
-          final val = widget.valSl[index];
+          final val = dataAsli[index];
           return InTouchWidget(
               radius: 10,
               callback: () {
-                if (val.route == "pengelola") {
-                  Navigator.of(context).pushNamed(RoutePath.managerWidget);
-                } else if (val.route == "tempat") {
-                  Navigator.of(context).pushNamed(RoutePath.businessPlaceWidget);
-                } else if (val.route == "modal") {
-                  Navigator.of(context).pushNamed(RoutePath.capitalSubmissionWidget,arguments: {});
+                if (val["route"] == "pengelola") {
+                  route.setRoute("pengelola");
+                  Navigator.of(context).pushNamed(RoutePath.managerWidget).whenComplete((){
+                    route.setRoute("");
+                    GeneralHelper.backToMain(context: context,tab: StringConfig.tabHome);
+                    print("KEMBALI KE HALAMAN PENGELOLA");
+                  });
+                } else if (val["route"] == "tempat") {
+                  route.setRoute("tempat");
+                  Navigator.of(context).pushNamed(RoutePath.businessPlaceWidget).whenComplete((){
+                    route.setRoute("");
+                    GeneralHelper.backToMain(context: context,tab: StringConfig.tabHome);
+                    print("KEMBALI KE HALAMAN TEMPAT");
+                  });
+                } else if (val["route"] == "modal") {
+                  Navigator.of(context).pushNamed(RoutePath.capitalSubmissionWidget,arguments: {}).whenComplete(() => route.setRoute(""));
                 } else {
                   Navigator.of(context).pushNamed(RoutePath.joinWidget, arguments: {});
                 }
               },
               child: Container(
                 decoration: BoxDecoration(
-                    color: val.bgColor == "-"
+                    color: val["bg_color"] == "-"
                         ? Color(0xFFCEDAFA)
-                        : HexColor(val.bgColor),
+                        : HexColor(val["bg_color"]),
                     borderRadius: BorderRadius.circular(10)),
                 // padding: scale.getPadding(0.5,1),
                 width: scale.getWidth(70),
@@ -63,11 +108,11 @@ class _BestSolusiComponentState extends State<BestSolusiComponent> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              val.title,
+                              val["title"],
                               style: Theme.of(context).textTheme.headline2,
                             ),
                             Text(
-                              val.caption,
+                              val["caption"],
                               style: Theme.of(context)
                                   .textTheme
                                   .headline3
@@ -83,7 +128,7 @@ class _BestSolusiComponentState extends State<BestSolusiComponent> {
                           ],
                         ),
                       ),
-                      Image.network(val.banner)
+                      Image.network(val["banner"])
                     ],
                   ),
                 ),

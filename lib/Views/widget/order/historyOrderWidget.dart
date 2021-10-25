@@ -20,7 +20,15 @@ class HistoryOrderWidget extends StatefulWidget {
 
 class _HistoryOrderWidgetState extends State<HistoryOrderWidget> with SingleTickerProviderStateMixin  {
   TabController _controller;
-
+  ScrollController controller;
+  void scrollListener() {
+    final brand = Provider.of<StatusOrderController>(context, listen: false);
+    if (!brand.isLoading) {
+      if (controller.position.pixels == controller.position.maxScrollExtent) {
+        // brand.loadMoreBrand(context);
+      }
+    }
+  }
   @override
   void initState() {
     _controller = TabController(length: 2, vsync: this, initialIndex: 0);
@@ -41,14 +49,16 @@ class _HistoryOrderWidgetState extends State<HistoryOrderWidget> with SingleTick
   Widget build(BuildContext context) {
     List dataTab=[{"title":"Order Franchise"},{"title":"Belanja Kebutuhan"}];
     List<Widget> historyView = [];
+    final order=Provider.of<StatusOrderController>(context);
+
     for(int i=0;i<dataTab.length;i++){
-      historyView.add(buildContent());
+      historyView.add(order.isLoading?BaseLoadingLoop(child: LoadingCardImageTitleSubTitle()):order.statusOrderModel==null?NoDataComponent():buildContent());
     }
     ScreenScaler scale = ScreenScaler()..init(context);
 
     return DefaultTabController(
         initialIndex: 0,
-        length:dataTab.length,
+        length:2,
         child: Scaffold(
           appBar:AppBar(
             backgroundColor: Colors.white,
@@ -101,13 +111,13 @@ class _HistoryOrderWidgetState extends State<HistoryOrderWidget> with SingleTick
   Widget buildContent(){
     ScreenScaler scale=ScreenScaler()..init(context);
     final order=Provider.of<StatusOrderController>(context);
-
+    if(order.isLoading) return BaseLoadingLoop(child: LoadingCardImageTitleSubTitle(),);
+    if(order.statusOrderModel==null) NoDataComponent();
     return ListView.separated(
       padding: scale.getPadding(1,2),
         itemBuilder: (context,index){
-          if(order.isLoading) return LoadingCardImageTitleSubTitle();
-          if(order.statusOrderModel==null) NoDataComponent();
           final val = order.statusOrderModel.data[index];
+          print("ads");
           return CardImageTitleSubtitleComponent(
             img:val.brandLogo,
             title: val.brand,
@@ -121,7 +131,7 @@ class _HistoryOrderWidgetState extends State<HistoryOrderWidget> with SingleTick
           );
         },
         separatorBuilder: (context,index){return SizedBox();},
-        itemCount: order.isLoading?10:order.statusOrderModel==null?1:order.statusOrderModel.data.length,
+        itemCount: order.statusOrderModel.data.length,
        controller: order.controller,
     );
   }

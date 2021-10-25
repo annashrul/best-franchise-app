@@ -61,15 +61,18 @@ class BaseController {
       final userStorage = Provider.of<UserController>(context, listen: false);
       if (userStorage.dataUser != null) {
         if (userStorage.dataUser[UserTable.token] != '') {
+          // ApiConfig.head["Content-Type"] = 'multipart/form-data';
+          ApiConfig.head["Access-Control-Allow-Origin"] = '*';
           ApiConfig.head["Authorization"] =
               "Bearer ${userStorage.dataUser[UserTable.token]}";
+          // ApiConfig.head["Content-Type"]= 'application/json';
         }
       }
       Client client = new Client();
       final response = await client.post(ApiConfig.url + url,
           headers: ApiConfig.head, body: data);
       print(
-          "=================== POST url = $url status code = ${response.statusCode}, body=$data ============================");
+          "=================== POST url = $url status code = ${response.statusCode},head=${ApiConfig.head} body=$data ============================");
       if (response.statusCode == 200) {
         final jsonResponse = json.decode(response.body);
         Navigator.pop(context);
@@ -82,7 +85,9 @@ class BaseController {
         }
       } else if (response.statusCode == 413) {
         Navigator.pop(context);
-        GeneralHelper.toast(msg: "gagal menyimpan data");
+        final jsonResponse = json.decode(response.body);
+        print(jsonResponse);
+        GeneralHelper.toast(msg: "salah");
         return null;
       } else {
         Navigator.pop(context);
@@ -93,13 +98,17 @@ class BaseController {
       }
     } on TimeoutException catch (e) {
       print("###################################### GET TimeoutException");
-      return GeneralHelper.toast(msg: "terjadi kesalahan koneksi");
+      GeneralHelper.toast(msg: "terjadi kesalahan koneksi");
+      return null;
     } on SocketException catch (e) {
       print("###################################### GET SocketException");
-      return GeneralHelper.toast(msg: "terjadi kesalahan koneksi");
+      GeneralHelper.toast(msg: "terjadi kesalahan koneksi");
+      return null;
     } on Error catch (e) {
       print("###################################### GET Error");
-      return GeneralHelper.toast(msg: "terjadi kesalahan koneksi");
+      Navigator.of(context).pop();
+      GeneralHelper.toast(msg: "terjadi kesalahan koneksi");
+      return null;
     }
   }
 
@@ -115,13 +124,14 @@ class BaseController {
         if (userStorage.dataUser[UserTable.token] != '') {
           ApiConfig.head["Authorization"] =
               "Bearer ${userStorage.dataUser[UserTable.token]}";
+          ApiConfig.head["HttpHeaders.contentTypeHeader"] = 'application/json';
         }
       }
       Client client = new Client();
       final response = await client.put(ApiConfig.url + url,
           headers: ApiConfig.head, body: data);
       print(
-          "=================== POST url = $url status code = ${response.statusCode}, body=$data ============================");
+          "=================== POST url = $url status code = ${response.statusCode},head=${ApiConfig.head} body=$data ============================");
       if (response.statusCode == 200) {
         final jsonResponse = json.decode(response.body);
         Navigator.pop(context);

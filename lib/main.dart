@@ -13,6 +13,7 @@ import 'package:bestfranchise/Controllers/capitalSubmission/capitalSubmissionCon
 import 'package:bestfranchise/Controllers/category/categoryBrandController.dart';
 import 'package:bestfranchise/Controllers/faq/faqController.dart';
 import 'package:bestfranchise/Controllers/fintech/withdrawController.dart';
+import 'package:bestfranchise/Controllers/general/generalController.dart';
 import 'package:bestfranchise/Controllers/history/progressController.dart';
 import 'package:bestfranchise/Controllers/history/statusOrderController.dart';
 import 'package:bestfranchise/Controllers/home/notificationController.dart';
@@ -28,6 +29,7 @@ import 'package:bestfranchise/Controllers/redeemPoin/redeemPoinController.dart';
 import 'package:bestfranchise/Controllers/regist/registController.dart';
 import 'package:bestfranchise/Controllers/reward/komisiController.dart';
 import 'package:bestfranchise/Controllers/reward/poinController.dart';
+import 'package:bestfranchise/Controllers/reward/royaltiController.dart';
 import 'package:bestfranchise/Controllers/slider/onBoardingController.dart';
 import 'package:bestfranchise/Controllers/slider/sliderHomeController.dart';
 import 'package:bestfranchise/Controllers/user/userController.dart';
@@ -93,6 +95,9 @@ List<SingleChildWidget> providers = [
   ChangeNotifierProvider<KomisiController>(create: (_) => KomisiController()),
   ChangeNotifierProvider<ImagesProfileController>(
       create: (_) => ImagesProfileController()),
+  ChangeNotifierProvider<KomisiController>(create: (_) => KomisiController()),
+  ChangeNotifierProvider<RoyaltiController>(create: (_) => RoyaltiController()),
+  ChangeNotifierProvider<GeneralController>(create: (_) => GeneralController()),
 ];
 
 void main() {

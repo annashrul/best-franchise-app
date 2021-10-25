@@ -21,6 +21,13 @@ class SliderHomeController with ChangeNotifier {
   bool isLoadingSolusi = false;
   bool isLoadingTesti = false;
   bool isLoadingGallery = false;
+
+  String route="";
+  setRoute(input){
+    route=input;
+    notifyListeners();
+  }
+
   get({BuildContext context}) async {
     if (sliderHomeModel == null) isLoading = true;
     final res = await BaseController().get(

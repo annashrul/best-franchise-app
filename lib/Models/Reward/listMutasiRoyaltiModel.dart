@@ -1,15 +1,15 @@
 // To parse this JSON data, do
 //
-//     final listMutasiKomisiModel = listMutasiKomisiModelFromJson(jsonString);
+//     final listMutasiRoyaltiModel = listMutasiRoyaltiModelFromJson(jsonString);
 
 import 'dart:convert';
 
-ListMutasiKomisiModel listMutasiKomisiModelFromJson(String str) => ListMutasiKomisiModel.fromJson(json.decode(str));
+ListMutasiRoyaltiModel listMutasiRoyaltiModelFromJson(String str) => ListMutasiRoyaltiModel.fromJson(json.decode(str));
 
-String listMutasiKomisiModelToJson(ListMutasiKomisiModel data) => json.encode(data.toJson());
+String listMutasiRoyaltiModelToJson(ListMutasiRoyaltiModel data) => json.encode(data.toJson());
 
-class ListMutasiKomisiModel {
-  ListMutasiKomisiModel({
+class ListMutasiRoyaltiModel {
+  ListMutasiRoyaltiModel({
     this.meta,
     this.data,
     this.pagination,
@@ -21,7 +21,7 @@ class ListMutasiKomisiModel {
   Pagination pagination;
   List<dynamic> total;
 
-  factory ListMutasiKomisiModel.fromJson(Map<String, dynamic> json) => ListMutasiKomisiModel(
+  factory ListMutasiRoyaltiModel.fromJson(Map<String, dynamic> json) => ListMutasiRoyaltiModel(
     meta: Meta.fromJson(json["meta"]),
     data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
     pagination: Pagination.fromJson(json["pagination"]),

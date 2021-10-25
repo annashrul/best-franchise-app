@@ -25,6 +25,7 @@ class StatusOrderController with ChangeNotifier{
     print(user.dataUser);
     String url = "franchise?page=1&perpage=$perPage&member=${user.dataUser[UserTable.idUser]}";
     final res=await BaseController().get(url: url,context: context);
+    print(res["data"].length);
     if(res["data"].length > 0){
       StatusOrderModel result = StatusOrderModel.fromJson(res);
       statusOrderModel = result;
