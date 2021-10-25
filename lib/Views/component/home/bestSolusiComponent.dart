@@ -35,12 +35,9 @@ class _BestSolusiComponentState extends State<BestSolusiComponent> {
                 if (val.route == "pengelola") {
                   Navigator.of(context).pushNamed(RoutePath.managerWidget);
                 } else if (val.route == "tempat") {
-                  Navigator.of(context)
-                      .pushNamed(RoutePath.businessPlaceWidget);
+                  Navigator.of(context).pushNamed(RoutePath.businessPlaceWidget);
                 } else if (val.route == "modal") {
-                  Navigator.of(context).pushNamed(
-                      RoutePath.capitalSubmissionWidget,
-                      arguments: {});
+                  Navigator.of(context).pushNamed(RoutePath.capitalSubmissionWidget,arguments: {});
                 } else {
                   Navigator.of(context).pushNamed(RoutePath.joinWidget, arguments: {});
                 }

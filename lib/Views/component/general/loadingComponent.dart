@@ -1,5 +1,6 @@
 import 'package:bestfranchise/Configs/routeConfig.dart';
 import 'package:bestfranchise/Helpers/general/generalHelper.dart';
+import 'package:bestfranchise/Views/component/general/backgroundIconComponent.dart';
 import 'package:bestfranchise/Views/component/general/qrCodeComponent.dart';
 import 'package:bestfranchise/Views/component/general/searchComponent.dart';
 import 'package:bestfranchise/Views/component/general/touchEffectComponent.dart';
@@ -192,13 +193,13 @@ class LoadingReward extends StatelessWidget {
                                     ));
                               },
                               child: Container(
-                                padding: scale.getPadding(1, 2),
-                                child: RadiantGradientMask(
-                                  child: SvgPicture.asset(
-                                    "assets/svg/QR_Code.svg",
-                                    height: scale.getHeight(2),
-                                    color: Colors.white,
-                                  ),
+                                padding: scale.getPadding(0.5,  1.1),
+                                child: BackgroundIconComponent(
+                                    child: Icon(
+                                      FontAwesome5Solid.qrcode,
+                                      color: Colors.white,
+                                      size: scale.getTextSize(14),
+                                    )
                                 ),
                               )),
                         ),
@@ -214,14 +215,14 @@ class LoadingReward extends StatelessWidget {
                               callback: () => Navigator.of(context)
                                   .pushNamed(RoutePath.notifWidget),
                               child: Container(
-                                padding: scale.getPadding(0.5, 1),
-                                child: RadiantGradientMask(
-                                    child: Icon(
-                                  FlutterIcons.bell_ent,
-                                  color: Colors.white,
-                                )
-                                    // child: SvgPicture.asset("assets/svg/QR_Code.svg",color:Colors.white,height: scale.getHeight(4),),
-                                    ),
+                                padding: scale.getPadding(0.5,  1.1),
+                                child: BackgroundIconComponent(
+                                  child: Icon(
+                                    FontAwesome5Solid.bell,
+                                    color: Colors.white,
+                                    size: scale.getTextSize(14),
+                                  )
+                                ),
                               )),
                         ),
                       ],

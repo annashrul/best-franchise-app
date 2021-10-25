@@ -2,8 +2,11 @@ import 'dart:ui';
 
 import 'package:bestfranchise/Configs/routeConfig.dart';
 import 'package:bestfranchise/Configs/stringConfig.dart';
+import 'package:bestfranchise/Configs/ui_icons.dart';
 import 'package:bestfranchise/Helpers/general/generalHelper.dart';
+import 'package:bestfranchise/Icons/best_icon_icons.dart';
 import 'package:bestfranchise/Models/Home/rewardModel.dart';
+import 'package:bestfranchise/Views/component/general/backgroundIconComponent.dart';
 import 'package:bestfranchise/Views/component/general/qrCodeComponent.dart';
 import 'package:bestfranchise/Views/component/general/searchComponent.dart';
 import 'package:bestfranchise/Views/component/general/touchEffectComponent.dart';
@@ -66,7 +69,6 @@ class _RewardComponentState extends State<RewardComponent> {
                         }),
                         SizedBox(width: scale.getWidth(1)),
                         buildCardIcon(icon:FontAwesome5Solid.bell,callback: ()=>Navigator.of(context).pushNamed(RoutePath.notifWidget)),
-
                       ],
                     ),
                     SizedBox(
@@ -110,10 +112,16 @@ class _RewardComponentState extends State<RewardComponent> {
       child: InTouchWidget(
           radius: 100,
           callback:callback,
+          // child: CircleAvatar(
+          //   radius: 20,
+          //   child: RadiantGradientMask(
+          //       child:Icon(icon,color: Colors.white,size: scale.getTextSize(14),)
+          //   ),
+          // ),
           child: Container(
-            padding: scale.getPadding(0.5, 1),
-            child: RadiantGradientMask(
-                child:Icon(icon,color: Colors.white,size: scale.getTextSize(15),)
+            padding: scale.getPadding(0.5, 1.1),
+            child: BackgroundIconComponent(
+                child:Icon(icon,color: Colors.white,size: scale.getTextSize(14),)
             ),
           )
       ),
@@ -166,37 +174,4 @@ class RewardCardComponent extends StatelessWidget {
   }
 }
 
-class RadiantGradientMask extends StatelessWidget {
-  RadiantGradientMask({this.child});
-  final Widget child;
 
-  @override
-  Widget build(BuildContext context) {
-    return ShaderMask(
-      shaderCallback: (bounds) => LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          stops: [
-            0.169951,
-            0.494792,
-            0.666667,
-            1
-          ],
-          colors: [
-            Color(0xFF7ABAF5),
-            Color(0xFFC881F3).withOpacity(0.671875),
-            Color(0xFFBD38B0).withOpacity(0.317708),
-            Color(0xFFF10707)
-          ]
-          // center: Alignment.topRight,
-          // radius: 0.5,
-          // begin: Alignment.centerLeft,
-          // end: Alignment.centerRight,
-          // stops: [0.169951,0.494792,0.666667,1],
-          // colors: [Color(0xFF7ABAF5),Color(0xFFC881F3).withOpacity(0.671875), Color(0xFFBD38B0).withOpacity(0.317708),Color(0xFFF10707)],
-          // tileMode: TileMode.mirror,
-          ).createShader(bounds),
-      child: child,
-    );
-  }
-}

@@ -136,8 +136,7 @@ class GeneralHelper {
     return showModalBottomSheet(
         isDismissible: false,
         backgroundColor: Colors.transparent,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(top: Radius.circular(10.0))),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(10.0))),
         context: context,
         isScrollControlled: true,
         builder: (context) => Padding(
@@ -180,6 +179,20 @@ class GeneralHelper {
                 ],
               ),
             ));
+  }
+
+  static modalGeneral({BuildContext context, Widget child,void Function() callback}) {
+    ScreenScaler scale = ScreenScaler()..init(context);
+    return showModalBottomSheet(
+        isDismissible: false,
+        backgroundColor: Colors.transparent,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(10.0))),
+        context: context,
+        isScrollControlled: true,
+        builder: (context) => Padding(
+          padding: MediaQuery.of(context).viewInsets,
+          child: child,
+        ));
   }
 
   static dialog({BuildContext context, List<Widget> child}) {

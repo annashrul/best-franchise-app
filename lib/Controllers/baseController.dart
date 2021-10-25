@@ -5,7 +5,6 @@ import 'package:bestfranchise/Configs/apiConfig.dart';
 import 'package:bestfranchise/Controllers/user/userController.dart';
 import 'package:bestfranchise/Databases/tableDatabase.dart';
 import 'package:bestfranchise/Helpers/general/generalHelper.dart';
-import 'package:bestfranchise/Models/General/generalModel.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' show Client;
 import 'package:provider/provider.dart';
@@ -13,8 +12,7 @@ import 'package:provider/provider.dart';
 
 class BaseController {
   get({String url, BuildContext context}) async {
-    final res = isNotError(context: context, callback: () {});
-    if (res) {
+    try {
       Client client = new Client();
       final userStorage = Provider.of<UserController>(context, listen: false);
       // print("############## ${userStorage.dataUser[UserTable.token]}");
@@ -32,6 +30,7 @@ class BaseController {
           "################################ URL = $url, HEADER = ${ApiConfig.head} STATUS = ${response.statusCode}");
       if (response.statusCode == 200) {
         final jsonResponse = json.decode(response.body);
+        print("################################ RESPONSE = $jsonResponse");
         return jsonResponse;
       } else if (response.statusCode == 500) {
         GeneralHelper.toast(msg: "terjadi kesalahan url");
@@ -40,6 +39,16 @@ class BaseController {
         GeneralHelper.toast(msg: "terjadi kesalahan url");
         return null;
       }
+    } on TimeoutException catch (e) {
+      print(
+          "###################################### GET TimeoutException ${e.message}");
+      return GeneralHelper.toast(msg: e.message);
+    } on SocketException catch (e) {
+      print("###################################### GET SocketException");
+      return GeneralHelper.toast(msg: e.message);
+    } on Error catch (e) {
+      print("###################################### GET Error");
+      return GeneralHelper.toast(msg: e.toString());
     }
   }
 
@@ -72,11 +81,14 @@ class BaseController {
         } else {
           return jsonResponse;
         }
+      } else if (response.statusCode == 413) {
+        Navigator.pop(context);
+        GeneralHelper.toast(msg: "gagal menyimpan data");
+        return null;
       } else {
         Navigator.pop(context);
         final jsonResponse = json.decode(response.body);
         print("jsonResponse = $jsonResponse");
-        // GeneralModel result = GeneralModel.fromJson(jsonResponse);
         GeneralHelper.toast(msg: jsonResponse["meta"]["message"]);
         return null;
       }
@@ -181,27 +193,6 @@ class BaseController {
     } on Error catch (e) {
       print("###################################### GET Error");
       return GeneralHelper.toast(msg: "terjadi kesalahan koneksi");
-    }
-  }
-
-  isNotError({BuildContext context, Function callback}) {
-    try {
-      return true;
-    } on TimeoutException catch (e) {
-      print("###################################### GET TimeoutException");
-      return Navigator.pushNamed(context, "error", arguments: () {
-        print("TimeoutException");
-      });
-    } on SocketException catch (e) {
-      print("###################################### GET SocketException");
-      return Navigator.pushNamed(context, "error", arguments: () {
-        print("SocketException");
-      });
-    } on Error catch (e) {
-      print("###################################### GET Error");
-      return Navigator.pushNamed(context, "error", arguments: () {
-        print("Error");
-      });
     }
   }
 }

@@ -6,6 +6,7 @@ import 'package:bestfranchise/Controllers/category/categoryBrandController.dart'
 import 'package:bestfranchise/Helpers/general/generalHelper.dart';
 import 'package:bestfranchise/Views/component/general/cardImageTitleSubtitleComponent.dart';
 import 'package:bestfranchise/Views/component/general/loadingComponent.dart';
+import 'package:bestfranchise/Views/component/general/noDataComponent.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
@@ -16,8 +17,13 @@ class BrandWidget extends StatefulWidget {
   _BrandWidgetState createState() => _BrandWidgetState();
 }
 
-class _BrandWidgetState extends State<BrandWidget> {
+class _BrandWidgetState extends State<BrandWidget> with SingleTickerProviderStateMixin  {
   ScrollController controller;
+  TabController _tabController;
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
+
+
   void scrollListener() {
     final brand = Provider.of<ListBrandController>(context, listen: false);
     if (!brand.isLoading) {
@@ -37,13 +43,18 @@ class _BrandWidgetState extends State<BrandWidget> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    final brand = Provider.of<ListBrandController>(context,listen: false);
-    final detail = Provider.of<DetailBrandController>(context,listen: false);
-    final category = Provider.of<CategoryBrandController>(context,listen: false);
-    brand.loadBrand(context: context);
-    category.loadCategoryBrand(context: context);
-    controller = new ScrollController()..addListener(scrollListener);
-    detail.setIndexTabActive(0);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final category = Provider.of<CategoryBrandController>(context,listen: false);
+      category.loadCategoryBrand(context: context).then((value){
+        final brand = Provider.of<ListBrandController>(context,listen: false);
+        brand.setCategoryBrand(context,category.categoryBrandModel.data[0].id);
+        brand.loadBrand(context: context);
+      });
+
+      controller = new ScrollController()..addListener(scrollListener);
+      final detail = Provider.of<DetailBrandController>(context,listen: false);
+      detail.setIndexTabActive(0);
+    });
   }
 
 
@@ -52,15 +63,16 @@ class _BrandWidgetState extends State<BrandWidget> {
     ScreenScaler scale= ScreenScaler()..init(context);
     final brand = Provider.of<ListBrandController>(context);
     final category = Provider.of<CategoryBrandController>(context);
-    // List dataTab = [{"title":"Minuman"},{"title":"Makanan"},{"title":"Retail"},{"title":"Otomotif"},{"title":"Jasa"}];
     List dataTab = [];
     List<Widget> tabView = [];
     int lengthCategory=category.isLoading?1:category.categoryBrandModel==null?0:category.categoryBrandModel.data.length;
     for(int i=0;i<lengthCategory;i++){
       dataTab.add({"title":category.isLoading?"loading ..":category.categoryBrandModel.data[i].title});
-      tabView.add(buildContent());
+
+      tabView.add(brand.isLoading?BaseLoadingLoop(child: LoadingCardImageTitleSubTitle()):brand.listBrandModel==null?NoDataComponent():buildContent(context));
     }
     return DefaultTabController(
+        initialIndex:  0,
         length: dataTab.length,
         child: Scaffold(
           floatingActionButton: brand.isLoadMore?Padding(
@@ -69,33 +81,29 @@ class _BrandWidgetState extends State<BrandWidget> {
           ):SizedBox(),
           floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
           appBar: GeneralHelper.appBarWithTab(
-              context: context,
-              title: "BEST Brand & Franchise",
-              dataTab: dataTab,
+            context: context,
+            title: "BEST Brand & Franchise",
+            dataTab: dataTab,
             callback: (i){
-                print(i);
-                print(category.categoryBrandModel.data[i].id);
-                brand.setCategoryBrand(context,category.categoryBrandModel.data[i].id);
+              brand.setCategoryBrand(context,category.categoryBrandModel.data[i].id);
             }
           ),
-          body: TabBarView(
+          body: brand.isLoading?BaseLoadingLoop(child: LoadingCardImageTitleSubTitle()):brand.listBrandModel==null?NoDataComponent():TabBarView(
             physics: NeverScrollableScrollPhysics(),
             children:tabView,
           ),
         )
     );
   }
-  Widget buildContent(){
+  Widget buildContent(BuildContext context){
     final brand = Provider.of<ListBrandController>(context);
     ScreenScaler scale= ScreenScaler()..init(context);
-    return ListView.separated(
+
+
+    return ListView.builder(
       padding: scale.getPadding(1,2),
-        primary: false,
-        shrinkWrap: true,
+        controller: controller,
         itemBuilder: (context,index){
-          if(brand.isLoading){
-            return LoadingCardImageTitleSubTitle();
-          }
           final val = brand.listBrandModel.data[index];
           return CardImageTitleSubtitleComponent(
             img: val.logo,
@@ -113,8 +121,7 @@ class _BrandWidgetState extends State<BrandWidget> {
             },
           );
         },
-        separatorBuilder: (context,index){return SizedBox();},
-        itemCount: brand.isLoading?10:brand.listBrandModel.data.length
+        itemCount:brand.listBrandModel.data.length
     );
   }
 }

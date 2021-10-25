@@ -66,9 +66,7 @@ class _ContentRedeemPoinComponentState
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            poin.indexActive == 0
-                                ? "Tukarkan dengan charger Samsung tipe C (Original)"
-                                : "Diskon 20 % berlaku untuk Dine in sekitaran Bandung Raya",
+                            poin.indexActive == 0 ? valM.title : valV.title,
                             style: Theme.of(context)
                                 .textTheme
                                 .headline2
@@ -89,7 +87,9 @@ class _ContentRedeemPoinComponentState
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    poin.indexActive == 0 ? "Harga" : "Expired",
+                                    poin.indexActive == 0
+                                        ? "Harga coret"
+                                        : "Expired",
                                     style: Theme.of(context)
                                         .textTheme
                                         .headline2
@@ -98,8 +98,9 @@ class _ContentRedeemPoinComponentState
                                   ),
                                   Text(
                                     poin.indexActive == 0
-                                        ? "Rp 200,000"
-                                        : "September 2022",
+                                        ? valM.hargaCoret
+                                        : GeneralHelper.myDate(
+                                            valV.expiredDate),
                                     style: Theme.of(context)
                                         .textTheme
                                         .headline2
@@ -123,7 +124,10 @@ class _ContentRedeemPoinComponentState
                                     SizedBox(
                                       width: scale.getWidth(0.5),
                                     ),
-                                    Text("40000",
+                                    Text(
+                                        poin.indexActive == 0
+                                            ? valM.poin
+                                            : valV.poin,
                                         style: Theme.of(context)
                                             .textTheme
                                             .headline2

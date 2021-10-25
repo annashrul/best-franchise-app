@@ -41,14 +41,20 @@ class _DetailBrandWidgetState extends State<DetailBrandWidget> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    detailBrandController=Provider.of<DetailBrandController>(context,listen: false);
-    productBrandController=Provider.of<ProductBrandController>(context,listen: false);
-    franchiseController=Provider.of<FranchiseController>(context,listen: false);
-    detailBrandController.loadDetailBrand(context: context,id: widget.obj["id"]);
-    productBrandController.controller = new ScrollController()..addListener(productBrandController.scrollListener);
-    franchiseController.controller = new ScrollController()..addListener(franchiseController.scrollListener);
-
+    detailBrandController =
+        Provider.of<DetailBrandController>(context, listen: false);
+    productBrandController =
+        Provider.of<ProductBrandController>(context, listen: false);
+    franchiseController =
+        Provider.of<FranchiseController>(context, listen: false);
+    detailBrandController.loadDetailBrand(
+        context: context, id: widget.obj["id"]);
+    productBrandController.controller = new ScrollController()
+      ..addListener(productBrandController.scrollListener);
+    franchiseController.controller = new ScrollController()
+      ..addListener(franchiseController.scrollListener);
   }
+
   @override
   void dispose() {
     super.dispose();
@@ -57,14 +63,14 @@ class _DetailBrandWidgetState extends State<DetailBrandWidget> {
     // product.controller.removeListener(product.scrollListener);
     // franchise.controller = franchise.controller.removeListener(franchise.scrollListener);
     // franchise.controller = new ScrollController()..removeListener(franchise.scrollListener);
-    productBrandController.controller.removeListener(productBrandController.scrollListener);
-    franchiseController.controller.removeListener(franchiseController.scrollListener);
-
+    productBrandController.controller
+        .removeListener(productBrandController.scrollListener);
+    franchiseController.controller
+        .removeListener(franchiseController.scrollListener);
   }
 
   @override
   Widget build(BuildContext context) {
-
     ScreenScaler scale = ScreenScaler()..init(context);
     final brand = Provider.of<DetailBrandController>(context);
     final product = Provider.of<ProductBrandController>(context);
@@ -80,7 +86,7 @@ class _DetailBrandWidgetState extends State<DetailBrandWidget> {
     } else if (brand.indexTabActive == 2) {
       child = LokasiBrandComponent(idBrand: widget.obj["id"]);
     } else {
-      child = ReviewBrandComponent(idBrand:  widget.obj["id"]);
+      child = ReviewBrandComponent(idBrand: widget.obj["id"]);
     }
 
     return Scaffold(
@@ -90,10 +96,9 @@ class _DetailBrandWidgetState extends State<DetailBrandWidget> {
           title: "Detail Brand",
           actions: [
             InTouchWidget(
-              callback: () async{
-                await favoirte.create(context: context,data: {
-                  "id_brand":widget.obj["id"]
-                });
+              callback: () async {
+                await favoirte.create(
+                    context: context, data: {"id_brand": widget.obj["id"]});
               },
               child: Container(
                 alignment: Alignment.center,
@@ -102,9 +107,7 @@ class _DetailBrandWidgetState extends State<DetailBrandWidget> {
               ),
             ),
             InTouchWidget(
-              callback: () async{
-
-              },
+              callback: () async {},
               child: Container(
                 alignment: Alignment.center,
                 padding: scale.getPadding(1, 2),
@@ -118,23 +121,32 @@ class _DetailBrandWidgetState extends State<DetailBrandWidget> {
           label: "Bergabung sekarang?",
           labelColor: Colors.white,
           backgroundColor: ColorConfig.redPrimary,
-          callback: () =>  Navigator.of(context).pushNamed(RoutePath.joinWidget,arguments: {"id": widget.obj["id"]}),
+          callback: () => Navigator.of(context).pushNamed(RoutePath.joinWidget,
+              arguments: {"id": widget.obj["id"]}),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       body: ListView(
-        padding: scale.getPaddingLTRB(0,0,0,5),
+        padding: scale.getPaddingLTRB(0, 0, 0, 5),
         // controller:controller,
         children: [
           Stack(
             alignment: Alignment.center,
             children: [
-              brand.isLoading?BaseLoading(height:20,width: 100):Image.asset(StringConfig.imgLocal + "detailBrand.png"),
-              brand.isLoading?BaseLoading(height:5,width: 12,radius: 100,):CircleAvatar(
-                radius: 30,
-                backgroundImage:
-                    AssetImage(StringConfig.imgLocal + "burhot.png"),
-              )
+              brand.isLoading
+                  ? BaseLoading(height: 20, width: 100)
+                  : Image.asset(StringConfig.imgLocal + "detailBrand.png"),
+              brand.isLoading
+                  ? BaseLoading(
+                      height: 5,
+                      width: 12,
+                      radius: 100,
+                    )
+                  : CircleAvatar(
+                      radius: 30,
+                      backgroundImage:
+                          AssetImage(StringConfig.imgLocal + "burhot.png"),
+                    )
             ],
           ),
           StickyHeader(
@@ -150,8 +162,7 @@ class _DetailBrandWidgetState extends State<DetailBrandWidget> {
                 },
                 indexActive: brand.indexTabActive,
               ),
-              content: child
-          ),
+              content: child),
         ],
       ),
     );

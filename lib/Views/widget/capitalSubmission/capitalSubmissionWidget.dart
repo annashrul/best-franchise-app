@@ -8,10 +8,13 @@ import 'package:bestfranchise/Helpers/general/generalHelper.dart';
 import 'package:bestfranchise/Views/component/capitalSubmission/modalBrandComponent.dart';
 import 'package:bestfranchise/Views/component/capitalSubmission/modalInvestComponent.dart';
 import 'package:bestfranchise/Views/component/capitalSubmission/modalRequirementsComponent.dart';
+import 'package:bestfranchise/Views/component/general/backgroundIconComponent.dart';
 import 'package:bestfranchise/Views/component/general/buttonComponent.dart';
 import 'package:bestfranchise/Views/component/general/fieldComponent.dart';
 import 'package:bestfranchise/Views/component/general/touchEffectComponent.dart';
+import 'package:bestfranchise/Views/component/general/uploadImageComponent.dart';
 import 'package:bestfranchise/Views/component/home/rewardCardComponent.dart';
+import 'package:bestfranchise/Views/component/join/modalTipeInvestasiComponent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
@@ -23,20 +26,26 @@ class CapitalSubmissionWidget extends StatefulWidget {
   CapitalSubmissionWidget({this.obj});
 
   @override
-  _CapitalSubmissionWidgetState createState() =>
-      _CapitalSubmissionWidgetState();
+  _CapitalSubmissionWidgetState createState() =>_CapitalSubmissionWidgetState();
 }
 
 class _CapitalSubmissionWidgetState extends State<CapitalSubmissionWidget> {
-  List dataPhoto = [{"title":"Foto KTP","img":""},{"title":"Foto KK","img":""},{"title":"Foto SKU","img":""},{"title":"Foto Rekening","img":""}];
+  List dataPhoto = [
+    {"title":"Foto KTP","img":"","required":"true","base64":""},
+    {"title":"Foto KK","img":"","required":"true","base64":""},
+    {"title":"Foto NPWP","img":"","required":"true","base64":""},
+    {"title":"Foto SKU","img":"","required":"true","base64":""},
+    {"title":"Foto Rekening","img":"","required":"true","base64":""},
+    {"title":"Foto Lainnya","img":"","required":"false","base64":"-"}
+  ];
+  String countryCode="62";
 
   @override
   Widget build(BuildContext context) {
     ScreenScaler scale = ScreenScaler()..init(context);
     final join = Provider.of<CapitalSubmissionController>(context);
     return Scaffold(
-      appBar: GeneralHelper.appBarGeneral(
-          context: context, title: "Pengajuan Modal Usaha"),
+      appBar: GeneralHelper.appBarGeneral(context: context, title: "Pengajuan Modal Usaha"),
       body: ListView(
         shrinkWrap: true,
         children: [
@@ -68,7 +77,10 @@ class _CapitalSubmissionWidgetState extends State<CapitalSubmissionWidget> {
                 maxLength: FormConfig.maxLengthPhone,
                 isPhone: true,
                 keyboardType: TextInputType.number,
-                onTapCountry: (code){},
+                onTapCountry: (code){
+                  countryCode=code;
+                  setState(() {});
+                },
               ),
               SizedBox(height: scale.getHeight(1)),
               FieldComponent(
@@ -81,8 +93,20 @@ class _CapitalSubmissionWidgetState extends State<CapitalSubmissionWidget> {
                 controller: join.brandController,
                 labelText: "Pilih Brand",
                 onTap: () {
-                  GeneralHelper.modal(
-                      context: context, child: ModalBrandComponent());
+                  GeneralHelper.modal(context: context, child: Container(
+                    height: scale.getHeight(85),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10)
+                    ),
+                    child: ModalBrandComponent(
+                      callback: (data){
+                        join.setOther(data["id"],"brand");
+                        join.brandController.text=data["title"];
+                        join.investController.text="";
+                        join.idInvestType="";
+                      },
+                    ),
+                  ));
                 },
               ),
               SizedBox(height: scale.getHeight(1)),
@@ -90,8 +114,14 @@ class _CapitalSubmissionWidgetState extends State<CapitalSubmissionWidget> {
                 controller: join.investController,
                 labelText: "Pilih Tipe Investasi",
                 onTap: () {
-                  GeneralHelper.modal(
-                      context: context, child: ModalInvestComponent());
+                  print("ads");
+                  GeneralHelper.modal(context: context, child: ModalTipeInvestasiComponent(
+                    idBrand:join.idBrand,
+                    callback: (data){
+                      join.setOther(data["id"],"");
+                      join.investController.text="${data["title"]} - ${GeneralHelper().formatter.format(int.parse(data["price"]))}";
+                    },
+                  ));
                 },
               ),
               SizedBox(height: scale.getHeight(1)),
@@ -125,13 +155,20 @@ class _CapitalSubmissionWidgetState extends State<CapitalSubmissionWidget> {
                     child: InTouchWidget(
                       radius: 15,
                       callback: ()async{
-                        final img = await GeneralHelper.getImage("camera");
-                        print(img);
-                        dataPhoto[index]["img"]=img["path"];
-                        setState(() {});
+                        GeneralHelper.modal(
+                          context: context,
+                          child: UploadImageComponent(
+                            callback: (data){
+                              Navigator.of(context).pop();
+                              dataPhoto[index]["img"]=data["path"];
+                              dataPhoto[index]["base64"]=data["base64"];
+                              setState(() {});
+                            },
+                          )
+                        );
                       },
                       child: dataPhoto[index]["img"]!=""?Image.file(
-                        File(dataPhoto[index]["img"])
+                        File(dataPhoto[index]["img"]),
                       ):Container(
                           padding: scale.getPadding(3,2),
                           child: Center(
@@ -139,14 +176,19 @@ class _CapitalSubmissionWidgetState extends State<CapitalSubmissionWidget> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
-                                RadiantGradientMask(
+                                BackgroundIconComponent(
                                   child: Icon(FontAwesome5Solid.camera,color: Colors.white,size: scale.getTextSize(15)),
                                 ),
                                 SizedBox(height: 20),
                                 Text(
                                   dataPhoto[index]["title"],
                                   textAlign: TextAlign.center,
-                                  style: TextStyle(fontSize: 20, color: Colors.black87),
+                                  style: Theme.of(context).textTheme.headline2,
+                                ),
+                                if(dataPhoto[index]["required"]=="false")Text(
+                                  "( Opsional )",
+                                  textAlign: TextAlign.center,
+                                    style: Theme.of(context).textTheme.headline2,
                                 )
                               ],
                             ),
@@ -169,7 +211,7 @@ class _CapitalSubmissionWidgetState extends State<CapitalSubmissionWidget> {
           label: "Ajukan Pinjaman Modal",
           labelColor: Colors.white,
           backgroundColor: ColorConfig.redPrimary,
-          callback: () => join.store(),
+          callback: () => join.store(context,dataPhoto,countryCode),
         ),
       ),
     );

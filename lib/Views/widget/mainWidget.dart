@@ -1,12 +1,14 @@
 import 'package:bestfranchise/Configs/colorConfig.dart';
 import 'package:bestfranchise/Configs/stringConfig.dart';
 import 'package:bestfranchise/Views/component/general/touchEffectComponent.dart';
+import 'package:bestfranchise/Views/component/home/rewardCardComponent.dart';
 import 'package:bestfranchise/Views/widget/home/homeWidget.dart';
 import 'package:bestfranchise/Views/widget/news/newsWidget.dart';
 import 'package:bestfranchise/Views/widget/profile/profileWidget.dart';
 import 'package:bestfranchise/Views/widget/promo/promoWidget.dart';
 import 'package:bestfranchise/Views/widget/share/shareWidget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
 // ignore: must_be_immutable
 class MainWidget extends StatefulWidget {

@@ -56,3 +56,11 @@ flutter:
   assets:
     - assets/img/
     - assets/svg/
+
+  fonts:
+    - family:  EcommerceAppUI
+      fonts:
+        - asset: fonts/EcommerceAppUI.ttf
+    - family:  BestIcon
+      fonts:
+        - asset: fonts/BestIcon.ttf

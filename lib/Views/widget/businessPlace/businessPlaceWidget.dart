@@ -1,10 +1,13 @@
 import 'package:bestfranchise/Configs/colorConfig.dart';
 import 'package:bestfranchise/Configs/stringConfig.dart';
+import 'package:bestfranchise/Controllers/slider/sliderHomeController.dart';
 import 'package:bestfranchise/Helpers/general/generalHelper.dart';
-import 'package:bestfranchise/Views/component/businessPlace/businessPlaceComponent.dart';
-import 'package:bestfranchise/Views/component/general/buttonComponent.dart';
+import 'package:bestfranchise/Views/component/general/loadingComponent.dart';
+import 'package:bestfranchise/Views/component/home/bestSolusiComponent.dart';
+import 'package:bestfranchise/Views/widget/brand/detailBrandWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
+import 'package:provider/provider.dart';
 
 class BusinessPlaceWidget extends StatefulWidget {
   @override
@@ -12,9 +15,23 @@ class BusinessPlaceWidget extends StatefulWidget {
 }
 
 class _BusinessPlaceWidgetState extends State<BusinessPlaceWidget> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    final slider = Provider.of<SliderHomeController>(context, listen: false);
+    slider.getSolusi(context: context);
+
+  }
+
   @override
   Widget build(BuildContext context) {
     ScreenScaler scale = ScreenScaler()..init(context);
+    final slider = Provider.of<SliderHomeController>(context);
+    final valSl = slider.sliderHomeSolusiModel == null
+        ? []
+        : slider.sliderHomeSolusiModel.data;
     return Scaffold(
       appBar:GeneralHelper.appBarGeneral(context: context,title: "Informasi tempat usaha"),
       floatingActionButton: SizedBox(
@@ -27,7 +44,9 @@ class _BusinessPlaceWidgetState extends State<BusinessPlaceWidget> {
                 borderRadius: BorderRadius.circular(100.0),
               ),
               color: ColorConfig.redPrimary,
-              onPressed:(){},
+              onPressed:(){
+                launchWhatsApp(phone: 6281223165037, message: "message");
+              },
               child: Text("Whatsapp kami",style: Theme.of(context).textTheme.headline1.copyWith(color: Colors.white),)
           ),
         ),
@@ -38,9 +57,6 @@ class _BusinessPlaceWidgetState extends State<BusinessPlaceWidget> {
         padding: scale.getPadding(0,2),
         child: Center(
           child: Column(
-            // padding: scale.getPadding(0, 2),
-            // shrinkWrap: true,
-            // scrollDirection: Axis.vertical,
             children: [
               Image.asset(StringConfig.imgLocal + "businessPlace.png"),
               Text(
@@ -49,9 +65,8 @@ class _BusinessPlaceWidgetState extends State<BusinessPlaceWidget> {
                 textAlign: TextAlign.center,
               ),
               SizedBox(height: scale.getHeight(2)),
-              BusinessPlaceComponent(),
+              slider.sliderHomeSolusiModel == null ? LoadingCardRounded():BestSolusiComponent(valSl),
               SizedBox(height: scale.getHeight(1)),
-
             ],
           ),
         ),

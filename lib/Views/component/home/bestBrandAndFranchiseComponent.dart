@@ -1,16 +1,14 @@
 import 'package:bestfranchise/Configs/routeConfig.dart';
 import 'package:bestfranchise/Configs/stringConfig.dart';
+import 'package:bestfranchise/Controllers/brand/listBrandController.dart';
 import 'package:bestfranchise/Models/Brand/listBrandModel.dart';
 import 'package:bestfranchise/Views/component/general/loadingComponent.dart';
 import 'package:bestfranchise/Views/component/general/touchEffectComponent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
+import 'package:provider/provider.dart';
 
 class BestBrandAndFranchiseComponent extends StatefulWidget {
-  final List<Datum> valBr;
-  final bool isLoading;
-  BestBrandAndFranchiseComponent(this.valBr, this.isLoading);
-
   @override
   _BestBrandAndFranchiseComponentState createState() =>
       _BestBrandAndFranchiseComponentState();
@@ -18,19 +16,29 @@ class BestBrandAndFranchiseComponent extends StatefulWidget {
 
 class _BestBrandAndFranchiseComponentState
     extends State<BestBrandAndFranchiseComponent> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    final brand = Provider.of<ListBrandController>(context, listen: false);
+    brand.loadBrandHome(context: context);
+  }
+
   @override
   Widget build(BuildContext context) {
     ScreenScaler scale = ScreenScaler()..init(context);
+    final brand = Provider.of<ListBrandController>(context);
 
-    return Container(
+    return brand.isLoadingHome?LoadingCardImageCircular():brand.brandHomeModel==null?Text("no data"):Container(
       height: scale.getHeight(5),
       child: ListView.separated(
         physics: ClampingScrollPhysics(),
         shrinkWrap: true,
         scrollDirection: Axis.horizontal,
-        itemCount: widget.valBr.length,
+        itemCount: brand.brandHomeModel.data.length,
         itemBuilder: (context, index) {
-          final val = widget.valBr[index];
+          final val = brand.brandHomeModel.data[index];
           return InTouchWidget(
               radius: 100,
               callback: () => Navigator.of(context).pushNamed(

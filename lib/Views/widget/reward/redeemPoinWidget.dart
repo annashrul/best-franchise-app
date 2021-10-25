@@ -25,8 +25,7 @@ class _RedeemPoinWidgetState extends State<RedeemPoinWidget> {
     void initState() {
       // TODO: implement initState
       super.initState();
-      final poin = Provider.of<PoinController>(context);
-      poin.loadMerchandise(context: context);
+      poin.setIndexActive(0, context);
     }
 
     return Scaffold(
@@ -63,18 +62,23 @@ class _RedeemPoinWidgetState extends State<RedeemPoinWidget> {
                 ),
                 content: poin.indexActive == 0
                     ? poin.isLoadingMerchandise
+                        ? BaseLoadingLoop(
+                            child: LoadingCardRounded(),
+                          )
+                        : poin.merchandiseModel == null
+                            ? NoDataComponent()
+                            : ContentRedeemPoinComponent(poin.indexActive == 0
+                                ? poin.merchandiseModel
+                                : poin.voucherModel)
                     : poin.isLoadingVoucher
                         ? BaseLoadingLoop(
                             child: LoadingCardRounded(),
                           )
-                        : poin.indexActive == 0
-                            ? poin.merchandiseModel == null
-                            : poin.voucherModel == null
-                                ? NoDataComponent()
-                                : ContentRedeemPoinComponent(
-                                    poin.indexActive == 0
-                                        ? poin.merchandiseModel
-                                        : poin.voucherModel))
+                        : poin.merchandiseModel == null
+                            ? NoDataComponent()
+                            : ContentRedeemPoinComponent(poin.indexActive == 0
+                                ? poin.merchandiseModel
+                                : poin.voucherModel))
           ],
         ));
   }

@@ -12,7 +12,7 @@ class CategoryBrandController with ChangeNotifier{
   int perPage=10;
 
 
-  loadCategoryBrand({BuildContext context})async{
+  Future loadCategoryBrand({BuildContext context})async{
     if(categoryBrandModel==null) isLoading=true;
     final res=await BaseController().get(url: "category/list/brand?page=1&perpage=$perPage&status=1",context: context);
     print("############## ${res["data"].length}");

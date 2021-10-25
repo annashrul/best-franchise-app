@@ -23,7 +23,6 @@ class FavoriteBrandController with ChangeNotifier{
     isLoadMore=false;
     notifyListeners();
   }
-
   void scrollListener({BuildContext context}) {
     if(!isLoading){
       if (controller.position.pixels == controller.position.maxScrollExtent) {
