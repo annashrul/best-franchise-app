@@ -19,29 +19,36 @@ class HistoryOrderWidget extends StatefulWidget {
 }
 
 class _HistoryOrderWidgetState extends State<HistoryOrderWidget> with SingleTickerProviderStateMixin  {
-  TabController _controller;
+  TabController tabController;
   ScrollController controller;
   void scrollListener() {
-    final brand = Provider.of<StatusOrderController>(context, listen: false);
-    if (!brand.isLoading) {
+    final order = Provider.of<StatusOrderController>(context, listen: false);
+    if (!order.isLoading) {
       if (controller.position.pixels == controller.position.maxScrollExtent) {
-        // brand.loadMoreBrand(context);
+        order.loadMore(context);
       }
     }
   }
   @override
   void initState() {
-    _controller = TabController(length: 2, vsync: this, initialIndex: 0);
-    _controller.addListener(() {
-      if (_controller.index == 1) {
+    tabController = TabController(length: 2, vsync: this, initialIndex: 0);
+    tabController.addListener(() {
+      if (tabController.index == 1) {
         setState(() {
-          _controller.index = 0;
+          tabController.index = 0;
         });
       }
     });
     final order=Provider.of<StatusOrderController>(context,listen: false);
     order.loadStatusOrder(context: context);
+    controller = new ScrollController()..addListener(scrollListener);
+
     super.initState();
+  }
+  @override
+  void dispose() {
+    super.dispose();
+    controller.removeListener(scrollListener);
   }
 
 
@@ -60,6 +67,8 @@ class _HistoryOrderWidgetState extends State<HistoryOrderWidget> with SingleTick
         initialIndex: 0,
         length:2,
         child: Scaffold(
+          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+          floatingActionButton: order.isLoadMore?CupertinoActivityIndicator():SizedBox(),
           appBar:AppBar(
             backgroundColor: Colors.white,
             elevation: 1,
@@ -69,7 +78,7 @@ class _HistoryOrderWidgetState extends State<HistoryOrderWidget> with SingleTick
               onPressed: () => Navigator.of(context).pop(),
             ),
             bottom: TabBar(
-              controller: _controller,
+              controller: tabController,
               indicatorPadding: scale.getPadding(0, 0),
               labelPadding: scale.getPadding(0, 1),
               unselectedLabelColor: ColorConfig.greyPrimary,
@@ -100,7 +109,7 @@ class _HistoryOrderWidgetState extends State<HistoryOrderWidget> with SingleTick
             ),
           ),
           body: TabBarView(
-            controller: _controller,
+            controller: tabController,
             children:historyView,
           ),
         )
@@ -117,7 +126,6 @@ class _HistoryOrderWidgetState extends State<HistoryOrderWidget> with SingleTick
       padding: scale.getPadding(1,2),
         itemBuilder: (context,index){
           final val = order.statusOrderModel.data[index];
-          print("ads");
           return CardImageTitleSubtitleComponent(
             img:val.brandLogo,
             title: val.brand,
@@ -132,7 +140,7 @@ class _HistoryOrderWidgetState extends State<HistoryOrderWidget> with SingleTick
         },
         separatorBuilder: (context,index){return SizedBox();},
         itemCount: order.statusOrderModel.data.length,
-       controller: order.controller,
+       controller: controller,
     );
   }
 }

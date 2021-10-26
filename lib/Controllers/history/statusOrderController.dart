@@ -38,17 +38,16 @@ class StatusOrderController with ChangeNotifier{
     notifyListeners();
   }
 
-  void scrollListener({BuildContext context}) {
-    if(!isLoading){
-      if (controller.position.pixels == controller.position.maxScrollExtent) {
-        if(perPage<int.parse(statusOrderModel.pagination.total)){
-          print("LOADMORE STATUS ORDER");
-          perPage+=10;
-          isLoadMore=true;
-          notifyListeners();
-        }
-      }
+  loadMore(BuildContext context) {
+    print("loadmore");
+    if (perPage < int.parse(statusOrderModel.pagination.total)) {
+      isLoadMore = true;
+      perPage += 10;
+      loadStatusOrder(context: context);
+    } else {
+      isLoadMore = false;
     }
+    notifyListeners();
   }
 
 

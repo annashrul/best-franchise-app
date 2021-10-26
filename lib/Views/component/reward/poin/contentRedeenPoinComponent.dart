@@ -42,14 +42,7 @@ class _ContentRedeemPoinComponentState
             elevation: 1,
             child: InTouchWidget(
               radius: 15,
-              callback: () =>
-                  GeneralHelper.dialog(context: context, child: <Widget>[
-                poin.indexActive == 0
-                    ? NotifRedeemPoinMerchandiseComponent(
-                        poin.merchandiseModel.data[index])
-                    : NotifRedeemPoinVoucherComponent(
-                        poin.voucherModel.data[index])
-              ]),
+              callback: () => {},
               child: Padding(
                 padding: scale.getPadding(1, 2),
                 child: Row(
@@ -115,34 +108,59 @@ class _ContentRedeemPoinComponentState
                                   ),
                                 ],
                               ),
-                              Container(
-                                padding: scale.getPadding(0.5, 1),
-                                decoration: BoxDecoration(
-                                    color: Color(0xFFFA3262),
-                                    borderRadius: BorderRadius.circular(10)),
-                                child: Row(
-                                  children: [
-                                    Image.asset(
-                                      StringConfig.imgLocal + "poin.png",
-                                      color: Colors.white,
-                                      height: scale.getHeight(1),
+                              InkWell(
+                                  onTap: () => poin.indexActive == 0
+                                      ? poin.merchandiseModel.data[index]
+                                                  .isclaimed ==
+                                              "0"
+                                          ? ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                              content:
+                                                  Text("Belum bisa diklaim")))
+                                          : GeneralHelper.dialog(
+                                              context: context,
+                                              child: <Widget>[
+                                                  NotifRedeemPoinMerchandiseComponent(
+                                                      poin.merchandiseModel
+                                                          .data[index])
+                                                ])
+                                      : poin.voucherModel.data[index].isclaimed ==
+                                              "0"
+                                          ? ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                              content:
+                                                  Text("Belum bisa diklaim")))
+                                          : GeneralHelper.dialog(context: context, child: <Widget>[
+                                              NotifRedeemPoinVoucherComponent(
+                                                  poin.voucherModel.data[index])
+                                            ]),
+                                  child: Container(
+                                    padding: scale.getPadding(0.5, 1),
+                                    decoration: BoxDecoration(
+                                        color: Color(0xFFFA3262),
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    child: Row(
+                                      children: [
+                                        Image.asset(
+                                          StringConfig.imgLocal + "poin.png",
+                                          color: Colors.white,
+                                          height: scale.getHeight(1),
+                                        ),
+                                        SizedBox(
+                                          width: scale.getWidth(0.5),
+                                        ),
+                                        Text(
+                                            poin.indexActive == 0
+                                                ? poin.merchandiseModel
+                                                    .data[index].poin
+                                                : poin.voucherModel.data[index]
+                                                    .poin,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headline2
+                                                .copyWith(color: Colors.white)),
+                                      ],
                                     ),
-                                    SizedBox(
-                                      width: scale.getWidth(0.5),
-                                    ),
-                                    Text(
-                                        poin.indexActive == 0
-                                            ? poin.merchandiseModel.data[index]
-                                                .poin
-                                            : poin
-                                                .voucherModel.data[index].poin,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline2
-                                            .copyWith(color: Colors.white)),
-                                  ],
-                                ),
-                              )
+                                  ))
                             ],
                           )
                         ],

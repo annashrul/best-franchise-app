@@ -6,9 +6,11 @@ import 'package:bestfranchise/Controllers/reward/royaltiController.dart';
 import 'package:bestfranchise/Controllers/user/userController.dart';
 import 'package:bestfranchise/Databases/tableDatabase.dart';
 import 'package:bestfranchise/Helpers/general/generalHelper.dart';
+import 'package:bestfranchise/Views/component/general/backgroundIconComponent.dart';
 import 'package:bestfranchise/Views/component/reward/cardHeaderReward.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
 import 'package:provider/provider.dart';
 
@@ -41,14 +43,32 @@ class _WrapperRewardComponentState extends State<WrapperRewardComponent> {
     final komisi = Provider.of<KomisiController>(context);
     final royalti = Provider.of<RoyaltiController>(context);
     final poin = Provider.of<PoinController>(context);
+    print(widget.titleCard);
     return Scaffold(
         appBar: GeneralHelper.appBarGeneral(
             context: context,
             title: "BEST ${widget.titleCard}",
             actions: <Widget>[
-              InkResponse(
-                onTap: () {},
-                child: Image.asset(StringConfig.imgLocal + "calender.png"),
+              IconButton(
+                onPressed: () {
+                  if(widget.titleCard=="Komisi"){
+                    GeneralHelper.filterDate(
+                        context: context,
+                        data: {"from":komisi.dateFrom,"to":komisi.dateTo},
+                        callback: (from,to)=>komisi.setDate(context: context,input: {"from":from,"to":to})
+                    );
+                  }
+                  else if(widget.titleCard=="Royalti"){
+                    GeneralHelper.filterDate(
+                        context: context,
+                        data: {"from":royalti.dateFrom,"to":royalti.dateTo},
+                        callback: (from,to)=>royalti.setDate(context: context,input: {"from":from,"to":to})
+                    );
+                  }
+                 
+                },
+                icon: BackgroundIconComponent(child: Icon(FontAwesome5Solid.calendar,color: Colors.white,),),
+                // child: Image.asset(StringConfig.imgLocal + "calender.png"),
               )
             ]),
         floatingActionButton: SizedBox(

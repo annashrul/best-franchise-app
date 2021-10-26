@@ -23,7 +23,7 @@ class PoinController with ChangeNotifier {
   bool isLoadingVoucher = true;
   bool isLoadingMerchandise = true;
   bool isLoadingList = true;
-  bool isLoadMoreList = true;
+  bool isLoadMoreList = false;
   int perPage = 10;
 
   Future loadBonusPin({BuildContext context}) async {
@@ -37,6 +37,7 @@ class PoinController with ChangeNotifier {
       listMutasiPoinModel = null;
     }
     isLoadingList = false;
+    isLoadMoreList=false;
     notifyListeners();
   }
 

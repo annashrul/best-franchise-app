@@ -111,6 +111,7 @@ class CardPoin extends StatelessWidget {
             Align(
               child: Container(
                 padding: scale.getPadding(1, 2),
+                height: scale.getHeight(8),
                 child: Column(
                   children: [
                     Text(this.status,

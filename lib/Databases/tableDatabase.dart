@@ -3,6 +3,7 @@
 
 
 class UserTable{
+  static const String id = "id";
   static const String idUser = "idUser";
   static const String token = "token";
   static const String fullname = "fullname";

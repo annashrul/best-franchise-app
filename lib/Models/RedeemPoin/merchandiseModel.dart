@@ -48,6 +48,7 @@ class Datum {
   String photo;
   String createdAt;
   String updatedAt;
+  String isclaimed;
 
   Datum(
       {this.records,
@@ -57,7 +58,8 @@ class Datum {
       this.poin,
       this.photo,
       this.createdAt,
-      this.updatedAt});
+      this.updatedAt,
+      this.isclaimed});
 
   Datum.fromJson(Map<String, dynamic> json) {
     records = json['records'];
@@ -68,6 +70,7 @@ class Datum {
     photo = json['photo'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
+    isclaimed = json['isclaimed'];
   }
 
   Map<String, dynamic> toJson() {
@@ -80,6 +83,7 @@ class Datum {
     data['photo'] = this.photo;
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
+    data['isclaimed'] = this.isclaimed;
     return data;
   }
 }

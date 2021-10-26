@@ -23,18 +23,6 @@ class FavoriteBrandController with ChangeNotifier{
     isLoadMore=false;
     notifyListeners();
   }
-  void scrollListener({BuildContext context}) {
-    if(!isLoading){
-      if (controller.position.pixels == controller.position.maxScrollExtent) {
-        if(perPage<int.parse(favoriteBrandModel.pagination.total)){
-          print("LOADMORE LOKASI");
-          perPage+=10;
-          isLoadMore=true;
-          notifyListeners();
-        }
-      }
-    }
-  }
   Future create({BuildContext context,dynamic data})async{
     final res=await BaseController().post(url: "brand/fav",data: data,context: context);
     if(res!=null){
@@ -50,6 +38,16 @@ class FavoriteBrandController with ChangeNotifier{
     }
     notifyListeners();
   }
-
+  loadMore(BuildContext context) {
+    print("loadmore");
+    if (perPage < int.parse(favoriteBrandModel.pagination.total)) {
+      isLoadMore = true;
+      perPage += 10;
+      loadData(context: context);
+    } else {
+      isLoadMore = false;
+    }
+    notifyListeners();
+  }
 
 }

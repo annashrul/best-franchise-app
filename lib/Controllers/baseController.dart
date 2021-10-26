@@ -87,7 +87,7 @@ class BaseController {
         Navigator.pop(context);
         final jsonResponse = json.decode(response.body);
         print(jsonResponse);
-        GeneralHelper.toast(msg: "salah");
+        GeneralHelper.toast(msg: "file terlalu besar");
         return null;
       } else {
         Navigator.pop(context);
