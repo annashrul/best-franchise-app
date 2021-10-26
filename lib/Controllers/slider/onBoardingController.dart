@@ -13,7 +13,7 @@ class OnBoardingController with ChangeNotifier {
   bool isLoading = false;
   loadData({BuildContext context}) async {
     if (sliderOnBoardingModel == null) isLoading = true;
-    final res = await BaseController().get(url: "sliders/list/onboarding?status=1", context: context);
+    final res = await BaseController().get(url: "sliders/new/onboarding?status=1", context: context);
     print("################## RESPONSE ONBOARDING $res");
     if (res["data"].length > 0) {
       SliderOnBoardingModel result = SliderOnBoardingModel.fromJson(res);

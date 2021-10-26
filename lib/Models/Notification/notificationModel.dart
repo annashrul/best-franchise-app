@@ -41,6 +41,7 @@ class Datum {
     this.records,
     this.id,
     this.idMember,
+    this.photo,
     this.title,
     this.msg,
     this.section,
@@ -53,6 +54,7 @@ class Datum {
   String records;
   String id;
   String idMember;
+  String photo;
   String title;
   String msg;
   String section;
@@ -65,6 +67,7 @@ class Datum {
     records: json["records"],
     id: json["id"],
     idMember: json["id_member"],
+    photo: json["photo"],
     title: json["title"],
     msg: json["msg"],
     section: json["section"],
@@ -78,6 +81,7 @@ class Datum {
     "records": records,
     "id": id,
     "id_member": idMember,
+    "photo": photo,
     "title": title,
     "msg": msg,
     "section": section,

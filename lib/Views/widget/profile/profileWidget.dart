@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
 import 'package:provider/provider.dart';
+import 'dart:ui' as ui;
 
 class ProfileWidget extends StatefulWidget {
   @override
@@ -68,7 +69,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
             onTap: () =>
                 Navigator.of(context).pushNamed(RoutePath.historyOrderWidget),
             contentPadding: EdgeInsets.zero,
-            leading:SizedBox(child: BackgroundIconComponent(child: Icon(FontAwesome5Solid.archive,color: Colors.white,size: scale.getTextSize(13),),),),
+            leading:BackgroundIconComponent(child: Icon(FontAwesome5Solid.archive,color: Colors.white),),
             title: Text(
               "Status Order",
               style: Theme.of(context)
@@ -81,7 +82,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
           ListTile(
             onTap: () {},
             contentPadding: EdgeInsets.zero,
-            leading:SizedBox(width: scale.getWidth(7),child: BackgroundIconComponent(child: Icon(FontAwesome5Solid.store,color: Colors.white,size: scale.getTextSize(13)),),),
+            leading:BackgroundIconComponent(child: Icon(FontAwesome5Solid.store,color: Colors.white),),
             title: Text(
               "Toko saya",
               style: Theme.of(context)
@@ -96,7 +97,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
               Navigator.of(context).pushNamed(RoutePath.bantuanAplikasiWidget);
             },
             contentPadding: EdgeInsets.zero,
-            leading:SizedBox(child: BackgroundIconComponent(child: Icon(FontAwesome5Solid.question_circle,color: Colors.white,size: scale.getTextSize(13)),),),
+            leading:SizedBox(child: BackgroundIconComponent(child: Icon(FontAwesome5Solid.question_circle,color: Colors.white),),),
             title: Text(
               "Bantuan Aplikasi",
               style: Theme.of(context)
@@ -109,7 +110,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
           ListTile(
             onTap: () {},
             contentPadding: EdgeInsets.zero,
-            leading:SizedBox(child: BackgroundIconComponent(child: Icon(FontAwesome5Solid.comment,color: Colors.white,size: scale.getTextSize(13)),),),
+            leading:SizedBox(child: BackgroundIconComponent(child: Icon(FontAwesome5Solid.comment,color: Colors.white),),),
             title: Text(
               "Live Chat",
               style: Theme.of(context)
@@ -122,7 +123,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
           ListTile(
             onTap: () {},
             contentPadding: EdgeInsets.zero,
-            leading:SizedBox(width: scale.getWidth(7),child: BackgroundIconComponent(child: Icon(FontAwesome5Solid.language,color: Colors.white,size: scale.getTextSize(13)),),),
+            leading:SizedBox(child: BackgroundIconComponent(child: Icon(FontAwesome5Solid.language,color: Colors.white),),),
             title: Text(
               "Pengaturan Bahasa",
               style: Theme.of(context)
@@ -138,7 +139,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                   context: context, child: ModalKetentuanLayananComponent());
             },
             contentPadding: EdgeInsets.zero,
-            leading:SizedBox(child: BackgroundIconComponent(child: Icon(FontAwesome5Solid.info_circle,color: Colors.white,size: scale.getTextSize(13)),),),
+            leading:SizedBox(child: BackgroundIconComponent(child: Icon(FontAwesome5Solid.info_circle,color: Colors.white),),),
             title: Text(
               "Ketentuan Layanan",
               style: Theme.of(context)
@@ -153,7 +154,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
               Navigator.of(context).pushNamed(RoutePath.brandFavoriteWidget);
             },
             contentPadding: EdgeInsets.zero,
-            leading:SizedBox(child: BackgroundIconComponent(child: Icon(FontAwesome5Solid.heart,color: Colors.white,size: scale.getTextSize(13)),),),
+            leading:SizedBox(child: BackgroundIconComponent(child: Icon(FontAwesome5Solid.heart,color: Colors.white),),),
             title: Text(
               "Brand Favorite",
               style: Theme.of(context)
@@ -168,7 +169,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
               Navigator.of(context).pushNamed(RoutePath.tentangAplikasiWidget);
             },
             contentPadding: EdgeInsets.zero,
-            leading:SizedBox(child: BackgroundIconComponent(child: Icon(FontAwesome5Solid.building,color: Colors.white,size: scale.getTextSize(13)),),),
+            leading:SizedBox(child: BackgroundIconComponent(child: Icon(FontAwesome5Solid.building,color: Colors.white),),),
             title: Text(
               "Tentang Aplikasi",
               style: Theme.of(context)

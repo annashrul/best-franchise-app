@@ -153,17 +153,20 @@ class RewardCardComponent extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
           ),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              // Icon(icon,color: Color(0xFFC881F3).withOpacity(0.671875)),
               BackgroundIconComponent(
-                child: Icon(icon,color: Colors.white,),
+                child: Icon(icon,color: Colors.grey[200]),
               ),
               // Image.asset(
               //   StringConfig.imgLocal + "${this.img}.png",
               //   height: scale.getHeight(2),
               // ),
-              SizedBox(width: scale.getWidth(1)),
+              SizedBox(width: scale.getWidth(2)),
               Column(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(this.title,
