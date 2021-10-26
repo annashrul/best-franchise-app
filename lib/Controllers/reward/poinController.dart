@@ -23,6 +23,7 @@ class PoinController with ChangeNotifier {
   bool isLoadingVoucher = true;
   bool isLoadingMerchandise = true;
   bool isLoadingList = true;
+  bool isLoadMoreList = true;
   int perPage = 10;
 
   Future loadBonusPin({BuildContext context}) async {
@@ -36,6 +37,17 @@ class PoinController with ChangeNotifier {
       listMutasiPoinModel = null;
     }
     isLoadingList = false;
+    notifyListeners();
+  }
+
+  loadMore(BuildContext context) {
+    if (perPage < int.parse(listMutasiPoinModel.pagination.total)) {
+      isLoadMoreList = true;
+      perPage += 10;
+      loadBonusPin(context: context);
+    } else {
+      isLoadMoreList = false;
+    }
     notifyListeners();
   }
 

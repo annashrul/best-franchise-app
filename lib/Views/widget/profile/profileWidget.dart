@@ -42,17 +42,17 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                   RewardCardComponent(
                     img: "poin",
                     title: "jumlah Poin",
-                    desc: reward.rewardHomeModel.data.bonusPoin,
+                    desc: reward.infoModel.data.poin,
                   ),
                   RewardCardComponent(
                     img: "komisi",
                     title: "Komisi",
-                    desc: reward.rewardHomeModel.data.bonusKomisi,
+                    desc: reward.infoModel.data.saldoKomisi,
                   ),
                   RewardCardComponent(
                     img: "royalti",
                     title: "Royalti",
-                    desc: reward.rewardHomeModel.data.bonusRoyalti,
+                    desc: reward.infoModel.data.saldoRoyalti,
                   ),
                 ],
               ),
