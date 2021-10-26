@@ -19,11 +19,28 @@ class NewsWidget extends StatefulWidget {
 
 class _NewsWidgetState extends State<NewsWidget>
     with SingleTickerProviderStateMixin {
+  ScrollController controller;
+  void scrollListener() {
+    final data = Provider.of<NewsController>(context, listen: false);
+    if (!data.isLoadMoreList) {
+      if (controller.position.pixels == controller.position.maxScrollExtent) {
+        data.loadMore(context, "");
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    controller.removeListener(scrollListener);
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     final news = Provider.of<NewsController>(context, listen: false);
+    controller = new ScrollController()..addListener(scrollListener);
     news.loadNews(context, null);
     news.loadNewsAll(context, null);
     news.loadNewsCat(context, 0, null);
@@ -36,6 +53,7 @@ class _NewsWidgetState extends State<NewsWidget>
     return Scaffold(
       appBar: GeneralHelper.appBarWithImage(context: context),
       body: ListView(
+        controller: controller,
         children: [
           SizedBox(height: scale.getHeight(1)),
           Container(
@@ -55,8 +73,11 @@ class _NewsWidgetState extends State<NewsWidget>
                   : news.newsModel == null
                       ? NoDataComponent()
                       : SectionThreeNewsComponent(news.newsModel)),
-          SizedBox(
-              height: scale.getHeight(10), child: CupertinoActivityIndicator()),
+          news.isLoading
+              ? SizedBox(
+                  height: scale.getHeight(10),
+                  child: CupertinoActivityIndicator())
+              : SizedBox(),
         ],
       ),
     );

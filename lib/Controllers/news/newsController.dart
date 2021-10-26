@@ -14,6 +14,7 @@ class NewsController with ChangeNotifier {
   bool isLoadingAll = true;
   bool isLoadingDet = true;
   bool isLoadingCat = true;
+  bool isLoadMoreList = true;
   int perPage = 10;
   int indexCategoryActive = 0;
 
@@ -37,6 +38,17 @@ class NewsController with ChangeNotifier {
       newsModel = null;
     }
     isLoading = false;
+    notifyListeners();
+  }
+
+  loadMore(BuildContext context, id) {
+    if (perPage < int.parse(newsModel.pagination.total)) {
+      isLoadMoreList = true;
+      perPage += 10;
+      loadNews(context, id);
+    } else {
+      isLoadMoreList = false;
+    }
     notifyListeners();
   }
 

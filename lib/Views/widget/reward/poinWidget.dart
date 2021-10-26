@@ -1,10 +1,8 @@
 import 'package:bestfranchise/Configs/routeConfig.dart';
 import 'package:bestfranchise/Controllers/home/rewardHomeController.dart';
 import 'package:bestfranchise/Controllers/reward/poinController.dart';
-import 'package:bestfranchise/Helpers/general/generalHelper.dart';
 import 'package:bestfranchise/Views/component/general/loadingComponent.dart';
 import 'package:bestfranchise/Views/component/general/noDataComponent.dart';
-import 'package:bestfranchise/Views/component/reward/cardKomisiRoyalti.dart';
 import 'package:bestfranchise/Views/component/reward/cardPoin.dart';
 import 'package:bestfranchise/Views/component/reward/wrapperRewardComponent.dart';
 import 'package:flutter/material.dart';

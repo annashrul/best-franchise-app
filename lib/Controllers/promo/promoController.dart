@@ -6,6 +6,7 @@ class PromoController with ChangeNotifier {
   PromoModel promoModel;
   bool isLoading = true;
   bool isLoadingCat = true;
+  bool isLoadMoreList = true;
   int perPage = 10;
 
   loadPromo({BuildContext context}) async {
@@ -20,6 +21,17 @@ class PromoController with ChangeNotifier {
       promoModel = null;
     }
     isLoading = false;
+    notifyListeners();
+  }
+
+  loadMore(BuildContext context) {
+    if (perPage < int.parse(promoModel.pagination.total)) {
+      isLoadMoreList = true;
+      perPage += 10;
+      loadPromo(context: context);
+    } else {
+      isLoadMoreList = false;
+    }
     notifyListeners();
   }
 }
