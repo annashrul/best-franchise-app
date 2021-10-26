@@ -35,6 +35,7 @@ import 'package:bestfranchise/Controllers/slider/sliderHomeController.dart';
 import 'package:bestfranchise/Controllers/user/userController.dart';
 import 'package:bestfranchise/Databases/coreDatabase.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:oktoast/oktoast.dart';
@@ -102,6 +103,10 @@ List<SingleChildWidget> providers = [
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent, // transparent status bar
+  ));
+
   runApp(
     MultiProvider(
       providers: providers,
@@ -146,6 +151,7 @@ class _MyAppState extends State<MyApp> {
         animationDuration: const Duration(milliseconds: 200),
         duration: const Duration(seconds: 3),
         child: MaterialApp(
+
           title: ApiConfig.siteName,
           initialRoute: RoutePath.splashWidget,
           onGenerateRoute: RouteGenerator.generateRoute,
@@ -154,9 +160,8 @@ class _MyAppState extends State<MyApp> {
             colorScheme: ThemeData().colorScheme.copyWith(
                   primary: ColorConfig.greyPrimary,
                 ),
-            scaffoldBackgroundColor: Colors.white,
-            primaryColor: Colors.white,
-            brightness: Brightness.light,
+            // scaffoldBackgroundColor: Colors.white,
+            // brightness: Brightness.light,
             unselectedWidgetColor: Colors.grey[300],
             bottomSheetTheme: BottomSheetThemeData(
                 backgroundColor: Colors.white,

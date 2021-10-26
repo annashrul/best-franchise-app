@@ -23,9 +23,10 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
     await Future.delayed(Duration(seconds: 2));
     final user = Provider.of<UserController>(context, listen: false);
     final countUser = await db.getData(UserTable.TABLE_NAME);
-    final isToken = await GeneralHelper.isTokenExpired(context);
-    print("STATUS USER = ${user.dataUser[UserTable.statusRoleApp]}");
+
     if (countUser.length > 0) {
+      print("STATUS USER = ${user.dataUser[UserTable.statusRoleApp]}");
+      final isToken = await GeneralHelper.isTokenExpired(context);
       if(isToken){
         GeneralHelper.processLogout(context);
       }

@@ -66,7 +66,7 @@ class GeneralHelper {
       elevation: 1,
       title: Text(title, style: Theme.of(context).textTheme.headline1),
       leading: IconButton(
-        icon: Icon(Icons.arrow_back_ios),
+        icon: Icon(Icons.arrow_back_ios,color: Colors.black,),
         onPressed: () => Navigator.of(context, rootNavigator: true).pop(),
       ),
       actions: actions,
@@ -142,7 +142,7 @@ class GeneralHelper {
       elevation: 1,
       title: Text(title, style: Theme.of(context).textTheme.headline1),
       leading: IconButton(
-        icon: Icon(Icons.arrow_back_ios),
+        icon: Icon(Icons.arrow_back_ios,color: Colors.black,),
         onPressed: () => Navigator.of(context).pop(),
       ),
       actions: actions,
