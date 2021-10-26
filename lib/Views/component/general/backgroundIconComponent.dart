@@ -27,40 +27,10 @@ class BackgroundIconComponent extends StatelessWidget {
           ]
       ).createShader(bounds),
       child:SizedBox(
-        width: scale.getTextSize(15),
-        height: scale.getTextSize(15),
+        width: scale.getTextSize(14),
+        height: scale.getTextSize(14),
         child: child,
       )
-    );
-  }
-}
-class GradientIcon extends StatelessWidget {
-  GradientIcon(
-      this.icon,
-      this.size,
-      this.gradient,
-      );
-
-  final IconData icon;
-  final double size;
-  final Gradient gradient;
-
-  @override
-  Widget build(BuildContext context) {
-    return ShaderMask(
-      child: SizedBox(
-        width: size * 1.2,
-        height: size * 1.2,
-        child: Icon(
-          icon,
-          size: size,
-          color: Colors.white,
-        ),
-      ),
-      shaderCallback: (Rect bounds) {
-        final Rect rect = Rect.fromLTRB(0, 0, size, size);
-        return gradient.createShader(rect);
-      },
     );
   }
 }
