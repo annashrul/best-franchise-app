@@ -15,12 +15,29 @@ class PromoWidget extends StatefulWidget {
 }
 
 class _PromoWidgetState extends State<PromoWidget> {
+  ScrollController controller;
+  void scrollListener() {
+    final data = Provider.of<PromoController>(context, listen: false);
+    if (!data.isLoadMoreList) {
+      if (controller.position.pixels == controller.position.maxScrollExtent) {
+        data.loadMore(context);
+      }
+    }
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     final promo = Provider.of<PromoController>(context, listen: false);
+    controller = new ScrollController()..addListener(scrollListener);
     promo.loadPromo(context: context);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    controller.removeListener(scrollListener);
   }
 
   @override
@@ -37,6 +54,7 @@ class _PromoWidgetState extends State<PromoWidget> {
           : promo.promoModel == null
               ? NoDataComponent()
               : ListView.separated(
+                  controller: controller,
                   padding: scale.getPadding(1, 2),
                   itemBuilder: (context, index) {
                     final val = promo.promoModel.data[index];

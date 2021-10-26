@@ -5,6 +5,7 @@ import 'package:bestfranchise/Models/news/newsModel.dart';
 import 'package:bestfranchise/Views/component/general/touchEffectComponent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
+import 'package:share/share.dart';
 
 class SectionThreeNewsComponent extends StatefulWidget {
   final NewsModel newsModel;
@@ -76,7 +77,10 @@ class _SectionThreeNewsComponentState extends State<SectionThreeNewsComponent> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             InkWell(
-                                onTap: () {},
+                                onTap: () {
+                                  Share.shareFiles([val.photo],
+                                      subject: val.title);
+                                },
                                 child: Image.asset(
                                     StringConfig.imgLocal + "shareWhite.png")),
                             Text(
