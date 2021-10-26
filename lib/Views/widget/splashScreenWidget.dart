@@ -4,6 +4,7 @@ import 'package:bestfranchise/Configs/stringConfig.dart';
 import 'package:bestfranchise/Controllers/user/userController.dart';
 import 'package:bestfranchise/Databases/coreDatabase.dart';
 import 'package:bestfranchise/Databases/tableDatabase.dart';
+import 'package:bestfranchise/Helpers/general/generalHelper.dart';
 import 'package:bestfranchise/Views/widget/auth/otpWidget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -20,18 +21,25 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
   Future checkingRoute() async {
     CoreDatabases db = new CoreDatabases();
     await Future.delayed(Duration(seconds: 2));
-    final user = Provider.of<UserController>(context, listen: false).dataUser;
+    final user = Provider.of<UserController>(context, listen: false);
     final countUser = await db.getData(UserTable.TABLE_NAME);
-    // print("################## DATA USER = ${user.dataUser}");
-    // Navigator.of(context).pushNamed(RoutePath.mainWidget,arguments: StringConfig.tabHome);
-    // Navigator.of(context).pushNamed(RoutePath.onBoardingWidget);
-    //
+    final isToken = await GeneralHelper.isTokenExpired(context);
+    print("STATUS USER = ${user.dataUser[UserTable.statusRoleApp]}");
     if (countUser.length > 0) {
-      Navigator.of(context).pushNamedAndRemoveUntil(
-          RoutePath.mainWidget, (route) => false,
-          arguments: StringConfig.tabHome);
+      if(isToken){
+        GeneralHelper.processLogout(context);
+      }
+      else if(user.dataUser[UserTable.statusRoleApp] == "${StringConfig.statusLogoutAplikasi}"){
+        Navigator.of(context).pushNamedAndRemoveUntil(RoutePath.loginWidget, (route) => false);
+      }
+      else if(user.dataUser[UserTable.statusRoleApp] == "${StringConfig.statusKeluarDariAplikasi}"){
+        Navigator.of(context).pushNamedAndRemoveUntil( RoutePath.mainWidget, (route) => false,arguments: StringConfig.tabHome);
+      }
+      else{
+        Navigator.of(context).pushNamedAndRemoveUntil( RoutePath.mainWidget, (route) => false,arguments: StringConfig.tabHome);
+      }
     } else {
-      Navigator.of(context).pushNamed(RoutePath.onBoardingWidget);
+      Navigator.of(context).pushNamedAndRemoveUntil(RoutePath.onBoardingWidget, (route) => false);
     }
   }
 

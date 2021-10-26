@@ -67,6 +67,8 @@ class _HistoryOrderWidgetState extends State<HistoryOrderWidget> with SingleTick
         initialIndex: 0,
         length:2,
         child: Scaffold(
+          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+          floatingActionButton: order.isLoadMore?CupertinoActivityIndicator():SizedBox(),
           appBar:AppBar(
             backgroundColor: Colors.white,
             elevation: 1,

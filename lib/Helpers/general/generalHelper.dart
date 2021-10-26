@@ -5,7 +5,9 @@ import 'package:bestfranchise/Configs/colorConfig.dart';
 import 'package:bestfranchise/Configs/routeConfig.dart';
 import 'package:bestfranchise/Configs/stringConfig.dart';
 import 'package:bestfranchise/Controllers/user/userController.dart';
+import 'package:bestfranchise/Databases/coreDatabase.dart';
 import 'package:bestfranchise/Databases/tableDatabase.dart';
+import 'package:bestfranchise/Helpers/dateRangePicker.dart';
 import 'package:bestfranchise/Views/component/general/dialogComponent.dart';
 import 'package:bestfranchise/Views/component/general/touchEffectComponent.dart';
 import 'package:flutter/cupertino.dart';
@@ -19,9 +21,36 @@ import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
+
 
 class GeneralHelper {
   final formatter = new NumberFormat("#,###");
+
+  static isTokenExpired(BuildContext context)async{
+    final provider = Provider.of<UserController>(context,listen:false);
+    final token = provider.dataUser[UserTable.token];
+    Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
+    bool isTokenExpired = JwtDecoder.isExpired(token);
+    print("####################### PAYLOAD TOKEN $isTokenExpired ########################################");
+    return isTokenExpired;
+  }
+
+  static processLogout(BuildContext context)async{
+    final provider = Provider.of<UserController>(context,listen:false);
+    CoreDatabases db = new CoreDatabases();
+    final res = await db.update(UserTable.TABLE_NAME, provider.dataUser[UserTable.id], {
+      UserTable.statusRoleApp:StringConfig.statusLogoutAplikasi
+    });
+    if(res){
+      Navigator.of(context).pushNamedAndRemoveUntil(RoutePath.onBoardingWidget, (route) => false);
+    }else{
+      toast(msg:"gagal keluar aplikasi");
+    }
+  }
+
+
+
   static backToMain({BuildContext context, int tab}) {
     return Navigator.of(context).pushNamedAndRemoveUntil(
         RoutePath.mainWidget, (route) => false,
@@ -278,6 +307,29 @@ class GeneralHelper {
       Function callback2,
       String label1 = "batal",
       String label2 = "oke"}) {
+    return showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) => AlertDialog(
+          title:
+          Text("Informasi !", style: Theme.of(context).textTheme.headline1),
+          content: Text(msg, style: Theme.of(context).textTheme.subtitle1),
+          actions: <Widget>[
+            if (callback1 != null)
+              TextButton(
+                  onPressed: callback1,
+                  child:
+                  Text(label1, style: Theme.of(context).textTheme.subtitle1)),
+            TextButton(
+                onPressed: callback2,
+                child: Text(label2,
+                    style: Theme.of(context)
+                        .textTheme
+                        .subtitle1
+                        .copyWith(color: ColorConfig.bluePrimary))),
+          ],
+        )
+    );
     return dialog(context: context, child: [
       AlertDialog(
         title:
@@ -326,6 +378,34 @@ class GeneralHelper {
           .showSnackBar(SnackBar(content: Text("Teks berhasil disalin.")));
     });
   }
+
+  static filterDate({BuildContext context,dynamic data,Function(DateTime from, DateTime to) callback}){
+    ScreenScaler scale= ScreenScaler()..init(context);
+
+    return DateHelper(
+        startText: "Dari",
+        endText: "Sampai",
+        doneText: "Simpan",
+        cancelText: "Batal",
+        initialStartTime: data["from"],
+        initialEndTime: data["to"],
+        mode: DateTimeRangePickerMode.date,
+        onConfirm: (start, end) {
+          callback(start,end);
+        }).showPicker(context);
+  }
+  static convertDateToYMD(DateTime date){
+    String strDate = '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
+    return strDate;
+  }
+  static convertDateToDMY(DateTime date){
+    String strDate = '${date.day.toString().padLeft(2, '0')}-${date.month.toString().padLeft(2, '0')}-${date.year}';
+    return strDate;
+  }
+
+
+
+
 }
 
 class HexColor extends Color {

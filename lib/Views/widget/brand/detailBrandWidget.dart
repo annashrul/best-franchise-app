@@ -12,14 +12,17 @@ import 'package:bestfranchise/Views/component/brand/franchiseBrandComponent.dart
 import 'package:bestfranchise/Views/component/brand/lokasiBrandComponent.dart';
 import 'package:bestfranchise/Views/component/brand/produkBrandComponent.dart';
 import 'package:bestfranchise/Views/component/brand/reviewBrandComponent.dart';
+import 'package:bestfranchise/Views/component/general/backgroundIconComponent.dart';
 import 'package:bestfranchise/Views/component/general/buttonComponent.dart';
 import 'package:bestfranchise/Views/component/general/loadingComponent.dart';
 import 'package:bestfranchise/Views/component/general/stickyHeaderComponent.dart';
 import 'package:bestfranchise/Views/component/general/touchEffectComponent.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
 import 'package:provider/provider.dart';
+import 'package:share/share.dart';
 import 'package:sticky_headers/sticky_headers/widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -96,17 +99,20 @@ class _DetailBrandWidgetState extends State<DetailBrandWidget> {
               child: Container(
                 alignment: Alignment.center,
                 padding: scale.getPadding(1, 2),
-                child: Image.asset(StringConfig.imgLocal + "brandFavorite.png"),
+                // child: Image.asset(StringConfig.imgLocal + "brandFavorite.png"),
+                child: BackgroundIconComponent(child: Icon(FontAwesome5Solid.heart,color: Colors.white,),),
               ),
             ),
-            InTouchWidget(
-              callback: () async {},
-              child: Container(
-                alignment: Alignment.center,
-                padding: scale.getPadding(1, 2),
-                child: Image.asset(StringConfig.imgLocal + "whatsApp.png"),
-              ),
-            ),
+            // InTouchWidget(
+            //   callback: () async {
+            //     Share.share("asdasdasdasdasdasd");
+            //   },
+            //   child: Container(
+            //     alignment: Alignment.center,
+            //     padding: scale.getPadding(1, 2),
+            //     child: Image.asset(StringConfig.imgLocal + "whatsApp.png"),
+            //   ),
+            // ),
           ]),
       floatingActionButton: Container(
         padding: scale.getPadding(1, 2),

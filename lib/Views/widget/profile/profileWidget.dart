@@ -87,7 +87,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
               style: Theme.of(context)
                   .textTheme
                   .headline1
-                  .copyWith(fontWeight: FontWeight.w400),
+                  .copyWith(fontWeight: FontWeight.w400,color: Colors.grey[400]),
             ),
           ),
           Divider(height: scale.getHeight(0.1)),
@@ -184,7 +184,10 @@ class _ProfileWidgetState extends State<ProfileWidget> {
           ButtonComponent(
             label: "Logout",
             callback: () {
-              Navigator.of(context).pushNamed(RoutePath.onBoardingWidget);
+              GeneralHelper.nofitDialog(context: context,msg: "kamu yakin akan keluar dari aplikasi ?",callback2: (){
+                GeneralHelper.processLogout(context);
+              },callback1: ()=>Navigator.of(context).pop());
+              // Navigator.of(context).pushNamed(RoutePath.onBoardingWidget);
             },
           )
         ],
