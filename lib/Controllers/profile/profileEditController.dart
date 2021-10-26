@@ -10,9 +10,9 @@ import 'package:provider/provider.dart';
 class ProfileEditController with ChangeNotifier {
   // TextEditingController idReferralController = new TextEditingController();
   TextEditingController fullname = new TextEditingController();
-  // TextEditingController noHpController = new TextEditingController();
-  // TextEditingController emailController = new TextEditingController();
-  // TextEditingController addressController = new TextEditingController();
+  TextEditingController noHpController = new TextEditingController();
+  TextEditingController emailController = new TextEditingController();
+  TextEditingController addressController = new TextEditingController();
 
   // Future store() async {
   //   if (idReferralController.text == "") {
@@ -36,8 +36,20 @@ class ProfileEditController with ChangeNotifier {
     if (field["fullname"] == "") {
       return GeneralHelper.toast(msg: "Nama lengkap tidak boleh kosong");
     }
+    if (field["mobile_no"] == "") {
+      return GeneralHelper.toast(msg: "No Telpon tidak boleh kosong");
+    }
+    if (field["email"] == "") {
+      return GeneralHelper.toast(msg: "Email tidak boleh kosong");
+    }
+    if (field["address"] == "") {
+      return GeneralHelper.toast(msg: "Alamat lengkap tidak boleh kosong");
+    }
     final data = {
       "fullname": field["fullname"],
+      "mobile_no": field["mobile_no"],
+      "email": field["email"],
+      "address": field["address"],
     };
 
     final user = Provider.of<UserController>(context, listen: false);

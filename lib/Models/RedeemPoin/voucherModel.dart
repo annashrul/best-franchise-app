@@ -49,6 +49,7 @@ class Datum {
   String brandLogo;
   String createdAt;
   String updatedAt;
+  String isclaimed;
 
   Datum(
       {this.records,
@@ -61,7 +62,8 @@ class Datum {
       this.expiredDate,
       this.brandLogo,
       this.createdAt,
-      this.updatedAt});
+      this.updatedAt,
+      this.isclaimed});
 
   Datum.fromJson(Map<String, dynamic> json) {
     records = json['records'];
@@ -75,6 +77,7 @@ class Datum {
     brandLogo = json['brand_logo'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
+    isclaimed = json['isclaimed'];
   }
 
   Map<String, dynamic> toJson() {
@@ -90,6 +93,7 @@ class Datum {
     data['brand_logo'] = this.brandLogo;
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
+    data['isclaimed'] = this.isclaimed;
     return data;
   }
 }

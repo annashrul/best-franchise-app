@@ -1,3 +1,4 @@
+import 'package:bestfranchise/Configs/colorConfig.dart';
 import 'package:bestfranchise/Configs/routeConfig.dart';
 import 'package:bestfranchise/Helpers/general/generalHelper.dart';
 import 'package:bestfranchise/Views/component/general/backgroundIconComponent.dart';
@@ -41,22 +42,22 @@ class BaseLoading extends StatelessWidget {
 class BaseLoadingLoop extends StatelessWidget {
   final Widget child;
   final int total;
-  BaseLoadingLoop({this.child,this.total=10});
+  BaseLoadingLoop({this.child, this.total = 10});
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
         padding: EdgeInsets.zero,
         primary: false,
         shrinkWrap: true,
-        itemBuilder: (context,index){
+        itemBuilder: (context, index) {
           return child;
         },
-        separatorBuilder: (context,index){return SizedBox();},
-        itemCount: this.total
-    );
+        separatorBuilder: (context, index) {
+          return SizedBox();
+        },
+        itemCount: this.total);
   }
 }
-
 
 class LoadingCardImageTitleSubTitle extends StatelessWidget {
   @override
@@ -193,14 +194,13 @@ class LoadingReward extends StatelessWidget {
                                     ));
                               },
                               child: Container(
-                                padding: scale.getPadding(0.5,  1.1),
+                                padding: scale.getPadding(0.5, 1.1),
                                 child: BackgroundIconComponent(
                                     child: Icon(
-                                      FontAwesome5Solid.qrcode,
-                                      color: Colors.white,
-                                      size: scale.getTextSize(14),
-                                    )
-                                ),
+                                  FontAwesome5Solid.qrcode,
+                                  color: Colors.white,
+                                  size: scale.getTextSize(14),
+                                )),
                               )),
                         ),
                         SizedBox(width: scale.getWidth(1)),
@@ -215,14 +215,13 @@ class LoadingReward extends StatelessWidget {
                               callback: () => Navigator.of(context)
                                   .pushNamed(RoutePath.notifWidget),
                               child: Container(
-                                padding: scale.getPadding(0.5,  1.1),
+                                padding: scale.getPadding(0.5, 1.1),
                                 child: BackgroundIconComponent(
-                                  child: Icon(
-                                    FontAwesome5Solid.bell,
-                                    color: Colors.white,
-                                    size: scale.getTextSize(14),
-                                  )
-                                ),
+                                    child: Icon(
+                                  FontAwesome5Solid.bell,
+                                  color: Colors.white,
+                                  size: scale.getTextSize(14),
+                                )),
                               )),
                         ),
                       ],
@@ -453,6 +452,77 @@ class LoadingCardImageCircular extends StatelessWidget {
             width: scale.getWidth(1),
           );
         },
+      ),
+    );
+  }
+}
+
+class LoadingNewsDetail extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    ScreenScaler scale = ScreenScaler()..init(context);
+    return Shimmer.fromColors(
+      baseColor: Theme.of(context).unselectedWidgetColor,
+      highlightColor: Colors.grey[100],
+      enabled: true,
+      child: Stack(
+        children: [
+          Container(
+            height: scale.getHeight(12),
+            width: scale.getWidth(100),
+            color: Colors.red,
+          ),
+          Container(
+            margin: scale.getMarginLTRB(0, 20, 0, 0),
+            height: scale.getHeight(70),
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  topRight: Radius.circular(20),
+                )),
+            child: ListView(
+              shrinkWrap: true,
+              padding: scale.getPadding(1, 2),
+              children: [
+                Text(
+                  "",
+                  style: Theme.of(context).textTheme.headline2,
+                ),
+                SizedBox(height: scale.getHeight(1)),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      padding: scale.getPadding(0.5, 2),
+                      decoration: BoxDecoration(
+                          color: ColorConfig.redPrimary,
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Text(
+                        "Kontibutor : ",
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline2
+                            .copyWith(color: Colors.white),
+                      ),
+                    ),
+                    Text("Admin, ",
+                        style: Theme.of(context).textTheme.headline3)
+                  ],
+                ),
+                SizedBox(height: scale.getHeight(1)),
+                Text(
+                  "",
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline3
+                      .copyWith(color: ColorConfig.greyPrimary),
+                  textAlign: TextAlign.justify,
+                )
+              ],
+            ),
+          )
+        ],
       ),
     );
   }

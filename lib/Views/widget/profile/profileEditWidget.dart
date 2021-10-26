@@ -1,4 +1,5 @@
 import 'package:bestfranchise/Configs/colorConfig.dart';
+import 'package:bestfranchise/Configs/formConfig.dart';
 import 'package:bestfranchise/Configs/stringConfig.dart';
 import 'package:bestfranchise/Controllers/profile/profileEditController.dart';
 import 'package:bestfranchise/Controllers/user/userController.dart';
@@ -21,6 +22,7 @@ class ProfileEditWidget extends StatefulWidget {
 }
 
 class _ProfileEditWidgetState extends State<ProfileEditWidget> {
+  String countryCode = "62";
   @override
   Widget build(BuildContext context) {
     ScreenScaler scale = ScreenScaler()..init(context);
@@ -124,21 +126,30 @@ class _ProfileEditWidgetState extends State<ProfileEditWidget> {
                 labelText: "Nama Lengkap",
                 maxLength: 50,
               ),
-              // SizedBox(height: scale.getHeight(1)),
-              // FieldComponent(
-              //   controller: profileEdit.noHpController,
-              //   labelText: "No Handphone",
-              // ),
-              // SizedBox(height: scale.getHeight(1)),
-              // FieldComponent(
-              //   controller: profileEdit.emailController,
-              //   labelText: "Alamat Email",
-              // ),
-              // SizedBox(height: scale.getHeight(1)),
-              // FieldComponent(
-              //   controller: profileEdit.addressController,
-              //   labelText: "Alamat Tinggal",
-              // ),
+              SizedBox(height: scale.getHeight(1)),
+              FieldComponent(
+                controller: profileEdit.noHpController,
+                labelText: "Nomor Handphone",
+                maxLength: FormConfig.maxLengthPhone,
+                isPhone: true,
+                keyboardType: TextInputType.number,
+                onTapCountry: (code) {
+                  countryCode = code;
+                },
+              ),
+              SizedBox(height: scale.getHeight(1)),
+              FieldComponent(
+                controller: profileEdit.emailController,
+                labelText: "Alamat Email",
+                maxLength: 50,
+              ),
+              SizedBox(height: scale.getHeight(1)),
+              FieldComponent(
+                controller: profileEdit.addressController,
+                labelText: "Alamat Tinggal",
+                maxLength: 150,
+                maxLines: 3,
+              ),
               SizedBox(height: scale.getHeight(1)),
             ]),
           ),
@@ -152,6 +163,9 @@ class _ProfileEditWidgetState extends State<ProfileEditWidget> {
           backgroundColor: ColorConfig.redPrimary,
           callback: () => profileEdit.store(context: context, field: {
             "fullname": profileEdit.fullname.text,
+            "mobile_no": profileEdit.noHpController.text,
+            "email": profileEdit.emailController.text,
+            "address": profileEdit.addressController.text,
             "id": id,
           }),
         ),

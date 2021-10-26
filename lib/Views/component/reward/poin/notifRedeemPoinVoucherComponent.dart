@@ -88,9 +88,11 @@ class NotifRedeemPoinVoucherComponent extends StatelessWidget {
         ButtonComponent(
           labelColor: Colors.white,
           backgroundColor: ColorConfig.redPrimary,
-          label: "Redeem Sekarang",
-          callback: () =>
-              poin.redeemV(context: context, field: {"id_voucher": valV.id}),
+          label: "Selesai",
+          callback: () => valV.isclaimed == "0"
+              ? ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text("Belum dapat diselesaikan!")))
+              : poin.redeemV(context: context, field: {"id_voucher": valV.id}),
         )
       ],
     ));
