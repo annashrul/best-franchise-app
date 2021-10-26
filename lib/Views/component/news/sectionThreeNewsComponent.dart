@@ -78,8 +78,7 @@ class _SectionThreeNewsComponentState extends State<SectionThreeNewsComponent> {
                           children: [
                             InkWell(
                                 onTap: () {
-                                  Share.shareFiles([val.photo],
-                                      subject: val.title);
+                                  Share.share(val.title + "\n" + val.caption);
                                 },
                                 child: Image.asset(
                                     StringConfig.imgLocal + "shareWhite.png")),

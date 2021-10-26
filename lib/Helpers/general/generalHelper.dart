@@ -31,11 +31,12 @@ class GeneralHelper {
   static appBarGeneral(
       {BuildContext context, String title = "", List<Widget> actions}) {
     final userStorage = Provider.of<UserController>(context, listen: false);
-    title = userStorage.dataUser[UserTable.fullname];
+    var titleNew = userStorage.dataUser[UserTable.fullname];
     return AppBar(
       backgroundColor: Colors.white,
       elevation: 1,
-      title: Text(title, style: Theme.of(context).textTheme.headline1),
+      title: Text(title == "" ? titleNew : title,
+          style: Theme.of(context).textTheme.headline1),
       leading: IconButton(
         icon: Icon(Icons.arrow_back_ios),
         onPressed: () => Navigator.of(context, rootNavigator: true).pop(),
@@ -107,11 +108,12 @@ class GeneralHelper {
       );
     }
     final userStorage = Provider.of<UserController>(context, listen: false);
-    title = userStorage.dataUser[UserTable.fullname];
+    var titleNew = userStorage.dataUser[UserTable.fullname];
     return AppBar(
       backgroundColor: Colors.white,
       elevation: 1,
-      title: Text(title, style: Theme.of(context).textTheme.headline1),
+      title: Text(title == "" ? titleNew : title,
+          style: Theme.of(context).textTheme.headline1),
       leading: IconButton(
         icon: Icon(Icons.arrow_back_ios),
         onPressed: () => Navigator.of(context).pop(),
@@ -138,7 +140,8 @@ class GeneralHelper {
         enableDrag: false,
         isDismissible: false,
         backgroundColor: Colors.transparent,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(10.0))),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(10.0))),
         context: context,
         isScrollControlled: true,
         builder: (context) => WillPopScope(
@@ -152,9 +155,9 @@ class GeneralHelper {
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius:
-                        BorderRadius.vertical(top: Radius.circular(10.0))
-                      // borderRadius: BorderRadius.circular(20)
-                    ),
+                            BorderRadius.vertical(top: Radius.circular(10.0))
+                        // borderRadius: BorderRadius.circular(20)
+                        ),
                     child: child,
                   ),
                   Positioned(
@@ -182,30 +185,31 @@ class GeneralHelper {
                 ],
               ),
             ),
-            onWillPop: ()async{return false;}
-        )
-    );
+            onWillPop: () async {
+              return false;
+            }));
   }
 
-  static modalGeneral({BuildContext context, Widget child,void Function() callback}) {
+  static modalGeneral(
+      {BuildContext context, Widget child, void Function() callback}) {
     ScreenScaler scale = ScreenScaler()..init(context);
     return showModalBottomSheet(
         enableDrag: false,
         isDismissible: false,
         backgroundColor: Colors.white,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(10.0))),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(10.0))),
         context: context,
         isScrollControlled: true,
         builder: (context) => WillPopScope(
-          child: Padding(
-            padding: MediaQuery.of(context).viewInsets,
-            child: child,
-          ),
-          onWillPop: ()async{
-            return false;
-          },
-        )
-    );
+              child: Padding(
+                padding: MediaQuery.of(context).viewInsets,
+                child: child,
+              ),
+              onWillPop: () async {
+                return false;
+              },
+            ));
   }
 
   static dialog({BuildContext context, List<Widget> child}) {
@@ -249,7 +253,13 @@ class GeneralHelper {
               onTap: callback != null
                   ? callback
                   : () => Navigator.of(context).pop(),
-              child: Text("Simpan",style: Theme.of(context).textTheme.headline1.copyWith(color: ColorConfig.blueSecondary),))
+              child: Text(
+                "Simpan",
+                style: Theme.of(context)
+                    .textTheme
+                    .headline1
+                    .copyWith(color: ColorConfig.blueSecondary),
+              ))
       ],
     );
   }

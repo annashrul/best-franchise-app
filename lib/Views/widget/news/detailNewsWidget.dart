@@ -37,10 +37,7 @@ class _DetailNewsWidgetState extends State<DetailNewsWidget> {
               ? "Loading"
               : news.newsDetModel.data.title),
       body: news.isLoadingDet
-          ? Text(
-              "loading",
-              style: Theme.of(context).textTheme.headline2,
-            )
+          ? LoadingNewsDetail()
           : news.newsDetModel == null
               ? NoDataComponent()
               : Stack(

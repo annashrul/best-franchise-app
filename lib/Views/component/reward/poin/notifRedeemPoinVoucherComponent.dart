@@ -88,7 +88,7 @@ class NotifRedeemPoinVoucherComponent extends StatelessWidget {
         ButtonComponent(
           labelColor: Colors.white,
           backgroundColor: ColorConfig.redPrimary,
-          label: "Redeem Sekarang",
+          label: "Selesai",
           callback: () =>
               poin.redeemV(context: context, field: {"id_voucher": valV.id}),
         )
