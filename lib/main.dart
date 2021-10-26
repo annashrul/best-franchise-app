@@ -37,6 +37,7 @@ import 'package:bestfranchise/Controllers/user/userController.dart';
 import 'package:bestfranchise/Databases/coreDatabase.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:oktoast/oktoast.dart';
@@ -157,16 +158,31 @@ class _MyAppState extends State<MyApp> {
           initialRoute: RoutePath.splashWidget,
           onGenerateRoute: RouteGenerator.generateRoute,
           debugShowCheckedModeBanner: false,
+          localizationsDelegates: [
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate
+          ],
+          supportedLocales: [
+            const Locale('en'),
+            const Locale('id')
+          ],
           theme: ThemeData(
             colorScheme: ThemeData().colorScheme.copyWith(
                   primary: ColorConfig.greyPrimary,
                 ),
-            // scaffoldBackgroundColor: Colors.white,
+            appBarTheme: AppBarTheme(
+              backgroundColor: Colors.white,
+              elevation: 1
+            ),
+
+            scaffoldBackgroundColor: Colors.white,
             // brightness: Brightness.light,
             unselectedWidgetColor: Colors.grey[300],
             bottomSheetTheme: BottomSheetThemeData(
                 backgroundColor: Colors.white,
                 modalBackgroundColor: Colors.white),
+            primaryColor: Colors.black,
             textTheme: TextTheme(
               button: style.copyWith(color: Colors.white),
               bodyText1: style.copyWith(

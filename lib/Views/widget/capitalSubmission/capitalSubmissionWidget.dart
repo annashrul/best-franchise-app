@@ -39,6 +39,7 @@ class _CapitalSubmissionWidgetState extends State<CapitalSubmissionWidget> {
     {"title":"Foto Lainnya","img":"","required":"false","base64":"-"}
   ];
   String countryCode="62";
+  TextEditingController con = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +87,7 @@ class _CapitalSubmissionWidgetState extends State<CapitalSubmissionWidget> {
               FieldComponent(
                 controller: join.lokasiJualan,
                 labelText: "Lokasi Jualan",
-                maxLength: 50,
+                maxLength: 200,
               ),
               SizedBox(height: scale.getHeight(1)),
               FieldComponent(
@@ -145,69 +146,73 @@ class _CapitalSubmissionWidgetState extends State<CapitalSubmissionWidget> {
                                 context: context,
                                 child: ModalRequirementsComponent())
                           })),
-              SizedBox(height: scale.getHeight(1)),
-              StaggeredGridView.countBuilder(
-                padding: EdgeInsets.all(0.0),
-                shrinkWrap: true,
-                primary: false,
-                crossAxisCount: 2,
-                itemCount: dataPhoto.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Card(
-                    margin: EdgeInsets.zero,
-                    elevation: 1,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
-                    child: InTouchWidget(
-                      radius: 15,
-                      callback: ()async{
-                        GeneralHelper.modal(
-                          context: context,
-                          child: UploadImageComponent(
-                            callback: (data){
-                              print(data);
-                              Navigator.of(context).pop();
-                              dataPhoto[index]["img"]=data["path"];
-                              dataPhoto[index]["base64"]=data["base64"];
-                              setState(() {});
-                            },
-                            isPreview: false,
-                          )
-                        );
-                      },
-                      child: dataPhoto[index]["img"]!=""?Image.file(
-                        File(dataPhoto[index]["img"]),
-                      ):Container(
-                          padding: scale.getPadding(3,2),
-                          child: Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                BackgroundIconComponent(
-                                  child: Icon(FontAwesome5Solid.camera,color: Colors.white,size: scale.getTextSize(15)),
-                                ),
-                                SizedBox(height: 20),
-                                Text(
-                                  dataPhoto[index]["title"],
-                                  textAlign: TextAlign.center,
-                                  style: Theme.of(context).textTheme.headline2,
-                                ),
-                                if(dataPhoto[index]["required"]=="false")Text(
-                                  "( Opsional )",
-                                  textAlign: TextAlign.center,
-                                    style: Theme.of(context).textTheme.headline2,
-                                )
-                              ],
-                            ),
-                          )
-                      ),
-                    )
-                  );
-                },
-                staggeredTileBuilder: (int index) => new StaggeredTile.fit(1),
-                mainAxisSpacing: 10.0,
-                crossAxisSpacing: 10.0,
-              ),
+              // SizedBox(height: scale.getHeight(1)),
+              // FieldComponent(
+              //   controller: con,
+              //   labelText: "Lokasi Jualan",
+              //   maxLength: 100000000,
+              // ),
+              // StaggeredGridView.countBuilder(
+              //   padding: EdgeInsets.all(0.0),
+              //   shrinkWrap: true,
+              //   primary: false,
+              //   crossAxisCount: 2,
+              //   itemCount: dataPhoto.length,
+              //   itemBuilder: (BuildContext context, int index) {
+              //     return Card(
+              //       margin: EdgeInsets.zero,
+              //       elevation: 1,
+              //       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+              //       child: InTouchWidget(
+              //         radius: 15,
+              //         callback: ()async{
+              //           GeneralHelper.modal(
+              //             context: context,
+              //             child: UploadImageComponent(
+              //               callback: (data){
+              //                 Navigator.of(context).pop();
+              //                 dataPhoto[index]["img"]=data["path"];
+              //                 dataPhoto[index]["base64"]=data["base64"];
+              //                 setState(() {});
+              //               },
+              //               isPreview: false,
+              //             )
+              //           );
+              //         },
+              //         child: dataPhoto[index]["img"]!=""?Image.file(
+              //           File(dataPhoto[index]["img"]),
+              //         ):Container(
+              //             padding: scale.getPadding(3,2),
+              //             child: Center(
+              //               child: Column(
+              //                 mainAxisAlignment: MainAxisAlignment.center,
+              //                 crossAxisAlignment: CrossAxisAlignment.center,
+              //                 children: <Widget>[
+              //                   BackgroundIconComponent(
+              //                     child: Icon(FontAwesome5Solid.camera,color: Colors.white,size: scale.getTextSize(15)),
+              //                   ),
+              //                   SizedBox(height: 20),
+              //                   Text(
+              //                     dataPhoto[index]["title"],
+              //                     textAlign: TextAlign.center,
+              //                     style: Theme.of(context).textTheme.headline2,
+              //                   ),
+              //                   if(dataPhoto[index]["required"]=="false")Text(
+              //                     "( Opsional )",
+              //                     textAlign: TextAlign.center,
+              //                       style: Theme.of(context).textTheme.headline2,
+              //                   )
+              //                 ],
+              //               ),
+              //             )
+              //         ),
+              //       )
+              //     );
+              //   },
+              //   staggeredTileBuilder: (int index) => new StaggeredTile.fit(1),
+              //   mainAxisSpacing: 10.0,
+              //   crossAxisSpacing: 10.0,
+              // ),
             ]),
           ),
         ],
@@ -219,6 +224,80 @@ class _CapitalSubmissionWidgetState extends State<CapitalSubmissionWidget> {
           labelColor: Colors.white,
           backgroundColor: ColorConfig.redPrimary,
           callback: () => join.store(context,dataPhoto,countryCode),
+          // callback: (){
+          //   GeneralHelper.modalGeneral(
+          //       context: context,
+          //       child: UploadImageComponent(
+          //         callback: (data)async{},
+          //         isPreview: true,
+          //         isProgress: true,
+          //         titleHeader: "Upload Foto KTP",
+          //         callbackProgress: (data)async{
+          //           Navigator.of(context).pop();
+          //           GeneralHelper.modalGeneral(
+          //               context: context,
+          //               child: UploadImageComponent(
+          //                 isPreview: true,
+          //                 titleHeader: "Upload Foto KK",
+          //                 isProgress: true,
+          //                 callback: (data)async{},
+          //                 callbackProgress: (data){
+          //                   Navigator.of(context).pop();
+          //                   GeneralHelper.modalGeneral(
+          //                       context: context,
+          //                       child: UploadImageComponent(
+          //                         callback: (data)async{},
+          //                         isPreview: true,
+          //                         titleHeader: "Upload Foto NPWP",
+          //                         isProgress: true,
+          //                         callbackProgress: (data)async{
+          //                           Navigator.of(context).pop();
+          //                           GeneralHelper.modalGeneral(
+          //                               context: context,
+          //                               child: UploadImageComponent(
+          //                                 callback: (data)async{},
+          //                                 isPreview: true,
+          //                                 titleHeader: "Upload Foto SKU",
+          //                                 isProgress: true,
+          //                                 callbackProgress: (data){
+          //                                   Navigator.of(context).pop();
+          //                                   GeneralHelper.modalGeneral(
+          //                                       context: context,
+          //                                       child: UploadImageComponent(
+          //                                         callback: (data)async{},
+          //                                         isPreview: true,
+          //                                         titleHeader: "Upload Foto Rekeing",
+          //                                         isProgress: true,
+          //                                         callbackProgress: (data){
+          //                                           Navigator.of(context).pop();
+          //                                           GeneralHelper.modalGeneral(
+          //                                               context: context,
+          //                                               child: UploadImageComponent(
+          //                                                 callback: (data)async{},
+          //                                                 isPreview: true,
+          //                                                 titleHeader: "Upload Foto Lainnya (opsional)",
+          //                                                 isProgress: true,
+          //                                                 callbackProgress: (data){
+          //
+          //                                                 },
+          //                                               )
+          //                                           );
+          //                                         },
+          //                                       )
+          //                                   );
+          //                                 },
+          //                               )
+          //                           );
+          //                         },
+          //                       )
+          //                   );
+          //                 },
+          //               )
+          //           );
+          //         },
+          //       )
+          //   );
+          // },
         ),
       ),
     );

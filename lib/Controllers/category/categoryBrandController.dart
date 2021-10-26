@@ -1,8 +1,5 @@
 
 import 'package:bestfranchise/Controllers/baseController.dart';
-import 'package:bestfranchise/Models/Brand/detailBrandModel.dart';
-import 'package:bestfranchise/Models/Brand/franchiseModel.dart';
-import 'package:bestfranchise/Models/Brand/productBrandModel.dart';
 import 'package:bestfranchise/Models/Category/categoryBrandModel.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -19,6 +16,9 @@ class CategoryBrandController with ChangeNotifier{
     if(res["data"].length > 0){
       CategoryBrandModel result = CategoryBrandModel.fromJson(res);
       categoryBrandModel = result;
+      categoryBrandModel.data.insert(0,Datum(records: "0",id: "",title: "Semua",type: 0,status: 1,icon: "",createdAt: null,updatedAt: null));
+
+
     }
     else{
       categoryBrandModel=null;

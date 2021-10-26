@@ -7,6 +7,7 @@ import 'package:bestfranchise/Databases/tableDatabase.dart';
 import 'package:bestfranchise/Helpers/general/generalHelper.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' show Client;
+import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:provider/provider.dart';
 // import 'package:http/http.dart' s http;
 
@@ -18,10 +19,12 @@ class BaseController {
       // print("############## ${userStorage.dataUser[UserTable.token]}");
       if (userStorage.dataUser != null) {
         if (userStorage.dataUser[UserTable.token] != '') {
-          ApiConfig.head["Authorization"] =
-              "Bearer ${userStorage.dataUser[UserTable.token]}";
+          // ApiConfig.head["Authorization"] = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJiZWEyNDQ0ZC0zZDZiLTQyNGItYTQ3YS00OTBiY2I3NTYwYjgiLCJpYXQiOjE1NzEwNDI0OTEsImV4cCI6MTU3MzYzNDQ5MX0.lvRR9rU3cdLbJ9Gi0Ryucwl_7IMK6NF7BTblIQUDA9Q";
+          ApiConfig.head["Authorization"] = "Bearer ${userStorage.dataUser[UserTable.token]}";
+
         }
       }
+
       final response = await client
           .get(ApiConfig.url + url, headers: ApiConfig.head)
           .timeout(Duration(seconds: ApiConfig.timeOut));
@@ -32,7 +35,7 @@ class BaseController {
         print("################################ RESPONSE = $jsonResponse");
         return jsonResponse;
       } else if (response.statusCode == 500) {
-        GeneralHelper.toast(msg: "terjadi kesalahan url");
+        GeneralHelper.toast(msg: "terjadi kesalahan server");
         return null;
       } else {
         GeneralHelper.toast(msg: "terjadi kesalahan url");
@@ -41,13 +44,16 @@ class BaseController {
     } on TimeoutException catch (e) {
       print(
           "###################################### GET TimeoutException ${e.message}");
-      return GeneralHelper.toast(msg: e.message);
+      GeneralHelper.toast(msg: e.message);
+      return null;
     } on SocketException catch (e) {
       print("###################################### GET SocketException");
-      return GeneralHelper.toast(msg: e.message);
+      GeneralHelper.toast(msg: e.message);
+      return null;
     } on Error catch (e) {
       print("###################################### GET Error");
-      return GeneralHelper.toast(msg: e.toString());
+      GeneralHelper.toast(msg: e.toString());
+      return null;
     }
   }
 
@@ -61,10 +67,13 @@ class BaseController {
       final userStorage = Provider.of<UserController>(context, listen: false);
       if (userStorage.dataUser != null) {
         if (userStorage.dataUser[UserTable.token] != '') {
+          List<int> contentLength = utf8.encode(json.encode(data));
           // ApiConfig.head["Content-Type"] = 'multipart/form-data';
           ApiConfig.head["Access-Control-Allow-Origin"] = '*';
-          ApiConfig.head["Authorization"] =
-              "Bearer ${userStorage.dataUser[UserTable.token]}";
+          ApiConfig.head["Authorization"] = "Bearer ${userStorage.dataUser[UserTable.token]}";
+          ApiConfig.head["req.headers.contentLength"] = contentLength.length.toString();
+          // ApiConfig.head["Accept"] = "*/*";
+          // ApiConfig.head["content-type"] = 'application/json';
           // ApiConfig.head["Content-Type"]= 'application/json';
         }
       }
@@ -85,8 +94,6 @@ class BaseController {
         }
       } else if (response.statusCode == 413) {
         Navigator.pop(context);
-        final jsonResponse = json.decode(response.body);
-        print(jsonResponse);
         GeneralHelper.toast(msg: "file terlalu besar");
         return null;
       } else {

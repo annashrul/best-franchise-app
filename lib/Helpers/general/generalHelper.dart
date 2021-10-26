@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:bestfranchise/Configs/colorConfig.dart';
@@ -13,7 +12,6 @@ import 'package:bestfranchise/Views/component/general/touchEffectComponent.dart'
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
@@ -169,7 +167,11 @@ class GeneralHelper {
     );
   }
 
-  static modal({BuildContext context, Widget child, void Function() callback}) {
+  static modal(
+      {BuildContext context,
+      Widget child,
+      void Function() callback,
+      bool isBack = true}) {
     ScreenScaler scale = ScreenScaler()..init(context);
     return showModalBottomSheet(
         enableDrag: false,
@@ -221,13 +223,15 @@ class GeneralHelper {
               ),
             ),
             onWillPop: () async {
-              Navigator.pop(context);
-              return true;
+              return isBack;
             }));
   }
 
   static modalGeneral(
-      {BuildContext context, Widget child, void Function() callback}) {
+      {BuildContext context,
+      Widget child,
+      void Function() callback,
+      bool isBack = true}) {
     ScreenScaler scale = ScreenScaler()..init(context);
     return showModalBottomSheet(
         enableDrag: false,
@@ -243,7 +247,7 @@ class GeneralHelper {
                 child: child,
               ),
               onWillPop: () async {
-                return false;
+                return isBack;
               },
             ));
   }
@@ -277,7 +281,10 @@ class GeneralHelper {
   }
 
   static headerModal(
-      {BuildContext context, String title = "", void Function() callback}) {
+      {BuildContext context,
+      String title = "",
+      void Function() callback,
+      String titleAction = "Simpan"}) {
     ScreenScaler scale = new ScreenScaler()..init(context);
 
     return Row(
@@ -290,7 +297,7 @@ class GeneralHelper {
                   ? callback
                   : () => Navigator.of(context).pop(),
               child: Text(
-                "Simpan",
+                titleAction,
                 style: Theme.of(context)
                     .textTheme
                     .headline1
@@ -377,7 +384,8 @@ class GeneralHelper {
       imageSource = ImageSource.gallery;
     }
     final picker = ImagePicker();
-    final pickedFile = await picker.getImage(source: imageSource);
+    final pickedFile =
+        await picker.getImage(source: imageSource, imageQuality: 10);
     return {"file": File(pickedFile.path), "path": pickedFile.path};
   }
 

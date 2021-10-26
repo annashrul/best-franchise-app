@@ -33,12 +33,14 @@ class ProductBrandController with ChangeNotifier{
   }
 
   loadMoreProductBrand(BuildContext context) {
-    if (perPage < int.parse(productBrandModel.pagination.total)) {
-      isLoadMore = true;
-      perPage += 10;
-      loadProductBrand(context: context);
-    } else {
-      isLoadMore = false;
+    if(productBrandModel!=null){
+      if (perPage < int.parse(productBrandModel.pagination.total)) {
+        isLoadMore = true;
+        perPage += 10;
+        loadProductBrand(context: context);
+      } else {
+        isLoadMore = false;
+      }
     }
     notifyListeners();
   }

@@ -71,7 +71,7 @@ class WithdrawController with ChangeNotifier {
             if (res != null) {
               info.get(context: context);
               GeneralHelper.modal(
-                  context: context, child: ModalSuccessComponent());
+                  isBack:true,context: context, child: ModalSuccessComponent());
             }
           },
         ),

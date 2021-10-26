@@ -36,7 +36,7 @@ class JoinController with ChangeNotifier {
     final res = await BaseController().post(url: "franchise",data: data,context: context);
     if(res!=null){
       print(res);
-      GeneralHelper.modalGeneral(context: context, child:ModalSuccessComponent());
+      GeneralHelper.modalGeneral(context: context, child:ModalSuccessComponent(),isBack: false);
     }
     notifyListeners();
   }

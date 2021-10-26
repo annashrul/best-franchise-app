@@ -22,8 +22,6 @@ class _LokasiBrandComponentState extends State<LokasiBrandComponent> {
   Position _currentPosition;
   String _currentAddress="";
   final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
-
-
   _getCurrentLocation() {
     Geolocator()
         .getCurrentPosition(desiredAccuracy: LocationAccuracy.best)
@@ -46,7 +44,7 @@ class _LokasiBrandComponentState extends State<LokasiBrandComponent> {
       Placemark place = placemarks[0];
 
       setState(() {
-        _currentAddress = "${place.locality}, ${place.postalCode}, ${place.country}";
+        _currentAddress = "${place.thoroughfare} ${place.subLocality} ${place.locality}, ${place.postalCode}, ${place.country}";
       });
       print("#################### $_currentAddress");
     } catch (e) {
@@ -102,7 +100,24 @@ class _LokasiBrandComponentState extends State<LokasiBrandComponent> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Lokasi Outlet Terdekat",style: Theme.of(context).textTheme.headline1.copyWith(fontWeight: FontWeight.w500)),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("Lokasi Outlet Terdekat",style: Theme.of(context).textTheme.headline1.copyWith(fontWeight: FontWeight.w500)),
+                          if(!lokasiBrandController.isLoading&&lokasiBrandController.lokasiBrandModel!=null&&lokasiBrandController.lokasiBrandModel.data.length>4)InTouchWidget(
+                              callback: (){
+                                GeneralHelper.modalGeneral(
+                                  context: context,
+                                  child: Container(
+                                    height: scale.getHeight(80),
+                                    child: ModalAllLokasiBrand(idBrand: widget.idBrand),
+                                  )
+                                );
+                              },
+                              child: Text("Lihat semua",style: Theme.of(context).textTheme.headline3)
+                          ),
+                        ],
+                      ),
                       SizedBox(height: scale.getHeight(1),),
                       ListView.separated(
                           primary: false,
@@ -119,7 +134,7 @@ class _LokasiBrandComponentState extends State<LokasiBrandComponent> {
                                 callback: (){
                                   String homeLat = "37.3230";
                                   String homeLng = "-122.0312";
-                                  String googleMapslocationUrl = "https://www.google.com/maps/search/?api=1&query=${homeLat},${homeLng}";
+                                  String googleMapslocationUrl = "https://www.google.com/maps/search/?api=1&query=${val.longlat}";
                                   String encodedURl = Uri.encodeFull(googleMapslocationUrl);
                                   GeneralHelper.jumpToBrowser(url: encodedURl);
                                 },
@@ -132,7 +147,7 @@ class _LokasiBrandComponentState extends State<LokasiBrandComponent> {
                                     children: [
                                       ClipRRect(
                                         borderRadius: BorderRadius.circular(10),
-                                        child: Image.network(StringConfig.imgGeneral,height: scale.getHeight(5),),
+                                        child: Image.network(val.brandLogo,height: scale.getHeight(5),),
                                       ),
                                       SizedBox(width: scale.getWidth(2),),
                                       Expanded(
@@ -158,3 +173,96 @@ class _LokasiBrandComponentState extends State<LokasiBrandComponent> {
     );
   }
 }
+
+
+class ModalAllLokasiBrand extends StatefulWidget {
+  final String idBrand;
+  ModalAllLokasiBrand({this.idBrand});
+  @override
+  _ModalAllLokasiBrandState createState() => _ModalAllLokasiBrandState();
+}
+
+class _ModalAllLokasiBrandState extends State<ModalAllLokasiBrand> {
+  ScrollController controller;
+  void scrollListener() {
+    final lokasi = Provider.of<LokasiBrandController>(context, listen: false);
+    if (!lokasi.isLoadingAllLokasi) {
+      if (controller.position.pixels == controller.position.maxScrollExtent) {
+        lokasi.loadMoreAllLokasi(context,widget.idBrand);
+      }
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    final lokasi = Provider.of<LokasiBrandController>(context,listen: false);
+    lokasi.loadAllLokasi(context: context,idBrand: widget.idBrand);
+    controller = new ScrollController()..addListener(scrollListener);
+
+
+  }
+  @override
+  void dispose() {
+    super.dispose();
+    controller.removeListener(scrollListener);
+
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    ScreenScaler scale = new ScreenScaler()..init(context);
+    final lokasi = Provider.of<LokasiBrandController>(context);
+    return Scaffold(
+      appBar: GeneralHelper.appBarGeneral(context: context,title: "Semua lokasi"),
+      resizeToAvoidBottomInset: false,
+      backgroundColor: Colors.transparent,
+      floatingActionButton: lokasi.isLoadMoreAllLokasi?CupertinoActivityIndicator():SizedBox(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      body:ListView.separated(
+        padding: scale.getPadding(1,2),
+        controller: controller,
+        itemBuilder: (context,index){
+          if(lokasi.isLoadingAllLokasi){
+            return LoadingCardImageTitleSubTitle();
+          }
+          else if(lokasi.allLokasiBrandModel==null){
+            return NoDataComponent();
+          }
+          final val = lokasi.allLokasiBrandModel.data[index];
+          return InTouchWidget(
+              callback: (){
+                String googleMapslocationUrl = "https://www.google.com/maps/search/?api=1&query=${val.longlat}";
+                String encodedURl = Uri.encodeFull(googleMapslocationUrl);
+                GeneralHelper.jumpToBrowser(url: encodedURl);
+              },
+              child: Container(
+                padding: scale.getPadding(0,0),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10)
+                ),
+                child: Row(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.network(val.brandLogo,height: scale.getHeight(5),),
+                    ),
+                    SizedBox(width: scale.getWidth(2),),
+                    Expanded(
+                      child: Text(val.outletAddress,style: Theme.of(context).textTheme.headline3,),
+                    )
+                  ],
+                ),
+              )
+          );
+        },
+        separatorBuilder: (context,index){return SizedBox(height: scale.getHeight(1),child: Divider(),);},
+        itemCount: lokasi.isLoading?10:lokasi.allLokasiBrandModel==null?1:lokasi.allLokasiBrandModel.data.length
+      ),
+    );
+
+  }
+}
+

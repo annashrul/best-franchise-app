@@ -1,15 +1,15 @@
 // To parse this JSON data, do
 //
-//     final lokasiBrandModel = lokasiBrandModelFromJson(jsonString);
+//     final allLokasiBrandModel = allLokasiBrandModelFromJson(jsonString);
 
 import 'dart:convert';
 
-LokasiBrandModel lokasiBrandModelFromJson(String str) => LokasiBrandModel.fromJson(json.decode(str));
+AllLokasiBrandModel allLokasiBrandModelFromJson(String str) => AllLokasiBrandModel.fromJson(json.decode(str));
 
-String lokasiBrandModelToJson(LokasiBrandModel data) => json.encode(data.toJson());
+String allLokasiBrandModelToJson(AllLokasiBrandModel data) => json.encode(data.toJson());
 
-class LokasiBrandModel {
-  LokasiBrandModel({
+class AllLokasiBrandModel {
+  AllLokasiBrandModel({
     this.meta,
     this.data,
     this.pagination,
@@ -21,7 +21,7 @@ class LokasiBrandModel {
   Pagination pagination;
   List<dynamic> total;
 
-  factory LokasiBrandModel.fromJson(Map<String, dynamic> json) => LokasiBrandModel(
+  factory AllLokasiBrandModel.fromJson(Map<String, dynamic> json) => AllLokasiBrandModel(
     meta: Meta.fromJson(json["meta"]),
     data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
     pagination: Pagination.fromJson(json["pagination"]),
