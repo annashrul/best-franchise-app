@@ -127,7 +127,20 @@ class _MainWidgetState extends State<MainWidget> {
   Widget bottomBar({String image, String title,bool isActive,int index,IconData icon}){
     ScreenScaler scale= ScreenScaler()..init(context);
     return InTouchWidget(
-        callback: (){_selectTab(index);},
+        callback: ()async{
+          final isToken = await GeneralHelper.isTokenExpired(context);
+          if(isToken){
+            GeneralHelper.nofitDialog(
+                context: context,
+                msg: "anda harus login ulang demi keamanan sistem",
+                callback2: ()=>GeneralHelper.processLogout(context),
+                label2: "Keluar"
+            );
+            Future.delayed(Duration(seconds: 2)).whenComplete(() => GeneralHelper.processLogout(context));
+          }else{
+            this._selectTab(index);
+          }
+        },
         child: Container(
           padding: scale.getPadding(0.2, 0),
           child: Column(
@@ -135,8 +148,13 @@ class _MainWidgetState extends State<MainWidget> {
             // crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               isActive? BackgroundIconComponent(
-                child: Icon(icon,size: scale.getTextSize(14),color: Colors.white),
-              ):Icon(icon,size: scale.getTextSize(14),color:icon!=null?Colors.grey[400]:Colors.transparent),
+                child: SizedBox(  width: scale.getTextSize(15),
+                  height: scale.getTextSize(15),
+                  child: Icon(icon,color: Colors.white,size: scale.getTextSize(14)),),
+              ):SizedBox(
+                height: scale.getTextSize(15),
+                child: Icon(icon,size: scale.getTextSize(14),color:icon!=null?Colors.grey[400]:Colors.transparent),
+              ),
               // isActive?Image.asset(StringConfig.imgLocal+"$image.png",fit:BoxFit.contain):Image.asset(StringConfig.imgLocal+"$image.png",fit:BoxFit.contain,color:Colors.grey[400],),
               SizedBox(height: scale.getHeight(0.1)),
               Text(title,style: Theme.of(context).textTheme.headline2.copyWith(color: isActive?Color(0xFFE2838E):Color(0xFFD4D4D4),fontWeight: FontWeight.bold),)

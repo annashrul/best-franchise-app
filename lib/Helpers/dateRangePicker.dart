@@ -95,6 +95,8 @@ class DateHelper {
         break;
     }
 
+
+
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -168,6 +170,8 @@ class _PickerWidgetState extends State<PickerWidget>
     _start = widget._initStart;
     _end = widget._initEnd;
     _tabController = TabController(vsync: this, length: widget._tabs.length);
+    initializeDateFormatting('id');
+
   }
 
   @override
@@ -186,7 +190,8 @@ class _PickerWidgetState extends State<PickerWidget>
           backgroundColor: Colors.white,
           title: Container(
             child: TabBar(
-              labelStyle: Theme.of(context).textTheme.headline2,
+              labelColor: Colors.black,
+              labelStyle: Theme.of(context).textTheme.headline2.copyWith(color: Colors.black),
               controller: _tabController,
               tabs: widget._tabs,
             ),
@@ -241,7 +246,7 @@ class _PickerWidgetState extends State<PickerWidget>
                         widget._onCancel();
                       }
                     },
-                    child: Text(widget._cancelText),
+                    child: Text(widget._cancelText,style: Theme.of(context).textTheme.headline2),
                   ),
                   FlatButton(
                     onPressed: () {
@@ -250,7 +255,7 @@ class _PickerWidgetState extends State<PickerWidget>
                         widget._onConfirm(_start, _end);
                       }
                     },
-                    child: Text(widget._doneText),
+                    child: Text(widget._doneText,style: Theme.of(context).textTheme.headline2,),
                   )
                 ],
               ),

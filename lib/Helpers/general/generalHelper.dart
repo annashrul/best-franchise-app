@@ -163,7 +163,7 @@ class GeneralHelper {
     );
   }
 
-  static modal({BuildContext context, Widget child, void Function() callback}) {
+  static modal({BuildContext context, Widget child, void Function() callback,bool isBack=true}) {
     ScreenScaler scale = ScreenScaler()..init(context);
     return showModalBottomSheet(
         enableDrag: false,
@@ -215,12 +215,11 @@ class GeneralHelper {
               ),
             ),
             onWillPop: () async {
-              return false;
+              return isBack;
             }));
   }
 
-  static modalGeneral(
-      {BuildContext context, Widget child, void Function() callback}) {
+  static modalGeneral({BuildContext context, Widget child, void Function() callback,bool isBack=true}) {
     ScreenScaler scale = ScreenScaler()..init(context);
     return showModalBottomSheet(
         enableDrag: false,
@@ -236,7 +235,7 @@ class GeneralHelper {
                 child: child,
               ),
               onWillPop: () async {
-                return false;
+                return isBack;
               },
             ));
   }
@@ -269,8 +268,7 @@ class GeneralHelper {
     }
   }
 
-  static headerModal(
-      {BuildContext context, String title = "", void Function() callback}) {
+  static headerModal( {BuildContext context, String title = "", void Function() callback, String titleAction="Simpan"}) {
     ScreenScaler scale = new ScreenScaler()..init(context);
 
     return Row(
@@ -283,7 +281,7 @@ class GeneralHelper {
                   ? callback
                   : () => Navigator.of(context).pop(),
               child: Text(
-                "Simpan",
+                titleAction,
                 style: Theme.of(context)
                     .textTheme
                     .headline1
@@ -292,7 +290,6 @@ class GeneralHelper {
       ],
     );
   }
-
   static loadingDialog(BuildContext context) {
     return showDialog(
         context: context,
@@ -309,7 +306,6 @@ class GeneralHelper {
               ),
             ));
   }
-
   static nofitDialog(
       {BuildContext context,
       String msg = "",
@@ -371,16 +367,14 @@ class GeneralHelper {
       imageSource = ImageSource.gallery;
     }
     final picker = ImagePicker();
-    final pickedFile = await picker.getImage(source: imageSource);
+    final pickedFile = await picker.getImage(source: imageSource,imageQuality: 10);
     return {"file": File(pickedFile.path), "path": pickedFile.path};
   }
-
   static myDate(date) {
     DateTime now = DateFormat("yyyy-MM-ddTHH:mm:sssZ").parse(date);
     String formattedDate = DateFormat('yyyy-MM-dd').format(now);
     return formattedDate;
   }
-
   static myCopyClipboard(context, text) {
     return Clipboard.setData(new ClipboardData(text: text.toUpperCase()))
         .then((_) {
@@ -388,7 +382,6 @@ class GeneralHelper {
           .showSnackBar(SnackBar(content: Text("Teks berhasil disalin.")));
     });
   }
-
   static filterDate({BuildContext context,dynamic data,Function(DateTime from, DateTime to) callback}){
     ScreenScaler scale= ScreenScaler()..init(context);
 

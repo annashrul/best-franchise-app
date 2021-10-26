@@ -66,7 +66,6 @@ class _BrandWidgetState extends State<BrandWidget> with SingleTickerProviderStat
     int lengthCategory=category.isLoading?1:category.categoryBrandModel==null?0:category.categoryBrandModel.data.length;
     for(int i=0;i<lengthCategory;i++){
       dataTab.add({"title":category.isLoading?"loading ..":category.categoryBrandModel.data[i].title});
-
       tabView.add(brand.isLoading?BaseLoadingLoop(child: LoadingCardImageTitleSubTitle()):brand.listBrandModel==null?NoDataComponent():buildContent(context));
     }
     return DefaultTabController(

@@ -3,6 +3,8 @@ import 'package:bestfranchise/Configs/formConfig.dart';
 import 'package:bestfranchise/Configs/stringConfig.dart';
 import 'package:bestfranchise/Controllers/brand/franchiseController.dart';
 import 'package:bestfranchise/Controllers/join/joinController.dart';
+import 'package:bestfranchise/Controllers/user/userController.dart';
+import 'package:bestfranchise/Databases/tableDatabase.dart';
 import 'package:bestfranchise/Helpers/general/generalHelper.dart';
 import 'package:bestfranchise/Views/component/general/buttonComponent.dart';
 import 'package:bestfranchise/Views/component/general/fieldComponent.dart';
@@ -32,6 +34,8 @@ class _JoinWidgetState extends State<JoinWidget> {
     ScreenScaler scale = ScreenScaler()..init(context);
     final join = Provider.of<JoinController>(context);
     final franchise = Provider.of<FranchiseController>(context);
+    final user = Provider.of<UserController>(context);
+    print(widget.obj);
     return Scaffold(
       appBar: GeneralHelper.appBarGeneral(context: context, title: "Bergabung"),
       body: ListView(
@@ -39,8 +43,12 @@ class _JoinWidgetState extends State<JoinWidget> {
           Stack(
             alignment: Alignment.center,
             children: [
-              Image.asset(StringConfig.imgLocal + "detailBrand.png"),
-              Image.asset(StringConfig.imgLocal + "burhot.png"),
+              Image.network(widget.obj["cover"],width: double.infinity,fit: BoxFit.cover,),
+              CircleAvatar(
+                radius: 30,
+                backgroundImage:
+                NetworkImage(widget.obj["logo"]),
+              )
             ],
           ),
           Container(
@@ -49,7 +57,7 @@ class _JoinWidgetState extends State<JoinWidget> {
               Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    "Hi Andri Sani. Tertarik dengan franchise : BURHOT ?",
+                    "Hi ${user.dataUser[UserTable.fullname]}. Tertarik dengan franchise : ${widget.obj["title"]} ?",
                     style: Theme.of(context).textTheme.headline2,
                   )),
               SizedBox(height: scale.getHeight(2)),

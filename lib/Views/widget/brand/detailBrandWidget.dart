@@ -121,7 +121,7 @@ class _DetailBrandWidgetState extends State<DetailBrandWidget> {
           labelColor: Colors.white,
           backgroundColor: ColorConfig.redPrimary,
           callback: () => Navigator.of(context).pushNamed(RoutePath.joinWidget,
-              arguments: {"id": widget.obj["id"]}),
+              arguments: brand.detailBrandModel.data.toJson()),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -134,7 +134,7 @@ class _DetailBrandWidgetState extends State<DetailBrandWidget> {
             children: [
               brand.isLoading
                   ? BaseLoading(height: 20, width: 100)
-                  : Image.asset(StringConfig.imgLocal + "detailBrand.png"),
+                  : Image.network(brand.detailBrandModel.data.cover,width: double.infinity,fit: BoxFit.cover,),
               brand.isLoading
                   ? BaseLoading(
                       height: 5,
@@ -144,7 +144,7 @@ class _DetailBrandWidgetState extends State<DetailBrandWidget> {
                   : CircleAvatar(
                       radius: 30,
                       backgroundImage:
-                          AssetImage(StringConfig.imgLocal + "burhot.png"),
+                          NetworkImage(brand.detailBrandModel.data.logo),
                     )
             ],
           ),

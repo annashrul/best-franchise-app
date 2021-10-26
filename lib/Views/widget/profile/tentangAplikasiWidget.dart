@@ -1,9 +1,11 @@
 import 'package:bestfranchise/Configs/stringConfig.dart';
 import 'package:bestfranchise/Controllers/general/generalController.dart';
 import 'package:bestfranchise/Helpers/general/generalHelper.dart';
+import 'package:bestfranchise/Views/component/general/backgroundIconComponent.dart';
 import 'package:bestfranchise/Views/component/general/loadingComponent.dart';
 import 'package:bestfranchise/Views/component/general/touchEffectComponent.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
@@ -42,14 +44,8 @@ class _TentangAplikasiWidgetState extends State<TentangAplikasiWidget> {
         context: context,
         title: "Tentang Kami",
         actions: [
-          InTouchWidget(
-            callback: () {},
-            child: Container(
-              alignment: Alignment.center,
-              padding: scale.getPadding(1, 2),
-              child: Image.asset(StringConfig.imgLocal + "share.png"),
-            ),
-          ),
+          IconButton(onPressed: (){}, icon: BackgroundIconComponent(child: Icon(FontAwesome5Solid.share)))
+
         ]
       ),
       body: ListView(
@@ -57,7 +53,7 @@ class _TentangAplikasiWidgetState extends State<TentangAplikasiWidget> {
           Stack(
             alignment: AlignmentDirectional.topCenter,
             children: [
-              res.isLoadingTentangAplikasi?BaseLoading(height: 20, width: 100):Image.asset(StringConfig.imgLocal + "detailBrand.png"),
+              res.isLoadingTentangAplikasi?BaseLoading(height: 20, width: 100):Image.network(res.tentangAplikasiModel.data.cover,height: scale.getHeight(20),width: double.infinity,fit: BoxFit.cover,),
               Container(
                 margin: scale.getMarginLTRB(0,13,0,0),
                 child: Column(

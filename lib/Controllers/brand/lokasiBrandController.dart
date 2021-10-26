@@ -1,5 +1,6 @@
 
 import 'package:bestfranchise/Controllers/baseController.dart';
+import 'package:bestfranchise/Models/Brand/allLokasiBrandModel.dart';
 import 'package:bestfranchise/Models/Brand/detailBrandModel.dart';
 import 'package:bestfranchise/Models/Brand/franchiseModel.dart';
 import 'package:bestfranchise/Models/Brand/lokasiBrandModel.dart';
@@ -8,10 +9,10 @@ import 'package:flutter/cupertino.dart';
 
 class LokasiBrandController with ChangeNotifier{
   LokasiBrandModel lokasiBrandModel;
-  bool isLoading=true;
-  bool isLoadMore=false;
-  int perPage=10;
-  ScrollController controller;
+  AllLokasiBrandModel allLokasiBrandModel;
+  bool isLoading=true,isLoadingAllLokasi=true;
+  bool isLoadMoreAllLokasi=false;
+  int perPage=5,perPageAllLokasi=10;
   loadLokasi({BuildContext context,String idBrand})async{
     if(lokasiBrandModel==null) isLoading=true;
     final res=await BaseController().get(url: "franchise?page=1&perpage=$perPage&brand=$idBrand",context: context);
@@ -25,21 +26,34 @@ class LokasiBrandController with ChangeNotifier{
       lokasiBrandModel=null;
     }
     isLoading=false;
-    isLoadMore=false;
     notifyListeners();
   }
 
-  void scrollListener({BuildContext context}) {
-    if(!isLoading){
-      if (controller.position.pixels == controller.position.maxScrollExtent) {
-        if(perPage<int.parse(lokasiBrandModel.pagination.total)){
-          print("LOADMORE LOKASI");
-          perPage+=10;
-          isLoadMore=true;
-          notifyListeners();
-        }
-      }
+  loadAllLokasi({BuildContext context,String idBrand})async{
+    if(allLokasiBrandModel==null) isLoadingAllLokasi=true;
+    final res=await BaseController().get(url: "franchise?page=1&perpage=$perPageAllLokasi&brand=$idBrand",context: context);
+    if(res==null){
+      allLokasiBrandModel=null;
+    }else if(res["data"].length > 0){
+      AllLokasiBrandModel result = AllLokasiBrandModel.fromJson(res);
+      allLokasiBrandModel = result;
     }
+    else{
+      allLokasiBrandModel=null;
+    }
+    isLoadingAllLokasi=false;
+    isLoadMoreAllLokasi=false;
+    notifyListeners();
+  }
+  loadMoreAllLokasi(BuildContext context,String idBrand) {
+    if (perPageAllLokasi < int.parse(allLokasiBrandModel.pagination.total)) {
+      isLoadMoreAllLokasi = true;
+      perPageAllLokasi += 10;
+      loadAllLokasi(context: context,idBrand: idBrand);
+    } else {
+      isLoadMoreAllLokasi = false;
+    }
+    notifyListeners();
   }
 
 }

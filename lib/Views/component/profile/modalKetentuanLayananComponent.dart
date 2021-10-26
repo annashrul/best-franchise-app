@@ -10,6 +10,7 @@ class ModalKetentuanLayananComponent extends StatelessWidget {
   Widget build(BuildContext context) {
     ScreenScaler scale = new ScreenScaler()..init(context);
     return Container(
+      padding: scale.getPadding(1, 2),
       height: scale.getHeight(70),
       child: Column(
         children: [

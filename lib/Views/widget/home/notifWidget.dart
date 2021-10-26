@@ -77,7 +77,7 @@ class _NotifWidgetState extends State<NotifWidget> with SingleTickerProviderStat
         appBar:AppBar(
           backgroundColor: Colors.white,
           elevation: 1,
-          title: Text("Status Order", style: Theme.of(context).textTheme.headline1),
+          title: Text("Notifikasi", style: Theme.of(context).textTheme.headline1),
           leading: IconButton(
             icon: Icon(Icons.arrow_back_ios,color: Colors.black,),
             onPressed: () => Navigator.of(context).pop(),
@@ -140,6 +140,7 @@ class _NotifWidgetState extends State<NotifWidget> with SingleTickerProviderStat
         //   ]
         // ),
         body: TabBarView(
+          physics: NeverScrollableScrollPhysics(),
           children:historyView,
         ),
       ),

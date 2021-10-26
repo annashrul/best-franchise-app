@@ -20,12 +20,12 @@ class SearchComponent extends StatelessWidget {
       child: Container(
         padding: scale.getPadding(0,2),
         child: TextFormField(
-          style: Theme.of(context).textTheme.headline3,
+          style: Theme.of(context).textTheme.headline2,
           maxLines: 1,
           autofocus: false,
           decoration: InputDecoration(
             hintText: this.hintText,
-            hintStyle: Theme.of(context).textTheme.headline2.copyWith(color: ColorConfig.greyPrimary),
+            hintStyle: Theme.of(context).textTheme.headline2,
             contentPadding: scale.getPadding(1,2),
             border: InputBorder.none,
             prefixIcon:Icon(FontAwesome.search,size: scale.getTextSize(12),),

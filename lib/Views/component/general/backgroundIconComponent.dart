@@ -27,8 +27,8 @@ class BackgroundIconComponent extends StatelessWidget {
           ]
       ).createShader(bounds),
       child:SizedBox(
-        width: scale.getTextSize(14),
-        height: scale.getTextSize(14),
+        width: scale.getTextSize(15),
+        height: scale.getTextSize(15),
         child: child,
       )
     );
