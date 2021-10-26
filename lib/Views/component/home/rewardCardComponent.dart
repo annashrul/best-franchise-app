@@ -83,15 +83,21 @@ class _RewardComponentState extends State<RewardComponent> {
                         RewardCardComponent(
                             img: "poin",
                             title: "Jumlah Poin",
-                            desc: widget.val["poin"]),
+                            desc: widget.val["poin"],
+                            icon: FontAwesome5Solid.database,
+                        ),
                         RewardCardComponent(
                             img: "komisi",
                             title: "Komisi",
-                            desc: widget.val["saldo_komisi"]),
+                            desc: widget.val["saldo_komisi"],
+                          icon: FontAwesome5Solid.wallet,
+                        ),
                         RewardCardComponent(
                             img: "royalti",
                             title: "Royalti",
-                            desc: widget.val["saldo_royalti"]),
+                            desc: widget.val["saldo_royalti"],
+                          icon: FontAwesome5Solid.money_bill_alt,
+                        ),
                       ],
                     )
                   ],
@@ -129,8 +135,9 @@ class RewardCardComponent extends StatelessWidget {
   final String img;
   final String title;
   final String desc;
+  final IconData icon;
 
-  RewardCardComponent({this.img, this.title, this.desc});
+  RewardCardComponent({this.img, this.title, this.desc,this.icon=FontAwesome5Solid.database});
   @override
   Widget build(BuildContext context) {
     ScreenScaler scale = ScreenScaler()..init(context);
@@ -147,10 +154,13 @@ class RewardCardComponent extends StatelessWidget {
           ),
           child: Row(
             children: [
-              Image.asset(
-                StringConfig.imgLocal + "${this.img}.png",
-                height: scale.getHeight(2),
+              BackgroundIconComponent(
+                child: Icon(icon,color: Colors.white,),
               ),
+              // Image.asset(
+              //   StringConfig.imgLocal + "${this.img}.png",
+              //   height: scale.getHeight(2),
+              // ),
               SizedBox(width: scale.getWidth(1)),
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
