@@ -36,9 +36,9 @@ class ProfileEditController with ChangeNotifier {
     if (field["fullname"] == "") {
       return GeneralHelper.toast(msg: "Nama lengkap tidak boleh kosong");
     }
-    if (field["mobile_no"] == "") {
-      return GeneralHelper.toast(msg: "No Telpon tidak boleh kosong");
-    }
+    // if (field["mobile_no"] == "") {
+    //   return GeneralHelper.toast(msg: "No Telpon tidak boleh kosong");
+    // }
     if (field["email"] == "") {
       return GeneralHelper.toast(msg: "Email tidak boleh kosong");
     }
@@ -47,7 +47,7 @@ class ProfileEditController with ChangeNotifier {
     }
     final data = {
       "fullname": field["fullname"],
-      "mobile_no": field["mobile_no"],
+      // "mobile_no": field["mobile_no"],
       "email": field["email"],
       "address": field["address"],
     };

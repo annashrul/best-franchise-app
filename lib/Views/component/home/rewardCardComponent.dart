@@ -59,18 +59,21 @@ class _RewardComponentState extends State<RewardComponent> {
                           child: SearchComponent(hintText: ""),
                         ),
                         SizedBox(width: scale.getWidth(1)),
-                        buildCardIcon(icon:FontAwesome5Solid.qrcode,callback: (){
-                          GeneralHelper.modal(
-                              context: context,
-                              child: Container(
-                                height: scale.getHeight(70),
-                                child: QrCodeComponent(),
-                              )
-                          );
-
-                        }),
+                        buildCardIcon(
+                            icon: FontAwesome5Solid.qrcode,
+                            callback: () {
+                              GeneralHelper.modal(
+                                  context: context,
+                                  child: Container(
+                                    height: scale.getHeight(70),
+                                    child: QrCodeComponent(),
+                                  ));
+                            }),
                         SizedBox(width: scale.getWidth(1)),
-                        buildCardIcon(icon:FontAwesome5Solid.bell,callback: ()=>Navigator.of(context).pushNamed(RoutePath.notifWidget)),
+                        buildCardIcon(
+                            icon: FontAwesome5Solid.bell,
+                            callback: () => Navigator.of(context)
+                                .pushNamed(RoutePath.notifWidget)),
                       ],
                     ),
                     SizedBox(
@@ -81,21 +84,27 @@ class _RewardComponentState extends State<RewardComponent> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         RewardCardComponent(
-                            img: "poin",
-                            title: "Jumlah Poin",
-                            desc: widget.val["poin"],
-                            icon: FontAwesome5Solid.database,
+                          img: "poin",
+                          title: "Jumlah Poin",
+                          desc: GeneralHelper()
+                              .formatter
+                              .format(int.parse(widget.val["poin"])),
+                          icon: FontAwesome5Solid.database,
                         ),
                         RewardCardComponent(
-                            img: "komisi",
-                            title: "Komisi",
-                            desc: widget.val["saldo_komisi"],
+                          img: "komisi",
+                          title: "Komisi",
+                          desc: GeneralHelper()
+                              .formatter
+                              .format(int.parse(widget.val["saldo_komisi"])),
                           icon: FontAwesome5Solid.wallet,
                         ),
                         RewardCardComponent(
-                            img: "royalti",
-                            title: "Royalti",
-                            desc: widget.val["saldo_royalti"],
+                          img: "royalti",
+                          title: "Royalti",
+                          desc: GeneralHelper()
+                              .formatter
+                              .format(int.parse(widget.val["saldo_royalti"])),
                           icon: FontAwesome5Solid.money_bill_alt,
                         ),
                       ],
@@ -108,8 +117,7 @@ class _RewardComponentState extends State<RewardComponent> {
         ]);
   }
 
-
-  Widget buildCardIcon({IconData icon,void Function() callback}){
+  Widget buildCardIcon({IconData icon, void Function() callback}) {
     ScreenScaler scale = ScreenScaler()..init(context);
     return Card(
       margin: EdgeInsets.zero,
@@ -119,14 +127,16 @@ class _RewardComponentState extends State<RewardComponent> {
       ),
       child: InTouchWidget(
           radius: 100,
-          callback:callback,
+          callback: callback,
           child: Container(
             padding: scale.getPadding(0.5, 1.1),
             child: BackgroundIconComponent(
-                child:Icon(icon,color: Colors.white,size: scale.getTextSize(14),)
-            ),
-          )
-      ),
+                child: Icon(
+              icon,
+              color: Colors.white,
+              size: scale.getTextSize(14),
+            )),
+          )),
     );
   }
 }
@@ -137,7 +147,11 @@ class RewardCardComponent extends StatelessWidget {
   final String desc;
   final IconData icon;
 
-  RewardCardComponent({this.img, this.title, this.desc,this.icon=FontAwesome5Solid.database});
+  RewardCardComponent(
+      {this.img,
+      this.title,
+      this.desc,
+      this.icon = FontAwesome5Solid.database});
   @override
   Widget build(BuildContext context) {
     ScreenScaler scale = ScreenScaler()..init(context);
@@ -158,7 +172,7 @@ class RewardCardComponent extends StatelessWidget {
             children: [
               // Icon(icon,color: Color(0xFFC881F3).withOpacity(0.671875)),
               BackgroundIconComponent(
-                child: Icon(icon,color: Colors.grey[200]),
+                child: Icon(icon, color: Colors.grey[200]),
               ),
               // Image.asset(
               //   StringConfig.imgLocal + "${this.img}.png",
@@ -182,5 +196,3 @@ class RewardCardComponent extends StatelessWidget {
         ));
   }
 }
-
-

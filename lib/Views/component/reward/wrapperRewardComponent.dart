@@ -51,23 +51,32 @@ class _WrapperRewardComponentState extends State<WrapperRewardComponent> {
             actions: <Widget>[
               IconButton(
                 onPressed: () {
-                  if(widget.titleCard=="Komisi"){
+                  if (widget.titleCard == "Komisi") {
                     GeneralHelper.filterDate(
                         context: context,
-                        data: {"from":komisi.dateFrom,"to":komisi.dateTo},
-                        callback: (from,to)=>komisi.setDate(context: context,input: {"from":from,"to":to})
-                    );
-                  }
-                  else if(widget.titleCard=="Royalti"){
+                        data: {"from": komisi.dateFrom, "to": komisi.dateTo},
+                        callback: (from, to) => komisi.setDate(
+                            context: context, input: {"from": from, "to": to}));
+                  } else if (widget.titleCard == "Royalti") {
                     GeneralHelper.filterDate(
                         context: context,
-                        data: {"from":royalti.dateFrom,"to":royalti.dateTo},
-                        callback: (from,to)=>royalti.setDate(context: context,input: {"from":from,"to":to})
-                    );
+                        data: {"from": royalti.dateFrom, "to": royalti.dateTo},
+                        callback: (from, to) => royalti.setDate(
+                            context: context, input: {"from": from, "to": to}));
+                  } else if (widget.titleCard == "Poin") {
+                    GeneralHelper.filterDate(
+                        context: context,
+                        data: {"from": poin.dateFrom, "to": poin.dateTo},
+                        callback: (from, to) => poin.setDate(
+                            context: context, input: {"from": from, "to": to}));
                   }
-                 
                 },
-                icon: BackgroundIconComponent(child: Icon(FontAwesome5Solid.calendar,color: Colors.white,),),
+                icon: BackgroundIconComponent(
+                  child: Icon(
+                    FontAwesome5Solid.calendar,
+                    color: Colors.white,
+                  ),
+                ),
                 // child: Image.asset(StringConfig.imgLocal + "calender.png"),
               )
             ]),

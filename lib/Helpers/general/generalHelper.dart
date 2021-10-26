@@ -23,33 +23,33 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 
-
 class GeneralHelper {
   final formatter = new NumberFormat("#,###");
 
-  static isTokenExpired(BuildContext context)async{
-    final provider = Provider.of<UserController>(context,listen:false);
+  static isTokenExpired(BuildContext context) async {
+    final provider = Provider.of<UserController>(context, listen: false);
     final token = provider.dataUser[UserTable.token];
     Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
     bool isTokenExpired = JwtDecoder.isExpired(token);
-    print("####################### PAYLOAD TOKEN $isTokenExpired ########################################");
+    print(
+        "####################### PAYLOAD TOKEN $isTokenExpired ########################################");
     return isTokenExpired;
   }
 
-  static processLogout(BuildContext context)async{
-    final provider = Provider.of<UserController>(context,listen:false);
+  static processLogout(BuildContext context) async {
+    final provider = Provider.of<UserController>(context, listen: false);
     CoreDatabases db = new CoreDatabases();
-    final res = await db.update(UserTable.TABLE_NAME, provider.dataUser[UserTable.id], {
-      UserTable.statusRoleApp:StringConfig.statusLogoutAplikasi
-    });
-    if(res){
-      Navigator.of(context).pushNamedAndRemoveUntil(RoutePath.onBoardingWidget, (route) => false);
-    }else{
-      toast(msg:"gagal keluar aplikasi");
+    final res = await db.update(
+        UserTable.TABLE_NAME,
+        provider.dataUser[UserTable.id],
+        {UserTable.statusRoleApp: StringConfig.statusLogoutAplikasi});
+    if (res) {
+      Navigator.of(context).pushNamedAndRemoveUntil(
+          RoutePath.onBoardingWidget, (route) => false);
+    } else {
+      toast(msg: "gagal keluar aplikasi");
     }
   }
-
-
 
   static backToMain({BuildContext context, int tab}) {
     return Navigator.of(context).pushNamedAndRemoveUntil(
@@ -67,7 +67,10 @@ class GeneralHelper {
       title: Text(title == "" ? titleNew : title,
           style: Theme.of(context).textTheme.headline1),
       leading: IconButton(
-        icon: Icon(Icons.arrow_back_ios,color: Colors.black,),
+        icon: Icon(
+          Icons.arrow_back_ios,
+          color: Colors.black,
+        ),
         onPressed: () => Navigator.of(context, rootNavigator: true).pop(),
       ),
       actions: actions,
@@ -144,7 +147,10 @@ class GeneralHelper {
       title: Text(title == "" ? titleNew : title,
           style: Theme.of(context).textTheme.headline1),
       leading: IconButton(
-        icon: Icon(Icons.arrow_back_ios,color: Colors.black,),
+        icon: Icon(
+          Icons.arrow_back_ios,
+          color: Colors.black,
+        ),
         onPressed: () => Navigator.of(context).pop(),
       ),
       actions: actions,
@@ -215,7 +221,8 @@ class GeneralHelper {
               ),
             ),
             onWillPop: () async {
-              return false;
+              Navigator.pop(context);
+              return true;
             }));
   }
 
@@ -321,25 +328,24 @@ class GeneralHelper {
         context: context,
         barrierDismissible: false,
         builder: (BuildContext context) => AlertDialog(
-          title:
-          Text("Informasi !", style: Theme.of(context).textTheme.headline1),
-          content: Text(msg, style: Theme.of(context).textTheme.subtitle1),
-          actions: <Widget>[
-            if (callback1 != null)
-              TextButton(
-                  onPressed: callback1,
-                  child:
-                  Text(label1, style: Theme.of(context).textTheme.subtitle1)),
-            TextButton(
-                onPressed: callback2,
-                child: Text(label2,
-                    style: Theme.of(context)
-                        .textTheme
-                        .subtitle1
-                        .copyWith(color: ColorConfig.bluePrimary))),
-          ],
-        )
-    );
+              title: Text("Informasi !",
+                  style: Theme.of(context).textTheme.headline1),
+              content: Text(msg, style: Theme.of(context).textTheme.subtitle1),
+              actions: <Widget>[
+                if (callback1 != null)
+                  TextButton(
+                      onPressed: callback1,
+                      child: Text(label1,
+                          style: Theme.of(context).textTheme.subtitle1)),
+                TextButton(
+                    onPressed: callback2,
+                    child: Text(label2,
+                        style: Theme.of(context)
+                            .textTheme
+                            .subtitle1
+                            .copyWith(color: ColorConfig.bluePrimary))),
+              ],
+            ));
     return dialog(context: context, child: [
       AlertDialog(
         title:
@@ -389,8 +395,11 @@ class GeneralHelper {
     });
   }
 
-  static filterDate({BuildContext context,dynamic data,Function(DateTime from, DateTime to) callback}){
-    ScreenScaler scale= ScreenScaler()..init(context);
+  static filterDate(
+      {BuildContext context,
+      dynamic data,
+      Function(DateTime from, DateTime to) callback}) {
+    ScreenScaler scale = ScreenScaler()..init(context);
 
     return DateHelper(
         startText: "Dari",
@@ -401,21 +410,21 @@ class GeneralHelper {
         initialEndTime: data["to"],
         mode: DateTimeRangePickerMode.date,
         onConfirm: (start, end) {
-          callback(start,end);
+          callback(start, end);
         }).showPicker(context);
   }
-  static convertDateToYMD(DateTime date){
-    String strDate = '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
+
+  static convertDateToYMD(DateTime date) {
+    String strDate =
+        '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
     return strDate;
   }
-  static convertDateToDMY(DateTime date){
-    String strDate = '${date.day.toString().padLeft(2, '0')}-${date.month.toString().padLeft(2, '0')}-${date.year}';
+
+  static convertDateToDMY(DateTime date) {
+    String strDate =
+        '${date.day.toString().padLeft(2, '0')}-${date.month.toString().padLeft(2, '0')}-${date.year}';
     return strDate;
   }
-
-
-
-
 }
 
 class HexColor extends Color {

@@ -25,11 +25,21 @@ class PoinController with ChangeNotifier {
   bool isLoadingList = true;
   bool isLoadMoreList = false;
   int perPage = 10;
+  DateTime dateFrom = DateTime.now(), dateTo = DateTime.now();
+  setDate({BuildContext context, input}) {
+    dateFrom = input["from"];
+    dateTo = input["to"];
+    isLoadingList = true;
+    loadBonusPin(context: context);
+    notifyListeners();
+  }
 
   Future loadBonusPin({BuildContext context}) async {
     if (listMutasiPoinModel == null) isLoadingList = true;
-    final res = await BaseController()
-        .get(url: "transaction/report/mutasi_bonus/poin", context: context);
+    final res = await BaseController().get(
+        url:
+            "transaction/report/mutasi_bonus/poin?perpage=$perPage&datefrom=${GeneralHelper.convertDateToYMD(dateFrom)}&dateto=${GeneralHelper.convertDateToYMD(dateTo)}",
+        context: context);
     if (res["data"].length > 0) {
       ListMutasiPoinModel result = ListMutasiPoinModel.fromJson(res);
       listMutasiPoinModel = result;
@@ -37,7 +47,7 @@ class PoinController with ChangeNotifier {
       listMutasiPoinModel = null;
     }
     isLoadingList = false;
-    isLoadMoreList=false;
+    isLoadMoreList = false;
     notifyListeners();
   }
 

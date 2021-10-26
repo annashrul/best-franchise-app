@@ -42,7 +42,8 @@ class _BestGalleryComponentState extends State<BestGalleryComponent> {
                   height: scale.getHeight(85),
                   decoration:
                       BoxDecoration(borderRadius: BorderRadius.circular(10)),
-                  child: BestGalleryViewComponent(val.photo),
+                  child:
+                      BestGalleryViewComponent(val.photo, widget.valGl, index),
                 ))
           },
         );

@@ -30,6 +30,7 @@ import 'package:bestfranchise/Controllers/regist/registController.dart';
 import 'package:bestfranchise/Controllers/reward/komisiController.dart';
 import 'package:bestfranchise/Controllers/reward/poinController.dart';
 import 'package:bestfranchise/Controllers/reward/royaltiController.dart';
+import 'package:bestfranchise/Controllers/site/companyController.dart';
 import 'package:bestfranchise/Controllers/slider/onBoardingController.dart';
 import 'package:bestfranchise/Controllers/slider/sliderHomeController.dart';
 import 'package:bestfranchise/Controllers/user/userController.dart';
@@ -99,6 +100,7 @@ List<SingleChildWidget> providers = [
   ChangeNotifierProvider<KomisiController>(create: (_) => KomisiController()),
   ChangeNotifierProvider<RoyaltiController>(create: (_) => RoyaltiController()),
   ChangeNotifierProvider<GeneralController>(create: (_) => GeneralController()),
+  ChangeNotifierProvider<CompanyController>(create: (_) => CompanyController()),
 ];
 
 void main() {
@@ -151,7 +153,6 @@ class _MyAppState extends State<MyApp> {
         animationDuration: const Duration(milliseconds: 200),
         duration: const Duration(seconds: 3),
         child: MaterialApp(
-
           title: ApiConfig.siteName,
           initialRoute: RoutePath.splashWidget,
           onGenerateRoute: RouteGenerator.generateRoute,
