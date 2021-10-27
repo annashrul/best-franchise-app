@@ -465,64 +465,67 @@ class LoadingNewsDetail extends StatelessWidget {
       baseColor: Theme.of(context).unselectedWidgetColor,
       highlightColor: Colors.grey[100],
       enabled: true,
-      child: Stack(
-        children: [
-          Container(
-            height: scale.getHeight(12),
-            width: scale.getWidth(100),
-            color: Colors.red,
-          ),
-          Container(
-            margin: scale.getMarginLTRB(0, 20, 0, 0),
-            height: scale.getHeight(70),
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  topRight: Radius.circular(20),
-                )),
-            child: ListView(
-              shrinkWrap: true,
-              padding: scale.getPadding(1, 2),
-              children: [
-                Text(
-                  "",
-                  style: Theme.of(context).textTheme.headline2,
-                ),
-                SizedBox(height: scale.getHeight(1)),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      padding: scale.getPadding(0.5, 2),
-                      decoration: BoxDecoration(
-                          color: ColorConfig.redPrimary,
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Text(
-                        "Kontibutor : ",
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline2
-                            .copyWith(color: Colors.white),
-                      ),
-                    ),
-                    Text("Admin, ",
-                        style: Theme.of(context).textTheme.headline3)
-                  ],
-                ),
-                SizedBox(height: scale.getHeight(1)),
-                Text(
-                  "",
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline3
-                      .copyWith(color: ColorConfig.greyPrimary),
-                  textAlign: TextAlign.justify,
-                )
-              ],
+      child: Padding(
+        padding: scale.getPadding(0,2),
+        child: Stack(
+          children: [
+            Container(
+              height: scale.getHeight(12),
+              width: scale.getWidth(100),
+              color: Colors.red,
             ),
-          )
-        ],
+            Container(
+              margin: scale.getMarginLTRB(0, 20, 0, 0),
+              height: scale.getHeight(70),
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20),
+                  )),
+              child: ListView(
+                shrinkWrap: true,
+                padding: scale.getPadding(1, 2),
+                children: [
+                  Text(
+                    "",
+                    style: Theme.of(context).textTheme.headline2,
+                  ),
+                  SizedBox(height: scale.getHeight(1)),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        padding: scale.getPadding(0.5, 2),
+                        decoration: BoxDecoration(
+                            color: ColorConfig.redPrimary,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Text(
+                          "Kontibutor : ",
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline2
+                              .copyWith(color: Colors.white),
+                        ),
+                      ),
+                      Text("Admin, ",
+                          style: Theme.of(context).textTheme.headline3)
+                    ],
+                  ),
+                  SizedBox(height: scale.getHeight(1)),
+                  Text(
+                    "",
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline3
+                        .copyWith(color: ColorConfig.greyPrimary),
+                    textAlign: TextAlign.justify,
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

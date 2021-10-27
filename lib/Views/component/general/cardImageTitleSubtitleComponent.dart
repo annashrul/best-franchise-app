@@ -1,6 +1,7 @@
 import 'package:bestfranchise/Configs/colorConfig.dart';
 import 'package:bestfranchise/Configs/stringConfig.dart';
 import 'package:bestfranchise/Views/component/general/touchEffectComponent.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
 
@@ -28,6 +29,8 @@ class CardImageTitleSubtitleComponent extends StatelessWidget {
         child: Container(
           padding: scale.getPadding(0.5,2),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CircleAvatar(
                 backgroundImage: NetworkImage(this.img),
@@ -46,7 +49,9 @@ class CardImageTitleSubtitleComponent extends StatelessWidget {
                           if(callbackAction!=null)InTouchWidget(callback: (){},child:Icon(Icons.more_vert))
                         ],
                       ),
-                      Text(this.subTitle,style: Theme.of(context).textTheme.headline3.copyWith(color: ColorConfig.greyPrimary,fontWeight: Theme.of(context).textTheme.headline3.fontWeight),maxLines: 2,overflow: TextOverflow.ellipsis,),
+                      Text(this.subTitle,style: Theme.of(context).textTheme.headline3.copyWith(color: ColorConfig.greyPrimary,fontWeight: Theme.of(context).textTheme.headline3.fontWeight),
+                        // maxLines: 2,overflow: TextOverflow.ellipsis,
+                      ),
                       if(this.otherChild!=null)SizedBox(height: scale.getHeight(0.2),),
                       if(this.otherChild!=null)this.otherChild
                     ],

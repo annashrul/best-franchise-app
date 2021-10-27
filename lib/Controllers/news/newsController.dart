@@ -72,7 +72,7 @@ class NewsController with ChangeNotifier {
   }
 
   loadNewsDet(BuildContext context, id) async {
-    if (newsDetModel == null) isLoadingDet = true;
+   isLoadingDet = true;
     final res =
         await BaseController().get(url: "content/get/$id", context: context);
     print("############## ${res["data"]}");
