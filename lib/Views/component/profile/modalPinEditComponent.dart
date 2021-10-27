@@ -63,7 +63,6 @@ class _ModalPinEditComponentState extends State<ModalPinEditComponent> {
                           ),
                           SizedBox(height: scale.getHeight(1)),
                           Container(
-                            padding: scale.getPadding(1, 2),
                             child: ButtonComponent(
                               label: "Simpan",
                               labelColor: Colors.white,
