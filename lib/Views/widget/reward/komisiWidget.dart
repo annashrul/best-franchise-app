@@ -23,61 +23,77 @@ class _KomisiWidgetState extends State<KomisiWidget> {
   void scrollListenerKomisi() {
     final komisi = Provider.of<KomisiController>(context, listen: false);
     if (!komisi.isLoadMoreList) {
-      if (controllerKomisi.position.pixels == controllerKomisi.position.maxScrollExtent) {
+      if (controllerKomisi.position.pixels ==
+          controllerKomisi.position.maxScrollExtent) {
         komisi.loadMore(context);
       }
     }
   }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    controllerKomisi = new ScrollController()..addListener(scrollListenerKomisi);
-    final komisi = Provider.of<KomisiController>(context,listen: false);
+    controllerKomisi = new ScrollController()
+      ..addListener(scrollListenerKomisi);
+    final komisi = Provider.of<KomisiController>(context, listen: false);
     komisi.loadData(context: context);
   }
+
   @override
   void dispose() {
     super.dispose();
     controllerKomisi.removeListener(scrollListenerKomisi);
   }
 
-
   @override
   Widget build(BuildContext context) {
-    final reward = Provider.of<RewardHomeController>(context,listen: false);
+    final reward = Provider.of<RewardHomeController>(context, listen: false);
     return WrapperRewardComponent(
       titleCard: "Komisi",
       imgCard: "komisiBlack",
-      rewardCard: GeneralHelper().formatter.format(int.parse(reward.infoModel.data.saldoKomisi)),
-      descCard: "Komisi yang kamu dapat dari setiap referal dan orang yang kamu ajak telah menjadi franchise kami.",
-      callbackBottomButton: ()=>Navigator.of(context).pushNamed(RoutePath.formWithdrawWidget),
-      child:  buildContent(context),
+      rewardCard: GeneralHelper()
+          .formatter
+          .format(int.parse(reward.infoModel.data.saldoKomisi)),
+      descCard:
+          "Komisi yang kamu dapat dari setiap referal dan orang yang kamu ajak telah menjadi franchise kami.",
+      callbackBottomButton: () =>
+          Navigator.of(context).pushNamed(RoutePath.formWithdrawWidget),
+      child: buildContent(context),
     );
   }
-  Widget buildContent(BuildContext context){
+
+  Widget buildContent(BuildContext context) {
     ScreenScaler scale = ScreenScaler()..init(context);
     final komisi = Provider.of<KomisiController>(context);
-    if(komisi.isLoadingList) return BaseLoadingLoop(
-      child: BaseLoading(height: 10,width: 100,radius: 10,),
-    );
-    if(komisi.listMutasiKomisiModel==null) return NoDataComponent();
+    if (komisi.isLoadingList)
+      return BaseLoadingLoop(
+        child: BaseLoading(
+          height: 10,
+          width: 100,
+          radius: 10,
+        ),
+      );
+    if (komisi.listMutasiKomisiModel == null) return NoDataComponent();
     return ListView.separated(
         controller: controllerKomisi,
         padding: EdgeInsets.zero,
-        itemBuilder: (context,index){
-          final val=komisi.listMutasiKomisiModel.data[index];
+        itemBuilder: (context, index) {
+          final val = komisi.listMutasiKomisiModel.data[index];
           return CardKomisiRoyalti(
-            title: "${val.downline} telah menjadi Franchise Kami. Komisi untuk kamu : Rp. ${GeneralHelper().formatter.format(int.parse(val.nominal))}",
+            title:
+                "${val.downline} telah menjadi Franchise Kami. Komisi untuk kamu : Rp. ${GeneralHelper().formatter.format(int.parse(val.nominal))}",
             subtitle: val.msg,
             imgUser: val.downlinePhoto,
             brand: val.brand,
             logoBrand: val.brandLogo,
             createdAt: val.createdAt,
+            downlineMobileNo: val.downlineMobileNo,
           );
         },
-        separatorBuilder: (context,index){return SizedBox();},
-        itemCount: komisi.listMutasiKomisiModel.data.length
-    );
+        separatorBuilder: (context, index) {
+          return SizedBox();
+        },
+        itemCount: komisi.listMutasiKomisiModel.data.length);
   }
 }

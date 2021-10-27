@@ -2,12 +2,12 @@ import 'package:bestfranchise/Configs/colorConfig.dart';
 import 'package:bestfranchise/Configs/stringConfig.dart';
 import 'package:bestfranchise/Controllers/user/userController.dart';
 import 'package:bestfranchise/Databases/tableDatabase.dart';
-import 'package:bestfranchise/Helpers/general/generalHelper.dart';
 import 'package:bestfranchise/Views/component/general/buttonComponent.dart';
 import 'package:bestfranchise/Views/component/share/shareComponent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
 import 'package:provider/provider.dart';
+import 'package:share/share.dart';
 
 class ShareWidget extends StatefulWidget {
   @override
@@ -15,6 +15,11 @@ class ShareWidget extends StatefulWidget {
 }
 
 class _ShareWidgetState extends State<ShareWidget> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     ScreenScaler scale = ScreenScaler()..init(context);
@@ -64,10 +69,8 @@ class _ShareWidgetState extends State<ShareWidget> {
                 labelColor: Colors.white,
                 backgroundColor: ColorConfig.redPrimary,
                 callback: () {
-                  GeneralHelper.launchWhatsApp(
-                      phone: 6281223165037,
-                      message:
-                          "Hai Sahabat BEST Franchise, ayo bergabung bersama kami dengan memasukan kode $reff");
+                  Share.share(
+                      "Hai Sahabat BEST Franchise, ayo bergabung bersama kami dengan memasukan kode $reff");
                 },
               ),
               SizedBox(height: scale.getHeight(3)),
