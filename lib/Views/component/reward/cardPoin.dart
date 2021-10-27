@@ -1,5 +1,7 @@
 import 'package:bestfranchise/Configs/stringConfig.dart';
+import 'package:bestfranchise/Helpers/general/generalHelper.dart';
 import 'package:bestfranchise/Views/component/general/touchEffectComponent.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
 import 'package:intl/intl.dart';
@@ -33,7 +35,13 @@ class CardPoin extends StatelessWidget {
       elevation: 1,
       child: InTouchWidget(
         radius: 15,
-        callback: () {},
+        callback: () async{
+          await GeneralHelper.sendWa(
+              context: context,
+              no:telp,
+              msg: "Terima kasih telah menjadi Franchise kami, semoga bisnis anda lancar selalu."
+          );
+        },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -113,21 +121,11 @@ class CardPoin extends StatelessWidget {
                 padding: scale.getPadding(1, 2),
                 height: scale.getHeight(8),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(this.status,
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline1
-                            .copyWith(fontWeight: FontWeight.w500)),
-                    // CircleAvatar(
-                    //   backgroundImage: NetworkImage(this.logoBrand),
-                    //   radius: 20,
-                    // ),
-                    Text(this.valStatus,
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline2
-                            .copyWith(color: Colors.grey)),
+                    Text(this.status,style: Theme.of(context).textTheme.headline2),
+                    Text(this.valStatus,style: Theme.of(context).textTheme.headline2.copyWith(color: Colors.grey)),
                   ],
                 ),
                 decoration: BoxDecoration(
