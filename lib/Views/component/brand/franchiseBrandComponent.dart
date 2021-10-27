@@ -1,5 +1,6 @@
 import 'package:bestfranchise/Configs/colorConfig.dart';
 import 'package:bestfranchise/Controllers/brand/franchiseController.dart';
+import 'package:bestfranchise/Helpers/general/generalHelper.dart';
 import 'package:bestfranchise/Views/component/general/loadingComponent.dart';
 import 'package:bestfranchise/Views/component/general/noDataComponent.dart';
 import 'package:flutter/material.dart';
@@ -67,7 +68,7 @@ class _FranchiseBrandComponentState extends State<FranchiseBrandComponent> {
                           width: scale.getWidth(20),
                           child: Divider(color: ColorConfig.greyPrimary,height: scale.getHeight(0.5),thickness: 2),
                         ),
-                        Text(val.price,style: Theme.of(context).textTheme.headline2.copyWith(color: Colors.white),),
+                        Text("${GeneralHelper().formatter.format(int.parse(val.price))}",style: Theme.of(context).textTheme.headline2.copyWith(color: Colors.white),),
                         Text("Kontrak : ${val.contract} Tahun",style: Theme.of(context).textTheme.headline2.copyWith(color: Colors.white),),
                         Text("Booking Fee : ${val.bookingFee}%",style: Theme.of(context).textTheme.headline2.copyWith(color: Colors.white),),
                         Text("Royalti : 5 %/Bln",style: Theme.of(context).textTheme.headline2.copyWith(color: Colors.white),),
