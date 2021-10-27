@@ -35,6 +35,9 @@ class FieldComponent extends StatefulWidget {
 }
 
 class _FieldComponentState extends State<FieldComponent> {
+  final FocusNode focusCurrent = FocusNode();
+
+
   @override
   Widget build(BuildContext context) {
     ScreenScaler scale = ScreenScaler()..init(context);
@@ -72,7 +75,11 @@ class _FieldComponentState extends State<FieldComponent> {
               child: Text("${widget.controller.text.length}/${widget.maxLength}",textAlign: TextAlign.center,style: Theme.of(context).textTheme.headline3.copyWith(color: ColorConfig.greyPrimary),),
             )
             else widget.onTap!=null?InkResponse(
-              onTap: (){if (widget.onTap != null) widget.onTap();},
+              onTap: (){
+                FocusScope.of(context).unfocus();
+                setState(() {});
+                if (widget.onTap != null) widget.onTap();
+              },
               child: Icon(widget.iconPrefix!=null?widget.iconPrefix:Icons.arrow_drop_down,size:  Theme.of(context).textTheme.headline3.fontSize,color: ColorConfig.greyPrimary,),
             ):SizedBox(),
           ],
@@ -82,6 +89,7 @@ class _FieldComponentState extends State<FieldComponent> {
   Widget renderField({BuildContext context}) {
     ScreenScaler scale = ScreenScaler()..init(context);
     return TextFormField(
+      focusNode: focusCurrent,
       style: Theme.of(context).textTheme.headline2,
       controller: widget.controller,
       // maxLines: widget.maxLines,

@@ -75,6 +75,7 @@ class CapitalSubmissionController with ChangeNotifier {
             isPreview: true,
             isProgress: true,
             titleHeader: "Upload Foto KTP",
+            titleProgress: "",
             callbackProgress: (data)async{
               final ktp=await update(context: context,id: id,field: {"foto_ktp":"${data["base64"]}"});
               if(ktp!=null){
@@ -86,6 +87,7 @@ class CapitalSubmissionController with ChangeNotifier {
                       isPreview: true,
                       titleHeader: "Upload Foto KK",
                       isProgress: true,
+                      titleProgress: "",
                       callback: (data)async{},
                       callbackProgress: (data)async{
                         final kk=await update(context: context,id: id,field: {"foto_kk":"${data["base64"]}"});
@@ -99,6 +101,7 @@ class CapitalSubmissionController with ChangeNotifier {
                                 isPreview: true,
                                 titleHeader: "Upload Foto NPWP",
                                 isProgress: true,
+                                titleProgress: "",
                                 callbackProgress: (data)async{
                                   final npwp=await update(context: context,id: id,field: {"foto_npwp":"${data["base64"]}"});
                                   if(npwp!=null){
@@ -111,6 +114,7 @@ class CapitalSubmissionController with ChangeNotifier {
                                           isPreview: true,
                                           titleHeader: "Upload Foto SKU",
                                           isProgress: true,
+                                          titleProgress: "",
                                           callbackProgress: (data)async{
                                             final sku=await update(context: context,id: id,field: {"foto_sku":"${data["base64"]}"});
                                             if(sku!=null){
@@ -121,8 +125,9 @@ class CapitalSubmissionController with ChangeNotifier {
                                                   child: UploadImageComponent(
                                                     callback: (data)async{},
                                                     isPreview: true,
-                                                    titleHeader: "Upload Foto Rekeing",
+                                                    titleHeader: "Upload Foto Rekening",
                                                     isProgress: true,
+                                                    titleProgress: "",
                                                     callbackProgress: (data)async{
                                                       final rek=await update(context: context,id: id,field: {"foto_rek":"${data["base64"]}"});
                                                       if(rek!=null){
@@ -133,8 +138,9 @@ class CapitalSubmissionController with ChangeNotifier {
                                                             child: UploadImageComponent(
                                                               callback: (data)async{},
                                                               isPreview: true,
-                                                              titleHeader: "Upload Foto Lainnya (opsional)",
+                                                              titleHeader: "Upload Foto Lainnya",
                                                               isProgress: true,
+                                                              titleProgress: "",
                                                               callbackProgress: (data)async{
                                                                 final lainnya=await update(context: context,id: id,field: {"foto_lainnya":"${data["base64"]}"});
                                                                 if(lainnya!=null){
@@ -142,7 +148,6 @@ class CapitalSubmissionController with ChangeNotifier {
                                                                 }
                                                               },
                                                             ),
-
                                                         );
                                                       }
                                                     },

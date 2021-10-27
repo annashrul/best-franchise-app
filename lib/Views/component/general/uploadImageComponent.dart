@@ -54,7 +54,7 @@ class _UploadImageComponentState extends State<UploadImageComponent> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
-          GeneralHelper.headerModal(context: context,title:widget.titleHeader,callback: ()=>widget.callback(data),titleAction: "Simpan"),
+          GeneralHelper.headerModal(context: context,title:widget.titleHeader,callback: ()=>widget.callback(data),titleAction: widget.titleProgress!=""?widget.titleProgress:"Simpan"),
           ListTile(
             contentPadding: EdgeInsets.zero,
             leading:BackgroundIconComponent(
