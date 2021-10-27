@@ -6,6 +6,7 @@ import 'package:bestfranchise/Configs/stringConfig.dart';
 import 'package:bestfranchise/Controllers/brand/detailBrandController.dart';
 import 'package:bestfranchise/Controllers/brand/favoriteBrandController.dart';
 import 'package:bestfranchise/Controllers/brand/franchiseController.dart';
+import 'package:bestfranchise/Controllers/brand/listBrandController.dart';
 import 'package:bestfranchise/Controllers/brand/productBrandController.dart';
 import 'package:bestfranchise/Controllers/user/userController.dart';
 import 'package:bestfranchise/Databases/tableDatabase.dart';
@@ -57,6 +58,8 @@ class _DetailBrandWidgetState extends State<DetailBrandWidget> {
     final detail = Provider.of<DetailBrandController>(context, listen: false);
     detail.loadDetailBrand(context: context, id: widget.obj["id"]);
     controllerProduct = new ScrollController()..addListener(scrollListener);
+
+
   }
 
   @override
@@ -75,9 +78,7 @@ class _DetailBrandWidgetState extends State<DetailBrandWidget> {
     ScreenScaler scale = ScreenScaler()..init(context);
     final brand = Provider.of<DetailBrandController>(context);
     final product = Provider.of<ProductBrandController>(context);
-    final franchise = Provider.of<FranchiseController>(context);
     final favoirte = Provider.of<FavoriteBrandController>(context);
-    final user = Provider.of<UserController>(context);
     Widget child;
     if (brand.indexTabActive == 0) {
       child = ProdukBrandComponent(idBrand: widget.obj["id"]);
@@ -88,9 +89,6 @@ class _DetailBrandWidgetState extends State<DetailBrandWidget> {
     } else {
       child = ReviewBrandComponent(idBrand: widget.obj["id"]);
     }
-
-    var fullname = user.dataUser[UserTable.fullname];
-    var brandNama = brand.detailBrandModel.data.title;
     return Scaffold(
       key: _scaffoldKey,
       appBar: GeneralHelper.appBarGeneral(
@@ -114,16 +112,6 @@ class _DetailBrandWidgetState extends State<DetailBrandWidget> {
                 ),
               ),
             ),
-            // InTouchWidget(
-            //   callback: () async {
-            //     Share.share("asdasdasdasdasdasd");
-            //   },
-            //   child: Container(
-            //     alignment: Alignment.center,
-            //     padding: scale.getPadding(1, 2),
-            //     child: Image.asset(StringConfig.imgLocal + "whatsApp.png"),
-            //   ),
-            // ),
           ]),
       floatingActionButton: Container(
         padding: scale.getPadding(1, 2),
@@ -145,9 +133,7 @@ class _DetailBrandWidgetState extends State<DetailBrandWidget> {
           Stack(
             alignment: Alignment.center,
             children: [
-              brand.isLoading
-                  ? BaseLoading(height: 20, width: 100)
-                  // : Image.network(brand.detailBrandModel.data.cover,width: double.infinity,fit: BoxFit.cover,),
+              brand.isLoading? BaseLoading(height: 20, width: 100)
                   : CachedNetworkImage(
                       width: double.infinity,
                       fit: BoxFit.cover,
@@ -182,7 +168,8 @@ class _DetailBrandWidgetState extends State<DetailBrandWidget> {
                 },
                 indexActive: brand.indexTabActive,
               ),
-              content: child),
+              content: child
+          ),
           SizedBox(
             height: scale.getHeight(1),
           ),

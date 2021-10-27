@@ -13,7 +13,6 @@ class ProductBrandController with ChangeNotifier{
   bool isLoadMore=false;
   int perPage=6;
   ScrollController controller;
-  String brandId="";
   loadProductBrand({BuildContext context})async{
     final brand = Provider.of<ListBrandController>(context,listen: false);
     if(productBrandModel==null) isLoading=true;

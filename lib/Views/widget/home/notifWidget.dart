@@ -39,6 +39,7 @@ class _NotifWidgetState extends State<NotifWidget> with SingleTickerProviderStat
     tabController = TabController(length: 2, vsync: this, initialIndex: 0);
     tabController.addListener(() {
       if (tabController.index == 1) {
+        GeneralHelper.toast(msg: "maaf fitur ini belum tersedia");
         setState(() {
           tabController.index = 0;
         });
@@ -128,17 +129,6 @@ class _NotifWidgetState extends State<NotifWidget> with SingleTickerProviderStat
 
           ),
         ),
-        // appBar: GeneralHelper.appBarWithTab(
-        //   context: context,
-        //   title: "Notification",
-        //   dataTab: dataTab,
-        //   actions: [
-        //     InkResponse(
-        //       onTap: (){},
-        //       child: Image.asset(StringConfig.imgLocal+"calender.png"),
-        //     )
-        //   ]
-        // ),
         body: TabBarView(
           physics: NeverScrollableScrollPhysics(),
           children:historyView,

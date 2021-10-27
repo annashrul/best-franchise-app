@@ -40,7 +40,11 @@ class _BestBrandAndFranchiseComponentState extends State<BestBrandAndFranchiseCo
               radius: 100,
               callback: (){
                 brand.setIdBrand(val.id);
-                Navigator.of(context).pushNamed(RoutePath.detailBrandWidget,arguments: {"id": val.id});
+                if(brand.idBrand!=""){
+                  Navigator.of(context).pushNamed(RoutePath.detailBrandWidget,arguments: {"id": val.id});
+                }
+                print(brand.idBrand);
+                // Navigator.of(context).pushNamed(RoutePath.detailBrandWidget,arguments: {"id": val.id});
               },
               child: Image.network(
                 val.logo,

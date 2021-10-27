@@ -68,8 +68,10 @@ class _ProdukBrandComponentState extends State<ProdukBrandComponent> {
                   children: <Widget>[
                     ClipRRect(
                       child: CachedNetworkImage(
+                        width: scale.getWidth(100),
+                        fit: BoxFit.fitWidth,
                         imageUrl: val.photo,
-                        placeholder: (context, url) => BaseLoading(height: 10, width: 100),
+                        placeholder: (context, url) => BaseLoading(height: 20, width: 100),
                         errorWidget: (context, url, error) => Icon(Icons.error),
                       ),
                       borderRadius: BorderRadius.circular(10),
