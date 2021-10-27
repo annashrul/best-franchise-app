@@ -43,6 +43,8 @@ class WithdrawController with ChangeNotifier {
             "transaction/withdrawal?page=1&perpage=$perPage&datefrom=${GeneralHelper.convertDateToYMD(dateFrom)}&dateto=${GeneralHelper.convertDateToYMD(dateTo)}",
         context: context);
     print("############## ${res["data"].length}");
+    isLoadMoreList = false;
+    isLoading = false;
     if (res["data"].length > 0) {
       WithdrawModel result = WithdrawModel.fromJson(res);
       withdrawModel = result;

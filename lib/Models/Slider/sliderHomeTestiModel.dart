@@ -46,8 +46,8 @@ class Datum {
   String caption;
   int rating;
   String photo;
-  Null createdAt;
-  Null updatedAt;
+  String createdAt;
+  String updatedAt;
 
   Datum(
       {this.records,

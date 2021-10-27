@@ -31,6 +31,9 @@ class NewsController with ChangeNotifier {
     final res = await BaseController().get(
         url: "content?page=1&perpage=$perPage&status=1" + q, context: context);
     print("############## ${res["data"].length}");
+
+    isLoadMoreList = false;
+    isLoading = false;
     if (res["data"].length > 0) {
       NewsModel result = NewsModel.fromJson(res);
       newsModel = result;

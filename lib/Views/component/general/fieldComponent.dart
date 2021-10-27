@@ -109,17 +109,23 @@ class _FieldComponentState extends State<FieldComponent> {
       controller: widget.controller,
       maxLines: widget.maxLines,
       readOnly: widget.onTap != null,
-      decoration: InputDecoration(
-          floatingLabelBehavior: widget.isPhone
-              ? FloatingLabelBehavior.never
-              : FloatingLabelBehavior.always,
-          labelText: widget.labelText,
-          border: InputBorder.none,
-          hintStyle: Theme.of(context)
-              .textTheme
-              .headline2
-              .copyWith(color: Color(0xFFD0CACA)),
-          hintText: widget.labelText),
+      decoration: widget.isPhone
+          ? InputDecoration(
+              border: InputBorder.none,
+              hintStyle: Theme.of(context)
+                  .textTheme
+                  .headline2
+                  .copyWith(color: Color(0xFFD0CACA)),
+              hintText: widget.labelText)
+          : InputDecoration(
+              floatingLabelBehavior: FloatingLabelBehavior.always,
+              labelText: widget.labelText,
+              border: InputBorder.none,
+              hintStyle: Theme.of(context)
+                  .textTheme
+                  .headline2
+                  .copyWith(color: Color(0xFFD0CACA)),
+              hintText: widget.labelText),
       textInputAction: TextInputAction.done,
       keyboardType: widget.keyboardType,
       onTap: () {
