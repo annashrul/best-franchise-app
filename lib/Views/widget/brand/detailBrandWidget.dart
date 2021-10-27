@@ -25,6 +25,7 @@ import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 import 'package:sticky_headers/sticky_headers/widget.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class DetailBrandWidget extends StatefulWidget {
   final Map<dynamic, dynamic> obj;
@@ -134,7 +135,13 @@ class _DetailBrandWidgetState extends State<DetailBrandWidget> {
             children: [
               brand.isLoading
                   ? BaseLoading(height: 20, width: 100)
-                  : Image.network(brand.detailBrandModel.data.cover,width: double.infinity,fit: BoxFit.cover,),
+                  // : Image.network(brand.detailBrandModel.data.cover,width: double.infinity,fit: BoxFit.cover,),
+                  : CachedNetworkImage(
+                    width: double.infinity,fit: BoxFit.cover,
+                    imageUrl: brand.detailBrandModel.data.cover,
+                    placeholder: (context, url) => BaseLoading(height: 20, width: 100),
+                    errorWidget: (context, url, error) => Icon(Icons.error),
+                  ),
               brand.isLoading
                   ? BaseLoading(
                       height: 5,

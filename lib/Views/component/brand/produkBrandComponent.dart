@@ -3,6 +3,7 @@ import 'package:bestfranchise/Controllers/brand/productBrandController.dart';
 import 'package:bestfranchise/Views/component/general/loadingComponent.dart';
 import 'package:bestfranchise/Views/component/general/noDataComponent.dart';
 import 'package:bestfranchise/Views/component/general/touchEffectComponent.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -66,7 +67,11 @@ class _ProdukBrandComponentState extends State<ProdukBrandComponent> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     ClipRRect(
-                      child: Image.network(val.photo),
+                      child: CachedNetworkImage(
+                        imageUrl: val.photo,
+                        placeholder: (context, url) => BaseLoading(height: 10, width: 100),
+                        errorWidget: (context, url, error) => Icon(Icons.error),
+                      ),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     Padding(
