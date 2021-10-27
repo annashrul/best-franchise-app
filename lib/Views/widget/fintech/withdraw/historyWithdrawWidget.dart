@@ -1,6 +1,7 @@
 import 'package:bestfranchise/Configs/colorConfig.dart';
 import 'package:bestfranchise/Configs/stringConfig.dart';
 import 'package:bestfranchise/Controllers/fintech/withdrawController.dart';
+import 'package:bestfranchise/Controllers/home/rewardHomeController.dart';
 import 'package:bestfranchise/Helpers/general/generalHelper.dart';
 import 'package:bestfranchise/Views/component/general/loadingComponent.dart';
 import 'package:bestfranchise/Views/component/general/noDataComponent.dart';
@@ -16,26 +17,51 @@ class HistoryWithdrawWidget extends StatefulWidget {
 }
 
 class _HistoryWithdrawWidgetState extends State<HistoryWithdrawWidget> {
+  ScrollController controller;
+  void scrollListener() {
+    final data = Provider.of<WithdrawController>(context, listen: false);
+    if (!data.isLoadMoreList) {
+      if (controller.position.pixels == controller.position.maxScrollExtent) {
+        data.loadMore(context);
+      }
+    }
+  }
+
   @override
   void initState() {
     // TODO: implement initState
+    controller = new ScrollController()..addListener(scrollListener);
     final wd = Provider.of<WithdrawController>(context, listen: false);
+    final info = Provider.of<RewardHomeController>(context, listen: false);
     wd.loadWithdraw(context: context);
 
     super.initState();
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    controller.removeListener(scrollListener);
+  }
+
+  @override
   Widget build(BuildContext context) {
     ScreenScaler scale = new ScreenScaler()..init(context);
-    final wd = Provider.of<WithdrawController>(context, listen: false);
+    final wd = Provider.of<WithdrawController>(context);
+    final info = Provider.of<RewardHomeController>(context);
     return Scaffold(
       appBar: GeneralHelper.appBarGeneral(
           context: context,
           title: "History Withdraw",
           actions: [
             InkResponse(
-              onTap: () {},
+              onTap: () {
+                GeneralHelper.filterDate(
+                    context: context,
+                    data: {"from": wd.dateFrom, "to": wd.dateTo},
+                    callback: (from, to) => wd.setDate(
+                        context: context, input: {"from": from, "to": to}));
+              },
               child: Image.asset(StringConfig.imgLocal + "calender.png"),
             )
           ]),
@@ -46,7 +72,9 @@ class _HistoryWithdrawWidgetState extends State<HistoryWithdrawWidget> {
             CardHeaderReward(
               img: "royaltiBlack",
               title: "Withdraw Kamu",
-              reward: "5,000,000",
+              reward: GeneralHelper()
+                  .formatter
+                  .format(int.parse(info.infoModel.data.totalWd)),
               desc:
                   "Saldo di atas adalah penggabungan antara komisi dan royalti saat ini.",
             ),

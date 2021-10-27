@@ -22,6 +22,23 @@ class ProfileEditWidget extends StatefulWidget {
 }
 
 class _ProfileEditWidgetState extends State<ProfileEditWidget> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    final profileEdit =
+        Provider.of<ProfileEditController>(context, listen: false);
+    final userStorage = Provider.of<UserController>(context, listen: false);
+    profileEdit.addressController.text =
+        userStorage.dataUser[UserTable.location];
+    profileEdit.fullname.text = userStorage.dataUser[UserTable.fullname];
+    profileEdit.emailController.text = userStorage.dataUser[UserTable.email];
+    profileEdit.noHpController.text = userStorage.dataUser[UserTable.mobile_no];
+    profileEdit.idReferralController.text =
+        userStorage.dataUser[UserTable.referral];
+    // print(info.infoModel.data.toJson());
+  }
+
   String countryCode = "62";
   @override
   Widget build(BuildContext context) {
@@ -38,47 +55,73 @@ class _ProfileEditWidgetState extends State<ProfileEditWidget> {
         children: [
           Container(
             padding: scale.getPadding(1, 2),
-            child: Stack(
-              overflow: Overflow.visible,
-              alignment: AlignmentDirectional.topCenter,
-              fit: StackFit.loose,
-              children: [
-                Image.asset(
-                  StringConfig.imgLocal + "backCardReward.png",
-                  scale: 0.5,
-                ),
-                // Image.asset(StringConfig.imgLocal + "icUser.png", scale: 1.5,),
-                Positioned(
-                  top: scale.getHeight(10),
-                  child: GestureDetector(
-                    child: Image.asset(
-                      StringConfig.imgLocal + "icUser.png",
-                      scale: 1.5,
+            child: GestureDetector(
+              behavior: HitTestBehavior.translucent,
+              onTap: () => {
+                GeneralHelper.modal(
+                    context: context, child: ModalImagesProfileComponent())
+                // print("klik")
+              },
+              child: Stack(
+                overflow: Overflow.visible,
+                alignment: AlignmentDirectional.topCenter,
+                fit: StackFit.loose,
+                children: [
+                  IgnorePointer(
+                    ignoring: true,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(15.0),
+                      child: Image.network(
+                        userStorage.dataUser[UserTable.cover],
+                        scale: 0.5,
+                        height: scale.getHeight(17),
+                        width: scale.getWidth(100),
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                    onTap: () => {
-                      GeneralHelper.modal(
-                          context: context,
-                          child: ModalImagesProfileComponent())
-                      // print("klik")
-                    },
                   ),
-                ),
-                Positioned(
-                    top: scale.getHeight(20),
-                    right: scale.getWidth(35),
+                  // Image.asset(StringConfig.imgLocal + "icUser.png", scale: 1.5,),
+                  Positioned(
+                    top: scale.getHeight(10),
                     child: GestureDetector(
-                      child: Image.asset(
-                        StringConfig.imgLocal + "icCamera2.png",
-                        scale: 1.5,
+                      behavior: HitTestBehavior.translucent,
+                      child: CircleAvatar(
+                        radius: 50.0,
+                        backgroundColor: Colors.transparent,
+                        child: ClipOval(
+                          child: Image.network(
+                            userStorage.dataUser[UserTable.photo],
+                            fit: BoxFit.cover,
+                            width: scale.getWidth(100),
+                            height: scale.getHeight(100),
+                          ),
+                        ),
                       ),
                       onTap: () => {
-                        // GeneralHelper.modal(
-                        //     context: context,
-                        //     child: ModalImagesProfileComponent())
-                        print("klik")
+                        GeneralHelper.modal(
+                            context: context,
+                            child: ModalImagesProfileComponent())
+                        // print("klik")
                       },
-                    ))
-              ],
+                    ),
+                  ),
+                  Positioned(
+                      top: scale.getHeight(20),
+                      right: scale.getWidth(35),
+                      child: GestureDetector(
+                        behavior: HitTestBehavior.translucent,
+                        child: Image.asset(
+                          StringConfig.imgLocal + "icCamera2.png",
+                          scale: 1.5,
+                        ),
+                        onTap: () => {
+                          GeneralHelper.modal(
+                              context: context,
+                              child: ModalImagesProfileComponent())
+                        },
+                      ))
+                ],
+              ),
             ),
           ),
           SizedBox(height: scale.getHeight(5)),
@@ -115,18 +158,45 @@ class _ProfileEditWidgetState extends State<ProfileEditWidget> {
                       SizedBox(height: scale.getHeight(2)),
                     ]),
               ),
-              SizedBox(height: scale.getHeight(2)),
+              // SizedBox(height: scale.getHeight(2)),
+              // Align(
+              //   alignment: Alignment.centerLeft,
+              //   child: Text(
+              //     "ID Referral : " + userStorage.dataUser[UserTable.referral],
+              //     style: TextStyle(
+              //       color: ColorConfig.blackPrimary,
+              //       fontSize: 20,
+              //     ),
+              //   ),
+              // ),
+              // SizedBox(height: scale.getHeight(1)),
+              // Align(
+              //   alignment: Alignment.centerLeft,
+              //   child: Text(
+              //     "Telpon : " + userStorage.dataUser[UserTable.mobile_no],
+              //     style: TextStyle(
+              //       color: ColorConfig.blackPrimary,
+              //       fontSize: 20,
+              //     ),
+              //   ),
+              // ),
               // FieldComponent(
               //   controller: profileEdit.idReferralController,
               //   labelText: "ID Referral",
               // ),
-              // SizedBox(height: scale.getHeight(1)),
+              SizedBox(height: scale.getHeight(1)),
               FieldComponent(
-                controller: profileEdit.fullname,
-                labelText: "Nama Lengkap",
+                controller: profileEdit.idReferralController,
+                labelText: "ID Referral",
+                onTap: () => {
+                  GeneralHelper.myCopyClipboard(
+                      context, profileEdit.idReferralController.text)
+                },
+                iconPrefix: () => {},
                 maxLength: 50,
               ),
               SizedBox(height: scale.getHeight(1)),
+
               FieldComponent(
                 controller: profileEdit.noHpController,
                 labelText: "Nomor Handphone",
@@ -136,6 +206,13 @@ class _ProfileEditWidgetState extends State<ProfileEditWidget> {
                 onTapCountry: (code) {
                   countryCode = code;
                 },
+                onTap: () => {},
+              ),
+              SizedBox(height: scale.getHeight(1)),
+              FieldComponent(
+                controller: profileEdit.fullname,
+                labelText: "Nama Lengkap",
+                maxLength: 50,
               ),
               SizedBox(height: scale.getHeight(1)),
               FieldComponent(
@@ -163,7 +240,7 @@ class _ProfileEditWidgetState extends State<ProfileEditWidget> {
           backgroundColor: ColorConfig.redPrimary,
           callback: () => profileEdit.store(context: context, field: {
             "fullname": profileEdit.fullname.text,
-            "mobile_no": profileEdit.noHpController.text,
+            // "mobile_no": profileEdit.noHpController.text,
             "email": profileEdit.emailController.text,
             "address": profileEdit.addressController.text,
             "id": id,

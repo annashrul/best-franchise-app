@@ -1,16 +1,16 @@
 // To parse this JSON data, do
 //
-//     final withdrawModel = withdrawModelFromJson(jsonString);
+//     final companyModel = companyModelFromJson(jsonString);
 
 import 'dart:convert';
 
-WithdrawModel withdrawModelFromJson(String str) =>
-    WithdrawModel.fromJson(json.decode(str));
+CompanyModel companyModelFromJson(String str) =>
+    CompanyModel.fromJson(json.decode(str));
 
-String withdrawModelToJson(WithdrawModel data) => json.encode(data.toJson());
+String companyModelToJson(CompanyModel data) => json.encode(data.toJson());
 
-class WithdrawModel {
-  WithdrawModel({
+class CompanyModel {
+  CompanyModel({
     this.meta,
     this.data,
     this.pagination,
@@ -18,90 +18,90 @@ class WithdrawModel {
   });
 
   Meta meta;
-  List<Datum> data;
+  Datum data;
   Pagination pagination;
   List<dynamic> total;
 
-  factory WithdrawModel.fromJson(Map<String, dynamic> json) => WithdrawModel(
+  factory CompanyModel.fromJson(Map<String, dynamic> json) => CompanyModel(
         meta: Meta.fromJson(json["meta"]),
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+        data: Datum.fromJson(json["data"]),
         pagination: Pagination.fromJson(json["pagination"]),
         total: List<dynamic>.from(json["total"].map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {
         "meta": meta.toJson(),
-        "data": List<dynamic>.from(data.map((x) => x.toJson())),
+        "data": data.toJson(),
         "pagination": pagination.toJson(),
         "total": List<dynamic>.from(total.map((x) => x)),
       };
 }
 
 class Datum {
-  String totalrecords;
-  String id;
-  String idMember;
-  String fullname;
-  String idBank;
-  String bankName;
-  String accName;
-  String accNo;
-  String amount;
-  String charge;
-  int status;
-  String kdTrx;
+  int id;
+  String title;
+  String logo;
+  String cover;
+  String caption;
+  String bep;
+  String totalBrand;
+  String totalFranchise;
+  String totalPenghargaan;
+  String tag;
+  String tagCaption;
   String createdAt;
   String updatedAt;
+  String tos;
 
   Datum(
-      {this.totalrecords,
-      this.id,
-      this.idMember,
-      this.fullname,
-      this.idBank,
-      this.bankName,
-      this.accName,
-      this.accNo,
-      this.amount,
-      this.charge,
-      this.status,
-      this.kdTrx,
+      {this.id,
+      this.title,
+      this.logo,
+      this.cover,
+      this.caption,
+      this.bep,
+      this.totalBrand,
+      this.totalFranchise,
+      this.totalPenghargaan,
+      this.tag,
+      this.tagCaption,
       this.createdAt,
-      this.updatedAt});
+      this.updatedAt,
+      this.tos});
 
   Datum.fromJson(Map<String, dynamic> json) {
-    totalrecords = json['totalrecords'];
     id = json['id'];
-    idMember = json['id_member'];
-    fullname = json['fullname'];
-    idBank = json['id_bank'];
-    bankName = json['bank_name'];
-    accName = json['acc_name'];
-    accNo = json['acc_no'];
-    amount = json['amount'];
-    charge = json['charge'];
-    status = json['status'];
-    kdTrx = json['kd_trx'];
+    title = json['title'];
+    logo = json['logo'];
+    cover = json['cover'];
+    caption = json['caption'];
+    bep = json['bep'];
+    totalBrand = json['total_brand'];
+    totalFranchise = json['total_franchise'];
+    totalPenghargaan = json['total_penghargaan'];
+    tag = json['tag'];
+    tagCaption = json['tag_caption'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
+    tos = json['tos'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['totalrecords'] = this.totalrecords;
     data['id'] = this.id;
-    data['id_member'] = this.idMember;
-    data['fullname'] = this.fullname;
-    data['id_bank'] = this.idBank;
-    data['bank_name'] = this.bankName;
-    data['acc_name'] = this.accName;
-    data['acc_no'] = this.accNo;
-    data['amount'] = this.amount;
-    data['charge'] = this.charge;
-    data['status'] = this.status;
-    data['kd_trx'] = this.kdTrx;
+    data['title'] = this.title;
+    data['logo'] = this.logo;
+    data['cover'] = this.cover;
+    data['caption'] = this.caption;
+    data['bep'] = this.bep;
+    data['total_brand'] = this.totalBrand;
+    data['total_franchise'] = this.totalFranchise;
+    data['total_penghargaan'] = this.totalPenghargaan;
+    data['tag'] = this.tag;
+    data['tag_caption'] = this.tagCaption;
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
+    data['tos'] = this.tos;
     return data;
   }
 }
@@ -141,7 +141,7 @@ class Pagination {
     this.from,
   });
 
-  int total;
+  String total;
   int perPage;
   int offset;
   int to;

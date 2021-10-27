@@ -1,6 +1,7 @@
 import 'package:bestfranchise/Configs/routeConfig.dart';
 import 'package:bestfranchise/Controllers/home/rewardHomeController.dart';
 import 'package:bestfranchise/Controllers/reward/poinController.dart';
+import 'package:bestfranchise/Helpers/general/generalHelper.dart';
 import 'package:bestfranchise/Views/component/general/loadingComponent.dart';
 import 'package:bestfranchise/Views/component/general/noDataComponent.dart';
 import 'package:bestfranchise/Views/component/reward/cardPoin.dart';
@@ -45,7 +46,9 @@ class _PoinWidgetState extends State<PoinWidget> {
     return WrapperRewardComponent(
       titleCard: "Poin",
       imgCard: "poinBlack",
-      rewardCard: reward.infoModel.data.poin,
+      rewardCard: GeneralHelper()
+          .formatter
+          .format(int.parse(reward.infoModel.data.poin)),
       descCard:
           "Poin didapat dari setiap register yang menggunakan referal kamu",
       callbackBottomButton: () =>

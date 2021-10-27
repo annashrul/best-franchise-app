@@ -1,6 +1,7 @@
 import 'package:bestfranchise/Configs/formConfig.dart';
 import 'package:bestfranchise/Controllers/baseController.dart';
 import 'package:bestfranchise/Controllers/user/userController.dart';
+import 'package:bestfranchise/Databases/coreDatabase.dart';
 import 'package:bestfranchise/Databases/tableDatabase.dart';
 import 'package:bestfranchise/Helpers/general/generalHelper.dart';
 import 'package:bestfranchise/Views/component/general/modalSuccessComponent.dart';
@@ -8,7 +9,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
 class ProfileEditController with ChangeNotifier {
-  // TextEditingController idReferralController = new TextEditingController();
+  CoreDatabases db = new CoreDatabases();
+  TextEditingController idReferralController = new TextEditingController();
   TextEditingController fullname = new TextEditingController();
   TextEditingController noHpController = new TextEditingController();
   TextEditingController emailController = new TextEditingController();
@@ -36,9 +38,9 @@ class ProfileEditController with ChangeNotifier {
     if (field["fullname"] == "") {
       return GeneralHelper.toast(msg: "Nama lengkap tidak boleh kosong");
     }
-    if (field["mobile_no"] == "") {
-      return GeneralHelper.toast(msg: "No Telpon tidak boleh kosong");
-    }
+    // if (field["mobile_no"] == "") {
+    //   return GeneralHelper.toast(msg: "No Telpon tidak boleh kosong");
+    // }
     if (field["email"] == "") {
       return GeneralHelper.toast(msg: "Email tidak boleh kosong");
     }
@@ -47,9 +49,9 @@ class ProfileEditController with ChangeNotifier {
     }
     final data = {
       "fullname": field["fullname"],
-      "mobile_no": field["mobile_no"],
+      // "mobile_no": field["mobile_no"],
       "email": field["email"],
-      "address": field["address"],
+      "location": field["address"],
     };
 
     final user = Provider.of<UserController>(context, listen: false);
@@ -61,6 +63,27 @@ class ProfileEditController with ChangeNotifier {
         context: context);
     if (res != null) {
       print(res);
+      final dataUser = {
+        "${UserTable.idUser}": user.dataUser[UserTable.idUser],
+        "${UserTable.token}": user.dataUser[UserTable.token],
+        "${UserTable.fullname}": user.dataUser[UserTable.fullname],
+        "${UserTable.mobile_no}": user.dataUser[UserTable.mobile_no],
+        "${UserTable.photo}": user.dataUser[UserTable.photo],
+        "${UserTable.cover}": user.dataUser[UserTable.cover],
+        "${UserTable.email}": user.dataUser[UserTable.email],
+        "${UserTable.referral}": user.dataUser[UserTable.referral],
+        "${UserTable.status}": user.dataUser[UserTable.status],
+        "${UserTable.location}": user.dataUser[UserTable.location],
+        "${UserTable.statusRoleApp}": user.dataUser[UserTable.statusRoleApp]
+      };
+      final checkUser = await db.getData(UserTable.TABLE_NAME);
+      if (checkUser.length > 0) {
+        await db.delete(UserTable.TABLE_NAME);
+        await db.insert(UserTable.TABLE_NAME, dataUser);
+      } else {
+        await db.insert(UserTable.TABLE_NAME, dataUser);
+      }
+      user.setDataUser(dataUser);
       GeneralHelper.modal(context: context, child: ModalSuccessComponent());
     }
     notifyListeners();

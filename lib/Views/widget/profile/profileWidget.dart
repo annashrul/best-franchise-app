@@ -1,6 +1,7 @@
 import 'package:bestfranchise/Configs/routeConfig.dart';
 import 'package:bestfranchise/Configs/stringConfig.dart';
 import 'package:bestfranchise/Controllers/home/rewardHomeController.dart';
+import 'package:bestfranchise/Controllers/site/companyController.dart';
 import 'package:bestfranchise/Helpers/general/generalHelper.dart';
 import 'package:bestfranchise/Views/component/general/backgroundIconComponent.dart';
 import 'package:bestfranchise/Views/component/general/buttonComponent.dart';
@@ -18,6 +19,14 @@ class ProfileWidget extends StatefulWidget {
 }
 
 class _ProfileWidgetState extends State<ProfileWidget> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    final data = Provider.of<CompanyController>(context, listen: false);
+    data.loadCompany(context: context);
+  }
+
   @override
   Widget build(BuildContext context) {
     ScreenScaler scale = ScreenScaler()..init(context);
@@ -45,19 +54,25 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                   RewardCardComponent(
                     img: "poin",
                     title: "jumlah Poin",
-                    desc: reward.infoModel.data.poin,
+                    desc: GeneralHelper()
+                        .formatter
+                        .format(int.parse(reward.infoModel.data.poin)),
                     icon: FontAwesome5Solid.database,
                   ),
                   RewardCardComponent(
                     img: "komisi",
                     title: "Komisi",
-                    desc: reward.infoModel.data.saldoKomisi,
+                    desc: GeneralHelper()
+                        .formatter
+                        .format(int.parse(reward.infoModel.data.saldoKomisi)),
                     icon: FontAwesome5Solid.wallet,
                   ),
                   RewardCardComponent(
                     img: "royalti",
                     title: "Royalti",
-                    desc: reward.infoModel.data.saldoRoyalti,
+                    desc: GeneralHelper()
+                        .formatter
+                        .format(int.parse(reward.infoModel.data.saldoRoyalti)),
                     icon: FontAwesome5Solid.money_bill_alt,
                   ),
                 ],
@@ -69,7 +84,9 @@ class _ProfileWidgetState extends State<ProfileWidget> {
             onTap: () =>
                 Navigator.of(context).pushNamed(RoutePath.historyOrderWidget),
             contentPadding: EdgeInsets.zero,
-            leading:BackgroundIconComponent(child: Icon(FontAwesome5Solid.archive,color: Colors.white),),
+            leading: BackgroundIconComponent(
+              child: Icon(FontAwesome5Solid.archive, color: Colors.white),
+            ),
             title: Text(
               "Status Order",
               style: Theme.of(context)
@@ -82,13 +99,13 @@ class _ProfileWidgetState extends State<ProfileWidget> {
           ListTile(
             onTap: () {},
             contentPadding: EdgeInsets.zero,
-            leading:BackgroundIconComponent(child: Icon(FontAwesome5Solid.store,color: Colors.white),),
+            leading: BackgroundIconComponent(
+              child: Icon(FontAwesome5Solid.store, color: Colors.white),
+            ),
             title: Text(
               "Toko saya",
-              style: Theme.of(context)
-                  .textTheme
-                  .headline1
-                  .copyWith(fontWeight: FontWeight.w400,color: Colors.grey[400]),
+              style: Theme.of(context).textTheme.headline1.copyWith(
+                  fontWeight: FontWeight.w400, color: Colors.grey[400]),
             ),
           ),
           Divider(height: scale.getHeight(0.1)),
@@ -97,7 +114,12 @@ class _ProfileWidgetState extends State<ProfileWidget> {
               Navigator.of(context).pushNamed(RoutePath.bantuanAplikasiWidget);
             },
             contentPadding: EdgeInsets.zero,
-            leading:SizedBox(child: BackgroundIconComponent(child: Icon(FontAwesome5Solid.question_circle,color: Colors.white),),),
+            leading: SizedBox(
+              child: BackgroundIconComponent(
+                child: Icon(FontAwesome5Solid.question_circle,
+                    color: Colors.white),
+              ),
+            ),
             title: Text(
               "Bantuan Aplikasi",
               style: Theme.of(context)
@@ -110,7 +132,11 @@ class _ProfileWidgetState extends State<ProfileWidget> {
           ListTile(
             onTap: () {},
             contentPadding: EdgeInsets.zero,
-            leading:SizedBox(child: BackgroundIconComponent(child: Icon(FontAwesome5Solid.comment,color: Colors.white),),),
+            leading: SizedBox(
+              child: BackgroundIconComponent(
+                child: Icon(FontAwesome5Solid.comment, color: Colors.white),
+              ),
+            ),
             title: Text(
               "Live Chat",
               style: Theme.of(context)
@@ -123,7 +149,11 @@ class _ProfileWidgetState extends State<ProfileWidget> {
           ListTile(
             onTap: () {},
             contentPadding: EdgeInsets.zero,
-            leading:SizedBox(child: BackgroundIconComponent(child: Icon(FontAwesome5Solid.language,color: Colors.white),),),
+            leading: SizedBox(
+              child: BackgroundIconComponent(
+                child: Icon(FontAwesome5Solid.language, color: Colors.white),
+              ),
+            ),
             title: Text(
               "Pengaturan Bahasa",
               style: Theme.of(context)
@@ -139,7 +169,11 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                   context: context, child: ModalKetentuanLayananComponent());
             },
             contentPadding: EdgeInsets.zero,
-            leading:SizedBox(child: BackgroundIconComponent(child: Icon(FontAwesome5Solid.info_circle,color: Colors.white),),),
+            leading: SizedBox(
+              child: BackgroundIconComponent(
+                child: Icon(FontAwesome5Solid.info_circle, color: Colors.white),
+              ),
+            ),
             title: Text(
               "Ketentuan Layanan",
               style: Theme.of(context)
@@ -154,7 +188,11 @@ class _ProfileWidgetState extends State<ProfileWidget> {
               Navigator.of(context).pushNamed(RoutePath.brandFavoriteWidget);
             },
             contentPadding: EdgeInsets.zero,
-            leading:SizedBox(child: BackgroundIconComponent(child: Icon(FontAwesome5Solid.heart,color: Colors.white),),),
+            leading: SizedBox(
+              child: BackgroundIconComponent(
+                child: Icon(FontAwesome5Solid.heart, color: Colors.white),
+              ),
+            ),
             title: Text(
               "Brand Favorite",
               style: Theme.of(context)
@@ -169,7 +207,11 @@ class _ProfileWidgetState extends State<ProfileWidget> {
               Navigator.of(context).pushNamed(RoutePath.tentangAplikasiWidget);
             },
             contentPadding: EdgeInsets.zero,
-            leading:SizedBox(child: BackgroundIconComponent(child: Icon(FontAwesome5Solid.building,color: Colors.white),),),
+            leading: SizedBox(
+              child: BackgroundIconComponent(
+                child: Icon(FontAwesome5Solid.building, color: Colors.white),
+              ),
+            ),
             title: Text(
               "Tentang Aplikasi",
               style: Theme.of(context)
@@ -185,9 +227,13 @@ class _ProfileWidgetState extends State<ProfileWidget> {
           ButtonComponent(
             label: "Logout",
             callback: () {
-              GeneralHelper.nofitDialog(context: context,msg: "kamu yakin akan keluar dari aplikasi ?",callback2: (){
-                GeneralHelper.processLogout(context);
-              },callback1: ()=>Navigator.of(context).pop());
+              GeneralHelper.nofitDialog(
+                  context: context,
+                  msg: "kamu yakin akan keluar dari aplikasi ?",
+                  callback2: () {
+                    GeneralHelper.processLogout(context);
+                  },
+                  callback1: () => Navigator.of(context).pop());
               // Navigator.of(context).pushNamed(RoutePath.onBoardingWidget);
             },
           )

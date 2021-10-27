@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:bestfranchise/Configs/colorConfig.dart';
@@ -13,7 +12,6 @@ import 'package:bestfranchise/Views/component/general/touchEffectComponent.dart'
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
@@ -23,33 +21,33 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 
-
 class GeneralHelper {
   final formatter = new NumberFormat("#,###");
 
-  static isTokenExpired(BuildContext context)async{
-    final provider = Provider.of<UserController>(context,listen:false);
+  static isTokenExpired(BuildContext context) async {
+    final provider = Provider.of<UserController>(context, listen: false);
     final token = provider.dataUser[UserTable.token];
     Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
     bool isTokenExpired = JwtDecoder.isExpired(token);
-    print("####################### PAYLOAD TOKEN $isTokenExpired ########################################");
+    print(
+        "####################### PAYLOAD TOKEN $isTokenExpired ########################################");
     return isTokenExpired;
   }
 
-  static processLogout(BuildContext context)async{
-    final provider = Provider.of<UserController>(context,listen:false);
+  static processLogout(BuildContext context) async {
+    final provider = Provider.of<UserController>(context, listen: false);
     CoreDatabases db = new CoreDatabases();
-    final res = await db.update(UserTable.TABLE_NAME, provider.dataUser[UserTable.id], {
-      UserTable.statusRoleApp:StringConfig.statusLogoutAplikasi
-    });
-    if(res){
-      Navigator.of(context).pushNamedAndRemoveUntil(RoutePath.onBoardingWidget, (route) => false);
-    }else{
-      toast(msg:"gagal keluar aplikasi");
+    final res = await db.update(
+        UserTable.TABLE_NAME,
+        provider.dataUser[UserTable.id],
+        {UserTable.statusRoleApp: StringConfig.statusLogoutAplikasi});
+    if (res) {
+      Navigator.of(context).pushNamedAndRemoveUntil(
+          RoutePath.onBoardingWidget, (route) => false);
+    } else {
+      toast(msg: "gagal keluar aplikasi");
     }
   }
-
-
 
   static backToMain({BuildContext context, int tab}) {
     return Navigator.of(context).pushNamedAndRemoveUntil(
@@ -67,7 +65,10 @@ class GeneralHelper {
       title: Text(title == "" ? titleNew : title,
           style: Theme.of(context).textTheme.headline1),
       leading: IconButton(
-        icon: Icon(Icons.arrow_back_ios,color: Colors.black,),
+        icon: Icon(
+          Icons.arrow_back_ios,
+          color: Colors.black,
+        ),
         onPressed: () => Navigator.of(context, rootNavigator: true).pop(),
       ),
       actions: actions,
@@ -144,7 +145,10 @@ class GeneralHelper {
       title: Text(title == "" ? titleNew : title,
           style: Theme.of(context).textTheme.headline1),
       leading: IconButton(
-        icon: Icon(Icons.arrow_back_ios,color: Colors.black,),
+        icon: Icon(
+          Icons.arrow_back_ios,
+          color: Colors.black,
+        ),
         onPressed: () => Navigator.of(context).pop(),
       ),
       actions: actions,
@@ -163,7 +167,11 @@ class GeneralHelper {
     );
   }
 
-  static modal({BuildContext context, Widget child, void Function() callback,bool isBack=true}) {
+  static modal(
+      {BuildContext context,
+      Widget child,
+      void Function() callback,
+      bool isBack = true}) {
     ScreenScaler scale = ScreenScaler()..init(context);
     return showModalBottomSheet(
         enableDrag: false,
@@ -219,7 +227,11 @@ class GeneralHelper {
             }));
   }
 
-  static modalGeneral({BuildContext context, Widget child, void Function() callback,bool isBack=true}) {
+  static modalGeneral(
+      {BuildContext context,
+      Widget child,
+      void Function() callback,
+      bool isBack = true}) {
     ScreenScaler scale = ScreenScaler()..init(context);
     return showModalBottomSheet(
         enableDrag: false,
@@ -268,7 +280,11 @@ class GeneralHelper {
     }
   }
 
-  static headerModal( {BuildContext context, String title = "", void Function() callback, String titleAction="Simpan"}) {
+  static headerModal(
+      {BuildContext context,
+      String title = "",
+      void Function() callback,
+      String titleAction = "Simpan"}) {
     ScreenScaler scale = new ScreenScaler()..init(context);
 
     return Row(
@@ -290,6 +306,7 @@ class GeneralHelper {
       ],
     );
   }
+
   static loadingDialog(BuildContext context) {
     return showDialog(
         context: context,
@@ -306,6 +323,7 @@ class GeneralHelper {
               ),
             ));
   }
+
   static nofitDialog(
       {BuildContext context,
       String msg = "",
@@ -317,25 +335,24 @@ class GeneralHelper {
         context: context,
         barrierDismissible: false,
         builder: (BuildContext context) => AlertDialog(
-          title:
-          Text("Informasi !", style: Theme.of(context).textTheme.headline1),
-          content: Text(msg, style: Theme.of(context).textTheme.subtitle1),
-          actions: <Widget>[
-            if (callback1 != null)
-              TextButton(
-                  onPressed: callback1,
-                  child:
-                  Text(label1, style: Theme.of(context).textTheme.subtitle1)),
-            TextButton(
-                onPressed: callback2,
-                child: Text(label2,
-                    style: Theme.of(context)
-                        .textTheme
-                        .subtitle1
-                        .copyWith(color: ColorConfig.bluePrimary))),
-          ],
-        )
-    );
+              title: Text("Informasi !",
+                  style: Theme.of(context).textTheme.headline1),
+              content: Text(msg, style: Theme.of(context).textTheme.subtitle1),
+              actions: <Widget>[
+                if (callback1 != null)
+                  TextButton(
+                      onPressed: callback1,
+                      child: Text(label1,
+                          style: Theme.of(context).textTheme.subtitle1)),
+                TextButton(
+                    onPressed: callback2,
+                    child: Text(label2,
+                        style: Theme.of(context)
+                            .textTheme
+                            .subtitle1
+                            .copyWith(color: ColorConfig.bluePrimary))),
+              ],
+            ));
     return dialog(context: context, child: [
       AlertDialog(
         title:
@@ -367,23 +384,29 @@ class GeneralHelper {
       imageSource = ImageSource.gallery;
     }
     final picker = ImagePicker();
-    final pickedFile = await picker.getImage(source: imageSource,imageQuality: 10);
+    final pickedFile =
+        await picker.getImage(source: imageSource, imageQuality: 10);
     return {"file": File(pickedFile.path), "path": pickedFile.path};
   }
+
   static myDate(date) {
     DateTime now = DateFormat("yyyy-MM-ddTHH:mm:sssZ").parse(date);
     String formattedDate = DateFormat('yyyy-MM-dd').format(now);
     return formattedDate;
   }
+
   static myCopyClipboard(context, text) {
     return Clipboard.setData(new ClipboardData(text: text.toUpperCase()))
         .then((_) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text("Teks berhasil disalin.")));
+      GeneralHelper.toast(msg: "Teks berhasil disalin");
     });
   }
-  static filterDate({BuildContext context,dynamic data,Function(DateTime from, DateTime to) callback}){
-    ScreenScaler scale= ScreenScaler()..init(context);
+
+  static filterDate(
+      {BuildContext context,
+      dynamic data,
+      Function(DateTime from, DateTime to) callback}) {
+    ScreenScaler scale = ScreenScaler()..init(context);
 
     return DateHelper(
         startText: "Dari",
@@ -394,21 +417,21 @@ class GeneralHelper {
         initialEndTime: data["to"],
         mode: DateTimeRangePickerMode.date,
         onConfirm: (start, end) {
-          callback(start,end);
+          callback(start, end);
         }).showPicker(context);
   }
-  static convertDateToYMD(DateTime date){
-    String strDate = '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
+
+  static convertDateToYMD(DateTime date) {
+    String strDate =
+        '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
     return strDate;
   }
-  static convertDateToDMY(DateTime date){
-    String strDate = '${date.day.toString().padLeft(2, '0')}-${date.month.toString().padLeft(2, '0')}-${date.year}';
+
+  static convertDateToDMY(DateTime date) {
+    String strDate =
+        '${date.day.toString().padLeft(2, '0')}-${date.month.toString().padLeft(2, '0')}-${date.year}';
     return strDate;
   }
-
-
-
-
 }
 
 class HexColor extends Color {

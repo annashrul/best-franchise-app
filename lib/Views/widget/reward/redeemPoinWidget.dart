@@ -41,7 +41,9 @@ class _RedeemPoinWidgetState extends State<RedeemPoinWidget> {
             CardHeaderReward(
               img: "poinBlack",
               title: "Poin",
-              reward: reward.infoModel.data.poin,
+              reward: GeneralHelper()
+                  .formatter
+                  .format(int.parse(reward.infoModel.data.poin)),
               desc:
                   "Poin didapat dari setiap register yang menggunakan referal kamu",
             ),
