@@ -29,13 +29,22 @@ class GeneralHelper {
     try{
       print("##################### ONTAP");
       GeneralHelper.loadingDialog(context);
-      await FlutterOpenWhatsapp.sendSingleMessage("$no",msg).timeout(Duration(seconds: 10));
+      await FlutterOpenWhatsapp.sendSingleMessage("$no",msg).timeout(Duration(seconds: 5));
       Navigator.of(context).pop();
     }catch(e){
       Navigator.of(context).pop();
-      launchWhatsApp(phone: int.parse(no),message: msg);
-      // GeneralHelper.toast(msg: "aplikasi whatsApp kamu tidak ditemukan");
-      print("##################### EROR");
+      nofitDialog(
+        context: context,
+        msg: "download aplikasi whatsapp atau buka lewat whatsapp web ?",
+        label1: "download",
+        label2: "buka whatsapp web",
+        callback1: (){
+          jumpToBrowser(url: "https://play.google.com/store/apps/details?id=com.whatsapp");
+        },
+        callback2: (){
+          launchWhatsApp(phone: int.parse(no),message: msg);
+        }
+      );
     }
   }
 
