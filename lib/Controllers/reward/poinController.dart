@@ -24,7 +24,7 @@ class PoinController with ChangeNotifier {
   bool isLoadingMerchandise = true;
   bool isLoadingList = true;
   bool isLoadMoreList = false;
-  int perPage = 10;
+  int perPage = 2;
   DateTime dateFrom = DateTime.now(), dateTo = DateTime.now();
   setDate({BuildContext context, input}) {
     dateFrom = input["from"];
@@ -40,6 +40,8 @@ class PoinController with ChangeNotifier {
         url:
             "transaction/report/mutasi_bonus/poin?perpage=$perPage&datefrom=${GeneralHelper.convertDateToYMD(dateFrom)}&dateto=${GeneralHelper.convertDateToYMD(dateTo)}",
         context: context);
+    isLoadMoreList = false;
+    isLoadingList = false;
     if (res["data"].length > 0) {
       ListMutasiPoinModel result = ListMutasiPoinModel.fromJson(res);
       listMutasiPoinModel = result;

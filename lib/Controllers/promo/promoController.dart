@@ -14,6 +14,8 @@ class PromoController with ChangeNotifier {
     final res = await BaseController()
         .get(url: "promo?page=1&perpage=$perPage&status=1", context: context);
     print("############## ${res["data"].length}");
+    isLoadMoreList = false;
+    isLoading = false;
     if (res["data"].length > 0) {
       PromoModel result = PromoModel.fromJson(res);
       promoModel = result;
