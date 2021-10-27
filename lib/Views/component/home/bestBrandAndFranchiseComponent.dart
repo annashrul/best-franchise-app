@@ -42,17 +42,11 @@ class _BestBrandAndFranchiseComponentState extends State<BestBrandAndFranchiseCo
                 brand.setIdBrand(val.id);
                 Navigator.of(context).pushNamed(RoutePath.detailBrandWidget,arguments: {"id": val.id});
               },
-              child: CircleAvatar(
-                radius: 32,
-                child: ClipOval(
-                  child: Image.network(
-                    val.logo,
-                    fit: BoxFit.cover,
-                    width: scale.getWidth(100),
-                    height: scale.getHeight(100),
-                  ),
-                ),
-              ));
+              child: Image.network(
+                val.logo,
+                fit: BoxFit.contain,
+              )
+          );
         },
         separatorBuilder: (context, index) {
           return SizedBox(

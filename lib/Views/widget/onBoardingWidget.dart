@@ -79,7 +79,9 @@ class _OnBoardingWidgetState extends State<OnBoardingWidget> {
                               Container(
                                 margin:scale.getMargin(5,0),
                                 child: Image.network(
-                                    slide.banner,fit:BoxFit.contain
+                                    slide.banner,
+                                    fit:BoxFit.contain,
+                                  height: scale.getHeight(20),
                                 ),
                               ),
                               Padding(

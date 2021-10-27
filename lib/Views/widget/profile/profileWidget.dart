@@ -1,3 +1,4 @@
+import 'package:bestfranchise/Configs/colorConfig.dart';
 import 'package:bestfranchise/Configs/routeConfig.dart';
 import 'package:bestfranchise/Configs/stringConfig.dart';
 import 'package:bestfranchise/Controllers/home/rewardHomeController.dart';
@@ -5,6 +6,7 @@ import 'package:bestfranchise/Controllers/site/companyController.dart';
 import 'package:bestfranchise/Helpers/general/generalHelper.dart';
 import 'package:bestfranchise/Views/component/general/backgroundIconComponent.dart';
 import 'package:bestfranchise/Views/component/general/buttonComponent.dart';
+import 'package:bestfranchise/Views/component/general/touchEffectComponent.dart';
 import 'package:bestfranchise/Views/component/home/rewardCardComponent.dart';
 import 'package:bestfranchise/Views/component/profile/modalKetentuanLayananComponent.dart';
 import 'package:flutter/material.dart';
@@ -40,204 +42,112 @@ class _ProfileWidgetState extends State<ProfileWidget> {
             Navigator.of(context).pushNamed(RoutePath.profileEditWidget);
           }),
       body: ListView(
-        padding: scale.getPadding(1, 2),
+        padding: scale.getPadding(1, 0),
         shrinkWrap: true,
         children: [
-          Card(
-            margin: EdgeInsets.zero,
-            child: Container(
-              padding: scale.getPadding(1, 2),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  RewardCardComponent(
-                    img: "poin",
-                    title: "jumlah Poin",
-                    desc: GeneralHelper()
-                        .formatter
-                        .format(int.parse(reward.infoModel.data.poin)),
-                    icon: FontAwesome5Solid.database,
-                  ),
-                  RewardCardComponent(
-                    img: "komisi",
-                    title: "Komisi",
-                    desc: GeneralHelper()
-                        .formatter
-                        .format(int.parse(reward.infoModel.data.saldoKomisi)),
-                    icon: FontAwesome5Solid.wallet,
-                  ),
-                  RewardCardComponent(
-                    img: "royalti",
-                    title: "Royalti",
-                    desc: GeneralHelper()
-                        .formatter
-                        .format(int.parse(reward.infoModel.data.saldoRoyalti)),
-                    icon: FontAwesome5Solid.money_bill_alt,
-                  ),
-                ],
+          Padding(
+            padding: scale.getPadding(0,2.6),
+            child: Card(
+              margin: EdgeInsets.zero,
+              child: Container(
+                padding: scale.getPadding(1, 2),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    RewardCardComponent(
+                      img: "poin",
+                      title: "jumlah Poin",
+                      desc: GeneralHelper()
+                          .formatter
+                          .format(int.parse(reward.infoModel.data.poin)),
+                      icon: FontAwesome5Solid.database,
+                    ),
+                    RewardCardComponent(
+                      img: "komisi",
+                      title: "Komisi",
+                      desc: GeneralHelper()
+                          .formatter
+                          .format(int.parse(reward.infoModel.data.saldoKomisi)),
+                      icon: FontAwesome5Solid.wallet,
+                    ),
+                    RewardCardComponent(
+                      img: "royalti",
+                      title: "Royalti",
+                      desc: GeneralHelper()
+                          .formatter
+                          .format(int.parse(reward.infoModel.data.saldoRoyalti)),
+                      icon: FontAwesome5Solid.money_bill_alt,
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
           SizedBox(height: scale.getHeight(1)),
-          ListTile(
-            onTap: () =>
-                Navigator.of(context).pushNamed(RoutePath.historyOrderWidget),
-            contentPadding: EdgeInsets.zero,
-            leading: BackgroundIconComponent(
-              child: Icon(FontAwesome5Solid.archive, color: Colors.white),
-            ),
-            title: Text(
-              "Status Order",
-              style: Theme.of(context)
-                  .textTheme
-                  .headline1
-                  .copyWith(fontWeight: FontWeight.w400),
-            ),
-          ),
-          Divider(height: scale.getHeight(0.1)),
-          ListTile(
-            onTap: () {},
-            contentPadding: EdgeInsets.zero,
-            leading: BackgroundIconComponent(
-              child: Icon(FontAwesome5Solid.store, color: Colors.white),
-            ),
-            title: Text(
-              "Toko saya",
-              style: Theme.of(context).textTheme.headline1.copyWith(
-                  fontWeight: FontWeight.w400, color: Colors.grey[400]),
+          Padding(
+            padding: scale.getPadding(0,1.5),
+            child: Column(
+              children: [
+                buildSectioMenu(title: "Status Order",icon: FontAwesome5Solid.archive,callback: (){Navigator.of(context).pushNamed(RoutePath.historyOrderWidget);}),
+                Padding(padding: scale.getPadding(0,0.8),child: Divider()),
+                buildSectioMenu(title: "Toko Saya",icon: FontAwesome5Solid.store,callback: (){},isActive: false),
+                Padding(padding: scale.getPadding(0,0.8),child: Divider()),
+                buildSectioMenu(title: "Bantuan Aplikasi",icon: FontAwesome5Solid.question_circle,callback: (){Navigator.of(context).pushNamed(RoutePath.bantuanAplikasiWidget);}),
+                Padding(padding: scale.getPadding(0,0.8),child: Divider()),
+                buildSectioMenu(title: "Live Chat",icon: FontAwesome5Solid.comments,callback: (){}),
+                Padding(padding: scale.getPadding(0,0.8),child: Divider()),
+                buildSectioMenu(title: "Pengaturan Bahasa",icon: FontAwesome5Solid.language,callback: (){}),
+                Padding(padding: scale.getPadding(0,0.8),child: Divider()),
+                buildSectioMenu(title: "Ketentuan Layanan",icon: FontAwesome5Solid.info_circle,callback: (){GeneralHelper.modal(context: context, child: ModalKetentuanLayananComponent());}),
+                Padding(padding: scale.getPadding(0,0.8),child: Divider()),
+                buildSectioMenu(title: "Brand Favorite",icon: FontAwesome5Solid.heart,callback: (){Navigator.of(context).pushNamed(RoutePath.brandFavoriteWidget);}),
+                Padding(padding: scale.getPadding(0,0.8),child: Divider()),
+                buildSectioMenu(title: "Tentang Aplikasi",icon: FontAwesome5Solid.building,callback: (){Navigator.of(context).pushNamed(RoutePath.tentangAplikasiWidget);}),
+                Padding(padding: scale.getPadding(0,0.8),child: Divider()),
+              ],
             ),
           ),
-          Divider(height: scale.getHeight(0.1)),
-          ListTile(
-            onTap: () {
-              Navigator.of(context).pushNamed(RoutePath.bantuanAplikasiWidget);
-            },
-            contentPadding: EdgeInsets.zero,
-            leading: SizedBox(
-              child: BackgroundIconComponent(
-                child: Icon(FontAwesome5Solid.question_circle,
-                    color: Colors.white),
-              ),
-            ),
-            title: Text(
-              "Bantuan Aplikasi",
-              style: Theme.of(context)
-                  .textTheme
-                  .headline1
-                  .copyWith(fontWeight: FontWeight.w400),
-            ),
-          ),
-          Divider(height: scale.getHeight(0.1)),
-          ListTile(
-            onTap: () {},
-            contentPadding: EdgeInsets.zero,
-            leading: SizedBox(
-              child: BackgroundIconComponent(
-                child: Icon(FontAwesome5Solid.comment, color: Colors.white),
-              ),
-            ),
-            title: Text(
-              "Live Chat",
-              style: Theme.of(context)
-                  .textTheme
-                  .headline1
-                  .copyWith(fontWeight: FontWeight.w400),
-            ),
-          ),
-          Divider(height: scale.getHeight(0.1)),
-          ListTile(
-            onTap: () {},
-            contentPadding: EdgeInsets.zero,
-            leading: SizedBox(
-              child: BackgroundIconComponent(
-                child: Icon(FontAwesome5Solid.language, color: Colors.white),
-              ),
-            ),
-            title: Text(
-              "Pengaturan Bahasa",
-              style: Theme.of(context)
-                  .textTheme
-                  .headline1
-                  .copyWith(fontWeight: FontWeight.w400),
-            ),
-          ),
-          Divider(height: scale.getHeight(0.1)),
-          ListTile(
-            onTap: () {
-              GeneralHelper.modal(
-                  context: context, child: ModalKetentuanLayananComponent());
-            },
-            contentPadding: EdgeInsets.zero,
-            leading: SizedBox(
-              child: BackgroundIconComponent(
-                child: Icon(FontAwesome5Solid.info_circle, color: Colors.white),
-              ),
-            ),
-            title: Text(
-              "Ketentuan Layanan",
-              style: Theme.of(context)
-                  .textTheme
-                  .headline1
-                  .copyWith(fontWeight: FontWeight.w400),
-            ),
-          ),
-          Divider(height: scale.getHeight(0.1)),
-          ListTile(
-            onTap: () {
-              Navigator.of(context).pushNamed(RoutePath.brandFavoriteWidget);
-            },
-            contentPadding: EdgeInsets.zero,
-            leading: SizedBox(
-              child: BackgroundIconComponent(
-                child: Icon(FontAwesome5Solid.heart, color: Colors.white),
-              ),
-            ),
-            title: Text(
-              "Brand Favorite",
-              style: Theme.of(context)
-                  .textTheme
-                  .headline1
-                  .copyWith(fontWeight: FontWeight.w400),
-            ),
-          ),
-          Divider(height: scale.getHeight(0.1)),
-          ListTile(
-            onTap: () {
-              Navigator.of(context).pushNamed(RoutePath.tentangAplikasiWidget);
-            },
-            contentPadding: EdgeInsets.zero,
-            leading: SizedBox(
-              child: BackgroundIconComponent(
-                child: Icon(FontAwesome5Solid.building, color: Colors.white),
-              ),
-            ),
-            title: Text(
-              "Tentang Aplikasi",
-              style: Theme.of(context)
-                  .textTheme
-                  .headline1
-                  .copyWith(fontWeight: FontWeight.w400),
-            ),
-          ),
-          Divider(height: scale.getHeight(0.1)),
           SizedBox(
             height: scale.getHeight(1),
           ),
-          ButtonComponent(
-            label: "Logout",
-            callback: () {
-              GeneralHelper.nofitDialog(
-                  context: context,
-                  msg: "kamu yakin akan keluar dari aplikasi ?",
-                  callback2: () {
-                    GeneralHelper.processLogout(context);
-                  },
-                  callback1: () => Navigator.of(context).pop());
-              // Navigator.of(context).pushNamed(RoutePath.onBoardingWidget);
-            },
+          Padding(
+            padding: scale.getPadding(0,2.6),
+            child: ButtonComponent(
+              label: "Logout",
+              callback: () {
+                GeneralHelper.nofitDialog(
+                    context: context,
+                    msg: "kamu yakin akan keluar dari aplikasi ?",
+                    callback2: () {
+                      GeneralHelper.processLogout(context);
+                    },
+                    callback1: () => Navigator.of(context).pop());
+                // Navigator.of(context).pushNamed(RoutePath.onBoardingWidget);
+              },
+            ),
           )
         ],
+      ),
+    );
+  }
+
+
+  Widget buildSectioMenu({String title="",IconData icon,void Function() callback,bool isActive=true}){
+    ScreenScaler scale = new ScreenScaler()..init(context);
+    return Padding(
+      padding: scale.getPadding(0,3),
+      child: InTouchWidget(
+        callback: callback,
+        child: Row(
+          children: [
+            BackgroundIconComponent(
+              child: Icon(icon, color: Colors.white),
+            ),
+            SizedBox(width: scale.getWidth(2),),
+            Text(title,style: Theme.of(context).textTheme .headline1.copyWith(fontWeight: FontWeight.w400,color: isActive?Colors.black:ColorConfig.greyPrimary)),
+          ],
+        ),
       ),
     );
   }

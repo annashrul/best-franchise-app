@@ -26,7 +26,7 @@ class _LoginWidgetState extends State<LoginWidget> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       floatingActionButton: Container(
-        padding: scale.getPadding(3,2),
+        padding: scale.getPadding(2,2),
            child: ButtonComponent(
           label: "Login",
           callback: ()async{
@@ -38,7 +38,7 @@ class _LoginWidgetState extends State<LoginWidget> {
           },
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,
       body: Container(
         decoration: BoxDecoration(
             image: DecorationImage(
