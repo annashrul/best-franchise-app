@@ -1,5 +1,7 @@
 import 'package:bestfranchise/Configs/stringConfig.dart';
 import 'package:bestfranchise/Controllers/general/generalController.dart';
+import 'package:bestfranchise/Controllers/user/userController.dart';
+import 'package:bestfranchise/Databases/tableDatabase.dart';
 import 'package:bestfranchise/Helpers/general/generalHelper.dart';
 import 'package:bestfranchise/Views/component/general/backgroundIconComponent.dart';
 import 'package:bestfranchise/Views/component/general/loadingComponent.dart';
@@ -9,6 +11,7 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
+import 'package:share/share.dart';
 
 class TentangAplikasiWidget extends StatefulWidget {
   @override
@@ -31,7 +34,8 @@ class _TentangAplikasiWidgetState extends State<TentangAplikasiWidget> {
   Widget build(BuildContext context) {
     ScreenScaler scale = ScreenScaler()..init(context);
     final res=Provider.of<GeneralController>(context);
-
+    final user = Provider.of<UserController>(context);
+    var reff = user.dataUser[UserTable.referral];
 
     List data=[
       {"title":"Total Brand","color":"#FFE7E7","total":"+ ${res.isLoadingTentangAplikasi?"0":GeneralHelper().formatter.format(int.parse(res.tentangAplikasiModel.data.totalBrand))}"},
@@ -44,8 +48,9 @@ class _TentangAplikasiWidgetState extends State<TentangAplikasiWidget> {
         context: context,
         title: "Tentang Kami",
         actions: [
-          IconButton(onPressed: (){}, icon: BackgroundIconComponent(child: Icon(FontAwesome5Solid.share)))
-
+          IconButton(onPressed: (){
+            Share.share("Hai Sahabat BEST Franchise, ayo bergabung bersama kami dengan memasukan kode $reff");
+          }, icon: BackgroundIconComponent(child: Icon(FontAwesome5Solid.share)))
         ]
       ),
       body: ListView(
