@@ -10,6 +10,7 @@ import 'package:bestfranchise/Views/component/general/fieldComponent.dart';
 import 'package:bestfranchise/Views/component/profile/modalImagesProfileComponent.dart';
 import 'package:bestfranchise/Views/component/profile/modalPinEditComponent.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
 import 'package:provider/provider.dart';
 
@@ -192,21 +193,15 @@ class _ProfileEditWidgetState extends State<ProfileEditWidget> {
                   GeneralHelper.myCopyClipboard(
                       context, profileEdit.idReferralController.text)
                 },
-                iconPrefix: () => {},
-                maxLength: 50,
+                iconPrefix:FontAwesome5Solid.copy,
+                readonly: true,
               ),
               SizedBox(height: scale.getHeight(1)),
-
               FieldComponent(
                 controller: profileEdit.noHpController,
                 labelText: "Nomor Handphone",
-                maxLength: FormConfig.maxLengthPhone,
-                isPhone: true,
-                keyboardType: TextInputType.number,
-                onTapCountry: (code) {
-                  countryCode = code;
-                },
-                onTap: () => {},
+                readonly: true,
+                maxLength: null,
               ),
               SizedBox(height: scale.getHeight(1)),
               FieldComponent(

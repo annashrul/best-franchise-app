@@ -24,7 +24,7 @@ class PoinController with ChangeNotifier {
   bool isLoadingMerchandise = true;
   bool isLoadingList = true;
   bool isLoadMoreList = false;
-  int perPage = 2;
+  int perPage = 5;
   DateTime dateFrom = DateTime.now(), dateTo = DateTime.now();
   setDate({BuildContext context, input}) {
     dateFrom = input["from"];

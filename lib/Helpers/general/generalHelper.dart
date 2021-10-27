@@ -434,6 +434,27 @@ class GeneralHelper {
         '${date.day.toString().padLeft(2, '0')}-${date.month.toString().padLeft(2, '0')}-${date.year}';
     return strDate;
   }
+
+  static launchWhatsApp({
+    @required int phone,
+    @required String message,
+  }) async {
+    String url() {
+      if (Platform.isAndroid) {
+        // add the [https]
+        return "https://wa.me/$phone/?text=${Uri.parse(message)}"; // new line
+      } else {
+        // add the [https]
+        return "https://api.whatsapp.com/send?phone=$phone=${Uri.parse(message)}"; // new line
+      }
+    }
+
+    if (await canLaunch(url())) {
+      await launch(url());
+    } else {
+      throw 'Could not launch ${url()}';
+    }
+  }
 }
 
 class HexColor extends Color {
@@ -444,6 +465,5 @@ class HexColor extends Color {
     }
     return int.parse(hexColor, radix: 16);
   }
-
   HexColor(final String hexColor) : super(_getColorFromHex(hexColor));
 }

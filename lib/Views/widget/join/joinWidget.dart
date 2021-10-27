@@ -90,6 +90,7 @@ class _JoinWidgetState extends State<JoinWidget> {
               ),
               SizedBox(height: scale.getHeight(1)),
               FieldComponent(
+                readonly: true,
                 controller: tipeController,
                 labelText: "Pilih Tipe Investasi",
                 onTap: () {

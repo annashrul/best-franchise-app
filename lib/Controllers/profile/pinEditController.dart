@@ -21,6 +21,15 @@ class PinEditController with ChangeNotifier {
     if (field["pin_confirm"] == "") {
       return GeneralHelper.toast(msg: "Konfirmasi PIN tidak boleh kosong");
     }
+    if (field["pin"].length<6) {
+      return GeneralHelper.toast(msg: "PIN Lama kurang dari 6 digit");
+    }
+    if (field["pin_new"].length<6) {
+      return GeneralHelper.toast(msg: "PIN Baru kurang dari 6 digit");
+    }
+    if (field["pin_confirm"].length<6) {
+      return GeneralHelper.toast(msg: "Konfirmasi PIN kurang dari 6 digit");
+    }
     if (field["pin_confirm"] != field["pin_new"]) {
       return GeneralHelper.toast(msg: "Konfirmasi PIN tidak sesuai");
     }

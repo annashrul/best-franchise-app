@@ -91,6 +91,7 @@ class _CapitalSubmissionWidgetState extends State<CapitalSubmissionWidget> {
               ),
               SizedBox(height: scale.getHeight(1)),
               FieldComponent(
+                readonly: true,
                 controller: join.brandController,
                 labelText: "Pilih Brand",
                 onTap: () {
@@ -112,6 +113,7 @@ class _CapitalSubmissionWidgetState extends State<CapitalSubmissionWidget> {
               ),
               SizedBox(height: scale.getHeight(1)),
               FieldComponent(
+                readonly: true,
                 controller: join.investController,
                 labelText: "Pilih Tipe Investasi",
                 onTap: () {

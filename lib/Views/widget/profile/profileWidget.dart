@@ -3,6 +3,8 @@ import 'package:bestfranchise/Configs/routeConfig.dart';
 import 'package:bestfranchise/Configs/stringConfig.dart';
 import 'package:bestfranchise/Controllers/home/rewardHomeController.dart';
 import 'package:bestfranchise/Controllers/site/companyController.dart';
+import 'package:bestfranchise/Controllers/user/userController.dart';
+import 'package:bestfranchise/Databases/tableDatabase.dart';
 import 'package:bestfranchise/Helpers/general/generalHelper.dart';
 import 'package:bestfranchise/Views/component/general/backgroundIconComponent.dart';
 import 'package:bestfranchise/Views/component/general/buttonComponent.dart';
@@ -33,6 +35,9 @@ class _ProfileWidgetState extends State<ProfileWidget> {
   Widget build(BuildContext context) {
     ScreenScaler scale = ScreenScaler()..init(context);
     final reward = Provider.of<RewardHomeController>(context);
+    final user = Provider.of<UserController>(context);
+
+    var fullname = user.dataUser[UserTable.fullname];
     return Scaffold(
       appBar: GeneralHelper.appBarWithImage(
           context: context,
@@ -46,7 +51,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
         shrinkWrap: true,
         children: [
           Padding(
-            padding: scale.getPadding(0,2.6),
+            padding: scale.getPadding(0, 2.6),
             child: Card(
               margin: EdgeInsets.zero,
               child: Container(
@@ -74,9 +79,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                     RewardCardComponent(
                       img: "royalti",
                       title: "Royalti",
-                      desc: GeneralHelper()
-                          .formatter
-                          .format(int.parse(reward.infoModel.data.saldoRoyalti)),
+                      desc: GeneralHelper().formatter.format(
+                          int.parse(reward.infoModel.data.saldoRoyalti)),
                       icon: FontAwesome5Solid.money_bill_alt,
                     ),
                   ],
@@ -86,25 +90,71 @@ class _ProfileWidgetState extends State<ProfileWidget> {
           ),
           SizedBox(height: scale.getHeight(1)),
           Padding(
-            padding: scale.getPadding(0,1.5),
+            padding: scale.getPadding(0, 1.5),
             child: Column(
               children: [
-                buildSectioMenu(title: "Status Order",icon: FontAwesome5Solid.archive,callback: (){Navigator.of(context).pushNamed(RoutePath.historyOrderWidget);}),
-                Padding(padding: scale.getPadding(0,0.8),child: Divider()),
-                buildSectioMenu(title: "Toko Saya",icon: FontAwesome5Solid.store,callback: (){},isActive: false),
-                Padding(padding: scale.getPadding(0,0.8),child: Divider()),
-                buildSectioMenu(title: "Bantuan Aplikasi",icon: FontAwesome5Solid.question_circle,callback: (){Navigator.of(context).pushNamed(RoutePath.bantuanAplikasiWidget);}),
-                Padding(padding: scale.getPadding(0,0.8),child: Divider()),
-                buildSectioMenu(title: "Live Chat",icon: FontAwesome5Solid.comments,callback: (){}),
-                Padding(padding: scale.getPadding(0,0.8),child: Divider()),
-                buildSectioMenu(title: "Pengaturan Bahasa",icon: FontAwesome5Solid.language,callback: (){}),
-                Padding(padding: scale.getPadding(0,0.8),child: Divider()),
-                buildSectioMenu(title: "Ketentuan Layanan",icon: FontAwesome5Solid.info_circle,callback: (){GeneralHelper.modal(context: context, child: ModalKetentuanLayananComponent());}),
-                Padding(padding: scale.getPadding(0,0.8),child: Divider()),
-                buildSectioMenu(title: "Brand Favorite",icon: FontAwesome5Solid.heart,callback: (){Navigator.of(context).pushNamed(RoutePath.brandFavoriteWidget);}),
-                Padding(padding: scale.getPadding(0,0.8),child: Divider()),
-                buildSectioMenu(title: "Tentang Aplikasi",icon: FontAwesome5Solid.building,callback: (){Navigator.of(context).pushNamed(RoutePath.tentangAplikasiWidget);}),
-                Padding(padding: scale.getPadding(0,0.8),child: Divider()),
+                buildSectioMenu(
+                    title: "Status Order",
+                    icon: FontAwesome5Solid.archive,
+                    callback: () {
+                      Navigator.of(context)
+                          .pushNamed(RoutePath.historyOrderWidget);
+                    }),
+                Padding(padding: scale.getPadding(0, 0.8), child: Divider()),
+                buildSectioMenu(
+                    title: "Toko Saya",
+                    icon: FontAwesome5Solid.store,
+                    callback: () {},
+                    isActive: false),
+                Padding(padding: scale.getPadding(0, 0.8), child: Divider()),
+                buildSectioMenu(
+                    title: "Bantuan Aplikasi",
+                    icon: FontAwesome5Solid.question_circle,
+                    callback: () {
+                      Navigator.of(context)
+                          .pushNamed(RoutePath.bantuanAplikasiWidget);
+                    }),
+                Padding(padding: scale.getPadding(0, 0.8), child: Divider()),
+                buildSectioMenu(
+                    title: "Live Chat",
+                    icon: FontAwesome5Solid.comments,
+                    callback: () {
+                      GeneralHelper.launchWhatsApp(
+                          phone: 6281223165037,
+                          message:
+                              "Hallo Admin, Saya $fullname ada beberapa hal yang ingin saya tanyakan, mohon agar segera di respon. Terima kasih.");
+                    }),
+                Padding(padding: scale.getPadding(0, 0.8), child: Divider()),
+                buildSectioMenu(
+                    title: "Pengaturan Bahasa",
+                    icon: FontAwesome5Solid.language,
+                    callback: () {}),
+                Padding(padding: scale.getPadding(0, 0.8), child: Divider()),
+                buildSectioMenu(
+                    title: "Ketentuan Layanan",
+                    icon: FontAwesome5Solid.info_circle,
+                    callback: () {
+                      GeneralHelper.modal(
+                          context: context,
+                          child: ModalKetentuanLayananComponent());
+                    }),
+                Padding(padding: scale.getPadding(0, 0.8), child: Divider()),
+                buildSectioMenu(
+                    title: "Brand Favorite",
+                    icon: FontAwesome5Solid.heart,
+                    callback: () {
+                      Navigator.of(context)
+                          .pushNamed(RoutePath.brandFavoriteWidget);
+                    }),
+                Padding(padding: scale.getPadding(0, 0.8), child: Divider()),
+                buildSectioMenu(
+                    title: "Tentang Aplikasi",
+                    icon: FontAwesome5Solid.building,
+                    callback: () {
+                      Navigator.of(context)
+                          .pushNamed(RoutePath.tentangAplikasiWidget);
+                    }),
+                Padding(padding: scale.getPadding(0, 0.8), child: Divider()),
               ],
             ),
           ),
@@ -112,7 +162,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
             height: scale.getHeight(1),
           ),
           Padding(
-            padding: scale.getPadding(0,2.6),
+            padding: scale.getPadding(0, 2.6),
             child: ButtonComponent(
               label: "Logout",
               callback: () {
@@ -132,11 +182,14 @@ class _ProfileWidgetState extends State<ProfileWidget> {
     );
   }
 
-
-  Widget buildSectioMenu({String title="",IconData icon,void Function() callback,bool isActive=true}){
+  Widget buildSectioMenu(
+      {String title = "",
+      IconData icon,
+      void Function() callback,
+      bool isActive = true}) {
     ScreenScaler scale = new ScreenScaler()..init(context);
     return Padding(
-      padding: scale.getPadding(0,3),
+      padding: scale.getPadding(0, 3),
       child: InTouchWidget(
         callback: callback,
         child: Row(
@@ -144,8 +197,13 @@ class _ProfileWidgetState extends State<ProfileWidget> {
             BackgroundIconComponent(
               child: Icon(icon, color: Colors.white),
             ),
-            SizedBox(width: scale.getWidth(2),),
-            Text(title,style: Theme.of(context).textTheme .headline1.copyWith(fontWeight: FontWeight.w400,color: isActive?Colors.black:ColorConfig.greyPrimary)),
+            SizedBox(
+              width: scale.getWidth(2),
+            ),
+            Text(title,
+                style: Theme.of(context).textTheme.headline1.copyWith(
+                    fontWeight: FontWeight.w400,
+                    color: isActive ? Colors.black : ColorConfig.greyPrimary)),
           ],
         ),
       ),

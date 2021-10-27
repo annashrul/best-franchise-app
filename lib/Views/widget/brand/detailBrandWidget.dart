@@ -7,6 +7,8 @@ import 'package:bestfranchise/Controllers/brand/detailBrandController.dart';
 import 'package:bestfranchise/Controllers/brand/favoriteBrandController.dart';
 import 'package:bestfranchise/Controllers/brand/franchiseController.dart';
 import 'package:bestfranchise/Controllers/brand/productBrandController.dart';
+import 'package:bestfranchise/Controllers/user/userController.dart';
+import 'package:bestfranchise/Databases/tableDatabase.dart';
 import 'package:bestfranchise/Helpers/general/generalHelper.dart';
 import 'package:bestfranchise/Views/component/brand/franchiseBrandComponent.dart';
 import 'package:bestfranchise/Views/component/brand/lokasiBrandComponent.dart';
@@ -75,6 +77,7 @@ class _DetailBrandWidgetState extends State<DetailBrandWidget> {
     final product = Provider.of<ProductBrandController>(context);
     final franchise = Provider.of<FranchiseController>(context);
     final favoirte = Provider.of<FavoriteBrandController>(context);
+    final user = Provider.of<UserController>(context);
     Widget child;
     if (brand.indexTabActive == 0) {
       child = ProdukBrandComponent(idBrand: widget.obj["id"]);
@@ -86,6 +89,8 @@ class _DetailBrandWidgetState extends State<DetailBrandWidget> {
       child = ReviewBrandComponent(idBrand: widget.obj["id"]);
     }
 
+    var fullname = user.dataUser[UserTable.fullname];
+    var brandNama = brand.detailBrandModel.data.title;
     return Scaffold(
       key: _scaffoldKey,
       appBar: GeneralHelper.appBarGeneral(
@@ -101,7 +106,12 @@ class _DetailBrandWidgetState extends State<DetailBrandWidget> {
                 alignment: Alignment.center,
                 padding: scale.getPadding(1, 2),
                 // child: Image.asset(StringConfig.imgLocal + "brandFavorite.png"),
-                child: BackgroundIconComponent(child: Icon(FontAwesome5Solid.heart,color: Colors.white,),),
+                child: BackgroundIconComponent(
+                  child: Icon(
+                    FontAwesome5Solid.heart,
+                    color: Colors.white,
+                  ),
+                ),
               ),
             ),
             // InTouchWidget(
@@ -121,7 +131,9 @@ class _DetailBrandWidgetState extends State<DetailBrandWidget> {
           label: "Bergabung sekarang?",
           labelColor: Colors.white,
           backgroundColor: ColorConfig.redPrimary,
-          callback: () => Navigator.of(context).pushNamed(RoutePath.joinWidget,
+
+          callback: () =>
+          Navigator.of(context).pushNamed(RoutePath.joinWidget,
               arguments: brand.detailBrandModel.data.toJson()),
         ),
       ),
@@ -137,11 +149,13 @@ class _DetailBrandWidgetState extends State<DetailBrandWidget> {
                   ? BaseLoading(height: 20, width: 100)
                   // : Image.network(brand.detailBrandModel.data.cover,width: double.infinity,fit: BoxFit.cover,),
                   : CachedNetworkImage(
-                    width: double.infinity,fit: BoxFit.cover,
-                    imageUrl: brand.detailBrandModel.data.cover,
-                    placeholder: (context, url) => BaseLoading(height: 20, width: 100),
-                    errorWidget: (context, url, error) => Icon(Icons.error),
-                  ),
+                      width: double.infinity,
+                      fit: BoxFit.cover,
+                      imageUrl: brand.detailBrandModel.data.cover,
+                      placeholder: (context, url) =>
+                          BaseLoading(height: 20, width: 100),
+                      errorWidget: (context, url, error) => Icon(Icons.error),
+                    ),
               brand.isLoading
                   ? BaseLoading(
                       height: 5,
@@ -179,26 +193,5 @@ class _DetailBrandWidgetState extends State<DetailBrandWidget> {
         ],
       ),
     );
-  }
-}
-
-void launchWhatsApp({
-  @required int phone,
-  @required String message,
-}) async {
-  String url() {
-    if (Platform.isAndroid) {
-      // add the [https]
-      return "https://wa.me/$phone/?text=${Uri.parse(message)}"; // new line
-    } else {
-      // add the [https]
-      return "https://api.whatsapp.com/send?phone=$phone=${Uri.parse(message)}"; // new line
-    }
-  }
-
-  if (await canLaunch(url())) {
-    await launch(url());
-  } else {
-    throw 'Could not launch ${url()}';
   }
 }

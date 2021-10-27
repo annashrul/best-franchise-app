@@ -28,10 +28,10 @@ class _PoinWidgetState extends State<PoinWidget> {
   @override
   void initState() {
     // TODO: implement initState
-    super.initState();
     controller = new ScrollController()..addListener(scrollListener);
     final data = Provider.of<PoinController>(context, listen: false);
     data.loadBonusPin(context: context);
+    super.initState();
   }
 
   @override

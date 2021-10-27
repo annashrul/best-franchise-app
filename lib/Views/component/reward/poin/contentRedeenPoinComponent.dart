@@ -1,5 +1,6 @@
 import 'package:bestfranchise/Configs/colorConfig.dart';
 import 'package:bestfranchise/Configs/stringConfig.dart';
+import 'package:bestfranchise/Controllers/redeemPoin/redeemPoinController.dart';
 import 'package:bestfranchise/Controllers/reward/poinController.dart';
 import 'package:bestfranchise/Helpers/general/generalHelper.dart';
 import 'package:bestfranchise/Views/component/general/touchEffectComponent.dart';
@@ -21,6 +22,41 @@ class ContentRedeemPoinComponent extends StatefulWidget {
 
 class _ContentRedeemPoinComponentState
     extends State<ContentRedeemPoinComponent> {
+  ScrollController controller;
+  void scrollListener() {
+    final poin = Provider.of<PoinController>(context, listen: false);
+    if (poin.indexActive == 0) {
+      final data = Provider.of<RedeemPoinController>(context, listen: false);
+      if (!data.isLoadingMerchandiseMore) {
+        if (controller.position.pixels == controller.position.maxScrollExtent) {
+          data.loadMoreM(context);
+        }
+      }
+    } else {
+      final data = Provider.of<RedeemPoinController>(context, listen: false);
+      if (!data.isLoadingVoucherMore) {
+        if (controller.position.pixels == controller.position.maxScrollExtent) {
+          data.loadMoreV(context);
+        }
+      }
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    // final promo = Provider.of<PromoController>(context, listen: false);
+    controller = new ScrollController()..addListener(scrollListener);
+    // promo.loadPromo(context: context);
+  }
+
+  // @override
+  // void dispose() {
+  //   super.dispose();
+  //   controller.removeListener(scrollListener);
+  // }
+
   @override
   Widget build(BuildContext context) {
     ScreenScaler scale = ScreenScaler()..init(context);
@@ -28,6 +64,7 @@ class _ContentRedeemPoinComponentState
 
     print(widget.object.toString());
     return ListView.separated(
+        controller: controller,
         padding: scale.getPadding(0, 0),
         primary: false,
         shrinkWrap: true,

@@ -14,9 +14,11 @@ class FieldComponent extends StatefulWidget {
   final int maxLength;
   final TextInputType keyboardType;
   final void Function() onTap;
-  final void Function() iconPrefix;
+  final bool readonly;
+  final IconData iconPrefix;
   final void Function(String code) onTapCountry;
   final bool isPhone;
+  final bool obscureText;
   FieldComponent(
       {this.controller,
       this.labelText,
@@ -25,7 +27,7 @@ class FieldComponent extends StatefulWidget {
       this.keyboardType = TextInputType.text,
       this.onTap,
       this.iconPrefix,
-      this.isPhone = false,
+      this.isPhone = false,this.readonly=false,this.obscureText=false,
       this.onTapCountry});
 
   @override
@@ -65,39 +67,14 @@ class _FieldComponentState extends State<FieldComponent> {
             Expanded(
               child: renderField(context: context),
             ),
-            if (widget.onTap == null)
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "${widget.controller.text.length}/${widget.maxLength}",
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline3
-                      .copyWith(color: ColorConfig.greyPrimary),
-                ),
-              )
-            else if (widget.iconPrefix != null)
-              InkWell(
-                onTap: () {},
-                child: BackgroundIconComponent(
-                    child: Icon(
-                  FontAwesome5Solid.copy,
-                  size: Theme.of(context).textTheme.headline3.fontSize,
-                  color: ColorConfig.greyPrimary,
-                )),
-              )
-            else
-              widget.onTap != null
-                  ? InkWell(
-                      onTap: () {},
-                      child: Icon(
-                        Icons.arrow_drop_down,
-                        size: Theme.of(context).textTheme.headline3.fontSize,
-                        color: ColorConfig.greyPrimary,
-                      ),
-                    )
-                  : null,
+            if(widget.maxLength!=null&&widget.iconPrefix==null)Align(
+              alignment: Alignment.centerLeft,
+              child: Text("${widget.controller.text.length}/${widget.maxLength}",textAlign: TextAlign.center,style: Theme.of(context).textTheme.headline3.copyWith(color: ColorConfig.greyPrimary),),
+            )
+            else widget.onTap!=null?InkResponse(
+              onTap: (){if (widget.onTap != null) widget.onTap();},
+              child: Icon(widget.iconPrefix!=null?widget.iconPrefix:Icons.arrow_drop_down,size:  Theme.of(context).textTheme.headline3.fontSize,color: ColorConfig.greyPrimary,),
+            ):SizedBox(),
           ],
         ));
   }
@@ -107,8 +84,9 @@ class _FieldComponentState extends State<FieldComponent> {
     return TextFormField(
       style: Theme.of(context).textTheme.headline2,
       controller: widget.controller,
-      maxLines: widget.maxLines,
-      readOnly: widget.onTap != null,
+      // maxLines: widget.maxLines,
+      readOnly: widget.readonly,
+      obscureText: widget.obscureText,
       decoration: widget.isPhone
           ? InputDecoration(
               border: InputBorder.none,
@@ -128,10 +106,7 @@ class _FieldComponentState extends State<FieldComponent> {
               hintText: widget.labelText),
       textInputAction: TextInputAction.done,
       keyboardType: widget.keyboardType,
-      onTap: () {
-        if (widget.onTap != null) widget.onTap();
-        if (widget.iconPrefix != null) widget.iconPrefix();
-      },
+
       onChanged: (e) {
         setState(() {});
       },
