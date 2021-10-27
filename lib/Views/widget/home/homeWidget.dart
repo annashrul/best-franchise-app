@@ -2,6 +2,7 @@ import 'package:bestfranchise/Configs/routeConfig.dart';
 import 'package:bestfranchise/Controllers/brand/listBrandController.dart';
 import 'package:bestfranchise/Controllers/home/rewardHomeController.dart';
 import 'package:bestfranchise/Controllers/slider/sliderHomeController.dart';
+import 'package:bestfranchise/Helpers/general/generalHelper.dart';
 import 'package:bestfranchise/Views/component/general/loadingComponent.dart';
 import 'package:bestfranchise/Views/component/general/titleComponent.dart';
 import 'package:bestfranchise/Views/component/home/bestBrandAndFranchiseComponent.dart';
@@ -103,7 +104,9 @@ class _HomeWidgetState extends State<HomeWidget> {
                   : BestPaketHemat(valPh),
               Divider(),
               TitleComponent(
-                callback: () {},
+                callback: () {
+                  GeneralHelper.jumpToBrowser(url: "https://www.youtube.com/c/BhaktiAlamsyahBEST");
+                },
                 title: "BEST Youtube Channel",
               ),
               SizedBox(height: scale.getHeight(0.5)),

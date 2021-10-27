@@ -47,7 +47,7 @@ class _BestYoutubeChannelComponentState
                       child: Image.network(
                         val.banner,
                         fit: BoxFit.fitHeight,
-                        width: scale.getWidth(40),
+                        width: scale.getWidth(100),
                         // height: scale.getHeight(15),
                       ),
                     ),
