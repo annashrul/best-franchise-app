@@ -133,8 +133,9 @@ class _ContentRedeemPoinComponentState
                                   ),
                                   Text(
                                     poin.indexActive == 0
-                                        ? poin.merchandiseModel.data[index]
-                                            .hargaCoret
+                                        ? GeneralHelper().formatter.format(
+                                            int.parse(poin.merchandiseModel
+                                                .data[index].hargaCoret))
                                         : GeneralHelper.myDate(poin.voucherModel
                                             .data[index].expiredDate),
                                     style: Theme.of(context)

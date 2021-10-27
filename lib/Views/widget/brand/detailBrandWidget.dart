@@ -22,6 +22,7 @@ import 'package:bestfranchise/Views/component/general/touchEffectComponent.dart'
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:flutter_open_whatsapp/flutter_open_whatsapp.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
@@ -131,10 +132,8 @@ class _DetailBrandWidgetState extends State<DetailBrandWidget> {
           label: "Bergabung sekarang?",
           labelColor: Colors.white,
           backgroundColor: ColorConfig.redPrimary,
-          callback: () => GeneralHelper.launchWhatsApp(
-              message:
-                  "Hallo Admin, Saya $fullname tertarik dengan franchise $brandNama. Mohon diinfokan langkah-langkah selanjutnya. Terimakasih",
-              phone: 6282464154212),
+          callback: () => FlutterOpenWhatsapp.sendSingleMessage("6282464154212",
+              "Hallo Admin, Saya $fullname tertarik dengan franchise $brandNama. Mohon diinfokan langkah-langkah selanjutnya. Terimakasih"),
           // callback: () =>
           // Navigator.of(context).pushNamed(RoutePath.joinWidget,
           //     arguments: brand.detailBrandModel.data.toJson()),

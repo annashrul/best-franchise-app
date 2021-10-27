@@ -12,7 +12,9 @@ import 'package:bestfranchise/Views/component/general/touchEffectComponent.dart'
 import 'package:bestfranchise/Views/component/home/rewardCardComponent.dart';
 import 'package:bestfranchise/Views/component/profile/modalKetentuanLayananComponent.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:flutter_open_whatsapp/flutter_open_whatsapp.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
 import 'package:provider/provider.dart';
 import 'dart:ui' as ui;
@@ -23,12 +25,35 @@ class ProfileWidget extends StatefulWidget {
 }
 
 class _ProfileWidgetState extends State<ProfileWidget> {
+  String _platformVersion = 'Unknown';
+
   @override
   void initState() {
     // TODO: implement initState
-    super.initState();
     final data = Provider.of<CompanyController>(context, listen: false);
     data.loadCompany(context: context);
+    initPlatformState();
+    super.initState();
+  }
+
+  // Platform messages are asynchronous, so we initialize in an async method.
+  Future<void> initPlatformState() async {
+    String platformVersion;
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    try {
+      platformVersion = await FlutterOpenWhatsapp.platformVersion;
+    } on PlatformException {
+      platformVersion = 'Failed to get platform version.';
+    }
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) return;
+
+    setState(() {
+      _platformVersion = platformVersion;
+    });
   }
 
   @override
@@ -119,10 +144,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                     title: "Live Chat",
                     icon: FontAwesome5Solid.comments,
                     callback: () {
-                      GeneralHelper.launchWhatsApp(
-                          phone: 6281223165037,
-                          message:
-                              "Hallo Admin, Saya $fullname ada beberapa hal yang ingin saya tanyakan, mohon agar segera di respon. Terima kasih.");
+                      FlutterOpenWhatsapp.sendSingleMessage("6281223165037",
+                          "Hallo Admin, Saya $fullname ada beberapa hal yang ingin saya tanyakan, mohon agar segera di respon. Terima kasih.");
                     }),
                 Padding(padding: scale.getPadding(0, 0.8), child: Divider()),
                 buildSectioMenu(

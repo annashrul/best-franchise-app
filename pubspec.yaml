@@ -39,6 +39,7 @@ dependencies:
   cached_network_image: ^2.4.1
   path_provider:
   logger: ^1.1.0
+  flutter_open_whatsapp: ^0.1.2
 
 
 

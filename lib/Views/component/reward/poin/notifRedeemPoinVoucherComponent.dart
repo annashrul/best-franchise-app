@@ -37,7 +37,7 @@ class NotifRedeemPoinVoucherComponent extends StatelessWidget {
             text: 'Poin kamu sejumlah ',
             children: [
               TextSpan(
-                  text: valV.poin,
+                  text: GeneralHelper().formatter.format(int.parse(valV.poin)),
                   style: Theme.of(context)
                       .textTheme
                       .headline1

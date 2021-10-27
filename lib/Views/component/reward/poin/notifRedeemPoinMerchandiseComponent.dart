@@ -1,6 +1,7 @@
 import 'package:bestfranchise/Configs/colorConfig.dart';
 import 'package:bestfranchise/Configs/formConfig.dart';
 import 'package:bestfranchise/Controllers/reward/poinController.dart';
+import 'package:bestfranchise/Helpers/general/generalHelper.dart';
 import 'package:bestfranchise/Models/RedeemPoin/merchandiseModel.dart';
 import 'package:bestfranchise/Views/component/general/buttonComponent.dart';
 import 'package:bestfranchise/Views/component/general/fieldComponent.dart';
@@ -44,7 +45,7 @@ class NotifRedeemPoinMerchandiseComponent extends StatelessWidget {
             text: 'Poin kamu sejumlah ',
             children: [
               TextSpan(
-                  text: valM.poin,
+                  text: GeneralHelper().formatter.format(int.parse(valM.poin)),
                   style: Theme.of(context)
                       .textTheme
                       .headline1
