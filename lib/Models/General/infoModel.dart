@@ -22,23 +22,24 @@ class InfoModel {
   List<dynamic> total;
 
   factory InfoModel.fromJson(Map<String, dynamic> json) => InfoModel(
-    meta: Meta.fromJson(json["meta"]),
-    data: Data.fromJson(json["data"]),
-    pagination: Pagination.fromJson(json["pagination"]),
-    total: List<dynamic>.from(json["total"].map((x) => x)),
-  );
+        meta: Meta.fromJson(json["meta"]),
+        data: Data.fromJson(json["data"]),
+        pagination: Pagination.fromJson(json["pagination"]),
+        total: List<dynamic>.from(json["total"].map((x) => x)),
+      );
 
   Map<String, dynamic> toJson() => {
-    "meta": meta.toJson(),
-    "data": data.toJson(),
-    "pagination": pagination.toJson(),
-    "total": List<dynamic>.from(total.map((x) => x)),
-  };
+        "meta": meta.toJson(),
+        "data": data.toJson(),
+        "pagination": pagination.toJson(),
+        "total": List<dynamic>.from(total.map((x) => x)),
+      };
 }
 
 class Data {
   Data({
     this.totalSaldo,
+    this.totalWd,
     this.saldoKomisi,
     this.saldoRoyalti,
     this.poin,
@@ -47,6 +48,7 @@ class Data {
   });
 
   String totalSaldo;
+  String totalWd;
   String saldoKomisi;
   String saldoRoyalti;
   String poin;
@@ -54,22 +56,24 @@ class Data {
   Rekening rekening;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-    totalSaldo: json["total_saldo"],
-    saldoKomisi: json["saldo_komisi"],
-    saldoRoyalti: json["saldo_royalti"],
-    poin: json["poin"],
-    minWd: json["min_wd"],
-    rekening: Rekening.fromJson(json["rekening"]),
-  );
+        totalSaldo: json["total_saldo"],
+        totalWd: json["total_wd"],
+        saldoKomisi: json["saldo_komisi"],
+        saldoRoyalti: json["saldo_royalti"],
+        poin: json["poin"],
+        minWd: json["min_wd"],
+        rekening: Rekening.fromJson(json["rekening"]),
+      );
 
   Map<String, dynamic> toJson() => {
-    "total_saldo": totalSaldo,
-    "saldo_komisi": saldoKomisi,
-    "saldo_royalti": saldoRoyalti,
-    "poin": poin,
-    "min_wd": minWd,
-    "rekening": rekening.toJson(),
-  };
+        "total_saldo": totalSaldo,
+        "total_wd": totalWd,
+        "saldo_komisi": saldoKomisi,
+        "saldo_royalti": saldoRoyalti,
+        "poin": poin,
+        "min_wd": minWd,
+        "rekening": rekening.toJson(),
+      };
 }
 
 class Rekening {
@@ -98,30 +102,30 @@ class Rekening {
   dynamic updatedAt;
 
   factory Rekening.fromJson(Map<String, dynamic> json) => Rekening(
-    id: json["id"],
-    idMember: json["id_member"],
-    fullname: json["fullname"],
-    idBank: json["id_bank"],
-    bankName: json["bank_name"],
-    bankLogo: json["bank_logo"],
-    accName: json["acc_name"],
-    accNo: json["acc_no"],
-    createdAt: json["created_at"],
-    updatedAt: json["updated_at"],
-  );
+        id: json["id"],
+        idMember: json["id_member"],
+        fullname: json["fullname"],
+        idBank: json["id_bank"],
+        bankName: json["bank_name"],
+        bankLogo: json["bank_logo"],
+        accName: json["acc_name"],
+        accNo: json["acc_no"],
+        createdAt: json["created_at"],
+        updatedAt: json["updated_at"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "id_member": idMember,
-    "fullname": fullname,
-    "id_bank": idBank,
-    "bank_name": bankName,
-    "bank_logo": bankLogo,
-    "acc_name": accName,
-    "acc_no": accNo,
-    "created_at": createdAt,
-    "updated_at": updatedAt,
-  };
+        "id": id,
+        "id_member": idMember,
+        "fullname": fullname,
+        "id_bank": idBank,
+        "bank_name": bankName,
+        "bank_logo": bankLogo,
+        "acc_name": accName,
+        "acc_no": accNo,
+        "created_at": createdAt,
+        "updated_at": updatedAt,
+      };
 }
 
 class Meta {
@@ -136,24 +140,22 @@ class Meta {
   String message;
 
   factory Meta.fromJson(Map<String, dynamic> json) => Meta(
-    status: json["status"],
-    code: json["code"],
-    message: json["message"],
-  );
+        status: json["status"],
+        code: json["code"],
+        message: json["message"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "status": status,
-    "code": code,
-    "message": message,
-  };
+        "status": status,
+        "code": code,
+        "message": message,
+      };
 }
 
 class Pagination {
   Pagination();
 
-  factory Pagination.fromJson(Map<String, dynamic> json) => Pagination(
-  );
+  factory Pagination.fromJson(Map<String, dynamic> json) => Pagination();
 
-  Map<String, dynamic> toJson() => {
-  };
+  Map<String, dynamic> toJson() => {};
 }

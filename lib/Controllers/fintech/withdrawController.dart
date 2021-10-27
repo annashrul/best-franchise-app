@@ -14,12 +14,33 @@ class WithdrawController with ChangeNotifier {
   TextEditingController bankController = new TextEditingController();
   WithdrawModel withdrawModel;
   bool isLoading = true;
+  bool isLoadMoreList = false;
   int perPage = 10;
+  DateTime dateFrom = DateTime.now(), dateTo = DateTime.now();
+  setDate({BuildContext context, input}) {
+    dateFrom = input["from"];
+    dateTo = input["to"];
+    isLoading = true;
+    loadWithdraw(context: context);
+    notifyListeners();
+  }
+
+  loadMore(BuildContext context) {
+    if (perPage < withdrawModel.pagination.total) {
+      isLoadMoreList = true;
+      perPage += 10;
+      loadWithdraw(context: context);
+    } else {
+      isLoadMoreList = false;
+    }
+    notifyListeners();
+  }
 
   Future loadWithdraw({BuildContext context}) async {
     if (withdrawModel == null) isLoading = true;
     final res = await BaseController().get(
-        url: "transaction/withdrawal?page=1&perpage=$perPage&status=1",
+        url:
+            "transaction/withdrawal?page=1&perpage=$perPage&datefrom=${GeneralHelper.convertDateToYMD(dateFrom)}&dateto=${GeneralHelper.convertDateToYMD(dateTo)}",
         context: context);
     print("############## ${res["data"].length}");
     if (res["data"].length > 0) {
@@ -71,7 +92,9 @@ class WithdrawController with ChangeNotifier {
             if (res != null) {
               info.get(context: context);
               GeneralHelper.modal(
-                  isBack:true,context: context, child: ModalSuccessComponent());
+                  isBack: true,
+                  context: context,
+                  child: ModalSuccessComponent());
             }
           },
         ),

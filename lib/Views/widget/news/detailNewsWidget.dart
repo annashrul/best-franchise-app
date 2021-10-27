@@ -20,15 +20,15 @@ class _DetailNewsWidgetState extends State<DetailNewsWidget> {
   @override
   void initState() {
     // TODO: implement initState
-    super.initState();
     final news = Provider.of<NewsController>(context, listen: false);
     news.loadNewsDet(context, widget.obj["id"]);
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     ScreenScaler scale = ScreenScaler()..init(context);
-    final news = Provider.of<NewsController>(context, listen: false);
+    final news = Provider.of<NewsController>(context);
     // final val = news.newsDetModel.data;
     return Scaffold(
       appBar: GeneralHelper.appBarGeneral(

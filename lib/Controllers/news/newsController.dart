@@ -73,12 +73,9 @@ class NewsController with ChangeNotifier {
     final res =
         await BaseController().get(url: "content/get/$id", context: context);
     print("############## ${res["data"]}");
-    if (!res["data"].isEmpty) {
-      NewsDetModel result = NewsDetModel.fromJson(res);
-      newsDetModel = result;
-    } else {
-      newsDetModel = null;
-    }
+    // if (!res["data"].isEmpty) {
+    NewsDetModel result = NewsDetModel.fromJson(res);
+    newsDetModel = result;
     isLoadingDet = false;
     notifyListeners();
   }

@@ -141,7 +141,7 @@ class Pagination {
     this.from,
   });
 
-  String total;
+  int total;
   int perPage;
   int offset;
   int to;

@@ -398,8 +398,7 @@ class GeneralHelper {
   static myCopyClipboard(context, text) {
     return Clipboard.setData(new ClipboardData(text: text.toUpperCase()))
         .then((_) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text("Teks berhasil disalin.")));
+      GeneralHelper.toast(msg: "Teks berhasil disalin");
     });
   }
 

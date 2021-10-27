@@ -1,6 +1,7 @@
 import 'package:bestfranchise/Configs/colorConfig.dart';
 import 'package:bestfranchise/Configs/stringConfig.dart';
 import 'package:bestfranchise/Controllers/reward/poinController.dart';
+import 'package:bestfranchise/Helpers/general/generalHelper.dart';
 import 'package:bestfranchise/Models/RedeemPoin/voucherModel.dart';
 import 'package:bestfranchise/Views/component/general/buttonComponent.dart';
 import 'package:flutter/material.dart';
@@ -90,8 +91,7 @@ class NotifRedeemPoinVoucherComponent extends StatelessWidget {
           backgroundColor: ColorConfig.redPrimary,
           label: "Selesai",
           callback: () => valV.isclaimed == "0"
-              ? ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text("Belum dapat diselesaikan!")))
+              ? GeneralHelper.toast(msg: "Belum dapat diselesaikan")
               : poin.redeemV(context: context, field: {"id_voucher": valV.id}),
         )
       ],

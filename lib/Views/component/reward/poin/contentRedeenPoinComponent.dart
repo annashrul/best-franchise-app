@@ -113,9 +113,8 @@ class _ContentRedeemPoinComponentState
                                       ? poin.merchandiseModel.data[index]
                                                   .isclaimed ==
                                               "0"
-                                          ? ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                              content:
-                                                  Text("Belum bisa diklaim")))
+                                          ? GeneralHelper.toast(
+                                              msg: "Belum bisa diklaim")
                                           : GeneralHelper.dialog(
                                               context: context,
                                               child: <Widget>[
@@ -123,15 +122,18 @@ class _ContentRedeemPoinComponentState
                                                       poin.merchandiseModel
                                                           .data[index])
                                                 ])
-                                      : poin.voucherModel.data[index].isclaimed ==
+                                      : poin.voucherModel.data[index]
+                                                  .isclaimed ==
                                               "0"
-                                          ? ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                              content:
-                                                  Text("Belum bisa diklaim")))
-                                          : GeneralHelper.dialog(context: context, child: <Widget>[
-                                              NotifRedeemPoinVoucherComponent(
-                                                  poin.voucherModel.data[index])
-                                            ]),
+                                          ? GeneralHelper.toast(
+                                              msg: "Belum bisa diklaim")
+                                          : GeneralHelper.dialog(
+                                              context: context,
+                                              child: <Widget>[
+                                                  NotifRedeemPoinVoucherComponent(
+                                                      poin.voucherModel
+                                                          .data[index])
+                                                ]),
                                   child: Container(
                                     padding: scale.getPadding(0.5, 1),
                                     decoration: BoxDecoration(
