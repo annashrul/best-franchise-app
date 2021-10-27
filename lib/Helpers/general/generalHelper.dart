@@ -26,16 +26,15 @@ class GeneralHelper {
   final formatter = new NumberFormat("#,###");
 
   static Future sendWa({BuildContext context,String no,String msg})async{
-
     try{
       print("##################### ONTAP");
       GeneralHelper.loadingDialog(context);
       await FlutterOpenWhatsapp.sendSingleMessage("$no",msg).timeout(Duration(seconds: 10));
       Navigator.of(context).pop();
-
     }catch(e){
       Navigator.of(context).pop();
-      GeneralHelper.toast(msg: "aplikasi whatsApp kamu tidak ditemukan");
+      launchWhatsApp(phone: int.parse(no),message: msg);
+      // GeneralHelper.toast(msg: "aplikasi whatsApp kamu tidak ditemukan");
       print("##################### EROR");
     }
   }
@@ -291,12 +290,11 @@ class GeneralHelper {
 
   static jumpToBrowser({String url}) async {
     print("####################### LINK $url");
-    await launch(url);
-    // if (await canLaunch(url)) {
-    //   return await launch(url);
-    // } else {
-    //   toast(msg: "link tidak ditemukan");
-    // }
+    if (await canLaunch(url)) {
+      return await launch(url);
+    } else {
+      toast(msg: "link tidak ditemukan");
+    }
   }
 
   static headerModal(
