@@ -188,7 +188,11 @@ class _ProfileEditWidgetState extends State<ProfileEditWidget> {
               FieldComponent(
                 controller: profileEdit.idReferralController,
                 labelText: "ID Referral",
-                onTap: () => {},
+                onTap: () => {
+                  GeneralHelper.myCopyClipboard(
+                      context, profileEdit.idReferralController.text)
+                },
+                iconPrefix: () => {},
                 maxLength: 50,
               ),
               SizedBox(height: scale.getHeight(1)),
