@@ -63,9 +63,13 @@ class _SectionThreeNewsComponentState extends State<SectionThreeNewsComponent> {
                         Text(
                           val.title,
                           style: Theme.of(context).textTheme.headline2,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
                         ),
                         Text(
                           val.caption,
+                          maxLines: 4,
+                          overflow: TextOverflow.ellipsis,
                           style: Theme.of(context)
                               .textTheme
                               .headline3

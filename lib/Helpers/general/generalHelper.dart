@@ -273,12 +273,13 @@ class GeneralHelper {
   }
 
   static jumpToBrowser({String url}) async {
-    print(url);
-    if (await canLaunch(url)) {
-      return await launch(url);
-    } else {
-      toast(msg: "link tidak ditemukan");
-    }
+    print("####################### LINK $url");
+    await launch(url);
+    // if (await canLaunch(url)) {
+    //   return await launch(url);
+    // } else {
+    //   toast(msg: "link tidak ditemukan");
+    // }
   }
 
   static headerModal(

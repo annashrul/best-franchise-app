@@ -46,10 +46,12 @@ class _SectionOneNewsComponentState extends State<SectionOneNewsComponent> {
                         val.photo,
                         fit: BoxFit.cover,
                         width: scale.getWidth(70),
+                        height: scale.getHeight(20),
+
                       ),
                     ),
                     Container(
-                      height: scale.getHeight(7),
+                      height: scale.getHeight(8),
                       padding: scale.getPadding(0.5, 2),
                       width: scale.getWidth(70),
                       decoration: BoxDecoration(
@@ -70,12 +72,16 @@ class _SectionOneNewsComponentState extends State<SectionOneNewsComponent> {
                             children: [
                               Text(
                                 val.title,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
                                 style: Theme.of(context)
                                     .textTheme
                                     .headline2
                                     .copyWith(color: Colors.white),
                               ),
                               Text(val.caption,
+                                  maxLines: 3,
+                                  overflow: TextOverflow.ellipsis,
                                   style: Theme.of(context)
                                       .textTheme
                                       .headline3
