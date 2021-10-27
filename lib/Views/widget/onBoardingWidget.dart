@@ -2,6 +2,8 @@ import 'package:bestfranchise/Configs/colorConfig.dart';
 import 'package:bestfranchise/Configs/routeConfig.dart';
 import 'package:bestfranchise/Configs/stringConfig.dart';
 import 'package:bestfranchise/Controllers/slider/onBoardingController.dart';
+import 'package:bestfranchise/Views/component/general/loadingComponent.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:provider/provider.dart';
 import '../component/general/buttonComponent.dart';
@@ -78,11 +80,19 @@ class _OnBoardingWidgetState extends State<OnBoardingWidget> {
                             children: [
                               Container(
                                 margin:scale.getMargin(5,0),
-                                child: Image.network(
-                                    slide.banner,
-                                    fit:BoxFit.contain,
+                                child: CachedNetworkImage(
                                   height: scale.getHeight(20),
+                                  fit: BoxFit.contain,
+                                  imageUrl: slide.banner,
+                                  placeholder: (context, url) =>BaseLoading(height: 20, width: 50,radius: 10,),
+                                  errorWidget: (context, url, error) => Icon(Icons.error),
                                 ),
+                                //
+                                // child: Image.network(
+                                //     slide.banner,
+                                //     fit:BoxFit.contain,
+                                //   height: scale.getHeight(20),
+                                // ),
                               ),
                               Padding(
                                 padding: scale.getPadding(0, 10),
