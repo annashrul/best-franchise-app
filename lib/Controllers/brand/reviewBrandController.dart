@@ -1,5 +1,6 @@
 
 import 'package:bestfranchise/Controllers/baseController.dart';
+import 'package:bestfranchise/Models/Brand/allReviewBrandModel.dart';
 import 'package:bestfranchise/Models/Brand/detailBrandModel.dart';
 import 'package:bestfranchise/Models/Brand/productBrandModel.dart';
 import 'package:bestfranchise/Models/Brand/reviewBrandModel.dart';
@@ -7,10 +8,10 @@ import 'package:flutter/cupertino.dart';
 
 class ReviewBrandController with ChangeNotifier{
   ReviewBrandModel reviewBrandModel;
-  bool isLoading=true;
-  bool isLoadMore=false;
-  int perPage=10;
-  ScrollController controller;
+  AllReviewBrandModel allReviewBrandModel;
+  bool isLoading=true,isLoadingAllReviewBrand=true;
+  bool isLoadMoreAllReviewBrand=false;
+  int perPage=5,perPageAllReviewBrand=10;
 
   loadReviewBrand({BuildContext context,String idBrand})async{
     if(reviewBrandModel==null) isLoading=true;
@@ -22,23 +23,34 @@ class ReviewBrandController with ChangeNotifier{
     else{
       reviewBrandModel=null;
     }
-
     isLoading=false;
-    isLoadMore=false;
+    notifyListeners();
+  }
+  loadAllReviewBrand({BuildContext context,String idBrand})async{
+    if(allReviewBrandModel==null) isLoadingAllReviewBrand=true;
+    final res=await BaseController().get(url: "brand/review/$idBrand?page=1&perpage=$perPageAllReviewBrand",context: context);
+    if(res["data"].length>0){
+      AllReviewBrandModel result = AllReviewBrandModel.fromJson(res);
+      allReviewBrandModel = result;
+    }
+    else{
+      allReviewBrandModel=null;
+    }
+    isLoadingAllReviewBrand=false;
+    isLoadMoreAllReviewBrand=false;
+    notifyListeners();
+  }
+  loadMoreAllReviewBrand(BuildContext context,String idBrand) {
+    if (perPageAllReviewBrand < int.parse(allReviewBrandModel.pagination.total)) {
+      isLoadMoreAllReviewBrand = true;
+      perPageAllReviewBrand += 10;
+      loadAllReviewBrand(context: context,idBrand: idBrand);
+    } else {
+      isLoadMoreAllReviewBrand = false;
+    }
     notifyListeners();
   }
 
-  void scrollListener({BuildContext context}) {
-    if(!isLoading){
-      if (controller.position.pixels == controller.position.maxScrollExtent) {
-        if(perPage<int.parse(reviewBrandModel.pagination.total)){
-          print("LOADMORE REVIEW");
-          perPage+=10;
-          isLoadMore=true;
-          notifyListeners();
-        }
-      }
-    }
-  }
+
 
 }

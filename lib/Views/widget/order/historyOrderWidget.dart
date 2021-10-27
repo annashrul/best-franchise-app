@@ -110,6 +110,7 @@ class _HistoryOrderWidgetState extends State<HistoryOrderWidget> with SingleTick
           ),
           body: TabBarView(
             controller: tabController,
+            physics: NeverScrollableScrollPhysics(),
             children:historyView,
           ),
         )

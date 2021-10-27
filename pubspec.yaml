@@ -36,9 +36,10 @@ dependencies:
   share: ^2.0.4
   photo_view: ^0.13.0
   jwt_decoder: ^2.0.1
-  path_provider: ^2.0.5
+  cached_network_image: ^2.4.1
+  path_provider:
   logger: ^1.1.0
-  dio: ^3.0.10
+
 
 
 

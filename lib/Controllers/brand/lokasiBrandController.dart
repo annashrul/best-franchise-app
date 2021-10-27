@@ -15,7 +15,7 @@ class LokasiBrandController with ChangeNotifier{
   int perPage=5,perPageAllLokasi=10;
   loadLokasi({BuildContext context,String idBrand})async{
     if(lokasiBrandModel==null) isLoading=true;
-    final res=await BaseController().get(url: "franchise?page=1&perpage=$perPage&brand=$idBrand",context: context);
+    final res=await BaseController().get(url: "franchise?page=1&perpage=$perPage&brand=$idBrand&status=3",context: context);
     if(res==null){
       lokasiBrandModel=null;
     }else if(res["data"].length > 0){
