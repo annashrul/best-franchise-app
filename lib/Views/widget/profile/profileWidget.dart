@@ -132,7 +132,9 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                 buildSectioMenu(
                     title: "Pengaturan Bahasa",
                     icon: FontAwesome5Solid.language,
-                    callback: () {}),
+                    callback: () {},
+                    isActive: false
+                    ),
                 Padding(padding: scale.getPadding(0, 0.8), child: Divider()),
                 buildSectioMenu(
                     title: "Ketentuan Layanan",
@@ -195,7 +197,12 @@ class _ProfileWidgetState extends State<ProfileWidget> {
     return Padding(
       padding: scale.getPadding(0, 3),
       child: InTouchWidget(
-        callback: callback,
+        callback: (){
+          if(!isActive){
+            return GeneralHelper.toast(msg: "fitur ini masih dalam tahap pengembangan");
+          }
+          callback();
+        },
         child: Row(
           children: [
             BackgroundIconComponent(
