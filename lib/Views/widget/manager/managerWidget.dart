@@ -20,34 +20,12 @@ class ManagerWidget extends StatefulWidget {
 }
 
 class _ManagerWidgetState extends State<ManagerWidget> {
-  String _platformVersion = 'Unknown';
   @override
   void initState() {
     // TODO: implement initState
     final slider = Provider.of<SliderHomeController>(context, listen: false);
     slider.getSolusi(context: context);
-    initPlatformState();
     super.initState();
-  }
-
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    String platformVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    try {
-      platformVersion = await FlutterOpenWhatsapp.platformVersion;
-    } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
-    }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-
-    setState(() {
-      _platformVersion = platformVersion;
-    });
   }
 
   @override
@@ -83,9 +61,12 @@ class _ManagerWidgetState extends State<ManagerWidget> {
               label: "Whatsapp kami",
               labelColor: Colors.white,
               backgroundColor: ColorConfig.redPrimary,
-              callback: () {
-                FlutterOpenWhatsapp.sendSingleMessage("6281223165037",
-                    "Hallo Admin, Saya $fullname berminat untuk bergabung dengan BEST Franchise, apakah ada referensi pengelola yang cocok untuk saya? Terima kasih.");
+              callback: () async{
+                await GeneralHelper.sendWa(
+                    context: context,
+                    no:"6281223165037",
+                    msg: "Hallo Admin, Saya $fullname ada beberapa hal yang ingin saya tanyakan, mohon agar segera di respon. Terima kasih."
+                );
               },
             )
           ],

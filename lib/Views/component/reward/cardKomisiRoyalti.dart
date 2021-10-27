@@ -1,9 +1,12 @@
 import 'package:bestfranchise/Configs/stringConfig.dart';
+import 'package:bestfranchise/Controllers/user/userController.dart';
+import 'package:bestfranchise/Helpers/general/generalHelper.dart';
 import 'package:bestfranchise/Views/component/general/touchEffectComponent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_open_whatsapp/flutter_open_whatsapp.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class CardKomisiRoyalti extends StatelessWidget {
   final String title;
@@ -25,7 +28,6 @@ class CardKomisiRoyalti extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ScreenScaler scale = ScreenScaler()..init(context);
-
     return Card(
       margin: scale.getMarginLTRB(0, 0, 0, 1),
       shape: RoundedRectangleBorder(
@@ -34,9 +36,12 @@ class CardKomisiRoyalti extends StatelessWidget {
       elevation: 1,
       child: InTouchWidget(
         radius: 15,
-        callback: () {
-          FlutterOpenWhatsapp.sendSingleMessage(downlineMobileNo,
-              "Terima kasih telah menjadi Franchise kami, semoga bisnis anda lancar selalu.");
+        callback: ()async {
+          await GeneralHelper.sendWa(
+              context: context,
+              no:downlineMobileNo,
+              msg: "Terima kasih telah menjadi Franchise kami, semoga bisnis anda lancar selalu."
+          );
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

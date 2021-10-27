@@ -12,6 +12,7 @@ import 'package:bestfranchise/Views/component/general/touchEffectComponent.dart'
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_open_whatsapp/flutter_open_whatsapp.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
@@ -23,6 +24,22 @@ import 'package:jwt_decoder/jwt_decoder.dart';
 
 class GeneralHelper {
   final formatter = new NumberFormat("#,###");
+
+  static Future sendWa({BuildContext context,String no,String msg})async{
+
+    try{
+      print("##################### ONTAP");
+      GeneralHelper.loadingDialog(context);
+      await FlutterOpenWhatsapp.sendSingleMessage("$no",msg).timeout(Duration(seconds: 10));
+      Navigator.of(context).pop();
+
+    }catch(e){
+      Navigator.of(context).pop();
+      GeneralHelper.toast(msg: "aplikasi whatsApp kamu tidak ditemukan");
+      print("##################### EROR");
+    }
+  }
+
 
   static isTokenExpired(BuildContext context) async {
     final provider = Provider.of<UserController>(context, listen: false);

@@ -19,34 +19,12 @@ class BusinessPlaceWidget extends StatefulWidget {
 }
 
 class _BusinessPlaceWidgetState extends State<BusinessPlaceWidget> {
-  String _platformVersion = 'Unknown';
   @override
   void initState() {
     // TODO: implement initState
     final slider = Provider.of<SliderHomeController>(context, listen: false);
     slider.getSolusi(context: context);
-    initPlatformState();
     super.initState();
-  }
-
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    String platformVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    try {
-      platformVersion = await FlutterOpenWhatsapp.platformVersion;
-    } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
-    }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-
-    setState(() {
-      _platformVersion = platformVersion;
-    });
   }
 
   @override
@@ -72,9 +50,12 @@ class _BusinessPlaceWidgetState extends State<BusinessPlaceWidget> {
                 borderRadius: BorderRadius.circular(100.0),
               ),
               color: ColorConfig.redPrimary,
-              onPressed: () {
-                FlutterOpenWhatsapp.sendSingleMessage("6281223165037",
-                    "Hallo Admin, Saya $fullname berminat untuk bergabung dengan BEST Franchise, apakah ada referensi tempat yang cocok untuk saya? Terima kasih.");
+              onPressed: ()async {
+                await GeneralHelper.sendWa(
+                    context: context,
+                    no:"6281223165037",
+                    msg: "Hallo Admin, Saya $fullname ada beberapa hal yang ingin saya tanyakan, mohon agar segera di respon. Terima kasih."
+                );
               },
               child: Text(
                 "Whatsapp kami",

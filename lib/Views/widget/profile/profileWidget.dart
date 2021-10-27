@@ -25,36 +25,14 @@ class ProfileWidget extends StatefulWidget {
 }
 
 class _ProfileWidgetState extends State<ProfileWidget> {
-  String _platformVersion = 'Unknown';
-
   @override
   void initState() {
     // TODO: implement initState
     final data = Provider.of<CompanyController>(context, listen: false);
     data.loadCompany(context: context);
-    initPlatformState();
     super.initState();
   }
 
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    String platformVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    try {
-      platformVersion = await FlutterOpenWhatsapp.platformVersion;
-    } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
-    }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-
-    setState(() {
-      _platformVersion = platformVersion;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -144,17 +122,11 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                     title: "Live Chat",
                     icon: FontAwesome5Solid.comments,
                     callback: () async{
-                      try{
-                        print("##################### ONTAP");
-                        GeneralHelper.loadingDialog(context);
-                        await FlutterOpenWhatsapp.sendSingleMessage("6281223165037","Hallo Admin, Saya $fullname ada beberapa hal yang ingin saya tanyakan, mohon agar segera di respon. Terima kasih.").timeout(Duration(seconds: 10));
-                        Navigator.of(context).pop();
-
-                      }catch(e){
-                        Navigator.of(context).pop();
-                        GeneralHelper.toast(msg: "aplikasi whatsApp tidak ditemukan");
-                        print("##################### EROR");
-                      }
+                      await GeneralHelper.sendWa(
+                        context: context,
+                        no:"6281223165037",
+                        msg: "Hallo Admin, Saya $fullname ada beberapa hal yang ingin saya tanyakan, mohon agar segera di respon. Terima kasih."
+                      );
                     }),
                 Padding(padding: scale.getPadding(0, 0.8), child: Divider()),
                 buildSectioMenu(
