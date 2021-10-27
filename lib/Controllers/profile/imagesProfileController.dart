@@ -44,6 +44,8 @@ class ImagesProfileController with ChangeNotifier {
         context: context);
     if (res != null) {
       GeneralHelper.modal(context: context, child: ModalSuccessComponent());
+      user.getDataUser();
+      user.loadUserDet(context, user.dataUser[UserTable.idUser]);
     }
     notifyListeners();
   }
