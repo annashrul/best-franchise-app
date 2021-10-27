@@ -143,9 +143,18 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                 buildSectioMenu(
                     title: "Live Chat",
                     icon: FontAwesome5Solid.comments,
-                    callback: () {
-                      FlutterOpenWhatsapp.sendSingleMessage("6281223165037",
-                          "Hallo Admin, Saya $fullname ada beberapa hal yang ingin saya tanyakan, mohon agar segera di respon. Terima kasih.");
+                    callback: () async{
+                      try{
+                        print("##################### ONTAP");
+                        GeneralHelper.loadingDialog(context);
+                        await FlutterOpenWhatsapp.sendSingleMessage("6281223165037","Hallo Admin, Saya $fullname ada beberapa hal yang ingin saya tanyakan, mohon agar segera di respon. Terima kasih.").timeout(Duration(seconds: 10));
+                        Navigator.of(context).pop();
+
+                      }catch(e){
+                        Navigator.of(context).pop();
+                        GeneralHelper.toast(msg: "aplikasi whatsApp tidak ditemukan");
+                        print("##################### EROR");
+                      }
                     }),
                 Padding(padding: scale.getPadding(0, 0.8), child: Divider()),
                 buildSectioMenu(
