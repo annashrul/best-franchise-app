@@ -39,6 +39,7 @@ class GeneralHelper {
     CoreDatabases db = new CoreDatabases();
     final res = await db.update(
         UserTable.TABLE_NAME,
+        "id",
         provider.dataUser[UserTable.id],
         {UserTable.statusRoleApp: StringConfig.statusLogoutAplikasi});
     if (res) {
