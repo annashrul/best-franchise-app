@@ -124,7 +124,7 @@ class _ProfileEditWidgetState extends State<ProfileEditWidget> {
               ),
             ),
           ),
-          SizedBox(height: scale.getHeight(5)),
+          SizedBox(height: scale.getHeight(2)),
           Container(
             padding: scale.getPadding(1, 2),
             child: Column(children: [

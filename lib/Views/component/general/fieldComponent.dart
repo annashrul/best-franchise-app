@@ -110,6 +110,10 @@ class _FieldComponentState extends State<FieldComponent> {
       maxLines: widget.maxLines,
       readOnly: widget.onTap != null,
       decoration: InputDecoration(
+          floatingLabelBehavior: widget.isPhone
+              ? FloatingLabelBehavior.never
+              : FloatingLabelBehavior.always,
+          labelText: widget.labelText,
           border: InputBorder.none,
           hintStyle: Theme.of(context)
               .textTheme
@@ -120,6 +124,7 @@ class _FieldComponentState extends State<FieldComponent> {
       keyboardType: widget.keyboardType,
       onTap: () {
         if (widget.onTap != null) widget.onTap();
+        if (widget.iconPrefix != null) widget.iconPrefix();
       },
       onChanged: (e) {
         setState(() {});
