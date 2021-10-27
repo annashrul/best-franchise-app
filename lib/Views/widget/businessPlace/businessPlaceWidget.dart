@@ -1,6 +1,8 @@
 import 'package:bestfranchise/Configs/colorConfig.dart';
 import 'package:bestfranchise/Configs/stringConfig.dart';
 import 'package:bestfranchise/Controllers/slider/sliderHomeController.dart';
+import 'package:bestfranchise/Controllers/user/userController.dart';
+import 'package:bestfranchise/Databases/tableDatabase.dart';
 import 'package:bestfranchise/Helpers/general/generalHelper.dart';
 import 'package:bestfranchise/Views/component/general/loadingComponent.dart';
 import 'package:bestfranchise/Views/component/home/bestSolusiComponent.dart';
@@ -15,46 +17,55 @@ class BusinessPlaceWidget extends StatefulWidget {
 }
 
 class _BusinessPlaceWidgetState extends State<BusinessPlaceWidget> {
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     final slider = Provider.of<SliderHomeController>(context, listen: false);
     slider.getSolusi(context: context);
-
   }
 
   @override
   Widget build(BuildContext context) {
     ScreenScaler scale = ScreenScaler()..init(context);
     final slider = Provider.of<SliderHomeController>(context);
+    final user = Provider.of<UserController>(context);
     final valSl = slider.sliderHomeSolusiModel == null
         ? []
         : slider.sliderHomeSolusiModel.data;
+
+    var fullname = user.dataUser[UserTable.fullname];
     return Scaffold(
-      appBar:GeneralHelper.appBarGeneral(context: context,title: "Informasi tempat usaha"),
+      appBar: GeneralHelper.appBarGeneral(
+          context: context, title: "Informasi tempat usaha"),
       floatingActionButton: SizedBox(
         width: double.infinity,
         child: Container(
-          padding: scale.getPadding(1,2),
+          padding: scale.getPadding(1, 2),
           child: FlatButton(
-              padding: scale.getPadding(1,0),
+              padding: scale.getPadding(1, 0),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(100.0),
               ),
               color: ColorConfig.redPrimary,
-              onPressed:(){
-                launchWhatsApp(phone: 6281223165037, message: "message");
+              onPressed: () {
+                GeneralHelper.launchWhatsApp(
+                    phone: 6281223165037,
+                    message:
+                        "Hallo Admin, Saya $fullname berminat untuk bergabung dengan BEST Franchise, apakah ada referensi tempat yang cocok untuk saya? Terima kasih.");
               },
-              child: Text("Whatsapp kami",style: Theme.of(context).textTheme.headline1.copyWith(color: Colors.white),)
-          ),
+              child: Text(
+                "Whatsapp kami",
+                style: Theme.of(context)
+                    .textTheme
+                    .headline1
+                    .copyWith(color: Colors.white),
+              )),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-
       body: Padding(
-        padding: scale.getPadding(0,2),
+        padding: scale.getPadding(0, 2),
         child: Center(
           child: Column(
             children: [
@@ -65,7 +76,9 @@ class _BusinessPlaceWidgetState extends State<BusinessPlaceWidget> {
                 textAlign: TextAlign.center,
               ),
               SizedBox(height: scale.getHeight(2)),
-              slider.sliderHomeSolusiModel == null ? LoadingCardRounded():BestSolusiComponent(valSl),
+              slider.sliderHomeSolusiModel == null
+                  ? LoadingCardRounded()
+                  : BestSolusiComponent(valSl),
               SizedBox(height: scale.getHeight(1)),
             ],
           ),

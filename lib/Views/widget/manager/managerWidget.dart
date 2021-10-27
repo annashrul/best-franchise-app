@@ -1,6 +1,8 @@
 import 'package:bestfranchise/Configs/colorConfig.dart';
 import 'package:bestfranchise/Configs/stringConfig.dart';
 import 'package:bestfranchise/Controllers/slider/sliderHomeController.dart';
+import 'package:bestfranchise/Controllers/user/userController.dart';
+import 'package:bestfranchise/Databases/tableDatabase.dart';
 import 'package:bestfranchise/Helpers/general/generalHelper.dart';
 import 'package:bestfranchise/Views/component/general/buttonComponent.dart';
 import 'package:bestfranchise/Views/component/general/loadingComponent.dart';
@@ -16,24 +18,26 @@ class ManagerWidget extends StatefulWidget {
 }
 
 class _ManagerWidgetState extends State<ManagerWidget> {
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     final slider = Provider.of<SliderHomeController>(context, listen: false);
     slider.getSolusi(context: context);
-
   }
+
   @override
   Widget build(BuildContext context) {
     ScreenScaler scale = ScreenScaler()..init(context);
     final slider = Provider.of<SliderHomeController>(context);
+    final user = Provider.of<UserController>(context);
     final valSl = slider.sliderHomeSolusiModel == null
         ? []
         : slider.sliderHomeSolusiModel.data;
+    var fullname = user.dataUser[UserTable.fullname];
     return Scaffold(
-      appBar: GeneralHelper.appBarGeneral(context: context,title: "Informasi Pengelola"),
+      appBar: GeneralHelper.appBarGeneral(
+          context: context, title: "Informasi Pengelola"),
       body: Center(
         child: ListView(
           padding: scale.getPadding(1, 2),
@@ -47,13 +51,20 @@ class _ManagerWidgetState extends State<ManagerWidget> {
               textAlign: TextAlign.center,
             ),
             SizedBox(height: scale.getHeight(2)),
-            slider.sliderHomeSolusiModel == null ? LoadingCardRounded():BestSolusiComponent(valSl),
+            slider.sliderHomeSolusiModel == null
+                ? LoadingCardRounded()
+                : BestSolusiComponent(valSl),
             SizedBox(height: scale.getHeight(1)),
             ButtonComponent(
               label: "Whatsapp kami",
               labelColor: Colors.white,
               backgroundColor: ColorConfig.redPrimary,
-              callback: () {},
+              callback: () {
+                GeneralHelper.launchWhatsApp(
+                    phone: 6281223165037,
+                    message:
+                        "Hallo Admin, Saya $fullname berminat untuk bergabung dengan BEST Franchise, apakah ada referensi pengelola yang cocok untuk saya? Terima kasih.");
+              },
             )
           ],
         ),

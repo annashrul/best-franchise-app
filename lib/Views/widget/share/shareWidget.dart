@@ -1,9 +1,13 @@
 import 'package:bestfranchise/Configs/colorConfig.dart';
 import 'package:bestfranchise/Configs/stringConfig.dart';
+import 'package:bestfranchise/Controllers/user/userController.dart';
+import 'package:bestfranchise/Databases/tableDatabase.dart';
+import 'package:bestfranchise/Helpers/general/generalHelper.dart';
 import 'package:bestfranchise/Views/component/general/buttonComponent.dart';
 import 'package:bestfranchise/Views/component/share/shareComponent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
+import 'package:provider/provider.dart';
 
 class ShareWidget extends StatefulWidget {
   @override
@@ -14,6 +18,8 @@ class _ShareWidgetState extends State<ShareWidget> {
   @override
   Widget build(BuildContext context) {
     ScreenScaler scale = ScreenScaler()..init(context);
+    final user = Provider.of<UserController>(context);
+    var reff = user.dataUser[UserTable.referral];
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -57,7 +63,12 @@ class _ShareWidgetState extends State<ShareWidget> {
                 label: "Bagikan sekarang",
                 labelColor: Colors.white,
                 backgroundColor: ColorConfig.redPrimary,
-                callback: () {},
+                callback: () {
+                  GeneralHelper.launchWhatsApp(
+                      phone: 6281223165037,
+                      message:
+                          "Hai Sahabat BEST Franchise, ayo bergabung bersama kami dengan memasukan kode $reff");
+                },
               ),
               SizedBox(height: scale.getHeight(3)),
             ],

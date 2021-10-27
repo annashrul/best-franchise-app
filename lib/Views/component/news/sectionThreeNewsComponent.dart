@@ -65,7 +65,7 @@ class _SectionThreeNewsComponentState extends State<SectionThreeNewsComponent> {
                           style: Theme.of(context).textTheme.headline2,
                         ),
                         Text(
-                          val.caption,
+                          val.caption.substring(0, 150) + " ...",
                           style: Theme.of(context)
                               .textTheme
                               .headline3

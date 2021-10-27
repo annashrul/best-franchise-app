@@ -196,16 +196,10 @@ class _ProfileEditWidgetState extends State<ProfileEditWidget> {
                 maxLength: 50,
               ),
               SizedBox(height: scale.getHeight(1)),
-
               FieldComponent(
                 controller: profileEdit.noHpController,
                 labelText: "Nomor Handphone",
-                maxLength: FormConfig.maxLengthPhone,
-                isPhone: true,
-                keyboardType: TextInputType.number,
-                onTapCountry: (code) {
-                  countryCode = code;
-                },
+                maxLength: 50,
                 onTap: () => {},
               ),
               SizedBox(height: scale.getHeight(1)),
