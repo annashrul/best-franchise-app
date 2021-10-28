@@ -26,26 +26,27 @@ class GeneralHelper {
   final formatter = new NumberFormat("#,###");
 
   static Future sendWa({BuildContext context,String no,String msg})async{
-    try{
-      print("##################### ONTAP");
-      GeneralHelper.loadingDialog(context);
-      await FlutterOpenWhatsapp.sendSingleMessage("$no",msg).timeout(Duration(seconds: 5));
-      Navigator.of(context).pop();
-    }catch(e){
-      Navigator.of(context).pop();
-      nofitDialog(
-        context: context,
-        msg: "download aplikasi whatsapp atau buka lewat whatsapp web ?",
-        label1: "download",
-        label2: "buka whatsapp web",
-        callback1: (){
-          jumpToBrowser(url: "https://play.google.com/store/apps/details?id=com.whatsapp");
-        },
-        callback2: (){
-          launchWhatsApp(phone: int.parse(no),message: msg);
-        }
-      );
-    }
+    launchWhatsApp(phone: int.parse(no),message: msg);
+    // try{
+    //   print("##################### ONTAP");
+    //   GeneralHelper.loadingDialog(context);
+    //   await FlutterOpenWhatsapp.sendSingleMessage("$no",msg).timeout(Duration(seconds: 5));
+    //   Navigator.of(context).pop();
+    // }catch(e){
+    //   Navigator.of(context).pop();
+    //   nofitDialog(
+    //     context: context,
+    //     msg: "download aplikasi whatsapp atau buka lewat whatsapp web ?",
+    //     label1: "download",
+    //     label2: "buka whatsapp web",
+    //     callback1: (){
+    //       jumpToBrowser(url: "https://play.google.com/store/apps/details?id=com.whatsapp");
+    //     },
+    //     callback2: (){
+    //       launchWhatsApp(phone: int.parse(no),message: msg);
+    //     }
+    //   );
+    // }
   }
 
 

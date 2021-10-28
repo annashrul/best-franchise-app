@@ -30,13 +30,11 @@ class _ProfileEditWidgetState extends State<ProfileEditWidget> {
     final profileEdit =
         Provider.of<ProfileEditController>(context, listen: false);
     final userStorage = Provider.of<UserController>(context, listen: false);
-    profileEdit.addressController.text =
-        userStorage.dataUser[UserTable.location];
+    profileEdit.addressController.text =userStorage.dataUser[UserTable.location]!="null"?userStorage.dataUser[UserTable.location]:"";
     profileEdit.fullname.text = userStorage.dataUser[UserTable.fullname];
     profileEdit.emailController.text = userStorage.dataUser[UserTable.email];
     profileEdit.noHpController.text = userStorage.dataUser[UserTable.mobile_no];
-    profileEdit.idReferralController.text =
-        userStorage.dataUser[UserTable.referral];
+    profileEdit.idReferralController.text =userStorage.dataUser[UserTable.referral];
     // print(info.infoModel.data.toJson());
   }
 
