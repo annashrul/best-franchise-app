@@ -1,5 +1,6 @@
 import 'package:bestfranchise/Configs/colorConfig.dart';
 import 'package:bestfranchise/Configs/stringConfig.dart';
+import 'package:bestfranchise/Controllers/home/rewardHomeController.dart';
 import 'package:bestfranchise/Controllers/slider/sliderHomeController.dart';
 import 'package:bestfranchise/Controllers/user/userController.dart';
 import 'package:bestfranchise/Databases/tableDatabase.dart';
@@ -32,11 +33,13 @@ class _ManagerWidgetState extends State<ManagerWidget> {
   Widget build(BuildContext context) {
     ScreenScaler scale = ScreenScaler()..init(context);
     final slider = Provider.of<SliderHomeController>(context);
+    final info = Provider.of<RewardHomeController>(context);
     final user = Provider.of<UserController>(context);
     final valSl = slider.sliderHomeSolusiModel == null
         ? []
         : slider.sliderHomeSolusiModel.data;
     var fullname = user.dataUser[UserTable.fullname];
+    var wa_admin = info.infoModel.data.waAdmin;
     return Scaffold(
       appBar: GeneralHelper.appBarGeneral(
           context: context, title: "Informasi Pengelola"),
@@ -61,12 +64,12 @@ class _ManagerWidgetState extends State<ManagerWidget> {
               label: "Whatsapp kami",
               labelColor: Colors.white,
               backgroundColor: ColorConfig.redPrimary,
-              callback: () async{
+              callback: () async {
                 await GeneralHelper.sendWa(
                     context: context,
-                    no:"6281223165037",
-                    msg: "Hallo Admin, Saya $fullname ada beberapa hal yang ingin saya tanyakan, mohon agar segera di respon. Terima kasih."
-                );
+                    no: wa_admin,
+                    msg:
+                        "Hallo Admin, Saya $fullname ada beberapa hal yang ingin saya tanyakan, mohon agar segera di respon. Terima kasih.");
               },
             )
           ],

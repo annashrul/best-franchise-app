@@ -33,6 +33,7 @@ class ImagesProfileController with ChangeNotifier {
     };
 
     _write(dataPhoto[0]["base64"].toString());
+    _write(dataPhoto[1]["base64"].toString());
 
     print(field);
     final user = Provider.of<UserController>(context, listen: false);

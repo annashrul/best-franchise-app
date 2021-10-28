@@ -40,6 +40,7 @@ class Data {
   Data({
     this.totalSaldo,
     this.totalWd,
+    this.waAdmin,
     this.saldoKomisi,
     this.saldoRoyalti,
     this.poin,
@@ -49,6 +50,7 @@ class Data {
 
   String totalSaldo;
   String totalWd;
+  String waAdmin;
   String saldoKomisi;
   String saldoRoyalti;
   String poin;
@@ -58,6 +60,7 @@ class Data {
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         totalSaldo: json["total_saldo"],
         totalWd: json["total_wd"],
+        waAdmin: json["wa_admin"],
         saldoKomisi: json["saldo_komisi"],
         saldoRoyalti: json["saldo_royalti"],
         poin: json["poin"],
@@ -68,6 +71,7 @@ class Data {
   Map<String, dynamic> toJson() => {
         "total_saldo": totalSaldo,
         "total_wd": totalWd,
+        "wa_admin": waAdmin,
         "saldo_komisi": saldoKomisi,
         "saldo_royalti": saldoRoyalti,
         "poin": poin,

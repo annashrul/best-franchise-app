@@ -1,9 +1,8 @@
-import 'package:bestfranchise/Helpers/general/generalHelper.dart';
 import 'package:bestfranchise/Models/Slider/galleryHomeModel.dart';
-import 'package:bestfranchise/Views/component/home/bestGalleryViewComponent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:lightbox/lightbox.dart';
 
 class BestGalleryComponent extends StatefulWidget {
   final List<Datum> valGl;
@@ -17,6 +16,10 @@ class _BestGalleryComponentState extends State<BestGalleryComponent> {
   @override
   Widget build(BuildContext context) {
     ScreenScaler scale = ScreenScaler()..init(context);
+    List<String> img = [];
+    for (var i = 0; i < widget.valGl.length; i++) {
+      img.add(widget.valGl[i].photo);
+    }
     return StaggeredGridView.countBuilder(
       padding: EdgeInsets.zero,
       shrinkWrap: true,
@@ -36,15 +39,17 @@ class _BestGalleryComponentState extends State<BestGalleryComponent> {
             ),
           ),
           onTap: () => {
-            GeneralHelper.modal(
-                context: context,
-                child: Container(
-                  height: scale.getHeight(85),
-                  decoration:
-                      BoxDecoration(borderRadius: BorderRadius.circular(10)),
-                  child:
-                      BestGalleryViewComponent(val.photo, widget.valGl, index),
-                ))
+            Navigator.push(
+                context,
+                LightBoxRoute(
+                    builder: (BuildContext context) {
+                      return LightBox(
+                        img,
+                        imageType: ImageType.URL,
+                        initialIndex: index,
+                      );
+                    },
+                    dismissible: false))
           },
         );
       },
