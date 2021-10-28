@@ -38,17 +38,16 @@ class UserController with ChangeNotifier {
     final dataUser = {
       "${UserTable.idUser}": user.dataUser[UserTable.idUser],
       "${UserTable.token}": user.dataUser[UserTable.token],
-      "${UserTable.fullname}": user.dataUser[UserTable.fullname],
-      "${UserTable.mobile_no}": user.dataUser[UserTable.mobile_no],
+      "${UserTable.fullname}": result.data.fullname,
+      "${UserTable.mobile_no}": result.data.mobileNo,
       "${UserTable.photo}": result.data.photo,
       "${UserTable.cover}": result.data.cover,
-      "${UserTable.email}": user.dataUser[UserTable.email],
-      "${UserTable.referral}": user.dataUser[UserTable.referral],
-      "${UserTable.status}": user.dataUser[UserTable.status],
-      "${UserTable.location}": user.dataUser[UserTable.location],
+      "${UserTable.email}": result.data.email,
+      "${UserTable.referral}": result.data.referral,
+      "${UserTable.status}": result.data.status,
+      "${UserTable.location}": result.data.location,
       "${UserTable.statusRoleApp}": user.dataUser[UserTable.statusRoleApp]
     };
-    final checkUser = await db.getData(UserTable.TABLE_NAME);
 
     await db.update(UserTable.TABLE_NAME, "idUser",
         user.dataUser[UserTable.idUser], dataUser);

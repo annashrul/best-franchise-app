@@ -40,6 +40,7 @@ dependencies:
   path_provider:
   logger: ^1.1.0
   flutter_open_whatsapp: ^0.1.2
+  lightbox: ^0.0.2
 
 
 

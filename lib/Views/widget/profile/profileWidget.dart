@@ -33,7 +33,6 @@ class _ProfileWidgetState extends State<ProfileWidget> {
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
     ScreenScaler scale = ScreenScaler()..init(context);
@@ -41,6 +40,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
     final user = Provider.of<UserController>(context);
 
     var fullname = user.dataUser[UserTable.fullname];
+    var wa_admin = reward.infoModel.data.waAdmin;
     return Scaffold(
       appBar: GeneralHelper.appBarWithImage(
           context: context,
@@ -121,20 +121,19 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                 buildSectioMenu(
                     title: "Live Chat",
                     icon: FontAwesome5Solid.comments,
-                    callback: () async{
+                    callback: () async {
                       await GeneralHelper.sendWa(
-                        context: context,
-                        no:"6281223165037",
-                        msg: "Hallo Admin, Saya $fullname ada beberapa hal yang ingin saya tanyakan, mohon agar segera di respon. Terima kasih."
-                      );
+                          context: context,
+                          no: wa_admin,
+                          msg:
+                              "Hallo Admin, Saya $fullname ada beberapa hal yang ingin saya tanyakan, mohon agar segera di respon. Terima kasih.");
                     }),
                 Padding(padding: scale.getPadding(0, 0.8), child: Divider()),
                 buildSectioMenu(
                     title: "Pengaturan Bahasa",
                     icon: FontAwesome5Solid.language,
                     callback: () {},
-                    isActive: false
-                    ),
+                    isActive: false),
                 Padding(padding: scale.getPadding(0, 0.8), child: Divider()),
                 buildSectioMenu(
                     title: "Ketentuan Layanan",
@@ -198,9 +197,10 @@ class _ProfileWidgetState extends State<ProfileWidget> {
     return Padding(
       padding: scale.getPadding(0, 3),
       child: InTouchWidget(
-        callback: (){
-          if(!isActive){
-            return GeneralHelper.toast(msg: "fitur ini masih dalam tahap pengembangan");
+        callback: () {
+          if (!isActive) {
+            return GeneralHelper.toast(
+                msg: "fitur ini masih dalam tahap pengembangan");
           }
           callback();
         },
