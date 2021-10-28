@@ -34,7 +34,7 @@ class _HistoryOrderWidgetState extends State<HistoryOrderWidget> with SingleTick
     tabController = TabController(length: 2, vsync: this, initialIndex: 0);
     tabController.addListener(() {
       if (tabController.index == 1) {
-        GeneralHelper.toast(msg: "maaf fitur ini belum tersedia");
+        GeneralHelper.toast(msg: "fitur ini masih dalam tahap pengembangan");
         setState(() {
           tabController.index = 0;
         });

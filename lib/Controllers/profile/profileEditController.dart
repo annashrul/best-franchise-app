@@ -76,13 +76,11 @@ class ProfileEditController with ChangeNotifier {
         "${UserTable.location}": field["address"],
         "${UserTable.statusRoleApp}": user.dataUser[UserTable.statusRoleApp]
       };
-      final checkUser = await db.getData(UserTable.TABLE_NAME);
 
-      await db.update(UserTable.TABLE_NAME, "idUser",
-          user.dataUser[UserTable.idUser], dataUser);
+      await db.update(UserTable.TABLE_NAME, "idUser",user.dataUser[UserTable.idUser], dataUser);
       user.setDataUser(dataUser);
       user.getDataUser();
-      GeneralHelper.modal(context: context, child: ModalSuccessComponent());
+      GeneralHelper.modalGeneral(context: context, child: ModalSuccessComponent(callback: ()=>Navigator.of(context).pop()));
     }
     notifyListeners();
   }

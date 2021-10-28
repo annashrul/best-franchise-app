@@ -149,7 +149,12 @@ class BaseController {
         } else {
           return jsonResponse;
         }
-      } else {
+      }else if (response.statusCode == 413) {
+        Navigator.pop(context);
+        GeneralHelper.toast(msg: "file terlalu besar");
+        return null;
+      }
+      else {
         Navigator.pop(context);
         final jsonResponse = json.decode(response.body);
         print("jsonResponse = $jsonResponse");

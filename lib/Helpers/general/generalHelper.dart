@@ -82,7 +82,7 @@ class GeneralHelper {
   }
 
   static appBarGeneral(
-      {BuildContext context, String title = "", List<Widget> actions}) {
+      {BuildContext context, String title = "", List<Widget> actions,void Function() callback}) {
     final userStorage = Provider.of<UserController>(context, listen: false);
     var titleNew = userStorage.dataUser[UserTable.fullname];
     return AppBar(
@@ -95,7 +95,7 @@ class GeneralHelper {
           Icons.arrow_back_ios,
           color: Colors.black,
         ),
-        onPressed: () => Navigator.of(context, rootNavigator: true).pop(),
+        onPressed: () => callback!=null?callback():Navigator.of(context, rootNavigator: true).pop(),
       ),
       actions: actions,
     );

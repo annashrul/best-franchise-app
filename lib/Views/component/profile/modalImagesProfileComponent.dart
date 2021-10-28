@@ -121,7 +121,13 @@ class _ModalImagesProfileComponentState
                 label: "Simpan",
                 labelColor: Colors.white,
                 backgroundColor: ColorConfig.redPrimary,
-                callback: () => imagesProfile.store(context, dataPhoto),
+                callback: ()async{
+                  // Navigator.of(context).pop();
+                  await imagesProfile.store(context, dataPhoto);
+                  dataPhoto[0]["img"]="";
+                  dataPhoto[1]["img"]="";
+                  this.setState(() {});
+                },
               ),
             ),
           ],

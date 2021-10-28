@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
 
 class ModalSuccessComponent extends StatelessWidget {
+  final void Function() callback;
+  ModalSuccessComponent({this.callback});
   @override
   Widget build(BuildContext context) {
     ScreenScaler scale = ScreenScaler()..init(context);
@@ -23,7 +25,7 @@ class ModalSuccessComponent extends StatelessWidget {
                 labelColor: Colors.white,
                 backgroundColor: ColorConfig.blueSecondary,
                 label: "Kembali",
-                callback: ()=>GeneralHelper.backToMain(context: context,tab: StringConfig.tabHome),
+                callback: ()=>this.callback!=null?this.callback():GeneralHelper.backToMain(context: context,tab: StringConfig.tabHome),
               ),
             )
           ],

@@ -49,8 +49,7 @@ class UserController with ChangeNotifier {
       "${UserTable.statusRoleApp}": user.dataUser[UserTable.statusRoleApp]
     };
 
-    await db.update(UserTable.TABLE_NAME, "idUser",
-        user.dataUser[UserTable.idUser], dataUser);
+    await db.update(UserTable.TABLE_NAME, "idUser",user.dataUser[UserTable.idUser], dataUser);
     user.setDataUser(dataUser);
     notifyListeners();
   }

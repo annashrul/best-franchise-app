@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:bestfranchise/Configs/routeConfig.dart';
 import 'package:bestfranchise/Controllers/baseController.dart';
 import 'package:bestfranchise/Controllers/user/userController.dart';
 import 'package:bestfranchise/Databases/tableDatabase.dart';
@@ -44,9 +45,18 @@ class ImagesProfileController with ChangeNotifier {
         data: field,
         context: context);
     if (res != null) {
-      GeneralHelper.modal(context: context, child: ModalSuccessComponent());
+      GeneralHelper.modalGeneral(
+        isBack: false,
+        context: context, child: ModalSuccessComponent(callback: (){
+        // Navigator.of(context).pop();
+        // Navigator.of(context).pop();
+        Navigator.of(context).pushNamed(RoutePath.profileEditWidget);
+        // user.getDataUser();
+        // user.loadUserDet(context, user.dataUser[UserTable.idUser]);
+      }));
       user.getDataUser();
       user.loadUserDet(context, user.dataUser[UserTable.idUser]);
+      notifyListeners();
     }
     notifyListeners();
   }
