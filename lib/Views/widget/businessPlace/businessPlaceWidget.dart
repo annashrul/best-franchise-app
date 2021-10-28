@@ -42,7 +42,7 @@ class _BusinessPlaceWidgetState extends State<BusinessPlaceWidget> {
     var wa_admin = info.infoModel.data.waAdmin;
     return Scaffold(
       appBar: GeneralHelper.appBarGeneral(
-          context: context, title: "Informasi tempat usaha"),
+          context: context, title: "Informasi Tempat Usaha"),
       floatingActionButton: SizedBox(
         width: double.infinity,
         child: Container(
