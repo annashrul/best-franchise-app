@@ -55,7 +55,7 @@ class _LoginWidgetState extends State<LoginWidget> {
               SizedBox(height: scale.getHeight(2),),
               ClipOval(
                 child:InTouchWidget(
-                  callback: ()=>Navigator.of(context).pop(),
+                  callback: ()=>Navigator.of(context).pushNamedAndRemoveUntil(RoutePath.onBoardingWidget, (route) => false),
                   child: Container(
                     color: Colors.black, // button color
                     padding: scale.getPadding(0.4, 1),

@@ -139,7 +139,8 @@ class _OnBoardingWidgetState extends State<OnBoardingWidget> {
                     child: ButtonComponent(
                       label: "Login",
                       callback: () =>
-                          Navigator.of(context).pushNamed(RoutePath.loginWidget),
+                          Navigator.of(context).pushNamedAndRemoveUntil(RoutePath.loginWidget, (route) => false)
+                          // Navigator.of(context).pushNamed(RoutePath.loginWidget),
                     ),
                   ),
                   Padding(
@@ -149,7 +150,9 @@ class _OnBoardingWidgetState extends State<OnBoardingWidget> {
                       backgroundColor: ColorConfig.blueSecondary,
                       labelColor: Colors.white,
                       callback: () =>
-                          Navigator.of(context).pushNamed(RoutePath.registerWidget1),
+                          // Navigator.of(context).pushNamedAndRemoveUntil(RoutePath.registerWidget1, (route) => false)
+
+                        Navigator.of(context).pushNamed(RoutePath.registerWidget1),
                     ),
                   ),
                 ],

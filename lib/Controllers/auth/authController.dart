@@ -94,57 +94,59 @@ class AuthController with ChangeNotifier {
       };
       final res = await sendOtp(context, bodyOtp);
       Navigator.of(context).push(CupertinoPageRoute(
-          builder: (_) => OtpWidget(
-                callback: (code) async {
-                  if (otpCode == "$code") {
-                    final resLogin = await BaseController().post(
-                        url: "auth/signin",
-                        data: {
-                          "mobile_no": "$countryCode$phone",
-                          "code_otp": otpCode
-                        },
-                        context: context);
-                    final dataUser = {
-                      "${UserTable.idUser}": resLogin["data"]["id"].toString(),
-                      "${UserTable.token}":
-                          resLogin["data"]["token"].toString(),
-                      "${UserTable.fullname}":
-                          resLogin["data"]["fullname"].toString(),
-                      "${UserTable.mobile_no}":
-                          resLogin["data"]["mobile_no"].toString(),
-                      "${UserTable.photo}":
-                          resLogin["data"]["photo"].toString(),
-                      "${UserTable.cover}":
-                          resLogin["data"]["cover"].toString(),
-                      "${UserTable.email}":
-                          resLogin["data"]["email"].toString(),
-                      "${UserTable.referral}":
-                          resLogin["data"]["referral"].toString(),
-                      "${UserTable.status}":
-                          resLogin["data"]["status"].toString(),
-                      "${UserTable.location}":
-                          resLogin["data"]["location"].toString(),
-                      "${UserTable.statusRoleApp}":
-                          "${StringConfig.masukKeAplikasi}"
-                    };
-                    final user =
-                        Provider.of<UserController>(context, listen: false);
-                    final checkUser = await db.getData(UserTable.TABLE_NAME);
-                    if (checkUser.length > 0) {
-                      await db.delete(UserTable.TABLE_NAME);
-                      await db.insert(UserTable.TABLE_NAME, dataUser);
-                    } else {
-                      await db.insert(UserTable.TABLE_NAME, dataUser);
-                    }
-                    user.setDataUser(dataUser);
-                    Navigator.of(context).pushNamedAndRemoveUntil(
-                        RoutePath.mainWidget, (route) => false,
-                        arguments: StringConfig.tabHome);
-                  }
-                },
-                isTrue: true,
-                otp: res["data"]["temp_otp"],
-              )));
+        builder: (_) => OtpWidget(
+          callback: (code) async {
+            if (otpCode == "$code") {
+              final resLogin = await BaseController().post(
+                  url: "auth/signin",
+                  data: {
+                    "mobile_no": "$countryCode$phone",
+                    "code_otp": otpCode
+                  },
+                  context: context);
+              final dataUser = {
+                "${UserTable.idUser}": resLogin["data"]["id"].toString(),
+                "${UserTable.token}":
+                    resLogin["data"]["token"].toString(),
+                "${UserTable.fullname}":
+                    resLogin["data"]["fullname"].toString(),
+                "${UserTable.mobile_no}":
+                    resLogin["data"]["mobile_no"].toString(),
+                "${UserTable.photo}":
+                    resLogin["data"]["photo"].toString(),
+                "${UserTable.cover}":
+                    resLogin["data"]["cover"].toString(),
+                "${UserTable.email}":
+                    resLogin["data"]["email"].toString(),
+                "${UserTable.referral}":
+                    resLogin["data"]["referral"].toString(),
+                "${UserTable.status}":
+                    resLogin["data"]["status"].toString(),
+                "${UserTable.location}":
+                    resLogin["data"]["location"].toString(),
+                "${UserTable.statusRoleApp}":
+                    "${StringConfig.masukKeAplikasi}"
+              };
+              final user =
+                  Provider.of<UserController>(context, listen: false);
+              final checkUser = await db.getData(UserTable.TABLE_NAME);
+              if (checkUser.length > 0) {
+                await db.delete(UserTable.TABLE_NAME);
+                await db.insert(UserTable.TABLE_NAME, dataUser);
+              } else {
+                await db.insert(UserTable.TABLE_NAME, dataUser);
+              }
+              user.setDataUser(dataUser);
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                  RoutePath.mainWidget, (route) => false,
+                  arguments: StringConfig.tabHome);
+            }
+          },
+          isTrue: true,
+          otp: res["data"]["temp_otp"],
+        )
+      ));
+
     }
   }
 
@@ -154,7 +156,8 @@ class AuthController with ChangeNotifier {
     otpCode = res["data"]["temp_otp"];
     setDataOtp(field);
     timerUpdate();
-    setTimer(10);
+    setTimer(5);
+    timeUpFlag=false;
     notifyListeners();
     return res;
   }

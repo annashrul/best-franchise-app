@@ -65,12 +65,11 @@ class GeneralHelper {
     CoreDatabases db = new CoreDatabases();
     final res = await db.update(
         UserTable.TABLE_NAME,
-        "id",
-        provider.dataUser[UserTable.id],
-        {UserTable.statusRoleApp: StringConfig.statusLogoutAplikasi});
+        "${UserTable.idUser}",
+        provider.dataUser[UserTable.idUser],
+        {"${UserTable.statusRoleApp}": "${StringConfig.statusLogoutAplikasi}"});
     if (res) {
-      Navigator.of(context).pushNamedAndRemoveUntil(
-          RoutePath.onBoardingWidget, (route) => false);
+      Navigator.of(context).pushNamedAndRemoveUntil(RoutePath.loginWidget, (route) => false);
     } else {
       toast(msg: "gagal keluar aplikasi");
     }

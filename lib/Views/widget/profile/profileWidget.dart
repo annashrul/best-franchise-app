@@ -178,7 +178,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                     callback2: () {
                       GeneralHelper.processLogout(context);
                     },
-                    callback1: () => Navigator.of(context).pop());
+                    callback1: () => Navigator.of(context).pop()
+                );
                 // Navigator.of(context).pushNamed(RoutePath.onBoardingWidget);
               },
             ),
