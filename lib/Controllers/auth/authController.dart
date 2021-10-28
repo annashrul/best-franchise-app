@@ -227,4 +227,18 @@ class AuthController with ChangeNotifier {
               )));
     }
   }
+
+
+  Future validateRegister({BuildContext context,dynamic field,String type})async{
+    String url = "auth/validate/$type";
+    // if(field["referral"]){
+    //   url+="referral";
+    // }
+    print(url);
+    final res=await BaseController().post(url: url,context: context,data: field);
+    if(res!=null){
+      return true;
+    }
+    return false;
+  }
 }

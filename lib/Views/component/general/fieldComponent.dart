@@ -19,6 +19,7 @@ class FieldComponent extends StatefulWidget {
   final void Function(String code) onTapCountry;
   final bool isPhone;
   final bool obscureText;
+  final TextCapitalization textCapitalization;
   FieldComponent(
       {this.controller,
       this.labelText,
@@ -28,6 +29,7 @@ class FieldComponent extends StatefulWidget {
       this.onTap,
       this.iconPrefix,
       this.isPhone = false,this.readonly=false,this.obscureText=false,
+      this.textCapitalization = TextCapitalization.none,
       this.onTapCountry});
 
   @override
@@ -114,7 +116,7 @@ class _FieldComponentState extends State<FieldComponent> {
               hintText: widget.labelText),
       textInputAction: TextInputAction.done,
       keyboardType: widget.keyboardType,
-
+        textCapitalization: widget.textCapitalization,
       onChanged: (e) {
         setState(() {});
       },

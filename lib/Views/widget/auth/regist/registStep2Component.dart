@@ -29,6 +29,7 @@ class _RegistStep2WidgetState extends State<RegistStep2Widget> {
         if (nameController.text == "") {
           return GeneralHelper.toast(msg: "Nam lengkap tidak boleh kosong");
         }
+
         regist.setName(nameController.text);
         Navigator.of(context).pushNamed(RoutePath.registerWidget3);
       },

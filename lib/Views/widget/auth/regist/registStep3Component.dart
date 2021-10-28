@@ -23,12 +23,15 @@ class _RegistStep3WidgetState extends State<RegistStep3Widget> {
     ScreenScaler scale = ScreenScaler()..init(context);
     final regist = Provider.of<AuthController>(context);
     return WrapperComponentRegister(
-      callback: (){
+      callback: ()async{
         if (referralCodeController.text == "") {
           return GeneralHelper.toast(msg: "Kode referral tidak boleh kosong");
         }
-        regist.setReferralCode(referralCodeController.text);
-        Navigator.of(context).pushNamed(RoutePath.registerWidget4);
+        final checkReferral = await regist.validateRegister(context: context,field: {"referral":"${referralCodeController.text}"},type: "referral");
+        if(checkReferral){
+          regist.setReferralCode(referralCodeController.text);
+          Navigator.of(context).pushNamed(RoutePath.registerWidget4);
+        }
       },
       step: 3,
       caption: "Masukkan kode referral kamu",
@@ -37,6 +40,7 @@ class _RegistStep3WidgetState extends State<RegistStep3Widget> {
         labelText: "Kode Referral",
         maxLength: 50,
         keyboardType: TextInputType.text,
+        textCapitalization: TextCapitalization.characters,
       ),
     );
   }

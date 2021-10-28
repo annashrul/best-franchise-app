@@ -29,7 +29,7 @@ class _RegistStep1WidgetState extends State<RegistStep1Widget> {
   Widget build(BuildContext context) {
     final register = Provider.of<AuthController>(context);
     return WrapperComponentRegister(
-      callback: (){
+      callback: ()async{
         if (noHpController.text == "") {
           return GeneralHelper.toast(msg: "Nomor Handphone tidak boleh kosong");
         }
@@ -37,8 +37,11 @@ class _RegistStep1WidgetState extends State<RegistStep1Widget> {
         if(phone.length<FormConfig.minLengthPhone){
           return GeneralHelper.toast(msg: "Nomor Handphone terlalu pendek");
         }
-        register.setPhoneNumber(countryCode+noHpController.text);
-        Navigator.of(context).pushNamed(RoutePath.registerWidget2);
+        final checkPhone = await register.validateRegister(context: context,field: {"mobile_no":"$phone"},type: "mobile_no");
+        if(checkPhone){
+          register.setPhoneNumber(countryCode+noHpController.text);
+          Navigator.of(context).pushNamed(RoutePath.registerWidget2);
+        }
       },
       step: 1,
       caption:"Silahkan masukkan nomor handphone tanpa menuliskan angka nol terlebih dahulu.",
