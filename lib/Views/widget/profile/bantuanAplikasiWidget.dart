@@ -55,6 +55,7 @@ class _BantuanApliaskiWidgetState extends State<BantuanApliaskiWidget> {
                   : FieldComponent(
                       controller: categoryController,
                       labelText: "Kategori",
+                      readonly: true,
                       onTap: () {
                         GeneralHelper.modal(
                             context: context,

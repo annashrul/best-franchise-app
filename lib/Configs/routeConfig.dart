@@ -119,11 +119,11 @@ class RouteGenerator {
       case RoutePath.verifWidget:
         return CupertinoPageRoute(builder: (_) => VerifWidget());
       case RoutePath.businessPlaceWidget:
-        return CupertinoPageRoute(builder: (_) => BusinessPlaceWidget());
+        return CupertinoPageRoute(builder: (_) => BusinessPlaceWidget(obj: args));
       case RoutePath.managerWidget:
-        return CupertinoPageRoute(builder: (_) => ManagerWidget());
+        return CupertinoPageRoute(builder: (_) => ManagerWidget(obj: args));
       case RoutePath.capitalSubmissionWidget:
-        return CupertinoPageRoute(builder: (_) => CapitalSubmissionWidget());
+        return CupertinoPageRoute(builder: (_) => CapitalSubmissionWidget(obj: args));
       case RoutePath.profileEditWidget:
         return CupertinoPageRoute(builder: (_) => ProfileEditWidget());
       default:

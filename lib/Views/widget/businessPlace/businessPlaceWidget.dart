@@ -15,6 +15,8 @@ import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
 import 'package:provider/provider.dart';
 
 class BusinessPlaceWidget extends StatefulWidget {
+  final Map<dynamic, dynamic> obj;
+  BusinessPlaceWidget({this.obj});
   @override
   _BusinessPlaceWidgetState createState() => _BusinessPlaceWidgetState();
 }
@@ -57,8 +59,7 @@ class _BusinessPlaceWidgetState extends State<BusinessPlaceWidget> {
                 await GeneralHelper.sendWa(
                     context: context,
                     no: wa_admin,
-                    msg:
-                        "Hallo Admin, Saya $fullname ada beberapa hal yang ingin saya tanyakan, mohon agar segera di respon. Terima kasih.");
+                    msg:"Hallo Admin, Saya $fullname ada beberapa hal yang ingin saya tanyakan, mohon agar segera di respon. Terima kasih.");
               },
               child: Text(
                 "Whatsapp kami",
@@ -77,9 +78,21 @@ class _BusinessPlaceWidgetState extends State<BusinessPlaceWidget> {
             children: [
               Image.asset(StringConfig.imgLocal + "businessPlace.png"),
               Text(
-                "Kamu tidak usah khawatir mengenai tempat jualanmu, konsultasikan dengan kami saja.\n\nSilahkan chat admin kami untuk informasi lebih lengkapnya ya !",
-                style: Theme.of(context).textTheme.bodyText1,
-                textAlign: TextAlign.center,
+                widget.obj["caption"],
+                style: Theme.of(context).textTheme.headline2,
+                textAlign: TextAlign.justify,
+              ),
+              SizedBox(height: scale.getHeight(1)),
+              Text(
+                "Kamu tidak usah khawatir mengenai tempat jualanmu, konsultasikan dengan kami saja.",
+                style: Theme.of(context).textTheme.headline2,
+                textAlign: TextAlign.justify,
+              ),
+              SizedBox(height: scale.getHeight(1)),
+              Text(
+                "Silahkan chat admin kami untuk informasi lebih lengkapnya ya !",
+                style: Theme.of(context).textTheme.headline2,
+                textAlign: TextAlign.justify,
               ),
               SizedBox(height: scale.getHeight(2)),
               slider.sliderHomeSolusiModel == null

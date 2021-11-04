@@ -107,7 +107,7 @@ class _ProfileEditWidgetState extends State<ProfileEditWidget> {
                         ),
                       ),
                       Positioned(
-                          top: scale.getHeight(20),
+                          top: scale.getHeight(19),
                           right: scale.getWidth(35),
                           child: GestureDetector(
                             behavior: HitTestBehavior.translucent,
@@ -129,62 +129,30 @@ class _ProfileEditWidgetState extends State<ProfileEditWidget> {
               Container(
                 padding: scale.getPadding(1, 2),
                 child: Column(children: [
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Expanded(
-                            flex: 1, // 20%
-                            child: Image.asset(
-                              StringConfig.imgLocal + "icKey.png",
-                              scale: 1.5,
+                  Row(
+                    children: [
+                      Image.asset(
+                        StringConfig.imgLocal + "icKey.png",
+                        scale: 1.5,
+                      ),
+                      SizedBox(width: scale.getWidth(1),),
+                      InkWell(
+                          child: new Text(
+                            'Ubah PIN',
+                            style: TextStyle(
+                              color: ColorConfig.bluePrimary,
+                              fontSize: 20,
                             ),
                           ),
-                          Expanded(
-                              flex: 9, // 20%
-                              child: InkWell(
-                                  child: new Text(
-                                    'Ubah PIN',
-                                    style: TextStyle(
-                                      color: ColorConfig.bluePrimary,
-                                      fontSize: 20,
-                                    ),
-                                  ),
-                                  onTap: () => {
-                                    GeneralHelper.modal(
-                                        context: context,
-                                        child: ModalPinEditComponent())
-                                  })),
-                          SizedBox(height: scale.getHeight(2)),
-                        ]),
+                          onTap: () => {
+                            GeneralHelper.modal(
+                                context: context,
+                                child: ModalPinEditComponent())
+                          }
+                        )
+                    ],
                   ),
-                  // SizedBox(height: scale.getHeight(2)),
-                  // Align(
-                  //   alignment: Alignment.centerLeft,
-                  //   child: Text(
-                  //     "ID Referral : " + userStorage.dataUser[UserTable.referral],
-                  //     style: TextStyle(
-                  //       color: ColorConfig.blackPrimary,
-                  //       fontSize: 20,
-                  //     ),
-                  //   ),
-                  // ),
-                  // SizedBox(height: scale.getHeight(1)),
-                  // Align(
-                  //   alignment: Alignment.centerLeft,
-                  //   child: Text(
-                  //     "Telpon : " + userStorage.dataUser[UserTable.mobile_no],
-                  //     style: TextStyle(
-                  //       color: ColorConfig.blackPrimary,
-                  //       fontSize: 20,
-                  //     ),
-                  //   ),
-                  // ),
-                  // FieldComponent(
-                  //   controller: profileEdit.idReferralController,
-                  //   labelText: "ID Referral",
-                  // ),
+
                   SizedBox(height: scale.getHeight(1)),
                   FieldComponent(
                     controller: profileEdit.idReferralController,

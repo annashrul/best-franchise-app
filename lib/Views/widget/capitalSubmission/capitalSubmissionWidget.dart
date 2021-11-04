@@ -45,6 +45,7 @@ class _CapitalSubmissionWidgetState extends State<CapitalSubmissionWidget> {
   Widget build(BuildContext context) {
     ScreenScaler scale = ScreenScaler()..init(context);
     final join = Provider.of<CapitalSubmissionController>(context);
+    print("#############${widget.obj}");
     return Scaffold(
       appBar: GeneralHelper.appBarGeneral(context: context, title: "Pengajuan Modal Usaha"),
       body: ListView(
@@ -59,6 +60,14 @@ class _CapitalSubmissionWidgetState extends State<CapitalSubmissionWidget> {
           Container(
             padding: scale.getPadding(1, 2),
             child: Column(children: [
+              Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    widget.obj["caption"],
+                    style: Theme.of(context).textTheme.headline2,
+                  )
+              ),
+              SizedBox(height: scale.getHeight(1),),
               Align(
                   alignment: Alignment.centerLeft,
                   child: Text(

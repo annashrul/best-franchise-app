@@ -265,6 +265,40 @@ class LoadingReward extends StatelessWidget {
   }
 }
 
+class LoadingCardImageVertical extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    ScreenScaler scale = ScreenScaler()..init(context);
+    return Container(
+      padding: scale.getPadding(1,2),
+      child: Card(
+        margin: EdgeInsets.zero,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            BaseLoading(height: 20, width:100),
+            // SizedBox(height: scale.getHeight(1),),
+            Padding(
+              padding: scale.getPadding(1, 2),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  BaseLoading(height: 1, width:50),
+                  SizedBox(height: scale.getHeight(0.5),),
+                  BaseLoading(height: 1, width:60),
+                ],
+              ),
+            )
+
+
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
 class LoadingCardRounded extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

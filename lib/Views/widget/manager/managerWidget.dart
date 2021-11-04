@@ -16,6 +16,8 @@ import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
 import 'package:provider/provider.dart';
 
 class ManagerWidget extends StatefulWidget {
+  final Map<dynamic, dynamic> obj;
+  ManagerWidget({this.obj});
   @override
   _ManagerWidgetState createState() => _ManagerWidgetState();
 }
@@ -51,9 +53,16 @@ class _ManagerWidgetState extends State<ManagerWidget> {
           children: [
             Image.asset(StringConfig.imgLocal + "imageManager.png"),
             Text(
+              widget.obj["caption"],
+              style: Theme.of(context).textTheme.headline2,
+              textAlign: TextAlign.justify,
+            ),
+            SizedBox(height: scale.getHeight(1)),
+
+            Text(
               "Bingung mengelola usaha kamu? Yuk konsultasikan kepada kami, karena kami mempunyai orang yang handal untuk memajukan bisnis kamu.",
-              style: Theme.of(context).textTheme.bodyText1,
-              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.headline2,
+              textAlign: TextAlign.justify,
             ),
             SizedBox(height: scale.getHeight(2)),
             slider.sliderHomeSolusiModel == null

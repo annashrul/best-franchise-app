@@ -5,6 +5,7 @@ import 'package:bestfranchise/Controllers/slider/sliderHomeController.dart';
 import 'package:bestfranchise/Helpers/general/generalHelper.dart';
 import 'package:bestfranchise/Models/Slider/sliderHomeSolusiModel.dart';
 import 'package:bestfranchise/Views/component/general/touchEffectComponent.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
 import 'package:provider/provider.dart';
@@ -49,10 +50,6 @@ class _BestSolusiComponentState extends State<BestSolusiComponent> {
         });
       }
     });
-    final cek  = data.where((element) => route.route==element.route);
-    print("data ${dataAsli}");
-    // final cek = data.removeWhere((data documentSnapshot) => documentSnapshot['userId'] != id).toList();
-
     return Container(
       margin: scale.getMarginLTRB(0, 0, 0, 0),
       height: scale.getHeight(13),
@@ -69,20 +66,21 @@ class _BestSolusiComponentState extends State<BestSolusiComponent> {
               callback: () {
                 if (val["route"] == "pengelola") {
                   route.setRoute("pengelola");
-                  Navigator.of(context).pushNamed(RoutePath.managerWidget).whenComplete((){
+                  Navigator.of(context).pushNamed(RoutePath.managerWidget,arguments: val).whenComplete((){
                     route.setRoute("");
+
                     GeneralHelper.backToMain(context: context,tab: StringConfig.tabHome);
                     print("KEMBALI KE HALAMAN PENGELOLA");
                   });
                 } else if (val["route"] == "tempat") {
                   route.setRoute("tempat");
-                  Navigator.of(context).pushNamed(RoutePath.businessPlaceWidget).whenComplete((){
+                  Navigator.of(context).pushNamed(RoutePath.businessPlaceWidget,arguments: val).whenComplete((){
                     route.setRoute("");
                     GeneralHelper.backToMain(context: context,tab: StringConfig.tabHome);
                     print("KEMBALI KE HALAMAN TEMPAT");
                   });
                 } else if (val["route"] == "modal") {
-                  Navigator.of(context).pushNamed(RoutePath.capitalSubmissionWidget,arguments: {}).whenComplete(() => route.setRoute(""));
+                  Navigator.of(context).pushNamed(RoutePath.capitalSubmissionWidget,arguments: val).whenComplete(() => route.setRoute(""));
                 } else {
                   Navigator.of(context).pushNamed(RoutePath.joinWidget, arguments: {});
                 }
@@ -113,6 +111,8 @@ class _BestSolusiComponentState extends State<BestSolusiComponent> {
                             ),
                             Text(
                               val["caption"],
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 3,
                               style: Theme.of(context)
                                   .textTheme
                                   .headline3

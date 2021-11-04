@@ -81,14 +81,18 @@ class _DetailBrandWidgetState extends State<DetailBrandWidget> {
     final product = Provider.of<ProductBrandController>(context);
     final favoirte = Provider.of<FavoriteBrandController>(context);
     Widget child;
-    if (brand.indexTabActive == 0) {
+    if (brand.indexTabActive == 1) {
       child = ProdukBrandComponent(idBrand: widget.obj["id"]);
-    } else if (brand.indexTabActive == 1) {
-      child = FranchiseBrandComponent(idBrand: widget.obj["id"]);
     } else if (brand.indexTabActive == 2) {
+      child = FranchiseBrandComponent(idBrand: widget.obj["id"]);
+    } else if (brand.indexTabActive == 3) {
       child = LokasiBrandComponent(idBrand: widget.obj["id"]);
     } else {
-      child = ReviewBrandComponent(idBrand: widget.obj["id"]);
+      // child = ReviewBrandComponent(idBrand: widget.obj["id"]);
+      child = Padding(
+        padding: scale.getPadding(0.5,2),
+        child: Text(brand.detailBrandModel.data.caption,style: Theme.of(context).textTheme.headline2,),
+      );
     }
     return Scaffold(
       key: _scaffoldKey,
@@ -140,8 +144,7 @@ class _DetailBrandWidgetState extends State<DetailBrandWidget> {
                       width: double.infinity,
                       fit: BoxFit.cover,
                       imageUrl: brand.detailBrandModel.data.cover,
-                      placeholder: (context, url) =>
-                          BaseLoading(height: 20, width: 100),
+                      placeholder: (context, url) =>BaseLoading(height: 20, width: 100),
                       errorWidget: (context, url, error) => Icon(Icons.error),
                     ),
               brand.isLoading
@@ -151,19 +154,20 @@ class _DetailBrandWidgetState extends State<DetailBrandWidget> {
                       radius: 100,
                     )
                   : CircleAvatar(
-                      radius: 30,
-                      backgroundImage:
-                          NetworkImage(brand.detailBrandModel.data.logo),
+                      backgroundColor: Colors.transparent,
+                      radius: 40,
+                      backgroundImage:NetworkImage(brand.detailBrandModel.data.logo),
                     )
             ],
           ),
           StickyHeader(
               header: StickyHeaderComponent(
                 data: [
+                  {"title": "Deskripsi"},
                   {"title": "Produk"},
                   {"title": "Franchise"},
                   {"title": "Lokasi"},
-                  {"title": "Review"},
+                  // {"title": "Review"},
                 ],
                 callback: (index) {
                   brand.setIndexTabActive(index);

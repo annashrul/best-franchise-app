@@ -102,10 +102,14 @@ class _BrandWidgetState extends State<BrandWidget> with SingleTickerProviderStat
         controller: controller,
         itemBuilder: (context,index){
           final val = brand.listBrandModel.data[index];
+          String caption=val.caption;
+          if(caption.length>80){
+            caption = caption.substring(0,80)+" ..";
+          }
           return CardImageTitleSubtitleComponent(
             img: val.logo,
             title:val.title,
-            subTitle: val.caption,
+            subTitle: caption,
             otherChild: Row(
               children: [
                 Text("Total Outlet : ${val.totalOutlet}",style: Theme.of(context).textTheme.headline3.copyWith(color: ColorConfig.greyPrimary),),
