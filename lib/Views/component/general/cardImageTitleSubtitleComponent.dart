@@ -33,6 +33,7 @@ class CardImageTitleSubtitleComponent extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CircleAvatar(
+                backgroundColor: Colors.transparent,
                 backgroundImage: NetworkImage(this.img),
                 radius: 30,
               ),

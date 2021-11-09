@@ -91,7 +91,7 @@ class _DetailBrandWidgetState extends State<DetailBrandWidget> {
       // child = ReviewBrandComponent(idBrand: widget.obj["id"]);
       child = Padding(
         padding: scale.getPadding(0.5,2),
-        child: Text(brand.detailBrandModel.data.caption,style: Theme.of(context).textTheme.headline2,),
+        child: Text(brand.isLoading?"":brand.detailBrandModel.data.caption,style: Theme.of(context).textTheme.headline2,),
       );
     }
     return Scaffold(

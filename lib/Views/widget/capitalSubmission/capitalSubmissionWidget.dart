@@ -49,12 +49,13 @@ class _CapitalSubmissionWidgetState extends State<CapitalSubmissionWidget> {
     return Scaffold(
       appBar: GeneralHelper.appBarGeneral(context: context, title: "Pengajuan Modal Usaha"),
       body: ListView(
+        padding: scale.getPaddingLTRB(0,2,0,0),
         shrinkWrap: true,
         children: [
           Stack(
             alignment: Alignment.center,
             children: [
-              Image.asset(StringConfig.imgLocal + "imageRequirements.png"),
+              Image.network(widget.obj["banner"]),
             ],
           ),
           Container(

@@ -64,89 +64,100 @@ class _HomeWidgetState extends State<HomeWidget> {
 
     print(slider.sliderHomeSolusiModel == null);
     print(slider.sliderHomeSolusiModel);
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Stack(
+    return RefreshIndicator(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            slider.isLoading && valSu.length == 0
-                ? LoadingSlider()
-                : SliderHomeComponent(valSu),
-            reward.isLoading && reward.infoModel == null
-                ? LoadingReward()
-                : RewardComponent(
-                    val.toJson(),
-                    callback: () {},
+            Stack(
+              children: [
+                slider.isLoading && valSu.length == 0
+                    ? LoadingSlider()
+                    : SliderHomeComponent(valSu),
+                reward.isLoading && reward.infoModel == null
+                    ? LoadingReward()
+                    : RewardComponent(
+                  val.toJson(),
+                  callback: () {},
+                ),
+              ],
+            ),
+            Expanded(
+              child: ListView(
+                padding: scale.getPadding(1, 2),
+                children: [
+                  TitleComponent(
+                    callback: () =>
+                        Navigator.of(context).pushNamed(RoutePath.brandWidget),
+                    title: "BEST Brand & Franchise",
                   ),
+                  SizedBox(height: scale.getHeight(0.5)),
+                  BestBrandAndFranchiseComponent(),
+                  SizedBox(height: scale.getHeight(0.5)),
+                  TitleComponent(
+                    callback: () =>
+                        Navigator.of(context).pushNamed(RoutePath.brandWidget),
+                    title: "BEST Paket Hemat",
+                  ),
+                  SizedBox(height: scale.getHeight(0.5)),
+                  slider.isLoadingPaketHemat && valPh.length == 0
+                      ? LoadingCardRounded()
+                      : BestPaketHemat(valPh),
+                  Divider(),
+                  TitleComponent(
+                    callback: () {
+                      GeneralHelper.jumpToBrowser(url: "https://www.youtube.com/c/BhaktiAlamsyahBEST");
+                    },
+                    title: "BEST Youtube Channel",
+                  ),
+                  SizedBox(height: scale.getHeight(0.5)),
+                  slider.isLoadingYt && valYt.length == 0
+                      ? LoadingCardRounded()
+                      : BestYoutubeChannelComponent(valYt),
+                  Divider(),
+                  TitleComponent(
+                    callback: () {},
+                    title: "BEST Solusi",
+                    isAction: false,
+                  ),
+                  SizedBox(height: scale.getHeight(0.5)),
+                  slider.sliderHomeSolusiModel == null
+                      ? LoadingCardRounded()
+                      : BestSolusiComponent(valSl),
+                  SizedBox(height: scale.getHeight(0.5)),
+                  TitleComponent(
+                    callback: () {},
+                    title: "BEST Testimoni",
+                    isAction: false,
+                  ),
+                  SizedBox(height: scale.getHeight(0.5)),
+                  slider.isLoadingTesti && valTs.length == 0
+                      ? LoadingCardRounded()
+                      : BestTestimoniComponent(valTs),
+                  SizedBox(height: scale.getHeight(0.5)),
+                  TitleComponent(
+                    callback: () {},
+                    title: "BEST Gallery",
+                    isAction: false,
+                  ),
+                  SizedBox(height: scale.getHeight(0.5)),
+                  slider.isLoadingGallery && valGl.length == 0
+                      ? LoadingGridNine()
+                      : BestGalleryComponent(valGl)
+                ],
+              ),
+            )
           ],
         ),
-        Expanded(
-          child: ListView(
-            padding: scale.getPadding(1, 2),
-            children: [
-              TitleComponent(
-                callback: () =>
-                    Navigator.of(context).pushNamed(RoutePath.brandWidget),
-                title: "BEST Brand & Franchise",
-              ),
-              SizedBox(height: scale.getHeight(0.5)),
-             BestBrandAndFranchiseComponent(),
-              SizedBox(height: scale.getHeight(0.5)),
-              TitleComponent(
-                callback: () =>
-                    Navigator.of(context).pushNamed(RoutePath.brandWidget),
-                title: "BEST Paket Hemat",
-              ),
-              SizedBox(height: scale.getHeight(0.5)),
-              slider.isLoadingPaketHemat && valPh.length == 0
-                  ? LoadingCardRounded()
-                  : BestPaketHemat(valPh),
-              Divider(),
-              TitleComponent(
-                callback: () {
-                  GeneralHelper.jumpToBrowser(url: "https://www.youtube.com/c/BhaktiAlamsyahBEST");
-                },
-                title: "BEST Youtube Channel",
-              ),
-              SizedBox(height: scale.getHeight(0.5)),
-              slider.isLoadingYt && valYt.length == 0
-                  ? LoadingCardRounded()
-                  : BestYoutubeChannelComponent(valYt),
-              Divider(),
-              TitleComponent(
-                callback: () {},
-                title: "BEST Solusi",
-                isAction: false,
-              ),
-              SizedBox(height: scale.getHeight(0.5)),
-              slider.sliderHomeSolusiModel == null
-                  ? LoadingCardRounded()
-                  : BestSolusiComponent(valSl),
-              SizedBox(height: scale.getHeight(0.5)),
-              TitleComponent(
-                callback: () {},
-                title: "BEST Testimoni",
-                isAction: false,
-              ),
-              SizedBox(height: scale.getHeight(0.5)),
-              slider.isLoadingTesti && valTs.length == 0
-                  ? LoadingCardRounded()
-                  : BestTestimoniComponent(valTs),
-              SizedBox(height: scale.getHeight(0.5)),
-              TitleComponent(
-                callback: () {},
-                title: "BEST Gallery",
-                isAction: false,
-              ),
-              SizedBox(height: scale.getHeight(0.5)),
-              slider.isLoadingGallery && valGl.length == 0
-                  ? LoadingGridNine()
-                  : BestGalleryComponent(valGl)
-            ],
-          ),
-        )
-      ],
+        onRefresh: ()async{
+          await slider.get(context: context);
+          await slider.getPaketHemat(context: context);
+          await slider.getYt(context: context);
+          await slider.getSolusi(context: context);
+          await slider.getTesti(context: context);
+          await slider.getGallery(context: context);
+          await reward.get(context: context);
+        }
     );
   }
 }

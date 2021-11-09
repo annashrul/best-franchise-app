@@ -51,7 +51,7 @@ class _ManagerWidgetState extends State<ManagerWidget> {
           shrinkWrap: true,
           scrollDirection: Axis.vertical,
           children: [
-            Image.asset(StringConfig.imgLocal + "imageManager.png"),
+            Image.network(widget.obj["banner"]),
             Text(
               widget.obj["caption"],
               style: Theme.of(context).textTheme.headline2,

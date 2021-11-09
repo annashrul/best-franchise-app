@@ -71,38 +71,35 @@ class _BusinessPlaceWidgetState extends State<BusinessPlaceWidget> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      body: Padding(
-        padding: scale.getPadding(0, 2),
-        child: Center(
-          child: Column(
-            children: [
-              Image.asset(StringConfig.imgLocal + "businessPlace.png"),
-              Text(
-                widget.obj["caption"],
-                style: Theme.of(context).textTheme.headline2,
-                textAlign: TextAlign.justify,
-              ),
-              SizedBox(height: scale.getHeight(1)),
-              Text(
-                "Kamu tidak usah khawatir mengenai tempat jualanmu, konsultasikan dengan kami saja.",
-                style: Theme.of(context).textTheme.headline2,
-                textAlign: TextAlign.justify,
-              ),
-              SizedBox(height: scale.getHeight(1)),
-              Text(
-                "Silahkan chat admin kami untuk informasi lebih lengkapnya ya !",
-                style: Theme.of(context).textTheme.headline2,
-                textAlign: TextAlign.justify,
-              ),
-              SizedBox(height: scale.getHeight(2)),
-              slider.sliderHomeSolusiModel == null
-                  ? LoadingCardRounded()
-                  : BestSolusiComponent(valSl),
-              SizedBox(height: scale.getHeight(1)),
-            ],
+      body: ListView(
+        padding: scale.getPadding(1, 2),
+        // shrinkWrap: true,
+        children: [
+          Image.network(widget.obj["banner"]),
+          Text(
+            widget.obj["caption"],
+            style: Theme.of(context).textTheme.headline2,
+            textAlign: TextAlign.justify,
           ),
-        ),
-      ),
+          SizedBox(height: scale.getHeight(1)),
+          Text(
+            "Kamu tidak usah khawatir mengenai tempat jualanmu, konsultasikan dengan kami saja.",
+            style: Theme.of(context).textTheme.headline2,
+            textAlign: TextAlign.justify,
+          ),
+          SizedBox(height: scale.getHeight(1)),
+          Text(
+            "Silahkan chat admin kami untuk informasi lebih lengkapnya ya !",
+            style: Theme.of(context).textTheme.headline2,
+            textAlign: TextAlign.justify,
+          ),
+          SizedBox(height: scale.getHeight(2)),
+          slider.sliderHomeSolusiModel == null
+              ? LoadingCardRounded()
+              : BestSolusiComponent(valSl),
+          SizedBox(height: scale.getHeight(1)),
+        ],
+      )
     );
   }
 }

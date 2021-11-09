@@ -45,7 +45,8 @@ class _JoinWidgetState extends State<JoinWidget> {
             children: [
               Image.network(widget.obj["cover"],width: double.infinity,fit: BoxFit.cover,),
               CircleAvatar(
-                radius: 30,
+                backgroundColor: Colors.transparent,
+                radius: 40,
                 backgroundImage:
                 NetworkImage(widget.obj["logo"]),
               )
